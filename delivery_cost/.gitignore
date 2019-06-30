@@ -1,5 +1,4 @@
 # Compiled class file
-*.class
 
 # Log file
 *.log
@@ -14,6 +13,7 @@
 .idea/
 
 out/
+html_template/
 
 # Package Files #
 *.jar
