@@ -3,30 +3,63 @@
     <head>
         <meta charset="UTF-8">
         <title>Paid Tickets</title>
+        <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
     <header>
         <nav>
-            <a href="account.html">Account</a>
-            <a href="payTickets.html">Pay tickets</a>
-            <a href="paidTickets.html">Paid tickets</a>
+            <a href="account.html"><img src="img/account.png"/></a>
+            <a href="payTickets.html"><img src="img/pay.png"/></a>
+            <a href="paidTickets.html"><img src="img/ticket.png"/></a>
         </nav>
+        <br>
     </header>
     <section>
-        <table border="1" width="90%">
+        <table border="1" width="100%">
             <thead>
-                <tr>
+                <tr bgcolor="#adff2f">
                     <th>Train</th>
                     <th>Route</th>
                     <th>Departure</th>
                     <th>Arrival</th>
                     <th>Cost</th>
                     <th>Date</th>
+                    <th>Edit</th>
                 </tr>
-
+                <tr>
+                    <th>023й</th>
+                    <th>Брест-Центральный - Варшава Заходня</th>
+                    <th>14:23</th>
+                    <th>17:46</th>
+                    <th>927.05р</th>
+                    <th>24/07/2019</th>
+                    <th>
+                        <button>Edit</button>
+                        <button>X</button>
+                    </th>
+                </tr>
+                <tr>
+                    <th>127Б</th>
+                    <th>Москва Белорусская - Париж Восточный</th>
+                    <th>9:43</th>
+                    <th>11:50</th>
+                    <th>35.27р</th>
+                    <th>12/06/2019</th>
+                    <th>
+                        <button>Edit</button>
+                        <button>X</button>
+                    </th>
+                </tr>
             </thead>
         </table>
+
+        <p>Итого: 2 <button>Оплатить</button>
+        </p>
+
     </section>
+    <footer>
+        &copy EPAM & Murin
+    </footer>
 
     </body>
 </html>

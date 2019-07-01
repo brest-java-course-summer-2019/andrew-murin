@@ -3,15 +3,50 @@
     <head>
         <meta charset="UTF-8">
         <title>Account</title>
+        <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
         <header>
             <nav>
-                <a href="account.html">Account</a>
-                <a href="payTickets.html">Pay tickets</a>
-                <a href="paidTickets.html">Paid tickets</a>
-            </nav>
-        </header>
 
+                <a href="account.html"><img src="img/account.png"/></a>
+                <a href="payTickets.html"><img src="img/pay.png"/></a>
+                <a href="paidTickets.html"><img src="img/ticket.png"/></a>
+            </nav>
+            <br>
+        </header>
+        <section>
+            <table>
+                <tr>
+                    <th>Name:
+                    <th><input type = "text" value="Ivan"/>
+                    <th>&nbsp;<button>Save</button>
+                </tr>
+                <tr>
+                    <th>Lastname:</th>
+                    <th><input type = "text" value="Ivanov"/></th>
+                </tr>
+                <tr>
+                    <th>E-mail:</th>
+                    <th><input type = "text" value="ivanivanov@mail.ru"/></th>
+                </tr>
+                <tr>
+                    <th>Activity card:</th>
+                    <th>
+                        <div align="left">
+                            <select>
+                                <option value="0">Belarusbank</option>
+                                <option value="1">MTB-bank</option>
+                                <option value="2">Alfa-bank</option>
+                                <option value="3">BPS-bank</option>
+                            </select>
+                        </div>
+                    </th>
+                </tr>
+            </table>
+        </section>
+        <footer>
+            &copy EPAM & Murin
+        </footer>
     </body>
 </html>
