@@ -6,5 +6,5 @@ import java.util.Map;
 
 public interface FileReader {
 
-    Map<Integer, BigDecimal> readDate(final String filePath) throws IOException;
+    Map<Integer, BigDecimal> readData(final String filePath) throws IOException;
 }

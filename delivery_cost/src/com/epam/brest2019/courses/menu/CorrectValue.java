@@ -1,6 +1,5 @@
 package com.epam.brest2019.courses.menu;
 
-import javax.lang.model.util.Types;
 import java.math.BigDecimal;
 
 public class CorrectValue implements EnteredValue{
