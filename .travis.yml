@@ -1,0 +1,7 @@
+
+language: java
+jdk:
+  - oraclejdk8
+before_script: cd /Maven_example
+script:
+- mvn clean test coveralls:report
