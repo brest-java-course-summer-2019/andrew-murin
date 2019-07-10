@@ -1,39 +1,47 @@
 package com.epam.brest2019.courses;
 
-
+import com.epam.brest2019.courses.files.CSVFileReader;
+import com.epam.brest2019.courses.files.CalculatorImpl;
+import com.epam.brest2019.courses.files.FileReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.Scanner;
+import java.util.Map;
 
-public class Main {
-    public static void main(String[] args) {
-        BigDecimal weight;
+
+public class Main{
+    private static final String PATH_PER_KM = "price_per_km.csv";
+    public static void main(String[] args) throws IOException {
+
+        Map<Integer, BigDecimal> mapKm;
+        Map<Integer, BigDecimal> mapKg;
         BigDecimal distance;
-        BigDecimal pricePerKg = new BigDecimal("30");
-        BigDecimal pricePerKm = new BigDecimal("50");
+        BigDecimal weight;
+        BigDecimal priceForKg;
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Input weight(kg) or 'q' for exit");
-        String inputStrng = scanner.nextLine();
-
-        if(!inputStrng.toLowerCase().equals("q")){
-            weight = new BigDecimal(inputStrng);
-        }else{
-            System.out.println("\nBye!");
-            return;
-        }
-        inputStrng = scanner.nextLine();
+        FileReader fileReader = new CSVFileReader();
+        Console console = new Console();
 
 
-        if(!inputStrng.toLowerCase().equals("q")){
-            distance = new BigDecimal(inputStrng);
-            BigDecimal price = weight.multiply(pricePerKg).add(distance.multiply(pricePerKm));
-            System.out.println(price);
-        }else{
-            System.out.println("\nBye!");
-            return;
+
+        mapKm = fileReader.readData(PATH_PER_KM);
+        mapKg = fileReader.readData(PATH_PER_KM);
+        if (mapKm == null && mapKg == null || mapKm.isEmpty() && mapKg.isEmpty()) {
+            throw new FileNotFoundException("File with prices per_km or per_kg not found.");
         }
 
+
+        distance = console.getValue("Enter distance in km or q for quit");
+        weight = console.getValue("Enter weight in kg or q for quit");
+
+
+//        for(Integer key : map.keySet()){
+//            if(distance.intValue() < key){
+//                System.out.println(map.get(key).multiply(weight).multiply(priceForKg));
+//            }1
+//        }
+
+        CalculatorImpl paymentPrice = new CalculatorImpl(mapKm, mapKg,distance, weight);
+        System.out.println(paymentPrice.getCost());
     }
 }
-

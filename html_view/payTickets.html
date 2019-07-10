@@ -3,16 +3,61 @@
     <head>
         <meta charset="UTF-8">
         <title>Pay tickets</title>
+        <link rel="stylesheet" href="css/style.css">
     </head>
 
     <body>
         <header>
             <nav>
-                <a href="account.html">Account</a>
-                <a href="payTickets.html">Pay tickets</a>
-                <a href="paidTickets.html">Paid tickets</a>
+                <a href="account.html"><img src="img/account.png"/></a>
+                <a href="payTickets.html"><img src="img/pay.png"/></a>
+                <a href="paidTickets.html"><img src="img/ticket.png"/></a>
             </nav>
         </header>
+        <section>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Departure point</th>
+                        <th><input type = "text" value="Brest"/></th>
+                        <th>
+                            <label for="route">
+                                <input name="point" id="route" type="radio">Route
+                            </label>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>End station</th>
+                        <th><input type="text" value="Warsaw"/></th>
+                        <th>
+                            <label for="station">
+                                <input name="point" id="station" type="radio">Station
+                            </label>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Date</th>
+                        <th><input type = "datetime-local"/></th>
+                        <th><button>Save</button></th>
+                    </tr>
+                    <tr>
+                        <th>Time</th>
+                        <th>
+                            <div align="left">
+                                <select>
+                                    <option value="0">14:23</option>
+                                    <option value="1">17:25</option>
+                                    <option value="2">22.13</option>
+                                </select>
+                            </div>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <footer>
+            &copy EPAM & Murin
+        </footer>
 
     </body>
 </html>

@@ -1,3 +1,27 @@
-titleTable{
-    background: aqua;
+body{
+    background: lightgray;
+}
+
+.Name{
+    padding: 2px;
+}
+
+.Lastname{
+    padding: 2px;
+}
+
+.E-mail{
+    padding: 2px;
+}
+
+.Card{
+    padding: 2px;
+}
+
+.Save{
+    float: right;
+}
+
+th{
+    font-family: Ubuntu;
 }
