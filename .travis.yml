@@ -2,6 +2,6 @@
 language: java
 jdk:
   - oraclejdk8
-before_script: cd maven_example/
+before_script: cd andrew-murin/
 script:
 - mvn clean test coveralls:report
