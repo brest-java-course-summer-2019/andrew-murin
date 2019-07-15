@@ -1,5 +1,6 @@
-package test.test.java.com.epam.brest.summer.courses2019.model;
+package test.java.com.epam.brest.summer.courses2019.model;
 
+import main.java.com.epam.brest.summer.courses2019.model.Ticket;
 import org.junit.Assert;
 import org.junit.Test;
 import java.math.BigDecimal;
@@ -7,7 +8,7 @@ import java.math.BigDecimal;
 
 public class TicketTest {
 
-    com.epam.brest.summer.courses2019.model.Ticket ticket = new com.epam.brest.summer.courses2019.model.Ticket();
+    Ticket ticket = new Ticket();
 
     @Test
     public void getTicketId() {
