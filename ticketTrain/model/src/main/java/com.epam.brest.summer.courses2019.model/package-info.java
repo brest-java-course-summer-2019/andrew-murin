@@ -1,1 +1,1 @@
-package main.java.com.epam.brest.summer.courses2019.model;
+package com.epam.brest.summer.courses2019.model;

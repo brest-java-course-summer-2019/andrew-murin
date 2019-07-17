@@ -1,6 +1,5 @@
-package test.java.com.epam.brest.summer.courses2019.model;
+package com.epam.brest.summer.courses2019.model;
 
-import main.java.com.epam.brest.summer.courses2019.model.Ticket;
 import org.junit.Assert;
 import org.junit.Test;
 import java.math.BigDecimal;

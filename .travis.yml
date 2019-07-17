@@ -1,7 +1,6 @@
-<<<<<<< HEAD
 language: java
 jdk:
   - oraclejdk8
-before_script: cd model/
+before_script: cd ticketTrain/
 script:
   - mvn clean test coveralls:report
