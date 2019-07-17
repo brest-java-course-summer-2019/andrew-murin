@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Ticket.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Ticket Train model</a> &gt; <a href="index.source.html" class="el_package">com.epam.brest2019.courses</a> &gt; <span class="el_source">Ticket.java</span></div><h1>Ticket.java</h1><pre class="source lang-java linenums">package com.epam.brest2019.courses;
+
+import java.math.BigDecimal;
+
+/**
+ * POJO Ticket for model.
+ */
+<span class="fc" id="L8">public class Ticket {</span>
+
+    /**
+     * Ticket Id
+     */
+    private Integer ticketId;
+    /**
+     * Cost of ticket
+     */
+    private BigDecimal cost;
+    /**
+     * date train
+     */
+    private String dataTime;
+    /**
+     * Direction of train
+     */
+    private String direction;
+
+
+    /**
+     * Get this ticket id.
+     * @return Ticket Id.
+     */
+    public Integer getTicketId() {
+<span class="fc" id="L33">        return ticketId;</span>
+    }
+
+    /**
+     * Set this ticket id.
+     * @param Ticket Id.
+     */
+    public void setTicketId(final Integer ticketId) {
+<span class="fc" id="L41">        this.ticketId = ticketId;</span>
+<span class="fc" id="L42">    }</span>
+
+    /**
+     * Get this cost of ticket.
+     * @return Cost of ticket.
+     */
+    public BigDecimal getCost() {
+<span class="fc" id="L49">        return cost;</span>
+    }
+
+    /**
+     * Set this cost of ticket.
+     * @param cost of ticket.
+     */
+    public void setCost(final BigDecimal cost) {
+<span class="fc" id="L57">        this.cost = cost;</span>
+<span class="fc" id="L58">    }</span>
+
+    /**
+     * Get this date of train.
+     * @return date of train.
+     */
+    public String getDataTime() {
+<span class="fc" id="L65">        return dataTime;</span>
+    }
+
+    /**
+     * Set this date of train.
+     * @param data of train.
+     */
+    public void setDataTime(final String dataTime) {
+<span class="fc" id="L73">        this.dataTime = dataTime;</span>
+<span class="fc" id="L74">    }</span>
+
+    /**
+     * Get this direction of train.
+     * @return direction of train.
+     */
+    public String getDirection() {
+<span class="fc" id="L81">        return direction;</span>
+    }
+
+    /**
+     * Set this direction of train.
+     * @param direction of train.
+     */
+    public void setDirection(final String direction) {
+<span class="fc" id="L89">        this.direction = direction;</span>
+<span class="fc" id="L90">    }</span>
+
+    /**
+     *
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+<span class="nc" id="L98">        return &quot;Ticket{&quot; +</span>
+                &quot;ticketId=&quot; + ticketId +
+                &quot;, cost=&quot; + cost +
+                &quot;, dataTime='&quot; + dataTime + '\'' +
+                &quot;, direction='&quot; + direction + '\'' +
+                '}';
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

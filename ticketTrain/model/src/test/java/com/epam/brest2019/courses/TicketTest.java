@@ -1,4 +1,4 @@
-package com.epam.brest.summer.courses2019.model;
+package com.epam.brest2019.courses;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -30,6 +30,6 @@ public class TicketTest {
     @Test
     public void getDirection() {
         ticket.setDirection("Warsaw");
-        Assert.assertTrue(ticket.getTicketId().equals("Warsaw"));
+        Assert.assertTrue(ticket.getDirection().equals("Warsaw"));
     }
 }

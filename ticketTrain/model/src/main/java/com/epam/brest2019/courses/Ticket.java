@@ -1,4 +1,4 @@
-package com.epam.brest.summer.courses2019.model;
+package com.epam.brest2019.courses;
 
 import java.math.BigDecimal;
 
