@@ -43,7 +43,7 @@
 
         <checkstyle.version>8.22</checkstyle.version>
         <jacoco.version>0.8.2</jacoco.version>
-        <jacoco.bundle.coveredratio.minimum>65</jacoco.bundle.coveredratio.minimum>
+        <jacoco.bundle.coveredratio.minimum>65%</jacoco.bundle.coveredratio.minimum>
     </properties>
 
     <dependencyManagement>
@@ -119,9 +119,9 @@
                 </plugin>
 
                 <plugin>
-                    <groupId>org.jacoco</groupId>
-                    <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>${jacoco.version}</version>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>jacoco-context</artifactId>
+                    <version>${org.springframework.version}</version>
                 </plugin>
 
                 <plugin>
