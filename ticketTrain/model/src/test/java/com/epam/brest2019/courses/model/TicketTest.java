@@ -1,4 +1,4 @@
-package com.epam.brest2019.courses;
+package com.epam.brest2019.courses.model;
 
 import com.epam.brest2019.courses.model.Ticket;
 import org.junit.Assert;
