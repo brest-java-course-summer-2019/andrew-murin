@@ -22,7 +22,7 @@ public class Ticket {
     /**
      * Direction of train
      */
-    private String direction;
+    private String ticketDirection;
 
 
     /**
@@ -35,7 +35,7 @@ public class Ticket {
 
     /**
      * Set this ticket id.
-     * @param Ticket Id.
+     * @param ticketId Ticket Id .
      */
     public void setTicketId(final Integer ticketId) {
         this.ticketId = ticketId;
@@ -67,7 +67,7 @@ public class Ticket {
 
     /**
      * Set this date of train.
-     * @param data of train.
+     * @param dataTime of train.
      */
     public void setDataTime(final String dataTime) {
         this.dataTime = dataTime;
@@ -78,15 +78,15 @@ public class Ticket {
      * @return direction of train.
      */
     public String getDirection() {
-        return direction;
+        return ticketDirection;
     }
 
     /**
      * Set this direction of train.
-     * @param direction of train.
+     * @param ticketDirection of train.
      */
-    public void setDirection(final String direction) {
-        this.direction = direction;
+    public void setDirection(final String ticketDirection) {
+        this.ticketDirection = ticketDirection;
     }
 
     /**
@@ -99,7 +99,7 @@ public class Ticket {
                 "ticketId=" + ticketId +
                 ", cost=" + cost +
                 ", dataTime='" + dataTime + '\'' +
-                ", direction='" + direction + '\'' +
+                ", direction='" + ticketDirection + '\'' +
                 '}';
     }
 }

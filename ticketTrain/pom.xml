@@ -8,12 +8,13 @@
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>TicketTrain</name>
+    <name>Ticket Train</name>
     <url>http://www.example.com</url>
 
     <modules>
         <module>model</module>
         <module>dao</module>
+        <module>test-db</module>
     </modules>
 
     <distributionManagement>
@@ -34,16 +35,23 @@
         <java.optimize>true</java.optimize>
         <java.debug>true</java.debug>
 
+        <org.springframework.version>5.1.4.RELEASE</org.springframework.version>
+        <junit.version>5.2.0</junit.version>
+        <logback.version>1.2.3</logback.version>
+
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
         <maven-checkstyle-plugin.version>3.1.0</maven-checkstyle-plugin.version>
         <maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
         <maven-site-plugin.vesrion>3.7.1</maven-site-plugin.vesrion>
-        <maven-pmd-plugin.version>3.12.0</maven-pmd-plugin.version>
+        <maven-pmd-plugin.vesrion>3.12.0</maven-pmd-plugin.vesrion>
 
         <checkstyle.version>8.22</checkstyle.version>
         <jacoco.version>0.8.2</jacoco.version>
-        <jacoco.bundle.coveredratio.minimum>65</jacoco.bundle.coveredratio.minimum>
+        <jacoco.bundle.coveredratio.minimum>65%</jacoco.bundle.coveredratio.minimum>
+
+        <org.springframework.version>5.1.8.RELEASE</org.springframework.version>
+        <thymeleaf-spring5.version>3.0.11.RELEASE</thymeleaf-spring5.version>
     </properties>
 
     <dependencyManagement>
@@ -58,16 +66,36 @@
                 <artifactId>dao</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
+            <!--<dependency>-->
+                <!--<groupId>com.epam.brest2019.courses</groupId>-->
+                <!--<artifactId>test-db</artifactId>-->
+                <!--<version>${project.version}</version>-->
+            <!--</dependency>-->
+
+            <dependency>
+                <groupId>com.epam.brest2019.courses</groupId>
+                <artifactId>test-db</artifactId>
+                <version>${project.version}</version>
+                <scope>test</scope>
+            </dependency>
+
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
-                <version>${org.springframework.vrsion}</version>
+                <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${org.springframework.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-beans</artifactId>
-                <version>5.1.8.RELEASE</version>
+                <version>${org.springframework.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-jdbc</artifactId>
@@ -75,26 +103,84 @@
             </dependency>
 
             <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>1.4.199</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter-api</artifactId>
-                <version>5.5.0</version>
+                <version>${junit.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.junit.vintage</groupId>
                 <artifactId>junit-vintage-engine</artifactId>
-                <version>5.5.0</version>
+                <version>${junit.version}</version>
                 <scope>test</scope>
             </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.thymeleaf</groupId>
+                <artifactId>thymeleaf-spring5</artifactId>
+                <version>${thymeleaf-spring5.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>4.0.0</version>
+                <scope>provided</scope>
+            </dependency>
+
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter-engine</artifactId>
-                <version>5.5.0</version>
+                <version>${junit.version}</version>
                 <scope>test</scope>
             </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.7.25</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
-
 
     <build>
         <pluginManagement>
@@ -143,7 +229,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-pmd-plugin</artifactId>
-                    <version>${maven-pmd-plugin.version}</version>
+                    <version>${maven-pmd-plugin.vesrion}</version>
                 </plugin>
 
                 <plugin>
@@ -168,6 +254,22 @@
                     <groupId>org.eluder.coveralls</groupId>
                     <artifactId>coveralls-maven-plugin</artifactId>
                     <version>4.3.0</version>
+                </plugin>
+
+                <!-- Embedded Jetty HTTP Server for testing war application -->
+                <plugin>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-maven-plugin</artifactId>
+                    <version>9.4.19.v20190610</version>
+                    <configuration>
+                        <scanIntervalSeconds>10</scanIntervalSeconds>
+                        <webApp>
+                            <contextPath>/</contextPath>
+                        </webApp>
+                        <httpConnector>
+                            <port>8080</port>
+                        </httpConnector>
+                    </configuration>
                 </plugin>
             </plugins>
 
@@ -273,7 +375,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
                 <configuration>
-                    <failOnViolation>true</failOnViolation>
+                    <failOnViolation>true</failOnViolation> <!-- this is actually true by default, but can be disabled -->
                     <printFailingErrors>true</printFailingErrors>
                 </configuration>
                 <executions>
@@ -320,7 +422,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
                 <configuration>
-                    <!--<linkXref>true</linkXref>-->
+                    <linkXref>true</linkXref>
                     <sourceEncoding>utf-8</sourceEncoding>
                     <minimumTokens>100</minimumTokens>
                 </configuration>
@@ -338,7 +440,6 @@
                     </reportSet>
                 </reportSets>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
