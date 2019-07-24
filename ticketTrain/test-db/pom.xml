@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
 
-    <!--<groupId>com.epam.brest2019.courses</groupId>-->
-    <artifactId>model</artifactId>
-    <!--<version>1.0.0-SNAPSHOT</version>-->
-    <!--<packaging>pom</packaging>-->
+    <artifactId>test-db</artifactId>
 
-    <name>Ticket Train Model</name>
-
+    <name>Ticket Train Test DB Module</name>
     <parent>
         <groupId>com.epam.brest2019.courses</groupId>
         <artifactId>ticketTrain</artifactId>
@@ -20,17 +14,15 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.junit.vintage</groupId>
-            <artifactId>junit-vintage-engine</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-        </dependency>
+
     </dependencies>
+
 
 </project>
