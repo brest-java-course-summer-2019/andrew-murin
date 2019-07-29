@@ -24,6 +24,13 @@ public class Ticket {
      */
     private String ticketDirection;
 
+    public Ticket(){
+
+    }
+
+    public Ticket(String ticketDirection){
+        this.ticketDirection = ticketDirection;
+    }
 
     /**
      * Get this ticket id.
@@ -77,7 +84,7 @@ public class Ticket {
      * Get this direction of train.
      * @return direction of train.
      */
-    public String getDirection() {
+    public String getTicketDirection() {
         return ticketDirection;
     }
 
@@ -85,7 +92,7 @@ public class Ticket {
      * Set this direction of train.
      * @param ticketDirection of train.
      */
-    public void setDirection(final String ticketDirection) {
+    public void setTicketDirection(final String ticketDirection) {
         this.ticketDirection = ticketDirection;
     }
 

@@ -28,7 +28,7 @@ public class TicketDaoJdbcImpl implements TicketDao {
     private final static String SELECT_ALL =
             "select t.ticket_id, t.ticket_direction from ticket t order by 2";
 
-    private final static String FIND_BY_ID =
+    private static final String FIND_BY_ID =
             "select ticket_id, ticket_direction from ticket where ticket_id = :ticketId";
 
     private final static String ADD_DIRECTION =
@@ -49,7 +49,7 @@ public class TicketDaoJdbcImpl implements TicketDao {
     @Override
     public Ticket add(Ticket ticket){
         MapSqlParameterSource parametrs = new MapSqlParameterSource();
-        parametrs.addValue("ticketDirection", ticket.getDirection());
+        parametrs.addValue("ticketDirection", ticket.getTicketDirection());
 
         KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
         namedParameterJdbcTemplate.update(ADD_DIRECTION, parametrs, generatedKeyHolder);
@@ -85,12 +85,12 @@ public class TicketDaoJdbcImpl implements TicketDao {
         return tickets;
     }
 
-    @Override
-    public Optional<Ticket> findById(Integer ticketId){
+
+    public Optional<Ticket> findById(Integer ticketId) {
         SqlParameterSource namedParameters = new MapSqlParameterSource(TICKET_ID, ticketId);
         List<Ticket> results = namedParameterJdbcTemplate.query(FIND_BY_ID, namedParameters,
                 BeanPropertyRowMapper.newInstance(Ticket.class));
-        return  Optional.ofNullable(DataAccessUtils.uniqueResult(results));
+        return Optional.ofNullable(DataAccessUtils.uniqueResult(results));
     }
 
     private class TicketRowMapper implements RowMapper<Ticket>{
@@ -98,10 +98,11 @@ public class TicketDaoJdbcImpl implements TicketDao {
         public Ticket mapRow(ResultSet resultSet, int i) throws SQLException{
             Ticket ticket = new Ticket();
             ticket.setTicketId(resultSet.getInt("ticket_id"));
-            ticket.setDirection(resultSet.getString("ticket_direction"));
+            ticket.setTicketDirection(resultSet.getString("ticket_direction"));
             return ticket;
         }
     }
+
 
 
 }

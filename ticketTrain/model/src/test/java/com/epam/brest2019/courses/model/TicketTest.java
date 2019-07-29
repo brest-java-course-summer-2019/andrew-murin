@@ -29,7 +29,7 @@ public class TicketTest {
 
     @Test
     public void getDirection() {
-        ticket.setDirection("Warsaw");
-        Assert.assertTrue(ticket.getDirection().equals("Warsaw"));
+        ticket.setTicketDirection("Warsaw");
+        Assert.assertTrue(ticket.getTicketDirection().equals("Warsaw"));
     }
 }
