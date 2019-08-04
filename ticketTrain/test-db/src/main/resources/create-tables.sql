@@ -5,3 +5,11 @@ CREATE TABLE ticket (
   PRIMARY KEY (ticket_id)
 );
 
+DROP TABLE IF EXISTS payment;
+CREATE TABLE payment (
+  payment_id INT NOT NULL AUTO_INCREMENT,
+  local_date  DATE NOT NULL,
+  ticket_id INT NOT NULL,
+  PRIMARY KEY (payment_id),
+  FOREIGN KEY (ticket_id) REFERENCES ticket (ticket_id)
+);

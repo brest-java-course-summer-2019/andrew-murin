@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -28,14 +27,14 @@ public class TicketDaoJdbcImplTest {
     TicketDao ticketDao;
 
     @Test
-    public void findAll() {
+    public void findAll() throws Exception{
         List<Ticket> tickets = ticketDao.findAll();
         assertNotNull(tickets);
         assertTrue(tickets.size() > 0);
     }
 
     @Test
-    public void getTicketById() {
+    public void getTicketById() throws Exception {
         LOGGER.debug("Add Ticket: {}",Ticket.class);
         Ticket ticket = ticketDao.findById(1).get();
 
@@ -46,7 +45,7 @@ public class TicketDaoJdbcImplTest {
     }
 
     @Test
-    public void addTicket() {
+    public void addTicket() throws Exception {
         Ticket testTicket = new Ticket();
         //testTicket.setDirection("Warsaw");
 
@@ -55,7 +54,7 @@ public class TicketDaoJdbcImplTest {
     }
 
     @Test
-    public void updateTicket() {
+    public void updateTicket() throws Exception {
         LOGGER.debug("Add Ticket: {}",Ticket.class);
         Ticket newTicket = new Ticket(FLIGHT);
         newTicket = ticketDao.add(newTicket);
@@ -69,7 +68,7 @@ public class TicketDaoJdbcImplTest {
     }
 
     @Test
-    public void deleteDepartment() {
+    public void deleteDepartment() throws Exception {
         Ticket department = new Ticket(FLIGHT);
         department = ticketDao.add(department);
         List<Ticket> departments = ticketDao.findAll();

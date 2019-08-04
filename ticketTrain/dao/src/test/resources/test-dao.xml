@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-        <bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+    <bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
         <constructor-arg name="dataSource" ref="dataSource"/>
     </bean>
 
@@ -12,7 +12,7 @@
         <constructor-arg name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>
     </bean>
 
-    <!--<bean id="employeeDao" class="com.epam.brest2019.courses.dao.EmployeeDaoJdbcImpl">-->
-        <!--<constructor-arg name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>-->
-    <!--</bean>-->
+    <bean id="paymentDao" class="com.epam.brest2019.courses.dao.PaymentDaoJdbcImpl">
+        <constructor-arg name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>
+    </bean>
 </beans>
