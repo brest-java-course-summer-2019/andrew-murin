@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -7,14 +7,21 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet"
+          href="../../resources/static/css/style.css"
+          th:href="@{/resources/static/css/style.css}">
+
     <title>Pay tickets</title>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-        <a href="index.html" class="navbar-brand">
-            <img src="img/account.png" width="30" height="30" alt="logo">
+        <a class="navbar-brand"
+           href="index.html"
+           th:href="@{/index}">
+            <img src="../../resources/static/img/account.png"
+                 th:src="@{/resources/static/img/account.png}"
+                 width="30" height="30" alt="logo">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -24,13 +31,19 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a href="purchaseTickets.html" class="nav-link">Purchase tickets</a>
+                    <a class="nav-link"
+                       href="purchaseTickets.html"
+                       th:href="@{/tickets}">Purchase tickets</a>
                 </li>
                 <li class="nav-item active">
-                    <a href="payTickets.html" class="nav-link">Pay tickets</a>
+                    <a class="nav-link"
+                       href="payTickets.html"
+                       th:href="@{/ticket}">Pay tickets</a>
                 </li>
                 <li class="nav-item active">
-                    <a href="payTickets.html" class="nav-link">Paid tickets</a>
+                    <a  class="nav-link"
+                        href="payment.html"
+                        th:href="@{/payment}">Paid tickets</a>
                 </li>
             </ul>
         </div>
