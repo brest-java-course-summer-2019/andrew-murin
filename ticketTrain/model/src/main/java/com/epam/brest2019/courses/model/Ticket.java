@@ -1,6 +1,7 @@
 package com.epam.brest2019.courses.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 /**
  * POJO Ticket for model.
@@ -18,7 +19,7 @@ public class Ticket {
     /**
      * date train
      */
-    private String dataTime;
+    private LocalDate localDate;
     /**
      * Direction of train
      */
@@ -68,16 +69,16 @@ public class Ticket {
      * Get this date of train.
      * @return date of train.
      */
-    public String getDataTime() {
-        return dataTime;
+    public LocalDate getLocalDate() {
+        return localDate;
     }
 
     /**
      * Set this date of train.
-     * @param dataTime of train.
+     * @param localDate of train.
      */
-    public void setDataTime(final String dataTime) {
-        this.dataTime = dataTime;
+    public void setLocalDate(final LocalDate localDate) {
+        this.localDate = localDate;
     }
 
     /**
@@ -105,7 +106,7 @@ public class Ticket {
         return "Ticket{" +
                 "ticketId=" + ticketId +
                 ", cost=" + cost +
-                ", dataTime='" + dataTime + '\'' +
+                ", localDate='" + localDate + '\'' +
                 ", direction='" + ticketDirection + '\'' +
                 '}';
     }

@@ -26,21 +26,27 @@ public class TicketDaoJdbcImpl implements TicketDao {
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private final static String SELECT_ALL =
-            "select t.ticket_id, t.ticket_direction from ticket t order by 2";
+            "select ticket_id, ticket_direction, ticket_cost, ticket_date from ticket order by 2";
 
     private static final String FIND_BY_ID =
-            "select ticket_id, ticket_direction from ticket where ticket_id = :ticketId";
+            "select ticket_id, ticket_direction, ticket_cost, ticket_date from ticket where ticket_id = :ticketId";
 
     private final static String ADD_DIRECTION =
-            "insert into ticket (ticket_direction) values (:ticketDirection)";
+            "insert into ticket (ticket_direction, ticket_cost, ticket_date) values (:ticketDirection, :cost, :localDate)";
 
     private final static String UPDATE =
-            "update ticket set ticket_direction = :ticketDirection where ticket_id = :ticketId";
+            "update ticket set ticket_direction = :ticketDirection, "
+                            + "ticket_cost = :cost, "
+                            + "ticket_date = :localDate "
+                            + "where ticket_id = :ticketId";
 
     private final static String DELETE =
             "delete from ticket where ticket_id = :ticketId";
 
     private final static String TICKET_ID = "ticketId";
+    private final static String TICKET_DIRECTION = "ticketDirection";
+    private final static String TICKET_COST = "cost";
+    private final static String TICKET_DATE = "localDate";
 
     public TicketDaoJdbcImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
@@ -48,11 +54,13 @@ public class TicketDaoJdbcImpl implements TicketDao {
 
     @Override
     public Ticket add(Ticket ticket){
-        MapSqlParameterSource parametrs = new MapSqlParameterSource();
-        parametrs.addValue("ticketDirection", ticket.getTicketDirection());
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(TICKET_DIRECTION, ticket.getTicketDirection());
+        parameters.addValue(TICKET_COST, ticket.getCost());
+        parameters.addValue(TICKET_DATE, ticket.getLocalDate());
 
         KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
-        namedParameterJdbcTemplate.update(ADD_DIRECTION, parametrs, generatedKeyHolder);
+        namedParameterJdbcTemplate.update(ADD_DIRECTION, parameters, generatedKeyHolder);
         ticket.setTicketId(generatedKeyHolder.getKey().intValue());
         return ticket;
     }
