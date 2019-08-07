@@ -17,4 +17,8 @@
         <constructor-arg name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>
     </bean>
 
+    <bean id="ticketService" class="com.epam.brest2019.courses.service.TicketServiceImpl">
+        <constructor-arg ref="ticketDao"/>
+    </bean>
+
 </beans>
