@@ -3,7 +3,6 @@ package com.epam.brest2019.courses.service;
 import com.epam.brest2019.courses.model.Ticket;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Ticket Service Interface
@@ -12,10 +11,10 @@ public interface TicketService {
     /**
      * Add new ticket.
      *
-     * @param ticket new ticket
+     * @param tickets new ticket
      * @return new ticket object.
      */
-    Ticket add(Ticket ticket);
+    void add(Ticket... tickets);
 
     /**
      * Update ticket
@@ -43,6 +42,6 @@ public interface TicketService {
      * @param ticketId ticketId.
      * @return Ticket
      */
-    Optional<Ticket> findById(Integer ticketId);
+    Ticket findById(Integer ticketId);
 }
 

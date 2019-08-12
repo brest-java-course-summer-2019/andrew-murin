@@ -7,6 +7,7 @@ CREATE TABLE ticket (
   PRIMARY KEY (ticket_id)
 );
 
+
 DROP TABLE IF EXISTS payment;
 CREATE TABLE payment (
   payment_id INT NOT NULL AUTO_INCREMENT,

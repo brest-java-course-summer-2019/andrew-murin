@@ -4,12 +4,11 @@ import com.epam.brest2019.courses.dao.TicketDao;
 import com.epam.brest2019.courses.model.Ticket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
-@Service
+@Transactional
 public class TicketServiceImpl implements TicketService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Ticket.class);
@@ -21,9 +20,10 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public Ticket add(Ticket ticket) {
-        LOGGER.debug("Add new ticket: {}",ticket);
-        return ticketDao.add(ticket);
+    public void add(Ticket... tickets) {
+        LOGGER.debug("Add new ticket: {}",tickets);
+        for(Ticket ticket: tickets)
+            ticketDao.add(ticket);
     }
 
     @Override
@@ -45,8 +45,9 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public Optional<Ticket> findById(Integer ticketId) {
+    public Ticket findById(Integer ticketId) {
         LOGGER.debug("Find ticket by Id: {}", ticketId);
-        return ticketDao.findById(ticketId);
+        return ticketDao.findById(ticketId)
+                .orElseThrow(() -> new RuntimeException("Failed to get ticket from DB"));
     }
 }
