@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>test-db</artifactId>
-
+    <packaging>jar</packaging>
     <name>Ticket Train Test DB Module</name>
     <parent>
         <groupId>com.epam.brest2019.courses</groupId>

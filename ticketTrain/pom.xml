@@ -14,6 +14,8 @@
     <modules>
         <module>model</module>
         <module>dao</module>
+        <module>service</module>
+        <!--<module>rest-app</module>-->
         <module>web-app</module>
         <module>test-db</module>
     </modules>
@@ -68,13 +70,11 @@
                 <artifactId>dao</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
-            <!--<dependency>-->
-                <!--<groupId>com.epam.brest2019.courses</groupId>-->
-                <!--<artifactId>test-db</artifactId>-->
-                <!--<version>${project.version}</version>-->
-            <!--</dependency>-->
-
+            <dependency>
+                <groupId>com.epam.brest2019.courses</groupId>
+                <artifactId>service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.epam.brest2019.courses</groupId>
                 <artifactId>test-db</artifactId>
@@ -132,11 +132,6 @@
 
             <dependency>
                 <groupId>org.springframework</groupId>
-                <artifactId>spring-context</artifactId>
-                <version>${org.springframework.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
                 <artifactId>spring-web</artifactId>
                 <version>${org.springframework.version}</version>
             </dependency>
@@ -180,7 +175,18 @@
                 <artifactId>logback-classic</artifactId>
                 <version>${logback.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>3.0.0</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-junit-jupiter</artifactId>
+                <version>3.0.0</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -207,9 +213,9 @@
                 </plugin>
 
                 <plugin>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>jacoco-context</artifactId>
-                    <version>${org.springframework.version}</version>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${jacoco.version}</version>
                 </plugin>
 
                 <plugin>
@@ -232,6 +238,12 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-pmd-plugin</artifactId>
                     <version>${maven-pmd-plugin.vesrion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jxr-plugin</artifactId>
+                    <version>3.0.0</version>
                 </plugin>
 
                 <plugin>
@@ -375,6 +387,11 @@
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
                 <configuration>
                     <failOnViolation>true</failOnViolation> <!-- this is actually true by default, but can be disabled -->
@@ -422,6 +439,11 @@
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
                 <configuration>
                     <linkXref>true</linkXref>
@@ -442,6 +464,7 @@
                     </reportSet>
                 </reportSets>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -453,12 +476,12 @@
                             <report>javadoc</report>
                         </reports>
                     </reportSet>
-                    <reportSet>
-                        <id>aggregate</id>
-                        <reports>
-                            <report>aggregate</report>
-                        </reports>
-                    </reportSet>
+                    <!--<reportSet>-->
+                        <!--<id>aggregate</id>-->
+                        <!--<reports>-->
+                            <!--<report>aggregate</report>-->
+                        <!--</reports>-->
+                    <!--</reportSet>-->
                 </reportSets>
             </plugin>
 

@@ -11,7 +11,7 @@
           href="../../resources/static/css/style.css"
           th:href="@{/resources/static/css/style.css}">
 
-    <title>Hello, world!</title>
+    <title>Pay tickets</title>
 </head>
 
 <body>
@@ -32,78 +32,70 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a class="nav-link"
-                   href="purchaseTickets.html"
-                   th:href="@{/tickets}">Purchase tickets</a>
+                   href="choose-direction.html"
+                   th:href="@{/tickets}">Choose direction</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link"
-                   href="payTickets.html"
-                   th:href="@{/ticket}">Pay tickets</a>
+                   href="schedule.html"
+                   th:href="@{/ticket}">Schedule</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link"
-                   href="payment.html"
-                   th:href="@{/payment}">Paid tickets</a>
+                <a  class="nav-link"
+                    href="payment.html"
+                    th:href="@{/payment}">Paid tickets</a>
             </li>
         </ul>
     </div>
 </nav>
-
 <header>
     <nav id="main-header" class="py-1 mb-3 navbar navbar-expand-sm navbar-light bg-light text-dark">
-        <span class="navbar-brand float-right">PURCHASE TICKETS</span>
+        <span class="navbar-brand float-right">Train schedules</span>
     </nav>
 </header>
-
-<div class="container-fluid">
-    <div class="container">
-        <div class="row text-center">
-            <tr>
-                <td>
-                    <div class="col-sm-2"></div>
-                </td>
-                <td>
-                    <div class="col-sm-2">
-                        <span>Direction</span>
-                    </div>
-                </td>
-                <td>
-                    <div class="col-sm-3">
-                        <input type="text" class="form-control" placeholder="Brest">
-                    </div>
-                </td>
-                <td>
-                    <div class="col-sm-2">Cost: 75 BYN</div>
-                </td>
-                <td>
-                    <div class="col-sm-3"></div>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <div class="col-sm-2"></div>
-                </td>
-                <td>
-                    <div class="col-sm-2">
-                        <span>Date</span>
-                    </div>
-                </td>
-                <td>
-                    <div class="col-sm-3">
-                        <input type="text" class="form-control" placeholder="24/03/2019">
-                    </div>
-                </td>
-
-                <td>
-                    <div class="col-sm-2">
-                        <button type="button" class="btn btn-secondary">Save</button>
-                    </div>
-                </td>
-            </tr>
+<section>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <table class="table table-striped">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th>Train</th>
+                        <th>Direction</th>
+                        <th>Date</th>
+                        <th>Cost</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Брест - Минск</td>
+                        <td>92.05р</td>
+                        <td>2019-07-24</td>
+                        <td>
+                            <div>
+                                <button class="btn btn-info">Pay</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Брест - Минск</td>
+                        <td>82.65р</td>
+                        <td>2019-07-24</td>
+                        <td>
+                            <div>
+                                <button class="btn btn-info">Pay</button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
+</section>
 
 
 

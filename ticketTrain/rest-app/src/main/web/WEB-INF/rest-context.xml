@@ -16,7 +16,7 @@
 
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 
-    <context:component-scan base-package="com.epam.brest2019.course.*" />
+    <context:component-scan base-package="com.epam.brest2019.courses.*" />
 
     <context:property-placeholder location="classpath:application.properties" />
 

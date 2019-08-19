@@ -1,4 +1,4 @@
-package com.epam.brest2019.course.web_app;
+package com.epam.brest2019.courses.web_app;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,11 +9,11 @@ public class TicketController {
 
     @GetMapping(value = "/tickets")
     public String tickets(Model model){
-        return "purchaseTickets";
+        return "choose direction";
     }
 
     @GetMapping(value = "/ticket")
     public String ticket(Model model){
-        return "payTickets";
+        return "schedule";
     }
 }
