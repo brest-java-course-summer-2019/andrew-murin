@@ -88,7 +88,7 @@ public class PaymentDaoJdbcImpl implements PaymentDao{
         mapSqlParameterSource.addValue(PAYMENT_ID, paymentId);
         Optional.of(namedParameterJdbcTemplate.update(DELETE, mapSqlParameterSource))
                 .filter(this::succesfullyUpdated)
-                .orElseThrow(() -> new RuntimeException("Failed to delete ticket from DB"));
+                .orElseThrow(() -> new RuntimeException("Failed to delete payment from DB"));
     }
 
     private boolean succesfullyUpdated(int numRowsUpdated){

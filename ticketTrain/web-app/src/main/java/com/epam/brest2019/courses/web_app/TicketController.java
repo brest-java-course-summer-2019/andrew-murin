@@ -9,11 +9,11 @@ public class TicketController {
 
     @GetMapping(value = "/tickets")
     public String tickets(Model model){
-        return "purchaseTickets";
+        return "choose direction";
     }
 
     @GetMapping(value = "/ticket")
     public String ticket(Model model){
-        return "payTickets";
+        return "schedule";
     }
 }

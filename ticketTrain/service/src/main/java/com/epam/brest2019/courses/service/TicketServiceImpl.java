@@ -20,10 +20,9 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public void add(Ticket... tickets) {
-        LOGGER.debug("Add new ticket: {}",tickets);
-        for(Ticket ticket: tickets)
-            ticketDao.add(ticket);
+    public Ticket add(Ticket ticket) {
+        LOGGER.debug("Add new ticket: {}",ticket);
+        return ticketDao.add(ticket);
     }
 
     @Override

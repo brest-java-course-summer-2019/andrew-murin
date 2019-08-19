@@ -5,7 +5,7 @@
 
     <artifactId>service</artifactId>
 
-    <name>Human Resources Service</name>
+    <name>Ticket Train Service</name>
 
     <parent>
         <groupId>com.epam.brest2019.courses</groupId>

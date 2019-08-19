@@ -11,10 +11,10 @@ public interface TicketService {
     /**
      * Add new ticket.
      *
-     * @param tickets new ticket
+     * @param ticket new ticket
      * @return new ticket object.
      */
-    void add(Ticket... tickets);
+    Ticket add(Ticket ticket);
 
     /**
      * Update ticket

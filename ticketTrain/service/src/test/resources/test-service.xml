@@ -21,4 +21,12 @@
         <constructor-arg ref="ticketDao"/>
     </bean>
 
+    <bean id="paymentDao" class="com.epam.brest2019.courses.dao.PaymentDaoJdbcImpl">
+        <constructor-arg ref="namedParameterJdbcTemplate"/>
+    </bean>
+
+    <bean id="paymentService" class="com.epam.brest2019.courses.service.PaymentServiceImpl">
+        <constructor-arg ref="paymentDao"/>
+    </bean>
+
 </beans>

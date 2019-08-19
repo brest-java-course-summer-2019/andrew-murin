@@ -29,11 +29,11 @@ public class TicketServiceImplTest {
 
     @Test
     void findById(){
-        int id = 1;
+        int id = 2;
         Ticket ticket = ticketService.findById(id);
 
         assertNotNull(ticket);
-        assertEquals("Warsaw", ticket.getTicketDirection());
+        assertEquals("Praga", ticket.getTicketDirection());
     }
 
     @Test
@@ -50,7 +50,7 @@ public class TicketServiceImplTest {
 
     @Test
     void delete(){
-        int id = 3;
+        int id = 1;
         ticketService.delete(id);
         assertThrows(RuntimeException.class, () -> ticketService.findById(id));
     }
@@ -58,7 +58,7 @@ public class TicketServiceImplTest {
     @Test
     void add(){
         long count = ticketService.findAll().size();
-        ticketService.add(create(), create());
+        ticketService.add(create());
         long newCount = ticketService.findAll().size();
         assertTrue(count < newCount);
 

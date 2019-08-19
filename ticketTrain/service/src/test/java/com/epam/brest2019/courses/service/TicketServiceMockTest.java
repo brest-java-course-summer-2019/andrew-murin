@@ -80,6 +80,19 @@ public class TicketServiceMockTest {
 
     }
 
+    @Test
+    void add(){
+        Ticket ticket = create();
+        Mockito.when(ticketDao.add(ticket)).thenReturn(ticket);
+
+        Ticket newTicket = ticketService.add(ticket);
+
+
+        assertNotNull(newTicket);
+        assertEquals("Brest", newTicket.getTicketDirection());
+        Mockito.verify(ticketDao, Mockito.times(1)).add(ticket);
+
+    }
 
     private Ticket create(){
         Ticket ticket = new Ticket();
