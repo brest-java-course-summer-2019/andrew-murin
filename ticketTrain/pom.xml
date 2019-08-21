@@ -18,6 +18,8 @@
         <!--<module>rest-app</module>-->
         <module>web-app</module>
         <module>test-db</module>
+        <module>dao-api</module>
+        <module>service-api</module>
     </modules>
 
     <distributionManagement>
@@ -41,6 +43,7 @@
         <org.springframework.version>5.1.4.RELEASE</org.springframework.version>
         <junit.version>5.2.0</junit.version>
         <logback.version>1.2.3</logback.version>
+        <mockito.version>2.23.4</mockito.version>
 
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
@@ -55,7 +58,8 @@
 
         <org.springframework.version>5.1.8.RELEASE</org.springframework.version>
         <thymeleaf-spring5.version>3.0.11.RELEASE</thymeleaf-spring5.version>
-
+        <jackson-databind.version>2.9.8</jackson-databind.version>
+        <validation-api.version>2.0.1.Final</validation-api.version>
     </properties>
 
     <dependencyManagement>
@@ -67,7 +71,17 @@
             </dependency>
             <dependency>
                 <groupId>com.epam.brest2019.courses</groupId>
+                <artifactId>dao-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.epam.brest2019.courses</groupId>
                 <artifactId>dao</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.epam.brest2019.courses</groupId>
+                <artifactId>service-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -79,7 +93,6 @@
                 <groupId>com.epam.brest2019.courses</groupId>
                 <artifactId>test-db</artifactId>
                 <version>${project.version}</version>
-                <scope>test</scope>
             </dependency>
 
             <dependency>
@@ -114,7 +127,6 @@
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
                 <version>1.4.199</version>
-                <scope>test</scope>
             </dependency>
 
             <dependency>
@@ -154,6 +166,12 @@
             </dependency>
 
             <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>${validation-api.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter-engine</artifactId>
                 <version>${junit.version}</version>
@@ -176,15 +194,32 @@
                 <version>${logback.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson-databind.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
-                <version>3.0.0</version>
+                <version>${mockito.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-junit-jupiter</artifactId>
-                <version>3.0.0</version>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-all</artifactId>
+                <version>1.3</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.jayway.jsonpath</groupId>
+                <artifactId>json-path</artifactId>
+                <version>2.0.0</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
