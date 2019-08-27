@@ -1,6 +1,8 @@
 package com.epam.brest2019.courses.dao;
 
 import com.epam.brest2019.courses.model.Ticket;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
@@ -17,31 +19,30 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+
 /**
  *  Ticket DAO Interface implementation
  */
+@Repository
+@PropertySource("classpath:sql_query_ticket.properties")
 public class TicketDaoJdbcImpl implements TicketDao {
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    private final static String SELECT_ALL =
-            "select ticket_id, ticket_direction, ticket_cost, ticket_date from ticket order by 2";
+    @Value("${SELECT_ALL_TICKET}")
+    private String SELECT_ALL;
 
-    private static final String FIND_BY_ID =
-            "select ticket_id, ticket_direction, ticket_cost, ticket_date from ticket where ticket_id = :ticketId";
+    @Value("${FIND_BY_ID_TICKET}")
+    private String FIND_BY_ID;
 
-    private final static String ADD_DIRECTION =
-            "insert into ticket (ticket_direction, ticket_cost, ticket_date) values (:ticketDirection, :cost, :localDate)";
+    @Value("${ADD_DIRECTION_TICKET}")
+    private String ADD_DIRECTION;
 
-    private final static String UPDATE =
-            "update ticket set ticket_direction = :ticketDirection, "
-                            + "ticket_cost = :cost, "
-                            + "ticket_date = :localDate "
-                            + "where ticket_id = :ticketId";
+    @Value("${UPDATE_TICKET}")
+    private String UPDATE;
 
-    private final static String DELETE =
-            "delete from ticket where ticket_id = :ticketId";
+    @Value("${DELETE_TICKET}")
+    private String DELETE;
 
     private final static String TICKET_ID = "ticketId";
     private final static String TICKET_DIRECTION = "ticketDirection";

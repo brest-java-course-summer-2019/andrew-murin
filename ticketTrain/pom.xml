@@ -15,7 +15,7 @@
         <module>model</module>
         <module>dao</module>
         <module>service</module>
-        <!--<module>rest-app</module>-->
+        <module>rest-app</module>
         <module>web-app</module>
         <module>test-db</module>
         <module>dao-api</module>

@@ -1,6 +1,8 @@
 package com.epam.brest2019.courses.dao;
 
 import com.epam.brest2019.courses.model.Payment;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -15,22 +17,29 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
+@PropertySource("classpath:sql_query_payment.properties")
 public class PaymentDaoJdbcImpl implements PaymentDao{
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    private static final String SELECT_ALL =
-            "select payment_id, local_date, ticket_id from payment order by 2";
-    private static final String FIND_BY_ID =
-            "select payment_id, local_date, ticket_id from payment where payment_id = :paymentId";
-    private static final String FIND_BY_TICKET_ID =
-            "select payment_id, local_date, ticket_id from payment where ticket_id = :ticketId";
-    private static final String ADD_PAYMENT =
-            "insert into payment (local_date, ticket_id) values (:localDate, :ticketId)";
-    private static final String UPDATE =
-            "update payment set local_date = :localDate, ticket_id = :ticketId where payment_id = :paymentId";
-    private static final String DELETE =
-            "delete from payment where payment_id = :paymentId";
+    @Value("${SELECT_ALL_PAYMENT}")
+    private String SELECT_ALL;
+
+    @Value("${FIND_BY_ID_PAYMENT}")
+    private String FIND_BY_ID;
+
+    @Value("${FIND_BY_TICKET_ID_PAYMENT}")
+    private String FIND_BY_TICKET_ID;
+
+    @Value("${ADD_PAYMENT}")
+    private String ADD_PAYMENT;
+
+    @Value("${UPDATE_PAYMENT}")
+    private String UPDATE;
+
+    @Value("${DELETE_PAYMENT}")
+    private String DELETE;
+
 
     private static final String TICKET_ID = "ticketId";
     private static final String PAYMENT_ID = "paymentId";

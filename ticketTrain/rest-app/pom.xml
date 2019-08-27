@@ -11,10 +11,14 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>web-app</artifactId>
+    <artifactId>rest-app</artifactId>
 
 
     <dependencies>
+        <dependency>
+            <groupId>com.epam.brest2019.courses</groupId>
+            <artifactId>service</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
@@ -39,6 +43,12 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
             <version>5.1.8.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.5.0</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
