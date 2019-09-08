@@ -18,7 +18,7 @@ import java.util.Optional;
 
 @Component
 @PropertySource("classpath:sql_query_payment.properties")
-public class PaymentDaoJdbcImpl implements PaymentDao{
+public class PaymentDaoJdbcImpl implements PaymentDao {
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 

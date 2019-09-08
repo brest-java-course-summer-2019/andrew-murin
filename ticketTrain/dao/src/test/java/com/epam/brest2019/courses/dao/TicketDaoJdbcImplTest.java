@@ -33,7 +33,7 @@ public class TicketDaoJdbcImplTest {
     }
 
     @Test
-    public void getTicketById(){
+    public void findById(){
         LOGGER.debug("Add Ticket: {}",Ticket.class);
         Ticket ticket = ticketDao.findById(1).get();
 

@@ -93,8 +93,9 @@ public class Ticket {
      * Set this direction of train.
      * @param ticketDirection of train.
      */
-    public void setTicketDirection(final String ticketDirection) {
+    public Ticket setTicketDirection(final String ticketDirection) {
         this.ticketDirection = ticketDirection;
+            return this;
     }
 
     /**

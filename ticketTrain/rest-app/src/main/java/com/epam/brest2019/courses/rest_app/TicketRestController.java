@@ -1,4 +1,4 @@
-package com.epam.brest2019.courses.web_app;
+package com.epam.brest2019.courses.rest_app;
 
 import com.epam.brest2019.courses.model.Ticket;
 import com.epam.brest2019.courses.service.TicketService;
@@ -7,15 +7,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
-public class TicketController {
+@RestController
+public class TicketRestController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TicketController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TicketRestController.class);
 
     @Autowired
     private TicketService ticketService;
