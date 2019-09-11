@@ -3,6 +3,7 @@ package com.epam.brest2019.courses.model;
 import org.junit.Assert;
 import org.junit.Test;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 
 public class TicketTest {
@@ -22,9 +23,10 @@ public class TicketTest {
     }
 
     @Test
-    public void getDataTime() {
-        ticket.setDataTime("10/07/2019");
-        Assert.assertTrue(ticket.getDataTime().equals("10/07/2019"));
+    public void getLocalDate() {
+        LocalDate localDate = LocalDate.of(2019,07,15);
+        ticket.setLocalDate(localDate);
+        Assert.assertEquals(localDate, ticket.getLocalDate());
     }
 
     @Test

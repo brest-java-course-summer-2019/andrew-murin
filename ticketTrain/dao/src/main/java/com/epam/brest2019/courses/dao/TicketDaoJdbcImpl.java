@@ -1,6 +1,8 @@
 package com.epam.brest2019.courses.dao;
 
 import com.epam.brest2019.courses.model.Ticket;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
@@ -10,37 +12,42 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-@Component
+
 /**
  *  Ticket DAO Interface implementation
  */
+@Repository
+@PropertySource("classpath:sql_query_ticket.properties")
 public class TicketDaoJdbcImpl implements TicketDao {
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    private final static String SELECT_ALL =
-            "select t.ticket_id, t.ticket_direction from ticket t order by 2";
+    @Value("${ticket.findAll}")
+    private String SELECT_ALL;
 
-    private static final String FIND_BY_ID =
-            "select ticket_id, ticket_direction from ticket where ticket_id = :ticketId";
+    @Value("${ticket.findById}")
+    private String FIND_BY_ID;
 
-    private final static String ADD_DIRECTION =
-            "insert into ticket (ticket_direction) values (:ticketDirection)";
+    @Value("${ticket.add}")
+    private String ADD_DIRECTION;
 
-    private final static String UPDATE =
-            "update ticket set ticket_direction = :ticketDirection where ticket_id = :ticketId";
+    @Value("${ticket.update}")
+    private String UPDATE;
 
-    private final static String DELETE =
-            "delete from ticket where ticket_id = :ticketId";
+    @Value("${ticket.delete}")
+    private String DELETE;
 
     private final static String TICKET_ID = "ticketId";
+    private final static String TICKET_DIRECTION = "ticketDirection";
+    private final static String TICKET_COST = "cost";
+    private final static String TICKET_DATE = "localDate";
 
     public TicketDaoJdbcImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
@@ -48,11 +55,13 @@ public class TicketDaoJdbcImpl implements TicketDao {
 
     @Override
     public Ticket add(Ticket ticket){
-        MapSqlParameterSource parametrs = new MapSqlParameterSource();
-        parametrs.addValue("ticketDirection", ticket.getTicketDirection());
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue(TICKET_DIRECTION, ticket.getTicketDirection());
+        parameters.addValue(TICKET_COST, ticket.getCost());
+        parameters.addValue(TICKET_DATE, ticket.getLocalDate());
 
         KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
-        namedParameterJdbcTemplate.update(ADD_DIRECTION, parametrs, generatedKeyHolder);
+        namedParameterJdbcTemplate.update(ADD_DIRECTION, parameters, generatedKeyHolder);
         ticket.setTicketId(generatedKeyHolder.getKey().intValue());
         return ticket;
     }

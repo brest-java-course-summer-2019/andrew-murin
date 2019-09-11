@@ -1,6 +1,8 @@
 package com.epam.brest2019.courses.dao;
 
 import com.epam.brest2019.courses.model.Payment;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -9,32 +11,40 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
-@Component
-public class PaymentDaoJdbcImpl implements PaymentDao{
+@Repository
+@PropertySource("classpath:sql_query_payment.properties")
+public class PaymentDaoJdbcImpl implements PaymentDao {
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    private static final String SELECT_ALL =
-            "select payment_id, local_date, ticket_id from payment order by 2";
-    private static final String FIND_BY_ID =
-            "select payment_id, local_date, ticket_id from payment where payment_id = :paymentId";
-    private static final String FIND_BY_TICKET_ID =
-            "select payment_id, local_date, ticket_id from payment where ticket_id = :ticketId";
-    private static final String ADD_PAYMENT =
-            "insert into payment (local_date, ticket_id) values (:localDate, :ticketId)";
-    private static final String UPDATE =
-            "update payment set local_date = :localDate, ticket_id = :ticketId where payment_id = :paymentId";
-    private static final String DELETE =
-            "delete from payment where payment_id = :paymentId";
+    @Value("${payment.findAll}")
+    private String SELECT_ALL;
+
+    @Value("${payment.findById}")
+    private String FIND_BY_ID;
+
+    @Value("${payment.findByTicketId}")
+    private String FIND_BY_TICKET_ID;
+
+    @Value("${payment.add}")
+    private String ADD_PAYMENT;
+
+    @Value("${payment.update}")
+    private String UPDATE;
+
+    @Value("${payment.delete}")
+    private String DELETE;
+
 
     private static final String TICKET_ID = "ticketId";
     private static final String PAYMENT_ID = "paymentId";
     private static final String LOCAL_DATE = "localDate";
+
 
     public PaymentDaoJdbcImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
@@ -88,7 +98,7 @@ public class PaymentDaoJdbcImpl implements PaymentDao{
         mapSqlParameterSource.addValue(PAYMENT_ID, paymentId);
         Optional.of(namedParameterJdbcTemplate.update(DELETE, mapSqlParameterSource))
                 .filter(this::succesfullyUpdated)
-                .orElseThrow(() -> new RuntimeException("Failed to delete ticket from DB"));
+                .orElseThrow(() -> new RuntimeException("Failed to delete payment from DB"));
     }
 
     private boolean succesfullyUpdated(int numRowsUpdated){

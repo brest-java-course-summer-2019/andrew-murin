@@ -13,9 +13,13 @@
 
     <modules>
         <module>model</module>
-        <module>dao</module>
-        <module>web-app</module>
         <module>test-db</module>
+        <module>dao-api</module>
+        <module>dao</module>
+        <module>service-api</module>
+        <module>service</module>
+        <module>rest-app</module>
+        <module>web-app</module>
     </modules>
 
     <distributionManagement>
@@ -36,9 +40,9 @@
         <java.optimize>true</java.optimize>
         <java.debug>true</java.debug>
 
-        <org.springframework.version>5.1.4.RELEASE</org.springframework.version>
         <junit.version>5.2.0</junit.version>
         <logback.version>1.2.3</logback.version>
+        <mockito.version>2.23.4</mockito.version>
 
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
@@ -53,7 +57,8 @@
 
         <org.springframework.version>5.1.8.RELEASE</org.springframework.version>
         <thymeleaf-spring5.version>3.0.11.RELEASE</thymeleaf-spring5.version>
-
+        <jackson-databind.version>2.9.8</jackson-databind.version>
+        <validation-api.version>2.0.1.Final</validation-api.version>
     </properties>
 
     <dependencyManagement>
@@ -65,21 +70,28 @@
             </dependency>
             <dependency>
                 <groupId>com.epam.brest2019.courses</groupId>
+                <artifactId>dao-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.epam.brest2019.courses</groupId>
                 <artifactId>dao</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
-            <!--<dependency>-->
-                <!--<groupId>com.epam.brest2019.courses</groupId>-->
-                <!--<artifactId>test-db</artifactId>-->
-                <!--<version>${project.version}</version>-->
-            <!--</dependency>-->
-
+            <dependency>
+                <groupId>com.epam.brest2019.courses</groupId>
+                <artifactId>service-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.epam.brest2019.courses</groupId>
+                <artifactId>service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.epam.brest2019.courses</groupId>
                 <artifactId>test-db</artifactId>
                 <version>${project.version}</version>
-                <scope>test</scope>
             </dependency>
 
             <dependency>
@@ -114,7 +126,6 @@
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
                 <version>1.4.199</version>
-                <scope>test</scope>
             </dependency>
 
             <dependency>
@@ -130,11 +141,6 @@
                 <scope>test</scope>
             </dependency>
 
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-context</artifactId>
-                <version>${org.springframework.version}</version>
-            </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-web</artifactId>
@@ -159,6 +165,12 @@
             </dependency>
 
             <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>${validation-api.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter-engine</artifactId>
                 <version>${junit.version}</version>
@@ -180,7 +192,35 @@
                 <artifactId>logback-classic</artifactId>
                 <version>${logback.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson-databind.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-junit-jupiter</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-all</artifactId>
+                <version>1.3</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.jayway.jsonpath</groupId>
+                <artifactId>json-path</artifactId>
+                <version>2.0.0</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -207,9 +247,9 @@
                 </plugin>
 
                 <plugin>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>jacoco-context</artifactId>
-                    <version>${org.springframework.version}</version>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${jacoco.version}</version>
                 </plugin>
 
                 <plugin>
@@ -232,6 +272,12 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-pmd-plugin</artifactId>
                     <version>${maven-pmd-plugin.vesrion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jxr-plugin</artifactId>
+                    <version>3.0.0</version>
                 </plugin>
 
                 <plugin>
@@ -264,6 +310,7 @@
                     <artifactId>jetty-maven-plugin</artifactId>
                     <version>9.4.19.v20190610</version>
                     <configuration>
+                        <!--<webAppSourceDirectory>src/main/webapp/</webAppSourceDirectory>-->
                         <scanIntervalSeconds>10</scanIntervalSeconds>
                         <webApp>
                             <contextPath>/</contextPath>
@@ -336,6 +383,9 @@
                                     </limits>
                                 </rule>
                             </rules>
+                            <excludes>
+                                <exclude>com/epam/brest2019/courses/model/**/*</exclude>
+                            </excludes>
                         </configuration>
                     </execution>
                     <execution>
@@ -371,6 +421,11 @@
                         <phase>site</phase>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
             </plugin>
 
             <plugin>
@@ -422,6 +477,11 @@
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
                 <configuration>
                     <linkXref>true</linkXref>
@@ -442,6 +502,7 @@
                     </reportSet>
                 </reportSets>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -453,12 +514,7 @@
                             <report>javadoc</report>
                         </reports>
                     </reportSet>
-                    <reportSet>
-                        <id>aggregate</id>
-                        <reports>
-                            <report>aggregate</report>
-                        </reports>
-                    </reportSet>
+
                 </reportSets>
             </plugin>
 
