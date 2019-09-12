@@ -84,7 +84,7 @@ public class TicketRestControllerTest {
         Mockito.when(ticketService.add(any(Ticket.class))).thenReturn(expectedTicket);
 
         MockHttpServletResponse response = mockMvc.perform(
-                post("/ticket")
+                post("/tickets")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json)
                         .accept(MediaType.APPLICATION_JSON)
@@ -104,7 +104,7 @@ public class TicketRestControllerTest {
         String json = new ObjectMapper().writeValueAsString(ticket);
 
         mockMvc.perform(
-                put("/ticket")
+                put("/tickets")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(json)

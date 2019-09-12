@@ -16,9 +16,14 @@
 
     <import resource="classpath*:test-db.xml"/>
 
-    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" />
-    <!--<context:property-placeholder location="classpath:sql_query_payment.properties"/>-->
-
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:sql_query_payment.properties</value>
+                <value>classpath:sql_query_ticket.properties</value>
+            </list>
+        </property>
+    </bean>
 
     <bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
         <constructor-arg name="dataSource" ref="dataSource"/>

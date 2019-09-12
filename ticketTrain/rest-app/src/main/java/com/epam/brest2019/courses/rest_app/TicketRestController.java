@@ -32,7 +32,7 @@ public class TicketRestController {
         return ticketService.findById(id);
     }
 
-    @PutMapping()
+    @PutMapping("/tickets")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void updateTicket(@RequestBody Ticket ticket){
         LOGGER.debug("Update ticket ({})", ticket);
@@ -40,12 +40,12 @@ public class TicketRestController {
     }
 
     @DeleteMapping("/tickets/{id}")
-    public void deleteTicket(@PathVariable("id") Integer id){
+    public void deleteTicket(@PathVariable Integer id){
         LOGGER.debug("Delete ticket ({})", id);
         ticketService.delete(id);
     }
 
-    @PostMapping()
+    @PostMapping("/tickets")
     public ResponseEntity<Ticket> addTicket(@RequestBody Ticket ticket){
         LOGGER.debug("Add ticket ({})", ticket);
         Ticket result = ticketService.add(ticket);

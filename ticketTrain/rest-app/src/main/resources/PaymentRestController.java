@@ -1,5 +1,3 @@
-package com.epam.brest2019.courses.rest_app;
-
 import com.epam.brest2019.courses.model.Payment;
 import com.epam.brest2019.courses.service.PaymentService;
 import org.slf4j.Logger;
