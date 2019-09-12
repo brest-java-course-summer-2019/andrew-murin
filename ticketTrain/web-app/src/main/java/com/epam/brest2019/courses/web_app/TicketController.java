@@ -19,11 +19,15 @@ public class TicketController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TicketController.class);
 
-    @Autowired
-    private TicketService ticketService;
+    private final TicketService ticketService;
+
+    private final TicketValidator ticketValidator;
 
     @Autowired
-    private TicketValidator ticketValidator;
+    public TicketController(TicketService ticketService, TicketValidator ticketValidator) {
+        this.ticketService = ticketService;
+        this.ticketValidator = ticketValidator;
+    }
 
     @GetMapping("/tickets-all")
     public final String tickets(Model model) {
@@ -40,7 +44,7 @@ public class TicketController {
         return "ticket";
     }
 
-    @PostMapping("/tickets-all/{id}}")
+    @PostMapping("/ticket/{id}}")
     public final String updateTicket(@Valid Ticket ticket, BindingResult bindingResult){
         LOGGER.debug("Update ticket ({},{})", ticket, bindingResult);
         ticketValidator.validate(ticket,bindingResult);
@@ -61,11 +65,11 @@ public class TicketController {
         return "ticket";
     }
 
-    @PostMapping
+    @PostMapping("/ticket")
     public final String addTicket(@Valid Ticket ticket, BindingResult bindingResult) {
         LOGGER.debug("add ticket ({}, {})", ticket, bindingResult);
         ticketValidator.validate(ticket, bindingResult);
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             return "ticket";
         } else {
             this.ticketService.add(ticket);
@@ -73,6 +77,7 @@ public class TicketController {
         }
     }
 
+    @PostMapping("/ticket/{id}/delete")
     public final String deleteTicketById(@PathVariable Integer id, Model model){
         LOGGER.debug("delete ticket by id ({}, {})", id, model);
         ticketService.delete(id);

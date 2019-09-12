@@ -20,11 +20,15 @@ public class PaymentController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PaymentController.class);
 
-    @Autowired
-    private PaymentService paymentService;
+    private final PaymentService paymentService;
+
+    private final PaymentValidator paymentValidator;
 
     @Autowired
-    private PaymentValidator paymentValidator;
+    public PaymentController(PaymentService paymentService, PaymentValidator paymentValidator) {
+        this.paymentService = paymentService;
+        this.paymentValidator = paymentValidator;
+    }
 
     @GetMapping("/paid-tickets")
     public final String paidTickets(Model model) {
@@ -63,7 +67,7 @@ public class PaymentController {
         return "paid-ticket";
     }
 
-    @PostMapping()
+    @PostMapping("/paid-ticket")
     public final String addPayment(@Valid Payment payment, BindingResult bindingResult) {
         LOGGER.debug("addPaymment ({}, {})", payment, bindingResult);
         paymentValidator.validate(payment, bindingResult);
@@ -75,7 +79,7 @@ public class PaymentController {
         }
     }
 
-    @GetMapping()
+    @GetMapping("/paid-ticket/{id}/delete")
     public final String deletePaymentById(@PathVariable Integer id, Model model) {
         LOGGER.debug("delete Paymentby id ({}, {})", id, model);
         paymentService.delete(id);

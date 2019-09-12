@@ -3,6 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd
         http://www.springframework.org/schema/beans
@@ -10,24 +11,46 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <mvc:annotation-driven/>
-
+    <!-- Use spring servlet for all requests, including static resources -->
     <mvc:default-servlet-handler/>
+
+    <!-- Use @MVC annotations -->
+    <mvc:annotation-driven/>
 
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 
-    <context:component-scan base-package="com.epam.brest2019.courses.*" />
+    <context:component-scan base-package="com.epam.brest2019.courses.web_app.*" />
 
     <context:property-placeholder location="classpath:application.properties" />
 
-    <bean id="templateResolver" class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
+    <bean id="ticketService" class="com.epam.brest2019.courses.web_app.consumers.TicketRestConsumer">
+        <constructor-arg index="0" value="${protocol}://${host}:${port}/${point.tickets}" />
+        <constructor-arg index="1" ref="restTemplate" />
+    </bean>
+
+    <bean id="paymentService" class="com.epam.brest2019.courses.web_app.consumers.PaymentRestConsumer">
+        <constructor-arg index="0" value="${protocol}://${host}:${port}/${point.payments}" />
+        <constructor-arg index="1" ref="restTemplate" />
+    </bean>
+
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+        <property name="messageConverters">
+            <list>
+                <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+            </list>
+        </property>
+    </bean>
+
+    <bean id="templateResolver"
+          class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
         <property name="prefix" value="/WEB-INF/templates/" />
         <property name="suffix" value=".html" />
         <property name="templateMode" value="HTML" />
         <property name="cacheable" value="false" />
     </bean>
 
-    <bean id="templateEngine" class="org.thymeleaf.spring5.SpringTemplateEngine">
+    <bean id="templateEngine"
+          class="org.thymeleaf.spring5.SpringTemplateEngine">
         <property name="templateResolvers">
             <set>
                 <ref bean="templateResolver"/>
@@ -35,11 +58,14 @@
         </property>
     </bean>
 
+    <!-- Thymeleaf View Resolver - implementation of Spring's ViewResolver interface -->
     <bean id="viewResolver" class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
-        <property name="templateEngine" ref="templateEngine"></property>
-        <property name="characterEncoding" value="UTF-8"></property>
+        <property name="templateEngine" ref="templateEngine" />
+        <property name="characterEncoding" value="UTF-8" />
     </bean>
 
-
-
+    <bean id="messageSource"
+          class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
+          p:basename="/WEB-INF/messages">
+    </bean>
 </beans>

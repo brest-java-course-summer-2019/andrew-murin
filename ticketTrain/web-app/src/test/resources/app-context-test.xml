@@ -20,14 +20,15 @@
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 
     <!-- Component scan for @Controller, @Service... annotations -->
-    <context:component-scan base-package="com.epam.brest2019.courses.*"/>
+    <context:component-scan base-package="com.epam.brest2019.courses.web_app.*"/>
+    <context:annotation-config />
 
     <context:property-placeholder location="classpath:application.properties"/>
 
     <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
         <property name="messageConverters">
             <list>
-                    <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+                <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
             </list>
         </property>
     </bean>
