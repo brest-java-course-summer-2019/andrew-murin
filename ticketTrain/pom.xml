@@ -310,7 +310,7 @@
                     <artifactId>jetty-maven-plugin</artifactId>
                     <version>9.4.19.v20190610</version>
                     <configuration>
-                        <!--<webAppSourceDirectory>src/main/webapp/</webAppSourceDirectory>-->
+                        <webAppSourceDirectory>${basedir}/src/main/webapp/templates/</webAppSourceDirectory>
                         <scanIntervalSeconds>10</scanIntervalSeconds>
                         <webApp>
                             <contextPath>/</contextPath>

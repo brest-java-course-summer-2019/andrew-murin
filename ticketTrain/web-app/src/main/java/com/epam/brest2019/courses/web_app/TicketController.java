@@ -81,7 +81,7 @@ public class TicketController {
     public final String deleteTicketById(@PathVariable Integer id, Model model){
         LOGGER.debug("delete ticket by id ({}, {})", id, model);
         ticketService.delete(id);
-        return "redirect/tickets-all";
+        return "redirect:/tickets-all";
     }
 
 }

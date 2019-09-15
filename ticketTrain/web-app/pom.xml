@@ -80,6 +80,9 @@
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
+                <configuration>
+                    <webAppSourceDirectory>src/main/webapp/templates/</webAppSourceDirectory>
+                </configuration>
             </plugin>
         </plugins>
     </build>
