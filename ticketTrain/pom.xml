@@ -197,6 +197,12 @@
                 <artifactId>jackson-databind</artifactId>
                 <version>${jackson-databind.version}</version>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310 -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jsr310</artifactId>
+                <version>2.9.8</version>
+            </dependency>
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
@@ -383,9 +389,6 @@
                                     </limits>
                                 </rule>
                             </rules>
-                            <excludes>
-                                <exclude>com/epam/brest2019/courses/model/**/*</exclude>
-                            </excludes>
                         </configuration>
                     </execution>
                     <execution>

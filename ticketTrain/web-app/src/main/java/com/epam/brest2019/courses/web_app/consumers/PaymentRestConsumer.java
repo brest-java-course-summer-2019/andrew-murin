@@ -25,29 +25,29 @@ public class PaymentRestConsumer implements PaymentService {
     @Override
     public List<Payment> findAll() {
         LOGGER.debug("finAll()");
-        ResponseEntity responseEntity = restTemplate.getForEntity(url + "/", List.class);
-        return (List<Payment>) responseEntity.getBody();
+        ResponseEntity responseEntity1 = restTemplate.getForEntity(url + "/", List.class);
+        return (List<Payment>) responseEntity1.getBody();
     }
 
     @Override
     public List<Payment> findByTicketId(Integer ticketId) {
         LOGGER.debug("Find by ticket id ({})", ticketId);
-        ResponseEntity<Payment> responseEntity = restTemplate.getForEntity(url + "/" + ticketId, Payment.class);
-        return (List<Payment>) responseEntity.getBody();
+        ResponseEntity<Payment> responseEntity2 = restTemplate.getForEntity(url + "/" + ticketId, Payment.class);
+        return (List<Payment>) responseEntity2.getBody();
     }
 
     @Override
     public Payment findById(Integer paymentId) {
         LOGGER.debug("Find by id ({})", paymentId);
-        ResponseEntity<Payment> responseEntity = restTemplate.getForEntity(url + "/" +paymentId, Payment.class);
-        return responseEntity.getBody();
+        ResponseEntity<Payment> responseEntity3 = restTemplate.getForEntity(url + "/" +paymentId, Payment.class);
+        return responseEntity3.getBody();
     }
 
     @Override
     public Payment add(Payment payment) {
         LOGGER.debug("Add payment ({})", payment);
-        ResponseEntity responseEntity = restTemplate.postForEntity(url,payment, Payment.class);
-        return (Payment) responseEntity.getBody();
+        ResponseEntity responseEntity3 = restTemplate.postForEntity(url,payment, Payment.class);
+        return (Payment) responseEntity3.getBody();
     }
 
     @Override

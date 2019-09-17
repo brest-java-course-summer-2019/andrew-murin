@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <name>ticketTrain Web application</name>
+    <name>ticketTrain WEB-APP</name>
     <artifactId>web-app</artifactId>
     <packaging>war</packaging>
 
@@ -19,6 +19,7 @@
             <groupId>com.epam.brest2019.courses</groupId>
             <artifactId>model</artifactId>
         </dependency>
+
         <dependency>
             <groupId>com.epam.brest2019.courses</groupId>
             <artifactId>service-api</artifactId>
@@ -54,6 +55,12 @@
             <artifactId>jackson-databind</artifactId>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310 -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
+
         <!--tests-->
         <dependency>
             <groupId>org.hamcrest</groupId>
@@ -71,6 +78,12 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -81,7 +94,7 @@
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <configuration>
-                    <webAppSourceDirectory>src/main/webapp/templates/</webAppSourceDirectory>
+                    <webAppSourceDirectory>src/main/webapp/WEB-INF/templates/</webAppSourceDirectory>
                 </configuration>
             </plugin>
         </plugins>

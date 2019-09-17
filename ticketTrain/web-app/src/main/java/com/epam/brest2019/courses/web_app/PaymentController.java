@@ -20,25 +20,27 @@ public class PaymentController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PaymentController.class);
 
-    private final PaymentService paymentService;
-
-    private final PaymentValidator paymentValidator;
+    @Autowired
+    private PaymentService paymentService;
 
     @Autowired
-    public PaymentController(PaymentService paymentService, PaymentValidator paymentValidator) {
-        this.paymentService = paymentService;
-        this.paymentValidator = paymentValidator;
-    }
+    private PaymentValidator paymentValidator;
+
+//    @Autowired
+//    public PaymentController(PaymentService paymentService, PaymentValidator paymentValidator) {
+//        this.paymentService = paymentService;
+//        this.paymentValidator = paymentValidator;
+//    }
 
     @GetMapping("/paid-tickets")
     public final String paidTickets(Model model) {
         LOGGER.debug("Get all payments: ({})", model);
-        model.addAttribute("paid-tickets", paymentService.findAll());
+        model.addAttribute("field", "Some text");
         return "paid-tickets";
     }
 
     @GetMapping("/paid-ticket/{id}")
-    public final String gotoEditDepartmentPage(@PathVariable Integer id, Model model){
+    public final String gotoEditPaymentPage(@PathVariable Integer id, Model model){
         LOGGER.debug("Get payment: ({}, {})", id, model);
 
         Payment payment = paymentService.findById(id);
@@ -85,36 +87,5 @@ public class PaymentController {
         paymentService.delete(id);
         return "redirect:/paid-tickets";
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

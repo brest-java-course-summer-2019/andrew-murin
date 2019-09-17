@@ -37,13 +37,15 @@ public class TicketController {
     }
 
     @GetMapping("/ticket/{id}")
-    public final String gotoPageForEditTicket(@PathVariable Integer id, Model model) {
+    public final String findById(@PathVariable Integer id, Model model) {
         LOGGER.debug("Go to edit ticket page({},{})", id, model);
         Ticket ticket = ticketService.findById(id);
+//        Payment payment = paymentService.findById(id);
         model.addAttribute("ticket", ticket);
+//        model.addAttribute("payment", payment);
         return "ticket";
     }
-
+//
     @PostMapping("/ticket/{id}}")
     public final String updateTicket(@Valid Ticket ticket, BindingResult bindingResult){
         LOGGER.debug("Update ticket ({},{})", ticket, bindingResult);

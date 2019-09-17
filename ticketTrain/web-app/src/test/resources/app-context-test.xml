@@ -25,6 +25,10 @@
 
     <context:property-placeholder location="classpath:application.properties"/>
 
+    <bean id="ticketService" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="com.epam.brest2019.courses.service.TicketService"/>
+    </bean>
+
     <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
         <property name="messageConverters">
             <list>
