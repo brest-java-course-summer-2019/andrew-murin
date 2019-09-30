@@ -13,13 +13,13 @@
 
     <modules>
         <module>model</module>
-        <module>dao</module>
-        <module>service</module>
-        <!--<module>rest-app</module>-->
-        <module>web-app</module>
         <module>test-db</module>
         <module>dao-api</module>
+        <module>dao</module>
         <module>service-api</module>
+        <module>service</module>
+        <module>rest-app</module>
+        <module>web-app</module>
     </modules>
 
     <distributionManagement>
@@ -40,7 +40,6 @@
         <java.optimize>true</java.optimize>
         <java.debug>true</java.debug>
 
-        <org.springframework.version>5.1.4.RELEASE</org.springframework.version>
         <junit.version>5.2.0</junit.version>
         <logback.version>1.2.3</logback.version>
         <mockito.version>2.23.4</mockito.version>
@@ -198,6 +197,12 @@
                 <artifactId>jackson-databind</artifactId>
                 <version>${jackson-databind.version}</version>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310 -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jsr310</artifactId>
+                <version>2.9.8</version>
+            </dependency>
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
@@ -311,6 +316,7 @@
                     <artifactId>jetty-maven-plugin</artifactId>
                     <version>9.4.19.v20190610</version>
                     <configuration>
+                        <webAppSourceDirectory>${basedir}/src/main/webapp/templates/</webAppSourceDirectory>
                         <scanIntervalSeconds>10</scanIntervalSeconds>
                         <webApp>
                             <contextPath>/</contextPath>
@@ -511,12 +517,7 @@
                             <report>javadoc</report>
                         </reports>
                     </reportSet>
-                    <!--<reportSet>-->
-                        <!--<id>aggregate</id>-->
-                        <!--<reports>-->
-                            <!--<report>aggregate</report>-->
-                        <!--</reports>-->
-                    <!--</reportSet>-->
+
                 </reportSets>
             </plugin>
 

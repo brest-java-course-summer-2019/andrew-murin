@@ -1,0 +1,141 @@
+
+<!--Before search-->
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="../../resources/static/css/style.css"
+          th:href="@{../../static/css/style.css}">
+
+    <title>Pay tickets</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <a class="navbar-brand"
+           href="index.html"
+           th:href="@{/index}">
+            <img src="../../resources/static/img/account.png"
+                 th:src="@{../../static/img/account.png}"
+                 width="30" height="30" alt="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Togglenavigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link"
+                       href="choose-direction.html"
+
+
+
+
+
+                       th:href="@{/tickets}">Choose direction</a>
+
+
+
+
+
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link"
+                       href="tickets-all.html"
+                       th:href="@{/tickets}">Schedule</a>
+                </li>
+                <li class="nav-item active">
+                    <a  class="nav-link"
+                        href="paid-tickets.html"
+                        th:href="@{/paid-tickets}">Paid tickets</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <header>
+        <nav id="main-header" class="py-1 mb-3 navbar navbar-expand-sm navbar-light bg-light text-dark">
+            <span class="navbar-brand float-right">Train schedule</span>
+        </nav>
+    </header>
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <table class="table table-striped">
+                        <thead class="thead-inverse">
+                            <tr>
+                                <th>Train</th>
+                                <th>Direction</th>
+                                <th>Cost</th>
+                                <th>Date</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr th:each="ticket, index : ${tickets-all}">
+                                <td th:text="${ticket.ticketId}"></td>
+                                <td th:text="${ticket.ticketDirection}"></td>
+                                <td th:text="${ticket.cost}"></td>
+                                <td th:text="${index}"></td>
+                            </tr>
+                                <td>2019-07-24</td>
+                                <td>
+                                    <div class="nav-item active">
+                                        <a class="nav-link"
+                                           href="ticket.html"
+                                           th:href="@{/ticket}">Edit</a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <button class="btn btn-info" data-toggle="modal" data-target="#Modal">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalLabel">Confirm operation</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hiden="true">&times</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Your want delete ticket?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-info">Delete</button>
+                        <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

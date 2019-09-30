@@ -22,7 +22,7 @@ public class PaymentDaoJdbcImplTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(TicketDaoJdbcImplTest.class);
 
     @Autowired
-    PaymentDao paymentDao;
+    private PaymentDao paymentDao;
 
     private Payment payment;
 

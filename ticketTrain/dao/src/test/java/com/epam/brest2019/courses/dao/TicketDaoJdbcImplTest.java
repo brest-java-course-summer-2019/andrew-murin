@@ -10,8 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.List;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath*:test-dao.xml"})
@@ -24,28 +23,28 @@ public class TicketDaoJdbcImplTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(TicketDaoJdbcImplTest.class);
 
     @Autowired
-    TicketDao ticketDao;
+    private TicketDao ticketDao;
 
     @Test
-    public void findAll() throws Exception{
+    public void findAll(){
         List<Ticket> tickets = ticketDao.findAll();
         assertNotNull(tickets);
         assertTrue(tickets.size() > 0);
     }
 
     @Test
-    public void getTicketById() throws Exception {
+    public void findById(){
         LOGGER.debug("Add Ticket: {}",Ticket.class);
         Ticket ticket = ticketDao.findById(1).get();
 
         assertNotNull(ticket);
-        assertTrue(ticket.getTicketId().equals(1));
+        assertEquals(1, (int) ticket.getTicketId());
 //        Assert.assertEquals(ticket.getDirection(),PLACE);
-        assertTrue(ticket.getTicketDirection().equals(PLACE));
+        assertEquals(ticket.getTicketDirection(), PLACE);
     }
 
     @Test
-    public void addTicket() throws Exception {
+    public void addTicket(){
         Ticket testTicket = new Ticket();
         //testTicket.setDirection("Warsaw");
 
@@ -54,27 +53,28 @@ public class TicketDaoJdbcImplTest {
     }
 
     @Test
-    public void updateTicket() throws Exception {
+    public void updateTicket(){
         LOGGER.debug("Add Ticket: {}",Ticket.class);
         Ticket newTicket = new Ticket(FLIGHT);
         newTicket = ticketDao.add(newTicket);
         //newTicket.setDirection(NEW_FLIGHT);
         ticketDao.update(newTicket);
-        Ticket updatedDepartment = ticketDao.findById(newTicket.getTicketId()).get();
+        Ticket updatedTicket = ticketDao.findById(newTicket.getTicketId()).get();
 
-        assertTrue(newTicket.getTicketId().equals(updatedDepartment.getTicketId()));
-        assertTrue(newTicket.getTicketDirection().equals(updatedDepartment.getTicketDirection()));
+        assertEquals(newTicket.getTicketId(), updatedTicket.getTicketId());
+        assertEquals(newTicket.getTicketDirection(), updatedTicket.getTicketDirection());
+        assertEquals(newTicket.getTicketDirection(), updatedTicket.getTicketDirection());
 
     }
 
     @Test
-    public void deleteDepartment() throws Exception {
-        Ticket department = new Ticket(FLIGHT);
-        department = ticketDao.add(department);
-        List<Ticket> departments = ticketDao.findAll();
-        int sizeBefore = departments.size();
-        ticketDao.delete(department.getTicketId());
-        assertTrue((sizeBefore - 1) == ticketDao.findAll().size());
+    public void deleteTicket(){
+        Ticket ticket = new Ticket(FLIGHT);
+        ticket = ticketDao.add(ticket);
+        List<Ticket> tickets = ticketDao.findAll();
+        int sizeBefore = tickets.size();
+        ticketDao.delete(ticket.getTicketId());
+        assertEquals((sizeBefore - 1), ticketDao.findAll().size());
     }
 
 

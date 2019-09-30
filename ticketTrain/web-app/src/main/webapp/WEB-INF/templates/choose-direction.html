@@ -9,7 +9,7 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet"
           href="../../resources/static/css/style.css"
-          th:href="@{/resources/static/css/style.css}">
+          th:href="@{../../static/css/style.css}">
 
     <title>Hello, world!</title>
 </head>
@@ -20,7 +20,7 @@
        href="index.html"
        th:href="@{/index}">
         <img src="../../resources/static/img/account.png"
-             th:src="@{/resources/static/img/account.png}"
+             th:src="@{../../static/img/account.png}"
              width="30" height="30" alt="logo">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -33,17 +33,27 @@
             <li class="nav-item active">
                 <a class="nav-link"
                    href="choose-direction.html"
+
+
+
+
+
                    th:href="@{/tickets}">Choose direction </a>
+
+
+
+
+
             </li>
             <li class="nav-item active">
                 <a class="nav-link"
-                   href="schedule.html"
-                   th:href="@{/ticket}">Schedule</a>
+                   href="tickets-all.html"
+                   th:href="@{/tickets}">Schedule</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link"
-                   href="payment.html"
-                   th:href="@{/payment}">Paid tickets</a>
+                   href="paid-tickets.html"
+                   th:href="@{/paid-tickets}">Paid tickets</a>
             </li>
         </ul>
     </div>
@@ -131,7 +141,7 @@
                 <td>
                     <div class="col-sm-2">
                         <form>
-                            <input type="button" value="Search" onClick='location.href="schedules.html"' th:href="@{/schedules}">
+                            <input type="button" value="Search" onClick='location.href="tickets.html"' th:href="@{/tickets}">
                         </form>
                     </div>
                 </td>

@@ -2,17 +2,34 @@
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <import resource="classpath*:test-db.xml"/>
+
+    <context:component-scan base-package="com.epam.brest2019.courses.dao"/>
+    <context:annotation-config />
+    <!--<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+        <!--<property name="locations">-->
+            <!--<list>-->
+                <!--<value>classpath:sql_query_payment.properties</value>-->
+                <!--<value>classpath:sql_query_ticket.properties</value>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <context:property-placeholder location="classpath:sql_query_payment.properties, classpath:sql_query_ticket.properties"/>
+
 
     <bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
         <constructor-arg name="dataSource" ref="dataSource"/>
     </bean>
 
     <bean id="ticketDao" class="com.epam.brest2019.courses.dao.TicketDaoJdbcImpl">
-        <constructor-arg name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>
+        <constructor-arg name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate" />
     </bean>
 
     <bean id="paymentDao" class="com.epam.brest2019.courses.dao.PaymentDaoJdbcImpl">
-        <constructor-arg name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate"/>
+        <constructor-arg name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate" />
     </bean>
 </beans>
