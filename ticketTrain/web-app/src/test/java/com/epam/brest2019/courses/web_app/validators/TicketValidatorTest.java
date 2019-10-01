@@ -43,7 +43,7 @@ class TicketValidatorTest {
     @Test
     void ShouldRejectDateAfterNow() {
         Mockito.when(ticket.getTicketCost()).thenReturn(new BigDecimal(10));
-        Mockito.when(ticket.getTicketDate()).thenReturn(LocalDate.MIN);
+        Mockito.when(ticket.getTicketDate()).thenReturn(LocalDate.MAX);
 
         ticketValidator.validate(ticket, result);
 
@@ -55,7 +55,7 @@ class TicketValidatorTest {
     void shouldRejectCostSmallZero() {
 
         Mockito.when(ticket.getTicketCost()).thenReturn(new BigDecimal(-6));
-        Mockito.when(ticket.getTicketDate()).thenReturn(LocalDate.MAX);
+        Mockito.when(ticket.getTicketDate()).thenReturn(LocalDate.MIN);
 
 
         ticketValidator.validate(ticket, result);

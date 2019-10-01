@@ -1,6 +1,5 @@
-package com.epam.brest2019.courses.web_app.controllers;
+package com.epam.brest2019.courses.web_app.handlers;
 
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,8 +16,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 @ExtendWith(SpringExtension.class)
 @WebAppConfiguration
-@ContextConfiguration(locations = {"classpath:app-context-test.xml"})
-class HelloControllerTest {
+@ContextConfiguration(locations = "classpath:app-context-test.xml")
+public class GlobalExceptionHandler {
 
     @Autowired
     private WebApplicationContext wac;
@@ -31,13 +30,10 @@ class HelloControllerTest {
     }
 
     @Test
-    void hello() throws Exception {
+    void globalExceptionHandler() throws Exception {
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/")
-                        .param("name", "Java")
-        ).andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
-                .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("<title>Ticket train</title>")));
+                MockMvcRequestBuilders.get("/errrrr"))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().is5xxServerError()).andReturn();
     }
 }

@@ -157,6 +157,10 @@
                                        value=""
                                        th:field="*{ticketDate}">
                             </div>
+                            <div th:if="${#fields.hasErrors('ticketDate')}"
+                                 class="alert alert-danger">
+                                <p>Please fix errors below:</p>
+                            </div>
                             <td th:if="${#fields.hasErrors('ticketDate')}" th:errors="*{ticketDate}">Name Error</td>
                         </tr>
                     </form>

@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -14,8 +13,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -57,11 +55,6 @@ public class PaymentDaoJdbcImpl implements PaymentDao {
 
     private static final String START_DATE = "startDate";
     private static final String FINISH_DATE = "finishDate";
-
-
-    private static final String DB_TICKET_ID = "ticket_id";
-    private static final String DB_PAYMENT_ID = "payment_id";
-    private static final String DB_PAYMENT_DATE = "payment_date";
 
 
     public PaymentDaoJdbcImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
@@ -146,16 +139,4 @@ public class PaymentDaoJdbcImpl implements PaymentDao {
         return payments;
     }
 
-//    private class PaymentRowMapper implements RowMapper<Payment> {
-//        @Override
-//        public Payment mapRow(ResultSet resultSet, int i) throws SQLException {
-//            Payment payment = new Payment();
-//
-//            payment.setTicketId(resultSet.getInt(DB_PAYMENT_ID));
-//            payment.setPaymentDate(resultSet.getDate(DB_PAYMENT_DATE).toLocalDate());
-//            payment.setPaymentId(resultSet.getInt(DB_TICKET_ID));
-//
-//            return payment;
-//        }
-//    }
 }
