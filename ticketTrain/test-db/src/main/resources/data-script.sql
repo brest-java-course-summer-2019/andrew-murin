@@ -32,4 +32,3 @@ INSERT INTO payment (payment_id, payment_date, ticket_id) VALUES (2, '2019-09-18
 INSERT INTO payment (payment_id, payment_date, ticket_id) VALUES (3, '2019-09-22', 5);
 INSERT INTO payment (payment_id, payment_date, ticket_id) VALUES (4, '2019-09-23', 4);
 INSERT INTO payment (payment_id, payment_date, ticket_id) VALUES (5, '2020-09-25', 1);
-

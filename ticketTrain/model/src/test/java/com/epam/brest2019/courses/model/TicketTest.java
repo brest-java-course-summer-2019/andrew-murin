@@ -16,6 +16,11 @@ public class TicketTest {
 
     private static final String PRICE = "30";
 
+    private static final String FROM_BREST = "BREST";
+
+    private static final String TO_MINSK = "MINSK";
+
+
     Ticket ticket = new Ticket();
 
 
@@ -48,5 +53,17 @@ public class TicketTest {
     public void getDirectionTo() {
         ticket.setTicketDirectionTo(CITY_TO);
         Assert.assertEquals(ticket.getTicketDirectionTo(), CITY_TO);
+    }
+
+    @Test
+    public void getCityFrom() {
+        ticket.setCityFrom(FROM_BREST);
+        Assert.assertEquals(ticket.getCityFrom(), FROM_BREST);
+    }
+
+    @Test
+    public void getCityTo() {
+        ticket.setCityTo(TO_MINSK);
+        Assert.assertEquals(ticket.getCityTo(), TO_MINSK);
     }
 }

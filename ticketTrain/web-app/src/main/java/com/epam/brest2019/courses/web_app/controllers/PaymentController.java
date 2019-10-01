@@ -147,6 +147,7 @@ public class PaymentController {
                                   @Valid Payment payment, BindingResult result) {
         LOGGER.debug("Pay ticket({}, {})",id, payment);
 
+        payment.setPaymentDate(LocalDate.now());
         payment.setTicketId(id);
 
         if (result.hasErrors()){

@@ -139,7 +139,8 @@ public class TicketDaoJdbcImpl implements TicketDao {
     @Override
     public List<Ticket> findAll(){
         List<Ticket> tickets =
-                namedParameterJdbcTemplate.query(SELECT_ALL, new TicketRowMapper());
+                namedParameterJdbcTemplate.query(SELECT_ALL,
+                        BeanPropertyRowMapper.newInstance(Ticket.class));
         return tickets;
     }
 
@@ -172,18 +173,18 @@ public class TicketDaoJdbcImpl implements TicketDao {
         return tickets;
     }
 
-    private class TicketRowMapper implements RowMapper<Ticket>{
-        @Override
-        public Ticket mapRow(ResultSet resultSet, int i) throws SQLException{
-            Ticket ticket = new Ticket();
-            ticket.setTicketId(resultSet.getInt(DB_TICKET_ID));
-            ticket.setTicketDirectionFrom(resultSet.getInt(DB_TICKET_DIRECTION_FROM));
-            ticket.setTicketDirectionTo(resultSet.getInt(DB_TICKET_DIRECTION_TO));
-            ticket.setTicketCost(resultSet.getBigDecimal(DB_TICKET_COST));
-            ticket.setTicketDate(resultSet.getDate(DB_TICKET_DATE).toLocalDate());
-            return ticket;
-        }
-    }
+//    private class TicketRowMapper implements RowMapper<Ticket>{
+//        @Override
+//        public Ticket mapRow(ResultSet resultSet, int i) throws SQLException{
+//            Ticket ticket = new Ticket();
+//            ticket.setTicketId(resultSet.getInt(DB_TICKET_ID));
+//            ticket.setTicketDirectionFrom(resultSet.getInt(DB_TICKET_DIRECTION_FROM));
+//            ticket.setTicketDirectionTo(resultSet.getInt(DB_TICKET_DIRECTION_TO));
+//            ticket.setTicketCost(resultSet.getBigDecimal(DB_TICKET_COST));
+//            ticket.setTicketDate(resultSet.getDate(DB_TICKET_DATE).toLocalDate());
+//            return ticket;
+//        }
+//    }
 
 
 }

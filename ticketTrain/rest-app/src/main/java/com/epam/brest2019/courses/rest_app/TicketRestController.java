@@ -23,7 +23,7 @@ public class TicketRestController {
 
     @GetMapping("/tickets")
     public List<Ticket> findAll() {
-        LOGGER.debug("Findall tickets");
+        LOGGER.debug("Find all tickets");
         return ticketService.findAll();
     }
 

@@ -70,7 +70,7 @@ public class PaymentDaoJdbcImpl implements PaymentDao {
 
     @Override
     public List<Payment> findAll() {
-        List<Payment> payments = namedParameterJdbcTemplate.query(SELECT_ALL, new PaymentRowMapper());
+        List<Payment> payments = namedParameterJdbcTemplate.query(SELECT_ALL, BeanPropertyRowMapper.newInstance(Payment.class));
         return payments;
     }
 
@@ -146,16 +146,16 @@ public class PaymentDaoJdbcImpl implements PaymentDao {
         return payments;
     }
 
-    private class PaymentRowMapper implements RowMapper<Payment> {
-        @Override
-        public Payment mapRow(ResultSet resultSet, int i) throws SQLException {
-            Payment payment = new Payment();
-
-            payment.setTicketId(resultSet.getInt(DB_PAYMENT_ID));
-            payment.setPaymentDate(resultSet.getDate(DB_PAYMENT_DATE).toLocalDate());
-            payment.setPaymentId(resultSet.getInt(DB_TICKET_ID));
-
-            return payment;
-        }
-    }
+//    private class PaymentRowMapper implements RowMapper<Payment> {
+//        @Override
+//        public Payment mapRow(ResultSet resultSet, int i) throws SQLException {
+//            Payment payment = new Payment();
+//
+//            payment.setTicketId(resultSet.getInt(DB_PAYMENT_ID));
+//            payment.setPaymentDate(resultSet.getDate(DB_PAYMENT_DATE).toLocalDate());
+//            payment.setPaymentId(resultSet.getInt(DB_TICKET_ID));
+//
+//            return payment;
+//        }
+//    }
 }
