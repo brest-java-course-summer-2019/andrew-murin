@@ -29,7 +29,7 @@ public class Ticket {
     /**
      * date train
      */
-    @NotNull
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)

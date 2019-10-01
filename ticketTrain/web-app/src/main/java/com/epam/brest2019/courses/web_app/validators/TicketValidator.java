@@ -21,6 +21,7 @@ public class TicketValidator implements Validator {
 
         Ticket ticket = (Ticket) target;
 
+
 //TODO add handler for serverError
 
         if (ticket.getTicketDirectionFrom().equals(ticket.getTicketDirectionTo())){
@@ -33,10 +34,6 @@ public class TicketValidator implements Validator {
 
         if (ticket.getTicketCost().intValue() <= 0) {
             errors.rejectValue("ticketCost","smallerNull");
-        }
-
-        if (ticket.getTicketDate().isAfter(LocalDate.now())) {
-            errors.rejectValue("ticketDate","ticketDate.BeforeNow");
         }
     }
 }
