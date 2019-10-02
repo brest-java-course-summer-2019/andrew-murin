@@ -20,9 +20,9 @@ import org.springframework.web.context.WebApplicationContext;
 @ExtendWith(SpringExtension.class)
 @WebAppConfiguration
 @ContextConfiguration(locations = {"classpath:app-context-test.xml"})
-public class HomeControllerTest {
+class IndexControllerTest {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(HomeControllerTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(IndexControllerTest.class);
 
     @Autowired
     private WebApplicationContext wac;
