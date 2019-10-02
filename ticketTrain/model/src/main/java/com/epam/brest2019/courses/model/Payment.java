@@ -43,6 +43,15 @@ public class Payment {
      */
     private String cityTo;
 
+    private Integer ticketCount;
+
+    public Integer getTicketCount() {
+        return ticketCount;
+    }
+
+    public void setTicketCount(Integer ticketCount) {
+        this.ticketCount = ticketCount;
+    }
 
     /**
      * Constructor without parameters

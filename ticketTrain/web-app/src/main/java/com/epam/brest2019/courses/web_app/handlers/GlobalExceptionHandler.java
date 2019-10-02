@@ -10,6 +10,11 @@ public class GlobalExceptionHandler {
 
     private static Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
+    /**
+     * Receive all errors and handle them
+     *
+     * @return exception-view
+     */
     @ExceptionHandler(Exception.class)
     public String handlerExcpetion() {
         LOGGER.debug("Servers error");

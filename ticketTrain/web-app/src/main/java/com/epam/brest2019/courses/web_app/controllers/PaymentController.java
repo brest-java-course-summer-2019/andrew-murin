@@ -49,6 +49,7 @@ public class PaymentController {
     public final String paidTickets(Model model) {
         LOGGER.debug("Find all paid tickets");
         List<Payment> paynents = paymentService.findAllWitchDirection();
+        model.addAttribute("isNotSearch", true);
         model.addAttribute("payments", paynents);
         return "paid-tickets";
     }
@@ -131,8 +132,9 @@ public class PaymentController {
         }
 
         List<Payment> payments = paymentService.searchByDate(startDateView, finishDateView);
+        model.addAttribute("isSearch", true);
         model.addAttribute("payments", payments);
-
+//        model.addAttribute("isSearch", false);
         return "paid-tickets";
     }
 

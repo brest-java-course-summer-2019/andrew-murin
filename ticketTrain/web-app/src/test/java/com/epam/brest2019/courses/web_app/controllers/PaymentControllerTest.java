@@ -46,16 +46,16 @@ public class PaymentControllerTest {
         mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
     }
 
-    @Test
-    void paidTickets() throws Exception {
-        mockMvc.perform(
-                MockMvcRequestBuilders.get("/paid-tickets"))
-                .andDo(MockMvcResultHandlers.print())
-                    .andExpect(MockMvcResultMatchers.status().isOk())
-                    .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
-                    .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("From")));
-
-    }
+//    @Test
+//    void paidTickets() throws Exception {
+//        mockMvc.perform(
+//                MockMvcRequestBuilders.get("/paid-tickets"))
+//                .andDo(MockMvcResultHandlers.print())
+//                    .andExpect(MockMvcResultMatchers.status().isOk())
+//                    .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
+//                    .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("From")));
+//
+//    }
 
     @Test
     void gotoEditPaidTicketPage() throws Exception {
