@@ -107,12 +107,14 @@
                             <th>Date</th>
                             <th>From</th>
                             <th>To</th>
+                            <th>Cost</th>
                         </tr>
                         <tr th:if="${isNotSearch}">
                             <th>Train</th>
                             <th>From</th>
                             <th>To</th>
                             <th>Count</th>
+                            <th>Cost</th>
                         </tr>
 
                     </thead>
@@ -126,19 +128,8 @@
                                 <td th:text="${payment.paymentDate}">Payment_Date</td>
                                 <td th:text="${payment.cityFrom}">From</td>
                                 <td th:text="${payment.cityTo}">To</td>
+                                <td th:text="${payment.ticketCost}">Cost</td>
 
-                                <!--<td th:text="${payment.ticketCount}">Count</td>-->
-
-                                <!--<td th:text="${isSearch} ? ${payment.ticketCount} : ${payment.paymentDate}">Count/Date</td>-->
-
-                                <!--<div th:if="${isSearch}">-->
-                                <!--<td th:text="${payment.ticketCount}">Count</td>-->
-                                <!--</div>-->
-                                <!--<div th:unless="${isSearch}">-->
-                                <!--<td th:text="${payment.paymentDate}">Date</td>-->
-                                <!--</div>-->
-
-                                <!--<td th:text="${payment.ticketCount}">Count</td>-->
                                 <td>
 
                                             <span data-toggle="modal" data-target="#deleteDialog"
@@ -182,43 +173,14 @@
                                 <td th:text="${payment.cityFrom}">From</td>
                                 <td th:text="${payment.cityTo}">To</td>
                                 <td th:text="${payment.ticketCount}">Count</td>
-
-
-                                <!--<td th:text="${isSearch} ? ${payment.ticketCount} : ${payment.paymentDate}">Count/Date</td>-->
-
-                                <!--<div th:if="${isSearch}">-->
-                                    <!--<td th:text="${payment.ticketCount}">Count</td>-->
-                                <!--</div>-->
-                                <!--<div th:unless="${isSearch}">-->
-                                    <!--<td th:text="${payment.paymentDate}">Date</td>-->
-                                <!--</div>-->
-
-                                <!--<td th:text="${payment.ticketCount}">Count</td>-->
-                                <!--<td>-->
-
-                                        <!--<span data-toggle="modal" data-target="#deleteDialog"-->
-                                              <!--class="navbar-nav float-right"-->
-                                              <!--th:attr="data-id=${payment.paymentId}, data-name=${payment.ticketId}">-->
-                                            <!--<a href="#"-->
-                                               <!--class="btn btn-dark"-->
-                                               <!--title="delete payment"-->
-                                               <!--data-toggle="tooltip"-->
-                                               <!--data-placement="top">-->
-                                                <!--<i class="fa fa-remove"></i><span class="d-none d-md-inline">Delete</span></a>-->
-                                        <!--</span>-->
-
-                                        <!--<span class="navbar-nav float-right">-->
-                                                <!--<a  href="ticket.html"-->
-                                                    <!--th:href="@{|/paid-ticket/${payment.paymentId}|}"-->
-                                                    <!--class="btn btn-dark"-->
-                                                    <!--title="Edit payment"-->
-                                                    <!--data-toggle="tooltip"-->
-                                                    <!--data-placement="top">-->
-                                                        <!--<i class="fa fa-pencil"></i>-->
-                                                    <!--<span class="d-none d-md-inline">Edit</span></a>-->
-
-                                        <!--</span>-->
-                                <!--</td>-->
+                                <td th:text="${payment.totalCost}">totalCost</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td th:text="${countTicket}">Count ticket</td>
+                                <th th:text="${totalSum}">Summ of cost ticket</th>
                             </tr>
                         </div>
                     </tbody>

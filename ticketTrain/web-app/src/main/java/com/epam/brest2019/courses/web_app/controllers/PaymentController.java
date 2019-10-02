@@ -5,6 +5,9 @@ import com.epam.brest2019.courses.model.Ticket;
 import com.epam.brest2019.courses.service.PaymentService;
 import com.epam.brest2019.courses.service.TicketService;
 import com.epam.brest2019.courses.web_app.validators.PaymentValidator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -46,11 +50,32 @@ public class PaymentController {
      * @return paid-tickets
      */
     @GetMapping("/paid-tickets")
-    public final String paidTickets(Model model) {
+    public final String paidTickets(Model model) throws JsonProcessingException {
         LOGGER.debug("Find all paid tickets");
-        List<Payment> paynents = paymentService.findAllWitchDirection();
+        List<Payment> payments = paymentService.findAllWitchDirection();
+
+        ObjectMapper mapper = new ObjectMapper();
+        List<Payment> paymentList = mapper.convertValue(payments,
+                new TypeReference<List<Payment>>(){
+                    }
+        );
+
+        int totolCountTicket = paymentList.stream()
+                .filter(payment -> payment.getTicketCount() != null)
+                .mapToInt(Payment::getTicketCount).sum();
+
+        BigDecimal summ = paymentList.stream()
+                .filter(payment -> payment.getTotalCost() != null)
+                .map(Payment::getTotalCost)
+                .reduce(BigDecimal::add).get();
+
+
+
         model.addAttribute("isNotSearch", true);
-        model.addAttribute("payments", paynents);
+        model.addAttribute("payments", payments);
+        model.addAttribute("countTicket", totolCountTicket);
+        model.addAttribute("totalSum", summ);
+
         return "paid-tickets";
     }
 
@@ -132,6 +157,7 @@ public class PaymentController {
         }
 
         List<Payment> payments = paymentService.searchByDate(startDateView, finishDateView);
+
         model.addAttribute("isSearch", true);
         model.addAttribute("payments", payments);
 //        model.addAttribute("isSearch", false);

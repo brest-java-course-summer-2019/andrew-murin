@@ -8,6 +8,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 /**
@@ -44,6 +45,26 @@ public class Payment {
     private String cityTo;
 
     private Integer ticketCount;
+
+    private BigDecimal ticketCost;
+
+    private BigDecimal totalCost;
+
+    public BigDecimal getTotalCost() {
+        return totalCost;
+    }
+
+    public void setTotalCost(BigDecimal totalCost) {
+        this.totalCost = totalCost;
+    }
+
+    public BigDecimal getTicketCost() {
+        return ticketCost;
+    }
+
+    public void setTicketCost(BigDecimal ticketCost) {
+        this.ticketCost = ticketCost;
+    }
 
     public Integer getTicketCount() {
         return ticketCount;
