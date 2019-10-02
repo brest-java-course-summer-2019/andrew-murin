@@ -16,7 +16,7 @@ public class City {
     private String cityName;
 
     /**
-     * Constructor without paraeters
+     * Constructor without parameters
      */
     public City() {
     }

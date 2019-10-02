@@ -63,8 +63,4 @@ public interface TicketDao {
      */
     List<Ticket> findAllWithDirection();
 
-
-    List<Ticket> countTicket();
-
-    List<Ticket> ticketSum();
 }

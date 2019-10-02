@@ -32,6 +32,13 @@ public class PaymentServiceMockTest {
         Mockito.verifyNoMoreInteractions(paymentDao);
     }
 
+
+    private static final LocalDate START_DATE = LocalDate.of(2019,01,01);
+    private static final LocalDate FINISH_DATE = LocalDate.of(2019,12,12);
+    private static final LocalDate TEST_DATE = LocalDate.of(2019,2,7);
+
+
+
     @Test
     void findAll(){
         Mockito.when(paymentDao.findAll()).thenReturn(Collections.singletonList(createFixture()));
@@ -63,11 +70,10 @@ public class PaymentServiceMockTest {
         Mockito.when(paymentDao.findById(id)).thenReturn(Optional.of(createFixture()));
 
         Payment payment = paymentService.findById(id);
-        LocalDate time = LocalDate.of(2019, 2, 7);
-        payment.setPaymentDate(time);
+        payment.setPaymentDate(TEST_DATE);
 
         assertNotNull(payment);
-        assertEquals(time, payment.getPaymentDate());
+        assertEquals(TEST_DATE, payment.getPaymentDate());
 
         Mockito.verify(paymentDao).findById(id);
     }
@@ -87,13 +93,12 @@ public class PaymentServiceMockTest {
 
     @Test
     void update(){
-        LocalDate localDate  = LocalDate.of(2019, 2,7);
         paymentService.update(createFixture());
         Mockito.verify(paymentDao).update(paymentCaptor.capture());
 
         Payment payment = paymentCaptor.getValue();
         assertNotNull(payment);
-        assertEquals(localDate, payment.getPaymentDate());
+        assertEquals(payment.getPaymentDate(), TEST_DATE);
         assertEquals(1, (int) payment.getPaymentId());
     }
 
@@ -120,24 +125,21 @@ public class PaymentServiceMockTest {
 
     @Test
     void searchByDate() {
-        LocalDate startDate = LocalDate.of(2019,01,01);
-        LocalDate finishDate = LocalDate.of(2019,12,12);
+        Mockito.when(paymentDao.searchByDate(START_DATE, FINISH_DATE)).thenReturn(Collections.singletonList(createFixture()));
 
-        Mockito.when(paymentDao.searchByDate(startDate, finishDate)).thenReturn(Collections.singletonList(createFixture()));
-
-        List<Payment> result = paymentService.searchByDate(startDate, finishDate);
+        List<Payment> result = paymentService.searchByDate(START_DATE, FINISH_DATE);
 
         assertNotNull(result);
         assertFalse(result.isEmpty());
         assertEquals(result.size() -1, 0);
 
-        Mockito.verify(paymentDao).searchByDate(startDate, finishDate);
+        Mockito.verify(paymentDao).searchByDate(START_DATE, FINISH_DATE);
     }
 
 
     private Payment createFixture(){
         Payment payment = new Payment();
-        payment.setPaymentDate(LocalDate.of(2019, 2, 7));
+        payment.setPaymentDate(TEST_DATE);
         payment.setTicketId(2);
         payment.setPaymentId(1);
         return payment;

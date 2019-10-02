@@ -22,8 +22,6 @@ public class TicketValidator implements Validator {
         Ticket ticket = (Ticket) target;
 
 
-//TODO add handler for serverError
-
         if (ticket.getTicketDirectionFrom().equals(ticket.getTicketDirectionTo())){
             errors.rejectValue("ticketDirectionFrom", "ticketDirection");
         }

@@ -43,6 +43,9 @@ public class TicketRestControllerTest {
 
     private MockMvc mockMvc;
 
+    private static final LocalDate START_DATE = LocalDate.of(2019,01,01);
+    private static final LocalDate FINISH_DATE = LocalDate.of(2019,12,12);
+
     @BeforeEach
     void before() {
         mockMvc = MockMvcBuilders.standaloneSetup(ticketRestController)
@@ -152,22 +155,19 @@ public class TicketRestControllerTest {
         Integer directionFrom = 1;
         Integer directionTo = 2;
 
-        LocalDate startDate = LocalDate.of(2019,01,01);
-        LocalDate finishDate = LocalDate.of(2019,12,12);
-
-        Mockito.when(ticketService.searchTicket(startDate, finishDate, directionFrom, directionTo))
+        Mockito.when(ticketService.searchTicket(START_DATE, FINISH_DATE, directionFrom, directionTo))
                 .thenReturn(Arrays.asList(createFixture(0), createFixture(1)));
 
         mockMvc.perform(
                 MockMvcRequestBuilders
-                        .get("/tickets/{startDate}/{finishDate}/{directionFrom}/{directionTo}", startDate, finishDate, directionFrom, directionTo)
+                        .get("/tickets/{startDate}/{finishDate}/{directionFrom}/{directionTo}", START_DATE, FINISH_DATE, directionFrom, directionTo)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8));
 
-        Mockito.verify(ticketService).searchTicket(startDate, finishDate, directionFrom, directionTo);
+        Mockito.verify(ticketService).searchTicket(START_DATE, FINISH_DATE, directionFrom, directionTo);
     }
 
     private Ticket createFixtureForAllDeriction(Integer ticketId) {

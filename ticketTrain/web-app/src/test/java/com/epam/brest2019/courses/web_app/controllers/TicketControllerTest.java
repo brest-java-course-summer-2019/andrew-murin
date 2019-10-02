@@ -48,7 +48,7 @@ public class TicketControllerTest {
 
 
     @BeforeEach
-    public void setup(WebApplicationContext wac){
+    public void setup(){
         mockMvc = MockMvcBuilders.webAppContextSetup(wac)
                 .build();
     }
@@ -162,8 +162,5 @@ public class TicketControllerTest {
         ticket.setTicketId(ticketId);
         return ticket;
     }
-
-
-
 
 }

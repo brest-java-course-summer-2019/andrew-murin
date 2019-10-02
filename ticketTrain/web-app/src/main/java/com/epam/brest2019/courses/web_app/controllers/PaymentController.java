@@ -54,15 +54,18 @@ public class PaymentController {
         LOGGER.debug("Find all paid tickets");
         List<Payment> payments = paymentService.findAllWitchDirection();
 
+
         ObjectMapper mapper = new ObjectMapper();
         List<Payment> paymentList = mapper.convertValue(payments,
                 new TypeReference<List<Payment>>(){
                     }
         );
 
+
         int totolCountTicket = paymentList.stream()
                 .filter(payment -> payment.getTicketCount() != null)
                 .mapToInt(Payment::getTicketCount).sum();
+
 
         BigDecimal summ = paymentList.stream()
                 .filter(payment -> payment.getTotalCost() != null)
@@ -160,7 +163,6 @@ public class PaymentController {
 
         model.addAttribute("isSearch", true);
         model.addAttribute("payments", payments);
-//        model.addAttribute("isSearch", false);
         return "paid-tickets";
     }
 

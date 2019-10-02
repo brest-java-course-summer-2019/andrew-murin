@@ -19,6 +19,10 @@ public class PaymentServiceImplTest {
     @Autowired
     private PaymentService paymentService;
 
+    private static final LocalDate START_DATE = LocalDate.of(2019,01,01);
+    private static final LocalDate FINISH_DATE = LocalDate.of(2019,12,12);
+
+
     @Test
     void findAll(){
         List<Payment> payments = paymentService.findAll();
@@ -82,10 +86,7 @@ public class PaymentServiceImplTest {
 
     @Test
     void searchByDate() {
-        LocalDate startDate = LocalDate.of(2019,01,01);
-        LocalDate finishDate = LocalDate.of(2019,12,12);
-
-        List<Payment> payments = paymentService.searchByDate(startDate, finishDate);
+        List<Payment> payments = paymentService.searchByDate(START_DATE, FINISH_DATE);
 
         assertNotNull(payments);
         assertFalse(payments.isEmpty());

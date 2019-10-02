@@ -24,12 +24,6 @@
 
     <context:property-placeholder location="classpath:application.properties"/>
 
-    <!--<import resource="classpath*:test-db.xml" />-->
-
-    <!--<bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">-->
-        <!--<constructor-arg name="dataSource" ref="dataSource"/>-->
-    <!--</bean>-->
-
     <bean id="ticketService" class="com.epam.brest2019.courses.web_app.consumers.TicketRestConsumer">
         <constructor-arg index="0" value="${protocol}://${host}:${port}/${point.tickets}"/>
         <constructor-arg index="1" ref="restTemplate" />

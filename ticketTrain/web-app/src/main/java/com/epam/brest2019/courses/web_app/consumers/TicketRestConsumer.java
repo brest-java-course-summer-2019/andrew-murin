@@ -71,13 +71,4 @@ public class TicketRestConsumer implements TicketService {
         return (List<Ticket>) responseEntity.getBody();
     }
 
-    @Override
-    public List<Ticket> countTicket() {
-        return null;
-    }
-
-    @Override
-    public List<Ticket> ticketSum() {
-        return null;
-    }
 }

@@ -56,16 +56,6 @@ public class Ticket {
     private String cityTo;
 
     /**
-     * Count ticket
-     */
-    private Integer countTicket;
-
-    /**
-     * Count cost of ticket
-     */
-    private BigDecimal countTicketSum;
-
-    /**
      * Constructor without parameters
      */
 
@@ -87,41 +77,9 @@ public class Ticket {
         this.ticketDirectionTo = ticketDirectionTo;
     }
 
-    /**
-     * Get total number of train.
-     * @return countTicket.
-     */
-    public Integer getCountTicket() {
-        return countTicket;
-    }
-
-    /**
-     * Set this countTicket.
-     * @param countTicket countTicket
-     */
-    public void setCountTicket(Integer countTicket) {
-        this.countTicket = countTicket;
-    }
-
-    /**
-     * Get total amount of tickets.
-     * @return countTicketSum.
-     */
-    public BigDecimal getCountTicketSum() {
-        return countTicketSum;
-    }
-
-    /**
-     * Set countTicketSum.
-     * @param countTicketSum countTicketSum
-     */
-    public void setCountTicketSum(BigDecimal countTicketSum) {
-        this.countTicketSum = countTicketSum;
-    }
-
-    /**
-     * Get this ticketDate of train.
-     * @return ticketDate of train.
+     /** Get this ticketDate of train.
+     *
+      * @return ticketDate of train.
      */
     public String getCityFrom() {
         return cityFrom;

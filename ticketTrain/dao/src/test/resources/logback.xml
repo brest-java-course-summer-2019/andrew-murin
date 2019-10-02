@@ -8,7 +8,7 @@
         </encoder>
     </appender>
 
-    <logger name="com.epam.courses.hr.dao" level="DEBUG" additivity="false">
+    <logger name="com.epam.brest2019.courses.dao" level="DEBUG" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
 

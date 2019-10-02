@@ -63,9 +63,5 @@ public interface TicketService {
      */
     List<Ticket> findAllWithDirection();
 
-    List<Ticket> countTicket();
-
-    List<Ticket> ticketSum();
-
 }
 

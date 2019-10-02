@@ -92,19 +92,13 @@
                           th:action="@{${#httpServletRequest.servletPath}}"
                           th:method="@{post}">
 
-                        <!--<div th:if="${#fields.hasErrors('*')}"-->
-                             <!--class="alert alert-danger">-->
-                            <!--<p>Please fix errors below:</p>-->
-                        <!--</div>-->
 
-                        <!--Send with form a ticketId-->
                         <input id="field_ticketId"
                                 th:type="hidden"
                                 th:field="*{paymentId}"/>
 
 
                         <tr>
-
                                 <label>Select number of train</label>
                                 <select class="form-control" id="ticketId" name="ticketId"
                                         th:field="*{ticketId}">

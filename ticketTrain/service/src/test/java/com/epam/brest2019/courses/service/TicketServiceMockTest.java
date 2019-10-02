@@ -36,6 +36,10 @@ public class TicketServiceMockTest {
         Mockito.verifyNoMoreInteractions(ticketDao);
     }
 
+
+    private  static final LocalDate START_DATE = LocalDate.of(2019, 01,01);
+    private static final LocalDate FINISH_DATE = LocalDate.of(2019, 12,12);
+
     @Test
     void findAll(){
         Mockito.when(ticketDao.findAll()).thenReturn(Collections.singletonList(createFixture()));
@@ -104,21 +108,18 @@ public class TicketServiceMockTest {
     void searchTicket() {
         Ticket ticket = createFixture();
 
-        LocalDate startDate = LocalDate.of(2019, 01,01);
-        LocalDate finishDate = LocalDate.of(2019, 12,12);
-
-        Mockito.when(ticketDao.searchTicket(startDate, finishDate,
+        Mockito.when(ticketDao.searchTicket(START_DATE, FINISH_DATE,
                 ticket.getTicketDirectionFrom(), ticket.getTicketDirectionTo()))
                 .thenReturn(Collections.singletonList(createFixture()));
 
-        List<Ticket> result = ticketService.searchTicket(startDate, finishDate,
+        List<Ticket> result = ticketService.searchTicket(START_DATE, FINISH_DATE,
                 ticket.getTicketDirectionFrom(), ticket.getTicketDirectionTo());
 
         assertNotNull(result);
         assertFalse(result.isEmpty());
         assertEquals(result.size() - 1, 0);
 
-        Mockito.verify(ticketDao).searchTicket(startDate, finishDate,
+        Mockito.verify(ticketDao).searchTicket(START_DATE, FINISH_DATE,
                 ticket.getTicketDirectionFrom(), ticket.getTicketDirectionTo());
     }
 

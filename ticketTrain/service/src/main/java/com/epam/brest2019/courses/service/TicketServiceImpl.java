@@ -67,16 +67,4 @@ public class TicketServiceImpl implements TicketService {
         return ticketDao.findAllWithDirection();
     }
 
-    @Override
-    public List<Ticket> countTicket() {
-        LOGGER.debug("Count found tickets:");
-        return ticketDao.countTicket();
-    }
-
-    @Override
-    public List<Ticket> ticketSum() {
-        LOGGER.debug("Count all sum found tickets()");
-        return ticketDao.ticketSum();
-    }
-
 }

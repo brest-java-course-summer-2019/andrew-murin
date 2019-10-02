@@ -12,7 +12,7 @@ public class HomeController {
 
     /**
      * Default page
-     * @return
+     * @return index-view
      */
     @GetMapping("/index")
     public String index() {

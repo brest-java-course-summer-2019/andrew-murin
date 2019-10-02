@@ -26,6 +26,10 @@ public class PaymentRestConsumerTest {
 
     private Payment payment;
 
+
+    private static final LocalDate START_DATE = LocalDate.of(2019,01,01);
+    private static final LocalDate FINISH_DATE = LocalDate.of(2019,12,12);
+
     @BeforeEach
     void setUp() {
         initMocks(this);
@@ -94,14 +98,11 @@ public class PaymentRestConsumerTest {
     @Test
     void searchByDate() {
         List<Payment> payments = Arrays.asList();
-        LocalDate  startDate = LocalDate.of(2019,01,01);
-        LocalDate finishDate = LocalDate.of(2019,12,12);
 
-
-        Mockito.when(mockRestTemplate.getForEntity("url/" + startDate + "/" + finishDate, List.class))
+        Mockito.when(mockRestTemplate.getForEntity("url/" + START_DATE + "/" + FINISH_DATE, List.class))
                 .thenReturn(new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK));
 
-        List<Payment> payment = paymentRestConsumerTest.searchByDate(startDate, finishDate);
+        List<Payment> payment = paymentRestConsumerTest.searchByDate(START_DATE, FINISH_DATE);
 
         Assert.assertEquals(payments, payment);
     }

@@ -46,6 +46,10 @@ public class PaymentRestControllerTest {
 
     private MockMvc mockMvc;
 
+
+    private static final LocalDate START_DATE = LocalDate.of(2019,01,01);
+    private static final LocalDate FINISH_DATE = LocalDate.of(2019,12,12);
+
     @BeforeEach
     void before() {
         mockMvc = MockMvcBuilders.standaloneSetup(paymentRestController)
@@ -171,20 +175,17 @@ public class PaymentRestControllerTest {
 
     @Test
     void searchByDate() throws Exception {
-        LocalDate startDate = LocalDate.of(2019,01,01);
-        LocalDate finishDate = LocalDate.of(2019,12,12);
-
-        Mockito.when(paymentService.searchByDate(startDate, finishDate)).thenReturn(Arrays.asList(createFixture(1)));
+        Mockito.when(paymentService.searchByDate(START_DATE, FINISH_DATE)).thenReturn(Arrays.asList(createFixture(1)));
 
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/payments/{startDate}/{finishDate}", startDate, finishDate)
+                MockMvcRequestBuilders.get("/payments/{startDate}/{finishDate}", START_DATE, FINISH_DATE)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8));
 
-        Mockito.verify(paymentService, Mockito.times(1)).searchByDate(startDate, finishDate);
+        Mockito.verify(paymentService, Mockito.times(1)).searchByDate(START_DATE, FINISH_DATE);
     }
 
     private Payment createFixture(Integer paymentId) {

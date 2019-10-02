@@ -96,9 +96,6 @@ public class TicketRestConsumerTest {
     }
 
 
-
-
-
     private Ticket createTicketFixture(int id) {
         Ticket ticket = new Ticket();
         ticket.setTicketId(id);

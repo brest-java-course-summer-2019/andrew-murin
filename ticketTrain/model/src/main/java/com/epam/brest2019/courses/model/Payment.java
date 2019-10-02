@@ -1,6 +1,6 @@
 package com.epam.brest2019.courses.model;
 
-//import com.fasterxml.jackson.annotation.JsonFormat;
+
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
@@ -11,10 +11,12 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+
 /**
  * POJO Payment for model
  */
 public class Payment {
+
     /**
      * Payment Id
      */
@@ -32,47 +34,32 @@ public class Payment {
     /**
      * Ticket Id
      */
-
     private Integer ticketId;
 
     /**
      * City from for sql-query
      */
     private String cityFrom;
+
     /**
      * City To for sql-query
      */
     private String cityTo;
 
-    private Integer ticketCount;
-
+    /**
+     * Summing all costs by different directions
+     */
     private BigDecimal ticketCost;
 
+    /**
+     * Counting all tickets by different directions
+     */
+    private Integer ticketCount;
+
+    /**
+     *For get total amount by all directions
+     */
     private BigDecimal totalCost;
-
-    public BigDecimal getTotalCost() {
-        return totalCost;
-    }
-
-    public void setTotalCost(BigDecimal totalCost) {
-        this.totalCost = totalCost;
-    }
-
-    public BigDecimal getTicketCost() {
-        return ticketCost;
-    }
-
-    public void setTicketCost(BigDecimal ticketCost) {
-        this.ticketCost = ticketCost;
-    }
-
-    public Integer getTicketCount() {
-        return ticketCount;
-    }
-
-    public void setTicketCount(Integer ticketCount) {
-        this.ticketCount = ticketCount;
-    }
 
     /**
      * Constructor without parameters
@@ -181,6 +168,60 @@ public class Payment {
      */
     public void setCityTo(String cityTo) {
         this.cityTo = cityTo;
+    }
+
+    /**
+     * Get totalCost
+     *
+     * @return totalCost
+     */
+    public BigDecimal getTotalCost() {
+        return totalCost;
+    }
+
+    /**
+     * Set totalCost
+     *
+     * @param totalCost
+     */
+    public void setTotalCost(BigDecimal totalCost) {
+        this.totalCost = totalCost;
+    }
+
+    /**
+     * Get ticketCost
+     *
+     * @return ticketCost
+     */
+    public BigDecimal getTicketCost() {
+        return ticketCost;
+    }
+
+    /**
+     * Set ticketCost
+     *
+     * @param ticketCost
+     */
+    public void setTicketCost(BigDecimal ticketCost) {
+        this.ticketCost = ticketCost;
+    }
+
+    /**
+     * Get ticketCount
+     *
+     * @return
+     */
+    public Integer getTicketCount() {
+        return ticketCount;
+    }
+
+    /**
+     * Set ticketCount
+     *
+     * @param ticketCount
+     */
+    public void setTicketCount(Integer ticketCount) {
+        this.ticketCount = ticketCount;
     }
 
 

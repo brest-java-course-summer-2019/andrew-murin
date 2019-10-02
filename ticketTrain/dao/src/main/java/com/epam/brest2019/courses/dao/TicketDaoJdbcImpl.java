@@ -49,13 +49,6 @@ public class TicketDaoJdbcImpl implements TicketDao {
     @Value("${ticket.searchByDate}")
     private String SEARCH_BY_DATE;
 
-    @Value("${ticket.countTicket}")
-    private String TICKET_COUNT_AGGREGATE;
-
-    @Value("${ticket.countTicketSum}")
-    private String TICKET_SUM_AGGREGATE;
-
-
 
     //Fields of Models
     private final static String TICKET_ID = "ticketId";
@@ -63,8 +56,6 @@ public class TicketDaoJdbcImpl implements TicketDao {
     private final static String TICKET_DIRECTION_TO = "ticketDirectionTo";
     private final static String TICKET_COST = "ticketCost";
     private final static String TICKET_DATE = "ticketDate";
-//    private final static String TICKET_COUNT = "countTicket";
-//    private final static String TICKET_SUM = "ticketSum";
 
     //Fields for search
     private final static String TICKET_SEARCH_START_DATE = "startDate";
@@ -150,20 +141,5 @@ public class TicketDaoJdbcImpl implements TicketDao {
                 BeanPropertyRowMapper.newInstance(Ticket.class));
         return tickets;
     }
-
-    @Override
-    public List<Ticket> countTicket() {
-        List<Ticket> tickets = namedParameterJdbcTemplate.query(TICKET_COUNT_AGGREGATE,
-                BeanPropertyRowMapper.newInstance(Ticket.class));
-        return tickets;
-    }
-
-    @Override
-    public List<Ticket> ticketSum() {
-        List<Ticket> tickets = namedParameterJdbcTemplate.query(TICKET_SUM_AGGREGATE,
-                BeanPropertyRowMapper.newInstance(Ticket.class));
-        return tickets;
-    }
-
 
 }

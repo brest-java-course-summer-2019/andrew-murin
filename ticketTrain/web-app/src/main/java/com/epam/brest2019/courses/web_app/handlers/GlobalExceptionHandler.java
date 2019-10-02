@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    /**
+     * Logger
+     */
     private static Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     /**
