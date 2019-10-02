@@ -24,13 +24,4 @@ public class HelloController {
         return "index";
     }
 
-    /**
-     * Default page
-     * @return index-view
-     */
-    @GetMapping("/index")
-    public String index() {
-        LOGGER.debug("Index controller");
-        return "index";
-    }
 }

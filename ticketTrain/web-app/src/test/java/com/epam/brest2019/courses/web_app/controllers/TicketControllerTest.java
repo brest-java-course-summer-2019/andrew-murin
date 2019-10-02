@@ -22,7 +22,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 @ExtendWith(SpringExtension.class)
 @WebAppConfiguration
-@ContextConfiguration(locations = "classpath:app-context-test.xml")
+@ContextConfiguration(locations = "classpath*:app-context-test.xml")
 public class TicketControllerTest {
 
     @Autowired

@@ -4,6 +4,8 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -18,7 +20,9 @@ import org.springframework.web.context.WebApplicationContext;
 @ExtendWith(SpringExtension.class)
 @WebAppConfiguration
 @ContextConfiguration(locations = {"classpath*:app-context-test.xml"})
-class HelloControllerTest {
+class HomeControllerTest {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(HomeControllerTest.class);
 
     @Autowired
     private WebApplicationContext wac;
@@ -26,18 +30,18 @@ class HelloControllerTest {
     private MockMvc mockMvc;
 
     @BeforeEach
-    void setUp() {
+    void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
     }
 
+
     @Test
-    void hello() throws Exception {
+    void index() throws Exception {
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/")
+                MockMvcRequestBuilders.get("/index")
         ).andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
-                .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("<title>Ticket train</title>")));
+                .andExpect(MockMvcResultMatchers.content().
+                        string(Matchers.containsString("<title>Ticket train</title>")));
     }
-
 }

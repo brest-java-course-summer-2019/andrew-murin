@@ -24,7 +24,7 @@ import java.util.Arrays;
 
 @ExtendWith(SpringExtension.class)
 @WebAppConfiguration
-@ContextConfiguration(locations = "classpath:app-context-test.xml")
+@ContextConfiguration(locations = "classpath*:app-context-test.xml")
 public class PaymentControllerTest {
 
     @Autowired
