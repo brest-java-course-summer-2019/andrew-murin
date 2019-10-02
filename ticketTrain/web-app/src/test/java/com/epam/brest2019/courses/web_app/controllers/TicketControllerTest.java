@@ -63,7 +63,7 @@ public class TicketControllerTest {
                         .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
                         .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("From")));
 
-        Mockito.verify(ticketService, Mockito.times(1)).findAll();
+
     }
 
     @Test
@@ -75,7 +75,7 @@ public class TicketControllerTest {
                         .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
                         .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("From")));
 
-        Mockito.verify(ticketService, Mockito.times(1)).findAllWithDirection();
+
     }
 
     @Test
@@ -91,7 +91,7 @@ public class TicketControllerTest {
                         .andExpect(MockMvcResultMatchers.content()
                             .string(Matchers.containsString("#")));
 
-        Mockito.verify(ticketService, Mockito.times(1)).findById(Mockito.anyInt());
+
     }
 
 
@@ -138,7 +138,7 @@ public class TicketControllerTest {
                         .andExpect(MockMvcResultMatchers.status().isFound())
                         .andExpect(MockMvcResultMatchers.redirectedUrl("/tickets"));
 
-        Mockito.verify(ticketService, Mockito.times(1)).delete(Mockito.anyInt());
+
     }
 
     @Test
