@@ -35,10 +35,6 @@
         <constructor-arg value="com.epam.brest2019.courses.service.PaymentService"/>
     </bean>
 
-    <!--<bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">-->
-        <!--<constructor-arg name="dataSource" ref="dataSource"/>-->
-    <!--</bean>-->
-
     <!-- Thymeleaf Template Resolver -->
     <bean id="templateResolver"
           class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">

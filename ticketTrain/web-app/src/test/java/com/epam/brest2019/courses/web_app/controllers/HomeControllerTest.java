@@ -19,7 +19,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 @ExtendWith(SpringExtension.class)
 @WebAppConfiguration
-@ContextConfiguration(locations = "classpath:app-context-test.xml")
+@ContextConfiguration(locations = {"classpath:app-context-test.xml"})
 public class HomeControllerTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HomeControllerTest.class);
