@@ -20,8 +20,17 @@ public class HelloController {
      */
     @GetMapping("/")
     public String hello() {
-        LOGGER.debug("Index controller");
+        LOGGER.debug("/ controller");
         return "index";
     }
 
+    /**
+     * Default page
+     * @return index-view
+     */
+    @GetMapping("/index")
+    public String index() {
+        LOGGER.debug("Index controller");
+        return "index";
+    }
 }

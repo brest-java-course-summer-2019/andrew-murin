@@ -34,10 +34,20 @@ class HelloControllerTest {
     void hello() throws Exception {
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/")
-                        .param("name", "Java")
         ).andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
                 .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("<title>Ticket train</title>")));
+    }
+
+
+    @Test
+    void index() throws Exception {
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/index")
+        ).andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().
+                        string(Matchers.containsString("<title>Ticket train</title>")));
     }
 }
