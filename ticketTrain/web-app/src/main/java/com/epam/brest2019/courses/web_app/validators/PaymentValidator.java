@@ -20,15 +20,8 @@ public class PaymentValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
 
-//        Payment payment = (Payment) target;
-//        Ticket ticket = new Ticket();
-
         ValidationUtils.rejectIfEmpty(errors, "ticketId", "ticketId.empty");
         ValidationUtils.rejectIfEmpty(errors, "paymentDate", "paymentDate.empty");
 
-
-//        if (payment.getPaymentDate().isAfter(ticket.getTicketDate())) {
-//            errors.rejectValue("paymentDate", "paymentDateNotCorrect");
-//        }
     }
 }

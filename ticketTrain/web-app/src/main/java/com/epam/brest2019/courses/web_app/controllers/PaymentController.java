@@ -43,6 +43,7 @@ public class PaymentController {
 
     @Autowired
     private PaymentValidator paymentValidator;
+
     /**
      * Goto paid-tickets page.
      *
@@ -62,7 +63,7 @@ public class PaymentController {
         );
 
 
-        int totolCountTicket = paymentList.stream()
+        int totalCountTicket = paymentList.stream()
                 .filter(payment -> payment.getTicketCount() != null)
                 .mapToInt(Payment::getTicketCount).sum();
 
@@ -70,13 +71,13 @@ public class PaymentController {
         BigDecimal summ = paymentList.stream()
                 .filter(payment -> payment.getTotalCost() != null)
                 .map(Payment::getTotalCost)
-                .reduce(BigDecimal::add).get();
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
 
 
 
         model.addAttribute("isNotSearch", true);
         model.addAttribute("payments", payments);
-        model.addAttribute("countTicket", totolCountTicket);
+        model.addAttribute("countTicket", totalCountTicket);
         model.addAttribute("totalSum", summ);
 
         return "paid-tickets";

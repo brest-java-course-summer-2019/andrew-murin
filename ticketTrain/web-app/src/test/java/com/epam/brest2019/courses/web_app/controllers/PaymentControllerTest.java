@@ -46,16 +46,16 @@ public class PaymentControllerTest {
         mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
     }
 
-//    @Test
-//    void paidTickets() throws Exception {
-//        mockMvc.perform(
-//                MockMvcRequestBuilders.get("/paid-tickets"))
-//                .andDo(MockMvcResultHandlers.print())
-//                    .andExpect(MockMvcResultMatchers.status().isOk())
-//                    .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
-//                    .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("From")));
-//
-//    }
+    @Test
+    void paidTickets() throws Exception {
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/paid-tickets"))
+                .andDo(MockMvcResultHandlers.print())
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
+                    .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("From")));
+
+    }
 
     @Test
     void gotoEditPaidTicketPage() throws Exception {
@@ -106,21 +106,16 @@ public class PaymentControllerTest {
         Mockito.verify(paymentService, Mockito.times(1)).delete(Mockito.anyInt());
     }
 
-//    @Test
-//    void searchByDate() throws Exception {
-//        LocalDate startDate = LocalDate.of(2019,01,01);
-//        LocalDate finishDate = LocalDate.of(2019,12,12);
-//
-//        Mockito.when(paymentService.searchByDate(startDate, finishDate)).thenReturn(Arrays.asList(createFixture(1), createFixture(2)));
-//
-//        mockMvc.perform(
-//                MockMvcRequestBuilders.post("/paid-tickets"))
-//                .andDo(MockMvcResultHandlers.print())
-//                        .andExpect(MockMvcResultMatchers.status().isOk())
-//                        .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
-//                        .andExpect(MockMvcResultMatchers.view().name("paid-tickets"))
-//                        .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("<title>Paid tickets</title>")));
-//    }
+    @Test
+    void searchByDate() throws Exception {
+        mockMvc.perform(
+                MockMvcRequestBuilders.post("/paid-tickets"))
+                .andDo(MockMvcResultHandlers.print())
+                        .andExpect(MockMvcResultMatchers.status().isOk())
+                        .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
+                        .andExpect(MockMvcResultMatchers.view().name("paid-tickets"))
+                        .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("<title>Paid tickets</title>")));
+    }
 
     private Payment createFixture(Integer id) {
         Payment payment = new Payment();
