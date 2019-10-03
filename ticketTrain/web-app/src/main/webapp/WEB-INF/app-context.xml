@@ -34,6 +34,10 @@
         <constructor-arg index="1" ref="restTemplate" />
     </bean>
 
+    <bean id="homeController" class="com.epam.brest2019.courses.web_app.controllers.HomeController">
+
+    </bean>
+
     <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
         <property name="messageConverters">
             <list>
