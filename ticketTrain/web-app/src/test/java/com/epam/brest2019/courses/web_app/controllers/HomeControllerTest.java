@@ -36,7 +36,7 @@ class HomeControllerTest {
 
 
     @Test
-    void index() throws Exception {
+    void home() throws Exception {
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/index")
         ).andDo(MockMvcResultHandlers.print())

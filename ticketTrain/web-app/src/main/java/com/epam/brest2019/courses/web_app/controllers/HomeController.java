@@ -17,7 +17,7 @@ public class HomeController {
      * @return index-view
      */
     @GetMapping("/index")
-    public String index() {
+    public String home() {
         LOGGER.debug("Index controller");
         return "index";
     }
