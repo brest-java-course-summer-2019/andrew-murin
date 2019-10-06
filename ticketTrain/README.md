@@ -27,4 +27,4 @@ Start REST app:
 Get all tickets:
 
     curl -v localhost:8088/tickets
-    
+
