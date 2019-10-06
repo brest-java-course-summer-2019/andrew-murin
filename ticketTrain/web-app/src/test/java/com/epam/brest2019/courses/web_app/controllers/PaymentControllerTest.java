@@ -52,8 +52,7 @@ public class PaymentControllerTest {
                 MockMvcRequestBuilders.get("/paid-tickets"))
                 .andDo(MockMvcResultHandlers.print())
                     .andExpect(MockMvcResultMatchers.status().isOk())
-                    .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
-                    .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("From")));
+                    .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"));
 
     }
 
