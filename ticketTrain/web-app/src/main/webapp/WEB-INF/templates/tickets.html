@@ -37,20 +37,35 @@
                 <li class="nav-item active">
                     <a class="nav-link"
                        href="search-tickets.html"
-                        th:href="@{/search-tickets}">Search</a>
+                       th:href="@{/search-tickets}"
+                       th:text="#{nav.search}">Search</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link"
                        href="tickets.html"
-                       th:href="@{/tickets}">Schedule</a>
+                       th:href="@{/tickets}"
+                       th:text="#{nav.schedule}">Schedule</a>
                 </li>
                 <li class="nav-item active">
-                    <a  class="nav-link"
-                        href="paid-tickets.html"
-                        th:href="@{/paid-tickets}">Paid tickets</a>
+                    <a class="nav-link"
+                       href="paid-tickets.html"
+                       th:href="@{/paid-tickets}"
+                       th:text="#{nav.paid.tickets}">Paid tickets</a>
                 </li>
-
             </ul>
+        </div>
+
+        <div>
+            <a href="?lang=en">
+                <img src="../../resources/static/img/logo.svg"
+                     th:src="@{/resources/static/img/en_flag.svg}"
+                     height="20" width="32">
+            </a>
+            <a href="?lang=ru">
+                <img src="../../resources/static/img/logo.svg"
+                     th:src="@{/resources/static/img/ru_flag.svg}"
+                     height="20" width="32">
+            </a>
         </div>
 
     </nav>
@@ -58,7 +73,8 @@
 
     <header>
         <nav id="main-header" class="py-1 mb-3 navbar navbar-expand-sm navbar-light bg-light text-dark">
-            <span class="navbar-brand mr-auto">Train schedule</span>
+            <span class="navbar-brand mr-auto"
+                    th:text="#{nav.train.schedule}">Train schedule</span>
             <ul class="navbar-nav float-right">
                 <li>
                 <a href="tickets.html"
@@ -69,7 +85,8 @@
                    data-placement="left"
                    title="Save ticket">
                     <i class="fas fa-save"></i>
-                    <span class="d-none d-sm-inline">&nbsp;Add</span></a>
+                    <span class="d-none d-sm-inline"
+                            th:text="#{add}">&nbsp;Add</span></a>
                 </li>
             </ul>
         </nav>
@@ -82,11 +99,11 @@
                     <table class="table table-striped">
                         <thead class="thead-inverse">
                             <tr>
-                                <th>Train</th>
-                                <th>From</th>
-                                <th>To</th>
-                                <th>Cost</th>
-                                <th>Date</th>
+                                <th th:text="#{train}">Train</th>
+                                <th th:text="#{from}">From</th>
+                                <th th:text="#{to}">To</th>
+                                <th th:text="#{cost}">Cost</th>
+                                <th th:date="#{date}">Date</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -109,7 +126,8 @@
                                             data-toggle="tooltip"
                                             data-placement="top">
                                                 <i class="fa fa-pencil"></i>
-                                            <span class="d-none d-md-inline">Pay</span></a>
+                                            <span class="d-none d-md-inline"
+                                                    th:text="#{pay}">Pay</span></a>
 
                                     </span>
                                 </td>
@@ -121,7 +139,9 @@
                                            title="delete ticket"
                                            data-toggle="tooltip"
                                            data-placement="top">
-                                            <i class="fa fa-remove"></i><span class="d-none d-md-inline">Delete</span></a>
+                                            <i class="fa fa-remove"></i>
+                                            <span class="d-none d-md-inline"
+                                                  th:text="#{delete}">Delete</span></a>
                                     </span>
 
                                     <span class="navbar-nav float-right">
@@ -132,7 +152,8 @@
                                             data-toggle="tooltip"
                                             data-placement="top">
                                                 <i class="fa fa-pencil"></i>
-                                            <span class="d-none d-md-inline">Edit</span></a>
+                                            <span class="d-none d-md-inline"
+                                                    th:text="#{edit}">Edit</span></a>
 
                                     </span>
                                 </td>

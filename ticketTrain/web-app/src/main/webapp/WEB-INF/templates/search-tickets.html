@@ -35,26 +35,42 @@
             <li class="nav-item active">
                 <a class="nav-link"
                    href="search-tickets.html"
-                   th:href="@{/search-tickets}">Search</a>
+                   th:href="@{/search-tickets}"
+                   th:text="#{nav.search}">Search</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link"
                    href="tickets.html"
-                   th:href="@{/tickets}">Schedule</a>
+                   th:href="@{/tickets}"
+                   th:text="#{nav.schedule}">Schedule</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link"
                    href="paid-tickets.html"
-                   th:href="@{/paid-tickets}">Paid tickets</a>
+                   th:href="@{/paid-tickets}"
+                   th:text="#{nav.paid.tickets}">Paid tickets</a>
             </li>
         </ul>
+    </div>
+
+    <div>
+        <a href="?lang=en">
+            <img src="../../resources/static/img/logo.svg"
+                 th:src="@{/resources/static/img/en_flag.svg}"
+                 height="20" width="32" alt="HR">
+        </a>
+        <a href="?lang=ru">
+            <img src="../../resources/static/img/logo.svg"
+                 th:src="@{/resources/static/img/ru_flag.svg}"
+                 height="20" width="32" alt="HR"></a>
     </div>
 </nav>
 
 <header>
     <nav id="main-header"
          class="py-1 mb-3 navbar navbar-expand-sm navbar-light bg-light text-dark">
-        <span class="navbar-brand mr-auto">Choise direction</span>
+        <span class="navbar-brand mr-auto"
+                th:text="#{nav.choise.direction}">Choise direction</span>
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a href="tickets.html"
@@ -65,7 +81,8 @@
                        th:href="@{/tickets}"
                        th:onclick="@{document.forms['FormSearchDate'].submit(); return false;}">
                     <i class="fas fa-undo"></i>
-                        <span class="d-none d-sm-inline">&nbsp;Search</span></a>
+                        <span class="d-none d-sm-inline"
+                                th:text="#{nav.search}">&nbsp;Search</span></a>
                 </li>
             </ul>
     </nav>
@@ -84,7 +101,7 @@
 
                         <tr>
                             <div class="form-group">
-                                <label>Select from a city</label>
+                                <label th:text="#{select.from}">Select from a city</label>
                                 <select class="form-control" id="directionFrom" name="directionFrom" th:value="directionFrom">
                                     <option th:value=1>BREST</option>
                                     <option th:value=2>MINSK</option>
@@ -98,7 +115,7 @@
 
                         <tr>
                             <div class="form-group">
-                                <label>Select to a city</label>
+                                <label th:text="#{select.to}">Select to a city</label>
                                 <select class="form-control" id="directionTo" name="directionTo" th:value="directionTo">
                                     <option th:value=1>BREST</option>
                                     <option th:value=2>MINSK</option>
@@ -110,7 +127,7 @@
                             </div>
 
                         </tr>
-                        <tr><td><label>Select a date</label>
+                        <tr><td><label th:text="#{select.date}">Select a date</label>
                                 <div class="form-group">
                                     <input id="startDate"
                                            name="startDate"
@@ -119,7 +136,7 @@
                                            value="">
                                 </div></td>
                         </tr>
-                        <tr><td><label>Select a date</label>
+                        <tr><td><label th:text="#{select.date}">Select a date</label>
                                 <div class="form-group">
                                     <input id="finishDate"
                                            name="finishDate"
