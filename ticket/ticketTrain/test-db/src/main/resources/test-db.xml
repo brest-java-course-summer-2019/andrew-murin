@@ -19,8 +19,8 @@
     </bean>
 
     <jdbc:initialize-database>
-        <jdbc:script location="classpath*:com.epam.brest2019.courses/resources/create-tables.sql"/>
-        <jdbc:script location="classpath*:com.epam.brest2019.courses/resources/data-script.sql"/>
+        <jdbc:script location="classpath*:create-tables.sql"/>
+        <jdbc:script location="classpath*:data-script.sql"/>
     </jdbc:initialize-database>
 
 </beans>
