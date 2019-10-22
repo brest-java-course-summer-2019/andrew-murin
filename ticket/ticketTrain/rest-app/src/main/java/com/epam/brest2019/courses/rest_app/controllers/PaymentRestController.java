@@ -1,4 +1,4 @@
-package com.epam.brest2019.courses.rest_app;
+package com.epam.brest2019.courses.rest_app.controllers;
 
 import com.epam.brest2019.courses.model.Payment;
 import com.epam.brest2019.courses.service.PaymentService;
