@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -17,7 +18,8 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath*:test-dao.xml"})
+@SpringBootTest(classes = com.epam.brest2019.courses.dao.PaymentDaoJdbcImpl.class)
+@ContextConfiguration(locations = "classpath*:test-dao.xml")
 public class PaymentDaoJdbcImplTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(TicketDaoJdbcImplTest.class);
 

@@ -1,6 +1,7 @@
 package com.epam.brest2019.courses.rest_app;
 
 import com.epam.brest2019.courses.model.Payment;
+import com.epam.brest2019.courses.rest_app.controllers.PaymentRestController;
 import com.epam.brest2019.courses.service.PaymentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;

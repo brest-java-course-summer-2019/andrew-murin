@@ -140,6 +140,7 @@ public class TicketServiceMockTest {
     private Ticket createFixture(){
         Ticket ticket = new Ticket();
         ticket.setTicketDirectionFrom(CITY_FROM);
+
         ticket.setTicketDirectionTo(CITY_TO);
         return ticket;
     }

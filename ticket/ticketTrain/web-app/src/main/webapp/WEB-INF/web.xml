@@ -6,7 +6,7 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/app-context.xml</param-value>
+        <param-value>resources/WEB-INF/app-context.xml</param-value>
     </context-param>
 
     <servlet>
@@ -26,11 +26,11 @@
 
     <error-page>
         <error-code>404</error-code>
-        <location>/WEB-INF/templates/exception.html</location>
+        <location>/resources/templates/exception.html</location>
     </error-page>
     <error-page>
         <error-code>500</error-code>
-        <location>/WEB-INF/templates/exception.html</location>
+        <location>/resources/templates/exception.html</location>
     </error-page>
 
 </web-app>

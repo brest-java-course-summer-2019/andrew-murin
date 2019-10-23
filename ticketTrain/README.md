@@ -28,3 +28,7 @@ Get all tickets:
 
     curl -v localhost:8088/tickets
     
+Create new ticket via REST:
+
+    curl -H "Content-Type: application/json" -X POST -d '{"ticketId":null,"ticketDirectionFrom":"MINSK","ticketDirectionTo":"BREST"}' -v localhost:8088/ticket
+    

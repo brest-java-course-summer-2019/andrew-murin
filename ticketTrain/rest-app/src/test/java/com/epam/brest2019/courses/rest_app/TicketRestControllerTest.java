@@ -1,6 +1,7 @@
 package com.epam.brest2019.courses.rest_app;
 
 import com.epam.brest2019.courses.model.Ticket;
+import com.epam.brest2019.courses.rest_app.controllers.TicketRestController;
 import com.epam.brest2019.courses.service.TicketService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;

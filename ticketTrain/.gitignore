@@ -17,6 +17,7 @@ out/
 delivery_cost/
 html_view/
 docs/
+ticket/
 
 model/target
 dao/target
