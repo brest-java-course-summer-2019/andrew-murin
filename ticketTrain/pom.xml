@@ -25,7 +25,6 @@
         <module>service-api</module>
         <module>service</module>
         <module>web-app</module>
-        <module>test-db</module>
         <module>rest-app</module>
     </modules>
 
@@ -86,7 +85,7 @@
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-data-jdbc</artifactId>
+                <artifactId>spring-boot-starter-jdbc</artifactId>
                 <version>${spring-boot.version}</version>
             </dependency>
             <dependency>

@@ -13,7 +13,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(locations = {"classpath:test-service.xml","classpath*:test-db.xml"})
+@ContextConfiguration(locations = {"classpath:test-service.xml"})
 public class PaymentServiceImplTest {
 
     @Autowired
