@@ -25,7 +25,7 @@
 
     <context:property-placeholder location="classpath:application.properties"/>
 
-    <import resource="classpath*:test-db.xml"/>
+
 
     <bean id="ticketService" class="org.mockito.Mockito" factory-method="mock">
         <constructor-arg value="com.epam.brest2019.courses.service.TicketService"/>

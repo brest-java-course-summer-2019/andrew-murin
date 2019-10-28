@@ -25,7 +25,6 @@ public class Payment {
     /**
      * Local Date
      */
-    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)

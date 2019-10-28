@@ -1,4 +1,3 @@
-
 DROP TABLE IF EXISTS ticket;
 DROP TABLE IF EXISTS payment;
 DROP TABLE IF EXISTS city;
@@ -30,5 +29,4 @@ CREATE TABLE payment (
   PRIMARY KEY (payment_id),
   FOREIGN KEY (ticket_id) REFERENCES ticket (ticket_id)
 );
-
 

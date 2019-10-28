@@ -5,15 +5,20 @@ import com.epam.brest2019.courses.web_app.consumers.TicketRestConsumer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.support.ManagedProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 @SpringBootApplication(scanBasePackages = {"com.epam.brest2019.courses.*"})
 public class Application {
@@ -29,6 +34,7 @@ public class Application {
 
     @Autowired
     private ObjectMapper objectMapper;
+
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath:test-service.xml"})
+@ContextConfiguration(locations = {"classpath:test-service.xml"})
 public class TicketServiceImplTest {
 
     private final static Integer CITY_FROM = 1;
