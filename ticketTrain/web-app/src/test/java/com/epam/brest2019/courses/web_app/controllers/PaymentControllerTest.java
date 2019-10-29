@@ -53,7 +53,7 @@ public class PaymentControllerTest {
                 .andDo(MockMvcResultHandlers.print())
                     .andExpect(MockMvcResultMatchers.status().isOk())
                     .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
-                    .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("From")));
+                    .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("<title>Paid tickets</title>")));
 
     }
 
