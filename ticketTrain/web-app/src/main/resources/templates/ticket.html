@@ -36,35 +36,21 @@
             <li class="nav-item active">
                 <a class="nav-link"
                    href="search-tickets.html"
-                   th:href="@{/search-tickets}"
-                   th:text="#{nav.search}">Search</a>
+                   th:href="@{/search-tickets}">Search</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link"
                    href="tickets.html"
-                   th:href="@{/tickets}"
-                   th:text="#{nav.schedule}">Schedule</a>
+                   th:href="@{/tickets}">Schedule</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link"
                    href="paid-tickets.html"
-                   th:href="@{/paid-tickets}"
-                   th:text="#{nav.paid.tickets}">Paid tickets</a>
+                   th:href="@{/paid-tickets}">Paid tickets</a>
             </li>
         </ul>
     </div>
 
-    <div>
-        <a href="?lang=en">
-            <img src="../../resources/static/img/logo.svg"
-                 th:src="@{/resources/static/img/en_flag.svg}"
-                 height="20" width="32">
-        </a>
-        <a href="?lang=ru">
-            <img src="../../resources/static/img/logo.svg"
-                 th:src="@{/resources/static/img/ru_flag.svg}"
-                 height="20" width="32"></a>
-    </div>
 </nav>
 
 <header>
@@ -81,8 +67,7 @@
                                     data-placement="left"
                                     title="Return">
                 <i class="fas fa-undo"></i>
-                <span class="d-none d-sm-inline"
-                    th:text="#{nav.return}">&nbsp;Return</span></a>
+                <span class="d-none d-sm-inline">&nbsp;Return</span></a>
             </li>
         </ul>
 
@@ -95,8 +80,7 @@
                                     data-toggle="tooltip"
                                     data-placement="bottom">
                 <i class="fas fa-undo"></i>
-                <span class="d-none d-sm-inline"
-                    th:text="#{nav.save}">&nbsp;Save</span></a>
+                <span class="d-none d-sm-inline">&nbsp;Save</span></a>
         </ul>
     </nav>
 </header>
@@ -125,7 +109,7 @@
 
                         <tr>
                             <div class="form-group">
-                                <label th:text="#{select.from}">Select from a city</label>
+                                <label>Select from a city</label>
                                     <select class="form-control" id="ticketFrom" name="ticketFrom" th:field="*{ticketDirectionFrom}">
                                         <option value=1>BREST</option>
                                         <option value=2>MINSK</option>
@@ -140,7 +124,7 @@
 
                         <tr>
                             <div class="form-group">
-                                <label th:text="#{select.to}">Select to a city</label>
+                                <label>Select to a city</label>
                                 <select class="form-control" id="ticketTo" name="ticketTo" th:field="*{ticketDirectionTo}">
                                     <option value=1>BREST</option>
                                     <option value=2>MINSK</option>
@@ -155,7 +139,7 @@
                         </tr>
                         <tr>
                             <div class="form-group">
-                                <label th:text="#{price.of.ticket}">Price of ticket</label>
+                                <label>Price of ticket</label>
                                 <input class="form-control "
                                        id="ticketCost"
                                        type="text"
@@ -166,7 +150,7 @@
                             <td th:if="${#fields.hasErrors('ticketCost')}" th:errors="*{ticketCost}">Name Error</td>
                         </tr>
 
-                        <tr><td><label th:text="#{select.date}">Select a date</label>
+                        <tr><td><label>Select a date</label>
                             <div class="form-group">
                                 <input id="ticketDate"
                                        name="ticketDate"

@@ -15,13 +15,19 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 
 @SpringBootApplication(scanBasePackages = {"com.epam.brest2019.courses.*"})
-public class Application {
+public class Application extends WebMvcConfigurerAdapter {
 
     @Value("${rest.url}")
     private String restUrl;
@@ -62,5 +68,6 @@ public class Application {
         restTemplate.setMessageConverters(messageConverters);
         return restTemplate;
     }
+
 
 }

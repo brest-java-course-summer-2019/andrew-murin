@@ -35,34 +35,21 @@
             <li class="nav-item active">
                 <a class="nav-link"
                    href="search-tickets.html"
-                   th:href="@{/search-tickets}"
-                   th:text="#{nav.search}">Search</a>
+                   th:href="@{/search-tickets}">Search</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link"
                    href="tickets.html"
-                   th:href="@{/tickets}"
-                   th:text="#{nav.schedule}">Schedule</a>
+                   th:href="@{/tickets}">Schedule</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link"
                    href="paid-tickets.html"
-                   th:href="@{/paid-tickets}"
-                   th:text="#{nav.paid.tickets}">Paid tickets</a>
+                   th:href="@{/paid-tickets}">Paid tickets</a>
             </li>
         </ul>
     </div>
-    <div>
-        <a href="?lang=en">
-            <img src="../../resources/static/img/logo.svg"
-                 th:src="@{/resources/static/img/en_flag.svg}"
-                 height="20" width="32">
-        </a>
-        <a href="?lang=ru">
-            <img src="../../resources/static/img/logo.svg"
-                 th:src="@{/resources/static/img/ru_flag.svg}"
-                 height="20" width="32"></a>
-    </div>
+
 </nav>
 
 <header>

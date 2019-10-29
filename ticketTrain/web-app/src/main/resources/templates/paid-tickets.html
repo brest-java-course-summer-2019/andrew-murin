@@ -38,20 +38,17 @@
             <li class="nav-item active">
                 <a class="nav-link"
                    href="search-tickets.html"
-                   th:href="@{/search-tickets}"
-                   th:text="#{nav.search}">Search</a>
+                   th:href="@{/search-tickets}">Search</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link"
                    href="tickets.html"
-                   th:href="@{/tickets}"
-                   th:text="#{nav.schedule}">Schedule</a>
+                   th:href="@{/tickets}">Schedule</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link"
                    href="paid-tickets.html"
-                   th:href="@{/paid-tickets}"
-                   th:text="#{nav.paid.tickets}">Paid tickets</a>
+                   th:href="@{/paid-tickets}">Paid tickets</a>
             </li>
         </ul>
     </div>
@@ -84,31 +81,19 @@
                data-placement="left"
                title="Filter date">
                 <i class="far fa-calendar-alt"></i>
-                <span class="d-none d-sm-inline"
-                    th:text="#{nav.search}">Search</span>
+                <span class="d-none d-sm-inline">Search</span>
             </a>
         </div>
         &nbsp;
         &nbsp;
         &nbsp;
-        <div>
-            <a href="?lang=en">
-                <img src="../../resources/static/img/logo.svg"
-                     th:src="@{/resources/static/img/en_flag.svg}"
-                     height="20" width="32">
-            </a>
-            <a href="?lang=ru">
-                <img src="../../resources/static/img/logo.svg"
-                     th:src="@{/resources/static/img/ru_flag.svg}"
-                     height="20" width="32"></a>
-        </div>
+
     </form>
 </nav>
 
 <header>
     <nav id="main-header" class="py-1 mb-3 navbar navbar-expand-sm navbar-light bg-light text-dark">
-        <span class="navbar-brand mr-auto float-right"
-             th:text="#{nav.paid.tickets}">Paid tickets</span>
+        <span class="navbar-brand mr-auto float-right">Paid tickets</span>
     </nav>
 </header>
 
@@ -120,18 +105,18 @@
                     <thead class="thead-inverse">
                         <tr th:if="${isSearch}">
                             <th>№</th>
-                            <th th:text="#{train}">Train</th>
-                            <th th:text="#{date}">Date</th>
-                            <th th:text="#{from}">From</th>
-                            <th th:text="#{to}">To</th>
-                            <th th:text="#{cost}">Cost</th>
+                            <th>Train</th>
+                            <th>Date</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Cost</th>
                         </tr>
                         <tr th:if="${isNotSearch}">
-                            <th th:text="#{train}">Train</th>
-                            <th th:text="#{from}">From</th>
-                            <th th:text="#{to}">To</th>
-                            <th th:text="#{count}">Count</th>
-                            <th th:text="#{cost}">Cost</th>
+                            <th>Train</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Count</th>
+                            <th>Cost</th>
                         </tr>
 
                     </thead>
@@ -158,8 +143,7 @@
                                                    data-toggle="tooltip"
                                                    data-placement="top">
                                                     <i class="fa fa-remove"></i>
-                                                    <span class="d-none d-md-inline"
-                                                        th:text="#{delete}">Delete</span></a>
+                                                    <span class="d-none d-md-inline">Delete</span></a>
                                             </span>
 
                                     <span class="navbar-nav float-right">
@@ -170,8 +154,7 @@
                                                         data-toggle="tooltip"
                                                         data-placement="top">
                                                             <i class="fa fa-pencil"></i>
-                                                        <span class="d-none d-md-inline"
-                                                            th:text="#{edit}">Edit</span></a>
+                                                        <span class="d-none d-md-inline">Edit</span></a>
 
                                             </span>
                                 </td>
