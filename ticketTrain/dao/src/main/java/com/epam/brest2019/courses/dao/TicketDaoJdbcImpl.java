@@ -1,6 +1,7 @@
 package com.epam.brest2019.courses.dao;
 
 import com.epam.brest2019.courses.model.Ticket;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.dao.support.DataAccessUtils;
@@ -11,6 +12,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 
@@ -25,6 +27,7 @@ import java.util.Optional;
 @Repository
 @PropertySource("classpath:sql_query_ticket.properties")
 public class TicketDaoJdbcImpl implements TicketDao {
+
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
