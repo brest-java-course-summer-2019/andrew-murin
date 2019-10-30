@@ -7,6 +7,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -15,16 +16,22 @@ import java.time.LocalDate;
 /**
  * POJO Payment for model
  */
+@Entity
+@Table(name = "payment")
 public class Payment {
 
     /**
      * Payment Id
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "payment_id")
     private Integer paymentId;
 
     /**
      * Local Date
      */
+    @Column(name = "payment_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
@@ -33,6 +40,8 @@ public class Payment {
     /**
      * Ticket Id
      */
+    @Column(name = "ticket_id")
+    @OneToMany(mappedBy = "ticket_id")
     private Integer ticketId;
 
     /**

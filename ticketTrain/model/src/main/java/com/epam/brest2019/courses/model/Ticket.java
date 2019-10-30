@@ -6,6 +6,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -15,16 +16,24 @@ import java.util.Objects;
 /**
  * POJO Ticket for model.
  */
+@Entity
+@Table(name = "ticket")
 public class Ticket {
 
     /**
      * Ticket Id
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ticket_id")
+    @ManyToOne
+    @JoinColumn(name = "payment_ticket_id")
     private Integer ticketId;
     /**
      * Cost of ticket
      */
     @Min(0)
+    @Column(name = "ticket_cost")
     private BigDecimal ticketCost;
     /**
      * date train
@@ -33,16 +42,23 @@ public class Ticket {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
+    @Column(name = "ticket_date")
     private LocalDate ticketDate;
     /**
      * Direction of train_from
      */
     @NotNull
+    @Column(name = "ticket_direction_from")
+    @ManyToOne()
+    @JoinColumn(name = "city_city_id")
     private Integer ticketDirectionFrom;
     /**
      * Direction of train_to
      */
     @NotNull
+    @Column(name = "ticket_direction_to")
+    @ManyToOne
+    @JoinColumn(name = "city_city_id")
     private Integer ticketDirectionTo;
 
     /**

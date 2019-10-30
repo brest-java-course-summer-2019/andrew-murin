@@ -1,18 +1,28 @@
 package com.epam.brest2019.courses.model;
 
+import javax.persistence.*;
+
 /**
  * POJO City for model
  */
+@Entity
+@Table(name = "city")
 public class City {
 
     /**
      * cityId
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "city_id")
+    @OneToMany(mappedBy = "ticket_direction_from")
+
     private Integer cityId;
 
     /**
      * cityName
      */
+    @Column(name = "city_name")
     private String cityName;
 
     /**
