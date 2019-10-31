@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-@Transactional
+//@Transactional
 public class PaymentServiceImpl implements PaymentService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PaymentServiceImpl.class);

@@ -15,8 +15,6 @@ public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "city_id")
-    @OneToMany(mappedBy = "ticket_direction_from")
-
     private Integer cityId;
 
     /**

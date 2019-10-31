@@ -8,7 +8,6 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -41,8 +40,9 @@ public class Payment {
      * Ticket Id
      */
     @Column(name = "ticket_id")
-    @OneToMany(mappedBy = "ticket_id")
-    private Integer ticketId;
+    @OneToMany
+    @JoinColumn(name = "ticket_id")
+    private Ticket ticketId;
 
     /**
      * City from for sql-query
@@ -81,7 +81,7 @@ public class Payment {
      * @param paymentDate
      * @param ticketId
      */
-    public Payment(LocalDate paymentDate, Integer ticketId) {
+    public Payment(LocalDate paymentDate, Ticket ticketId) {
         this.paymentDate = paymentDate;
         this.ticketId = ticketId;
     }
@@ -128,7 +128,7 @@ public class Payment {
      *
      * @return ticketID Ticket Id
      */
-    public Integer getTicketId() {
+    public Ticket getTicketId() {
         return ticketId;
     }
 
@@ -137,7 +137,7 @@ public class Payment {
      *
      * @param ticketId Ticket Id
      */
-    public void setTicketId(Integer ticketId) {
+    public void setTicketId(Ticket ticketId) {
         this.ticketId = ticketId;
     }
 
