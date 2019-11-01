@@ -22,6 +22,7 @@ public class TicketTest {
 
 
     Ticket ticket = new Ticket();
+    City city = new City();
 
 
     @Test
@@ -44,18 +45,6 @@ public class TicketTest {
     }
 
     @Test
-    public void getDirectionFrom() {
-        ticket.setTicketDirectionFrom(CITY_FROM);
-        Assert.assertEquals(ticket.getTicketDirectionFrom(), CITY_FROM);
-    }
-
-    @Test
-    public void getDirectionTo() {
-        ticket.setTicketDirectionTo(CITY_TO);
-        Assert.assertEquals(ticket.getTicketDirectionTo(), CITY_TO);
-    }
-
-    @Test
     public void getCityFrom() {
         ticket.setCityFrom(FROM_BREST);
         Assert.assertEquals(ticket.getCityFrom(), FROM_BREST);
@@ -66,4 +55,5 @@ public class TicketTest {
         ticket.setCityTo(TO_MINSK);
         Assert.assertEquals(ticket.getCityTo(), TO_MINSK);
     }
+
 }

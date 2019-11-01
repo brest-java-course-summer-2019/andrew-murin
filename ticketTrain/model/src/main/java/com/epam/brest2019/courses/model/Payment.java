@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 
 /**
@@ -40,33 +41,38 @@ public class Payment {
      * Ticket Id
      */
     @Column(name = "ticket_id")
-    @OneToMany
-    @JoinColumn(name = "ticket_id")
-    private Ticket ticketId;
+    @OneToMany(mappedBy = "ticket")
+    @JoinColumn(name = "payment_id")
+    private List<Ticket> ticketId;
 
     /**
      * City from for sql-query
      */
+    @Transient
     private String cityFrom;
 
     /**
      * City To for sql-query
      */
+    @Transient
     private String cityTo;
 
     /**
      * Summing all costs by different directions
      */
+    @Transient
     private BigDecimal ticketCost;
 
     /**
      * Counting all tickets by different directions
      */
+    @Transient
     private Integer ticketCount;
 
     /**
      *For get total amount by all directions
      */
+    @Transient
     private BigDecimal totalCost;
 
     /**
@@ -81,7 +87,7 @@ public class Payment {
      * @param paymentDate
      * @param ticketId
      */
-    public Payment(LocalDate paymentDate, Ticket ticketId) {
+    public Payment(LocalDate paymentDate, List<Ticket> ticketId) {
         this.paymentDate = paymentDate;
         this.ticketId = ticketId;
     }
@@ -128,7 +134,7 @@ public class Payment {
      *
      * @return ticketID Ticket Id
      */
-    public Ticket getTicketId() {
+    public List<Ticket> getTicketId() {
         return ticketId;
     }
 
@@ -137,7 +143,7 @@ public class Payment {
      *
      * @param ticketId Ticket Id
      */
-    public void setTicketId(Ticket ticketId) {
+    public void setTicketId(List<Ticket> ticketId) {
         this.ticketId = ticketId;
     }
 

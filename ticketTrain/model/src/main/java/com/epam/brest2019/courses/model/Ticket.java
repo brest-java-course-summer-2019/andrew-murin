@@ -26,7 +26,8 @@ public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ticket_id")
-    @OneToMany(mappedBy = "ticketId")
+    @ManyToOne
+    @JoinColumn(name = "ticket_id")
     private Integer ticketId;
     /**
      * Cost of ticket
@@ -48,32 +49,31 @@ public class Ticket {
      */
     @NotNull
     @Column(name = "ticket_direction_from")
-    @OneToMany
-    @JoinColumn
+
     private City ticketDirectionFrom;
     /**
      * Direction of train_to
      */
     @NotNull
     @Column(name = "ticket_direction_to")
-    @OneToMany
-    @JoinColumn
+
     private City ticketDirectionTo;
 
     /**
      * CityFrom for sql-query
      */
+    @Transient
     private String cityFrom;
 
     /**
      * CityTo for sql-query
      */
+    @Transient
     private String cityTo;
 
-    /**
-     * Constructor without parameters
-     */
-
+    @ManyToOne
+    @JoinColumn(name = "payment_id")
+    private Payment payment;
     /**
      * Constructor without parameters.
      */

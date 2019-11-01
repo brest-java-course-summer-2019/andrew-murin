@@ -28,11 +28,11 @@ public class PaymentTest {
         Assert.assertEquals(payment.getPaymentDate(), DATE);
     }
 
-    @Test
-    public void getTicketId(){
-        payment.setTicketId(NUMBER);
-        Assert.assertEquals(payment.getTicketId(), NUMBER);
-    }
+//    @Test
+//    public void getTicketId(){
+//        payment.setTicketId(NUMBER);
+//        Assert.assertEquals(payment.getTicketId(), NUMBER);
+//    }
 
     @Test
     public void getTicketCost() {
