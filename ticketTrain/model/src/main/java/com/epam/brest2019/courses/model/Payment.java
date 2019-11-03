@@ -41,8 +41,8 @@ public class Payment {
      * Ticket Id
      */
     @Column(name = "ticket_id")
-    @OneToMany(mappedBy = "ticket")
-    @JoinColumn(name = "payment_id")
+    @OneToOne
+    @JoinColumn(name = "ticket_id")
     private List<Ticket> ticketId;
 
     /**

@@ -11,6 +11,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -26,8 +27,6 @@ public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ticket_id")
-    @ManyToOne
-    @JoinColumn(name = "ticket_id")
     private Integer ticketId;
     /**
      * Cost of ticket
@@ -49,15 +48,17 @@ public class Ticket {
      */
     @NotNull
     @Column(name = "ticket_direction_from")
-
-    private City ticketDirectionFrom;
+    @OneToMany
+    @JoinColumn(name = "city_id")
+    private List<City> ticketDirectionFrom;
     /**
      * Direction of train_to
      */
     @NotNull
     @Column(name = "ticket_direction_to")
-
-    private City ticketDirectionTo;
+    @OneToMany
+    @JoinColumn(name = "city_id")
+    private List<City> ticketDirectionTo;
 
     /**
      * CityFrom for sql-query
@@ -71,9 +72,6 @@ public class Ticket {
     @Transient
     private String cityTo;
 
-    @ManyToOne
-    @JoinColumn(name = "payment_id")
-    private Payment payment;
     /**
      * Constructor without parameters.
      */
@@ -87,7 +85,7 @@ public class Ticket {
      * @param ticketDirectionFrom
      * @param ticketDirectionTo
      */
-    public Ticket(City ticketDirectionFrom, City ticketDirectionTo){
+    public Ticket(List<City> ticketDirectionFrom, List<City> ticketDirectionTo){
         this.ticketDirectionFrom = ticketDirectionFrom;
         this.ticketDirectionTo = ticketDirectionTo;
     }
@@ -176,7 +174,7 @@ public class Ticket {
      * Get this direction of train.
      * @return directionFrom of train.
      */
-    public City getTicketDirectionFrom() {
+    public List<City> getTicketDirectionFrom() {
         return ticketDirectionFrom;
     }
 
@@ -184,7 +182,7 @@ public class Ticket {
      * Set this direction of train.
      * @param ticketDirectionFrom of train.
      */
-    public void setTicketDirectionFrom(City ticketDirectionFrom) {
+    public void setTicketDirectionFrom(List<City> ticketDirectionFrom) {
         this.ticketDirectionFrom = ticketDirectionFrom;
     }
 
@@ -192,7 +190,7 @@ public class Ticket {
      * Get this direction_to of train.
      * @return direction_to of train.
      */
-    public City getTicketDirectionTo() {
+    public List<City> getTicketDirectionTo() {
         return ticketDirectionTo;
     }
 
@@ -200,7 +198,7 @@ public class Ticket {
      * Set this direction of train.
      * @param ticketDirectionTo of train.
      */
-    public void setTicketDirectionTo(City ticketDirectionTo) {
+    public void setTicketDirectionTo(List<City> ticketDirectionTo) {
         this.ticketDirectionTo = ticketDirectionTo;
     }
 

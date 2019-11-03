@@ -10,9 +10,9 @@
 <!--        <property name="show_sql">true</property>-->
 <!--        <property name="hbm2ddl.auto">create</property>-->
 
-        <mapping resource="com.epam.brest2019.courses.model.City" />
-        <mapping resource="com.epam.brest2019.courses.model.Ticket" />
-        <mapping resource="com.epam.brest2019.courses.model.Payment" />
+        <!--<mapping resource="com.epam.brest2019.courses.model.City" />-->
+        <!--<mapping resource="com.epam.brest2019.courses.model.Ticket" />-->
+        <!--<mapping resource="com.epam.brest2019.courses.model.Payment" />-->
 
     </session-factory>
 </hibernate-configuration>

@@ -6,8 +6,10 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+@ImportResource("classpath*:test-dao.xml")
 @PropertySource("classpath:sql_query_payment.properties")
 public class PaymentDaoJdbcImpl implements PaymentDao {
 
@@ -43,11 +46,11 @@ public class PaymentDaoJdbcImpl implements PaymentDao {
     @Value("${payment.searchByDate}")
     private String SEARCH_BY_DATE;
 
+    private final SessionFactory sessionFactory;
 
-    private SessionFactory sessionFactory;
 
     @Autowired
-    public PaymentDaoJdbcImpl(SessionFactory sessionFactory) {
+    public PaymentDaoJdbcImpl (SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
@@ -55,8 +58,8 @@ public class PaymentDaoJdbcImpl implements PaymentDao {
     public List<Payment> findAll() {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        SQLQuery findAll = session.createSQLQuery(SELECT_ALL);
-        List payments = findAll.list();
+        Query<Payment> findAll = session.createNamedQuery(SELECT_ALL, Payment.class);
+        List<Payment> payments = findAll.getResultList();
         transaction.commit();
         return payments;
     }

@@ -5,34 +5,38 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <context:component-scan base-package="com.epam.brest2019.courses.dao"/>
+    <context:annotation-config />
 
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-        <property name="driverClassName" value="org.h2.Driver"/>
-        <property name="url" value="jdbc:h2:mem:test_db;MODE=MYSQL;DB_CLOSE_DELAY=-1"/>
-        <property name="username" value="sa"/>
+
+    <bean id="dataSource" class="org.h2.jdbcx.JdbcDataSource">
+        <!--<property name="driverClassName" value="org.h2.Driver"/>-->
+        <property name="url" value="jdbc:h2:mem:test_dbq;MODE=MYSQL;DB_CLOSE_DELAY=-1"/>
+        <property name="user" value="sa"/>
+        <!--<property name="username" value="sa"/>-->
         <property name="password" value=""/>
     </bean>
 
     <bean id="sessionFactory"
-          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
+          class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource"
+                  ref="dataSource"/>
+        <property name="annotatedClasses">
+            <list>
+                <value>com.epam.brest2019.courses.dao.PaymentDaoJdbcImpl</value>
+            </list>
+        </property>
         <property name="hibernateProperties">
             <props>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
                 <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
             </props>
         </property>
-        <property name="annotatedClasses">
-            <list>
-                <value>com.epam.brest2019.courses.model.Ticket</value>
-                <value>com.epam.brest2019.courses.model.Payment</value>
-                <value>com.epam.brest2019.courses.model.City</value>
-            </list>
-        </property>
     </bean>
 
 
-    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
@@ -41,8 +45,6 @@
 <!--        <jdbc:script location="classpath*:data.sql"/>-->
 <!--    </jdbc:initialize-database>-->
 
-    <context:component-scan base-package="com.epam.brest2019.courses.*"/>
-    <context:annotation-config />
 
 <!--    <context:property-placeholder location="classpath:sql_query_payment.properties, classpath:sql_query_ticket.properties"/>-->
 
@@ -51,11 +53,8 @@
 <!--        <constructor-arg name="dataSource" ref="dataSource"/>-->
 <!--    </bean>-->
 
-<!--    <bean id="ticketDao" class="com.epam.brest2019.courses.dao.TicketDaoJdbcImpl">-->
-<!--        <constructor-arg name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplate" />-->
-<!--    </bean>-->
 
-<!--    <bean id="paymentDao" class="com.epam.brest2019.courses.dao.PaymentDaoJdbcImpl">-->
-<!--        <constructor-arg name="sessionFactory" ref="sessionFactory" />-->
-<!--    </bean>-->
+    <bean id="paymentDao" class="com.epam.brest2019.courses.dao.PaymentDaoJdbcImpl">
+        <constructor-arg name="sessionFactory" ref="sessionFactory" />
+    </bean>
 </beans>

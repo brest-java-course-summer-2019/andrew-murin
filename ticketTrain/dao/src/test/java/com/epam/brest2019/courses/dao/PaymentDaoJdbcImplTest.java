@@ -9,8 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.List;
+
+import static junit.framework.TestCase.assertNotNull;
+import static junit.framework.TestCase.assertTrue;
+
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath*:test-dao.xml"})
+@ContextConfiguration(locations = {"classpath*:test-dao.xml"})
 public class PaymentDaoJdbcImplTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(PaymentDaoJdbcImplTest.class);
 
@@ -34,9 +39,9 @@ public class PaymentDaoJdbcImplTest {
     @Test
     public void findAllPayment(){
         LOGGER.debug("findAllPayment ({})", Payment.class);
-//        List<Payment> payments = paymentDao.findAll();
-//        assertNotNull(paymentDao);
-//        assertTrue(payments.size() > 0);
+        List<Payment> payments = paymentDao.findAll();
+        assertNotNull(paymentDao);
+        assertTrue(payments.size() > 0);
     }
 //
 //    @Test
