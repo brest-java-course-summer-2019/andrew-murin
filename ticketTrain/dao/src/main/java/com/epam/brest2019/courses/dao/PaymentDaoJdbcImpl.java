@@ -2,17 +2,17 @@ package com.epam.brest2019.courses.dao;
 
 
 import com.epam.brest2019.courses.model.Payment;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.TypedQuery;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -22,8 +22,8 @@ import java.util.Optional;
 @PropertySource("classpath:sql_query_payment.properties")
 public class PaymentDaoJdbcImpl implements PaymentDao {
 
-    @Value("${payment.findAll}")
-    private String SELECT_ALL;
+//    @Value("${payment.findAll}")
+//    private String SELECT_ALL;
 
     @Value("${payment.findById}")
     private String FIND_BY_ID;
@@ -50,15 +50,15 @@ public class PaymentDaoJdbcImpl implements PaymentDao {
 
 
     @Autowired
-    public PaymentDaoJdbcImpl (SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public PaymentDaoJdbcImpl (LocalSessionFactoryBean sessionFactory) {
+        this.sessionFactory = (SessionFactory) sessionFactory;
     }
 
     @Override
     public List<Payment> findAll() {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        Query<Payment> findAll = session.createNamedQuery(SELECT_ALL, Payment.class);
+        TypedQuery<Payment> findAll = session.createNamedQuery("SELECT payment_id, payment_date, ticket_id FROM payment ORDER BY 2", Payment.class);
         List<Payment> payments = findAll.getResultList();
         transaction.commit();
         return payments;
