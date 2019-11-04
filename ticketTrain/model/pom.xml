@@ -5,7 +5,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.epam.brest2019.courses</groupId>
+    <groupId>com.epam.brest2019.courses.model</groupId>
     <artifactId>model</artifactId>
 
     <name>Ticket Train Model</name>
@@ -47,11 +47,6 @@
             <version>6.0.17.Final</version>
         </dependency>
 
-
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-        </dependency>
 
     </dependencies>
 

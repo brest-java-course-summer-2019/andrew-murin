@@ -43,10 +43,9 @@ public class Payment {
     /**
      * Ticket Id
      */
-    @Column(name = "ticket_id")
     @OneToOne
-    @JoinColumn(name = "ticket_id")
-    private List<Ticket> ticketId;
+    @JoinColumn(name = "ticket_id", referencedColumnName = "id")
+    private Ticket ticketId;
 
     /**
      * City from for sql-query
@@ -90,7 +89,7 @@ public class Payment {
      * @param paymentDate
      * @param ticketId
      */
-    public Payment(LocalDate paymentDate, List<Ticket> ticketId) {
+    public Payment(LocalDate paymentDate, Ticket ticketId) {
         this.paymentDate = paymentDate;
         this.ticketId = ticketId;
     }
@@ -137,7 +136,7 @@ public class Payment {
      *
      * @return ticketID Ticket Id
      */
-    public List<Ticket> getTicketId() {
+    public Ticket getTicketId() {
         return ticketId;
     }
 
@@ -146,7 +145,7 @@ public class Payment {
      *
      * @param ticketId Ticket Id
      */
-    public void setTicketId(List<Ticket> ticketId) {
+    public void setTicketId(Ticket ticketId) {
         this.ticketId = ticketId;
     }
 

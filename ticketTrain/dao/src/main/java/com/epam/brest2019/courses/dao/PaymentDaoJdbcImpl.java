@@ -5,6 +5,7 @@ import com.epam.brest2019.courses.model.Payment;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ImportResource;
@@ -50,15 +51,15 @@ public class PaymentDaoJdbcImpl implements PaymentDao {
 
 
     @Autowired
-    public PaymentDaoJdbcImpl (LocalSessionFactoryBean sessionFactory) {
-        this.sessionFactory = (SessionFactory) sessionFactory;
+    public PaymentDaoJdbcImpl (SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     @Override
     public List<Payment> findAll() {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        TypedQuery<Payment> findAll = session.createNamedQuery("SELECT payment_id, payment_date, ticket_id FROM payment ORDER BY 2", Payment.class);
+        Query<Payment> findAll = session.createQuery("SELECT payment_id, payment_date, ticket_id FROM payment ORDER BY 2", Payment.class);
         List<Payment> payments = findAll.getResultList();
         transaction.commit();
         return payments;

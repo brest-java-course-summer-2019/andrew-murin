@@ -26,7 +26,6 @@ public class Ticket {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ticket_id")
     private Integer ticketId;
     /**
      * Cost of ticket
