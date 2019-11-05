@@ -1,12 +1,13 @@
-package com.epam.brest2019.courses.dao;
+package com.epam.brest2019.courses.dao.impl;
 
+import com.epam.brest2019.courses.dao.PaymentDao;
+import com.epam.brest2019.courses.dao.config.DataBaseConfig;
 import com.epam.brest2019.courses.model.Payment;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -16,19 +17,14 @@ import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {com.epam.brest2019.courses.dao.DataBaseConfig.class})
+@ContextConfiguration(classes = {DataBaseConfig.class})
 public class PaymentDaoJdbcImplTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(PaymentDaoJdbcImplTest.class);
 
     @Autowired
-    PaymentDao paymentDao;
+    private PaymentDao paymentDao;
 
-//    @Autowired
-//    public PaymentDaoJdbcImplTest(PaymentDao paymentDao) {
-//        this.paymentDao = paymentDao;
-//    }
-
-    private Payment payment;
+//    private Payment payment;
 
 //    @Before
 //    public void changes(){
@@ -45,7 +41,7 @@ public class PaymentDaoJdbcImplTest {
     @Test
     public void findAllPayment(){
         LOGGER.debug("findAllPayment ({})", Payment.class);
-//        List<Payment> payments = paymentDao.findAll();
+        List<Payment> payments = paymentDao.findAll();
 //        assertNotNull(paymentDao);
 //        assertTrue(payments.size() > 0);
     }

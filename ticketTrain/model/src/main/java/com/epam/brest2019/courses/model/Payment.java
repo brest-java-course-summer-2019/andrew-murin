@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 
 /**
@@ -27,24 +28,24 @@ public class Payment {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "payment_id")
     private Integer paymentId;
 
     /**
      * Local Date
      */
-
+    @Column(name = "payment_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate paymentDate;
 
-
     /**
      * Ticket Id
      */
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne
     @JoinColumn(name = "ticket_id")
-    private Ticket ticket;
+    private Ticket ticketId;
 
     /**
      * City from for sql-query
@@ -86,19 +87,11 @@ public class Payment {
      * Constructor with parameters
      *
      * @param paymentDate
-     * @param ticket
+     * @param ticketId
      */
-    public Payment(LocalDate paymentDate, Ticket ticket) {
+    public Payment(LocalDate paymentDate, Ticket ticketId) {
         this.paymentDate = paymentDate;
-        this.ticket = ticket;
-    }
-
-    public Ticket getTicket() {
-        return ticket;
-    }
-
-    public void setTicket(Ticket ticket) {
-        this.ticket = ticket;
+        this.ticketId = ticketId;
     }
 
     /**
@@ -143,18 +136,18 @@ public class Payment {
      *
      * @return ticketID Ticket Id
      */
-//    public Ticket getTicketId() {
-//        return ticket;
-//    }
+    public Ticket getTicketId() {
+        return ticketId;
+    }
 
     /**
      * Sets the ticketId identifier
      *
      * @param ticketId Ticket Id
      */
-//    public void setTicketId(Ticket ticketId) {
-//        this.ticket = ticketId;
-//    }
+    public void setTicketId(Ticket ticketId) {
+        this.ticketId = ticketId;
+    }
 
 
     /**
@@ -253,7 +246,7 @@ public class Payment {
         return "Payment{" +
                 "paymentId=" + paymentId +
                 ", PaymentDate=" + paymentDate +
-//                ", ticketId=" + ticket +
+                ", ticketId=" + ticketId +
                 '}';
     }
 }

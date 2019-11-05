@@ -1,5 +1,7 @@
-package com.epam.brest2019.courses.dao;
+package com.epam.brest2019.courses.dao.config;
 
+import com.epam.brest2019.courses.dao.PaymentDao;
+import com.epam.brest2019.courses.dao.PaymentDaoJdbcImpl;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,33 +38,39 @@ public class DataBaseConfig {
     @Autowired
     private Environment environment;
 
-//    @Bean
-//    public PaymentDao paymentDao() throws IOException {
-//        PaymentDao paymentDao = new PaymentDaoJdbcImpl(sessionFactory());
-//        return paymentDao;
-//    }
-
     @Bean
-    public LocalSessionFactoryBean sessionFactory() {
-        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan(
-                new String[] {"com.epam.brest2019.courses.*"}
-        );
-        sessionFactory.setHibernateProperties(hibernateProperties());
-
-        return sessionFactory;
+    public PaymentDao paymentDao() throws IOException {
+        PaymentDao paymentDao = new PaymentDaoJdbcImpl(sessionFactory());
+        return paymentDao;
     }
 
 //    @Bean
-//    public SessionFactory sessionFactory() {
-//        LocalSessionFactoryBuilder builder = new LocalSessionFactoryBuilder(dataSource());
-//        builder.scanPackages("com.epam.brest2019.courses.dao");
-//        builder.setProperty("hibernate.show_sql", "true");
-//        builder.setProperty("hibernate.id.new_generator_mappings", "false");
+//    public LocalSessionFactoryBean sessionFactory() {
+//        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+//        sessionFactory.setDataSource(dataSource());
+//        sessionFactory.setPackagesToScan(
+//                new String[] {"com.epam.brest2019.courses.model"}
+//        );
+//        sessionFactory.setHibernateProperties(hibernateProperties());
 //
-//        return builder.buildSessionFactory();
+//        return sessionFactory;
 //    }
+
+    @Bean
+    public SessionFactory sessionFactory() {
+        LocalSessionFactoryBuilder builder = new LocalSessionFactoryBuilder(dataSource());
+//        builder.setProperty("hibernate.connection.url", URL);
+//        builder.setProperty("hibernate.connection.username", USER);
+//        builder.setProperty("hibernate.connection.password", PASSWORD);
+//        builder.setProperty("hibernate.hbm2ddl.auto", "hibernate.dialect");
+        builder.scanPackages("com.epam.brest2019.courses.*");
+        builder.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+        builder.setProperty("hibernate.format_sql", "hibernate.format_sql");
+        builder.setProperty("hibernate.show_sql", "true");
+//        builder.setProperty("hibernate.id.new_generator_mappings", "false");
+
+        return builder.buildSessionFactory();
+    }
 
 //    @Bean
 //    public SessionFactory sessionFactory() throws IOException {
