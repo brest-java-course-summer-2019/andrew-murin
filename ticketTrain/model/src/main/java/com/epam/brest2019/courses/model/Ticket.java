@@ -26,6 +26,7 @@ public class Ticket {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ticket_id")
     private Integer ticketId;
     /**
      * Cost of ticket
@@ -71,6 +72,9 @@ public class Ticket {
     @Transient
     private String cityTo;
 
+
+    @OneToOne(mappedBy = "ticket", fetch = FetchType.EAGER)
+    private Payment payment;
     /**
      * Constructor without parameters.
      */
@@ -87,6 +91,14 @@ public class Ticket {
     public Ticket(List<City> ticketDirectionFrom, List<City> ticketDirectionTo){
         this.ticketDirectionFrom = ticketDirectionFrom;
         this.ticketDirectionTo = ticketDirectionTo;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 
      /** Get this ticketDate of train.
@@ -206,7 +218,8 @@ public class Ticket {
         if (this == o) return true;
         if (!(o instanceof Ticket)) return false;
         Ticket ticket = (Ticket) o;
-        return Objects.equals(getTicketId(), ticket.getTicketId()) &&
+        return Objects.equals(
+                getTicketId(), ticket.getTicketId()) &&
                 Objects.equals(getTicketCost(), ticket.getTicketCost()) &&
                 Objects.equals(getTicketDate(), ticket.getTicketDate()) &&
                 Objects.equals(getTicketDirectionFrom(), ticket.getTicketDirectionFrom()) &&
@@ -216,6 +229,8 @@ public class Ticket {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTicketId(), getTicketCost(), getTicketDate(), getTicketDirectionFrom(), getTicketDirectionTo());
+        return Objects.hash(
+//                getTicketId(),
+                getTicketCost(), getTicketDate(), getTicketDirectionFrom(), getTicketDirectionTo());
     }
 }

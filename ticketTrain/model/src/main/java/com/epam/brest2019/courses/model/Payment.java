@@ -10,7 +10,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 
 /**
@@ -28,24 +27,24 @@ public class Payment {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "payment_id")
     private Integer paymentId;
 
     /**
      * Local Date
      */
-    @Column(name = "payment_date")
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate paymentDate;
 
+
     /**
      * Ticket Id
      */
-    @OneToOne
-    @JoinColumn(name = "ticket_id", referencedColumnName = "id")
-    private Ticket ticketId;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ticket_id")
+    private Ticket ticket;
 
     /**
      * City from for sql-query
@@ -87,11 +86,19 @@ public class Payment {
      * Constructor with parameters
      *
      * @param paymentDate
-     * @param ticketId
+     * @param ticket
      */
-    public Payment(LocalDate paymentDate, Ticket ticketId) {
+    public Payment(LocalDate paymentDate, Ticket ticket) {
         this.paymentDate = paymentDate;
-        this.ticketId = ticketId;
+        this.ticket = ticket;
+    }
+
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
     }
 
     /**
@@ -136,18 +143,18 @@ public class Payment {
      *
      * @return ticketID Ticket Id
      */
-    public Ticket getTicketId() {
-        return ticketId;
-    }
+//    public Ticket getTicketId() {
+//        return ticket;
+//    }
 
     /**
      * Sets the ticketId identifier
      *
      * @param ticketId Ticket Id
      */
-    public void setTicketId(Ticket ticketId) {
-        this.ticketId = ticketId;
-    }
+//    public void setTicketId(Ticket ticketId) {
+//        this.ticket = ticketId;
+//    }
 
 
     /**
@@ -246,7 +253,7 @@ public class Payment {
         return "Payment{" +
                 "paymentId=" + paymentId +
                 ", PaymentDate=" + paymentDate +
-                ", ticketId=" + ticketId +
+//                ", ticketId=" + ticket +
                 '}';
     }
 }

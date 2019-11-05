@@ -47,7 +47,7 @@ public class DataBaseConfig {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setPackagesToScan(
-                new String[] {"com.epam.brest2019.courses.model"}
+                new String[] {"com.epam.brest2019.courses.*"}
         );
         sessionFactory.setHibernateProperties(hibernateProperties());
 
