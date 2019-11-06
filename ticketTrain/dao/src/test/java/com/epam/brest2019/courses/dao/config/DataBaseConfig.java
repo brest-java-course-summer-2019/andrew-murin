@@ -23,18 +23,6 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class DataBaseConfig {
 
-    @Value("${driver}")
-    private String DRIVER;
-
-    @Value("${user}")
-    private String USER;
-
-    @Value("${password}")
-    private String PASSWORD;
-
-    @Value("${url}")
-    private String URL;
-
     @Autowired
     private Environment environment;
 
@@ -98,10 +86,10 @@ public class DataBaseConfig {
     @Bean
     public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName(environment.getProperty(DRIVER));
-        dataSource.setUrl(environment.getProperty(URL));
-        dataSource.setUsername(environment.getProperty(USER));
-        dataSource.setPassword(environment.getProperty(PASSWORD));
+        dataSource.setDriverClassName(environment.getProperty("datasource.driver"));
+        dataSource.setUrl(environment.getProperty("datasource.url"));
+        dataSource.setUsername(environment.getProperty("datasource.user"));
+        dataSource.setPassword(environment.getProperty("datasource.password"));
 
         return dataSource;
     }

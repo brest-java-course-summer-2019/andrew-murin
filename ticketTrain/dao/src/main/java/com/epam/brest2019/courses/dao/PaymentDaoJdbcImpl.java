@@ -5,6 +5,7 @@ import com.epam.brest2019.courses.model.Payment;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -59,7 +60,7 @@ public class PaymentDaoJdbcImpl implements PaymentDao {
     public List<Payment> findAll() {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        Query<Payment> findAll = session.createQuery("SELECT payment_id, payment_date, ticket_id FROM payment ORDER BY 2", Payment.class);
+        NativeQuery findAll = session.createSQLQuery("SELECT payment_id, payment_date, ticket_id FROM payment ORDER BY 2");
         List<Payment> payments = findAll.getResultList();
         transaction.commit();
         return payments;
