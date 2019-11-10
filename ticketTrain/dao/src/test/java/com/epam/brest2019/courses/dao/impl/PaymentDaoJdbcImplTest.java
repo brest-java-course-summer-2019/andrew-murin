@@ -42,7 +42,7 @@ public class PaymentDaoJdbcImplTest {
     public void findAllPayment(){
         LOGGER.debug("findAllPayment ({})", Payment.class);
         List<Payment> payments = paymentDao.findAll();
-//        assertNotNull(paymentDao);
+        assertNotNull(paymentDao);
 //        assertTrue(payments.size() > 0);
     }
 //

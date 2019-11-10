@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-@ImportResource("classpath*:test-dao.xml")
 @PropertySource("classpath:sql_query_payment.properties")
 public class PaymentDaoJdbcImpl implements PaymentDao {
 
@@ -60,9 +59,11 @@ public class PaymentDaoJdbcImpl implements PaymentDao {
     public List<Payment> findAll() {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        NativeQuery findAll = session.createSQLQuery("SELECT payment_id, payment_date, ticket_id FROM payment ORDER BY 2");
+//        NativeQuery findAll = session.createSQLQuery("SELECT payment_id, payment_date, ticket_id FROM payment ORDER BY 2");
+        NativeQuery findAll = session.createSQLQuery("SELECT * FROM city");
         List<Payment> payments = findAll.getResultList();
         transaction.commit();
+        session.close();
         return payments;
     }
 
