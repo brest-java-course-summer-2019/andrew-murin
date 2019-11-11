@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 
 @Configuration
-@PropertySource("classpath:db.properties")
+@PropertySource({"classpath:db.properties", "classpath:data.sql"})
 @EnableTransactionManagement
 public class DataBaseConfig {
 
@@ -27,18 +27,6 @@ public class DataBaseConfig {
         PaymentDao paymentDao = new PaymentDaoJdbcImpl(sessionFactory());
         return paymentDao;
     }
-
-//    @Bean
-//    public LocalSessionFactoryBean sessionFactory() {
-//        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-//        sessionFactory.setDataSource(dataSource());
-//        sessionFactory.setPackagesToScan(
-//                new String[] {"com.epam.brest2019.courses.model"}
-//        );
-//        sessionFactory.setHibernateProperties(hibernateProperties());
-//
-//        return sessionFactory;
-//    }
 
     @Bean
     public SessionFactory sessionFactory() throws Exception{
@@ -52,16 +40,6 @@ public class DataBaseConfig {
 
         return builder.buildSessionFactory();
     }
-
-//    @Bean
-//    public SessionFactory sessionFactory() throws IOException {
-//        LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
-//        sessionFactoryBean.setDataSource(dataSource());
-//        sessionFactoryBean.setPackagesToScan("com.epam.brest2019.courses.dao");
-//        sessionFactoryBean.afterPropertiesSet();
-//        sessionFactoryBean.setHibernateProperties(hibernateProperties());
-//        return sessionFactoryBean.getObject();
-//    }
 
     @Bean
     @Autowired
@@ -87,12 +65,4 @@ public class DataBaseConfig {
         return dataSource;
     }
 
-//    Properties hibernateProperties() {
-//        Properties properties = new Properties();
-//        properties.put("hibernate.dialect", environment.getRequiredProperty("hibernate.dialect"));
-//        properties.put("hibernate.show_sql", environment.getRequiredProperty("hibernate.show_sql"));
-//        properties.put("hibernate.format_sql", environment.getRequiredProperty("hibernate.format_sql"));
-//
-//        return properties;
-//    }
 }

@@ -18,17 +18,14 @@ import java.util.List;
  */
 @Entity
 @Table(name = "payment")
-//@NamedQuery(name = "Payment.SELECT", query = "SELECT payment_id, payment_date, ticket_id FROM payment ORDER BY 2")
 public class Payment {
-
-    public static final String SELECT = "Payment.select";
 
     /**
      * Payment Id
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "payment_id")
+    @Column(name = "id")
     private Integer paymentId;
 
     /**

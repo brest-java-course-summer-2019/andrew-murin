@@ -14,11 +14,7 @@ public class City {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @ManyToOne
-//    @JoinColumns({
-//            @JoinColumn(name = "ticket_direction_from"),
-//            @JoinColumn(name = "ticket_direction_to")
-//    })
+    @Column(name = "id")
     private Integer cityId;
 
     /**

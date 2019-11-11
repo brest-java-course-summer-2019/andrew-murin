@@ -26,7 +26,7 @@ public class Ticket {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="ticket_id")
+    @Column(name ="id")
     private Integer ticketId;
     /**
      * Cost of ticket
@@ -48,17 +48,15 @@ public class Ticket {
      */
     @NotNull
     @OneToMany
-    @JoinColumn(name = "city_id")
-    @Column(name = "ticket_direction_from")
-    private List<City> ticketDirectionFrom;
+    @Column(name = "city_from", unique = false)
+    private List<City> city_from;
     /**
      * Direction of train_to
      */
     @NotNull
     @OneToMany
-    @JoinColumn(name = "city_id")
-    @Column(name = "ticket_direction_to")
-    private List<City> ticketDirectionTo;
+    @Column(name = "city_to", unique = false)
+    private List<City> city_to;
 
     /**
      * CityFrom for sql-query
@@ -82,12 +80,12 @@ public class Ticket {
     /**
      * Constructor with parameters.
      *
-     * @param ticketDirectionFrom
-     * @param ticketDirectionTo
+     * @param city_from
+     * @param city_to
      */
-    public Ticket(List<City> ticketDirectionFrom, List<City> ticketDirectionTo){
-        this.ticketDirectionFrom = ticketDirectionFrom;
-        this.ticketDirectionTo = ticketDirectionTo;
+    public Ticket(List<City> city_from, List<City> city_to){
+        this.city_from = city_from;
+        this.city_to = city_to;
     }
 
      /** Get this ticketDate of train.
@@ -174,32 +172,32 @@ public class Ticket {
      * Get this direction of train.
      * @return directionFrom of train.
      */
-    public List<City> getTicketDirectionFrom() {
-        return ticketDirectionFrom;
+    public List<City> getCity_from() {
+        return city_from;
     }
 
     /**
      * Set this direction of train.
-     * @param ticketDirectionFrom of train.
+     * @param city_from of train.
      */
-    public void setTicketDirectionFrom(List<City> ticketDirectionFrom) {
-        this.ticketDirectionFrom = ticketDirectionFrom;
+    public void setTicketDirectionFrom(List<City> city_from) {
+        this.city_from = city_from;
     }
 
     /**
      * Get this direction_to of train.
      * @return direction_to of train.
      */
-    public List<City> getTicketDirectionTo() {
-        return ticketDirectionTo;
+    public List<City> getCity_to() {
+        return city_to;
     }
 
     /**
      * Set this direction of train.
-     * @param ticketDirectionTo of train.
+     * @param city_to of train.
      */
-    public void setTicketDirectionTo(List<City> ticketDirectionTo) {
-        this.ticketDirectionTo = ticketDirectionTo;
+    public void setTicketDirectionTo(List<City> city_to) {
+        this.city_to = city_to;
     }
 
     @Override
@@ -210,13 +208,13 @@ public class Ticket {
         return Objects.equals(getTicketId(), ticket.getTicketId()) &&
                 Objects.equals(getTicketCost(), ticket.getTicketCost()) &&
                 Objects.equals(getTicketDate(), ticket.getTicketDate()) &&
-                Objects.equals(getTicketDirectionFrom(), ticket.getTicketDirectionFrom()) &&
-                Objects.equals(getTicketDirectionTo(), ticket.getTicketDirectionTo()) &&
+                Objects.equals(getCity_from(), ticket.getCity_from()) &&
+                Objects.equals(getCity_to(), ticket.getCity_to()) &&
                 Objects.equals(getCityFrom(), ticket.getCityFrom());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTicketId(), getTicketCost(), getTicketDate(), getTicketDirectionFrom(), getTicketDirectionTo());
+        return Objects.hash(getTicketId(), getTicketCost(), getTicketDate(), getCity_from(), getCity_to());
     }
 }

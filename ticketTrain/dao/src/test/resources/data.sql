@@ -40,3 +40,58 @@ INSERT INTO payment (payment_id, payment_date, ticket_id) VALUES (10, '2020-09-2
 
 
 
+
+-------------------------------------------------
+
+
+INSERT INTO city (city_name) VALUES ('BREST');
+INSERT INTO city (city_name) VALUES ('MINSK');
+INSERT INTO city (city_name) VALUES ('VITEBSK');
+INSERT INTO city (city_name) VALUES ('GOMEL');
+INSERT INTO city (city_name) VALUES ('GRODNO');
+INSERT INTO city (city_name) VALUES ('MOGILEV');
+
+
+INSERT INTO ticket (ticket_cost, ticket_date) VALUES (7.25,'2019-09-25');
+INSERT INTO ticket (ticket_cost, ticket_date) VALUES (10.65, '2019-09-25');
+INSERT INTO ticket (ticket_cost, ticket_date) VALUES (11.17, '2019-09-26');
+INSERT INTO ticket (ticket_cost, ticket_date) VALUES (12.17, '2019-09-26');
+INSERT INTO ticket (ticket_cost, ticket_date) VALUES (10.14, '2019-09-26');
+INSERT INTO ticket (ticket_cost, ticket_date) VALUES (13.17, '2019-09-26');
+INSERT INTO ticket (ticket_cost, ticket_date) VALUES (10.17, '2019-09-27');
+INSERT INTO ticket (ticket_cost, ticket_date) VALUES (8.17, '2019-09-27');
+INSERT INTO ticket (ticket_cost, ticket_date) VALUES (12.65, '2019-09-27');
+INSERT INTO ticket (ticket_cost, ticket_date) VALUES (9.34, '2019-09-28');
+INSERT INTO ticket (ticket_cost, ticket_date) VALUES (12.25, '2019-09-28');
+INSERT INTO ticket (ticket_cost, ticket_date) VALUES (13.65, '2019-09-28');
+INSERT INTO ticket (ticket_cost, ticket_date) VALUES (10.78, '2019-09-28');
+INSERT INTO ticket (ticket_cost, ticket_date) VALUES (8.14, '2019-09-29');
+INSERT INTO ticket (ticket_cost, ticket_date) VALUES (14.14, '2019-09-29');
+INSERT INTO ticket (ticket_cost, ticket_date) VALUES (11.69, '2019-09-29');
+INSERT INTO ticket (ticket_cost, ticket_date) VALUES (9.24, '2019-09-29');
+INSERT INTO ticket (ticket_cost, ticket_date) VALUES (10.46, '2019-09-30');
+INSERT INTO ticket (ticket_cost, ticket_date) VALUES (13.25, '2019-09-30');
+INSERT INTO ticket (ticket_cost, ticket_date) VALUES (11.49, '2019-09-30');
+INSERT INTO ticket (ticket_cost, ticket_date) VALUES (8.50, '2019-09-30');
+
+INSERT INTO ticket_city (from_city, to_city) VALUES (1, 6);
+INSERT INTO ticket_city (from_city, to_city) VALUES (1, 3);
+INSERT INTO ticket_city (from_city, to_city) VALUES (1, 5);
+INSERT INTO ticket_city (from_city, to_city) VALUES (2, 1);
+INSERT INTO ticket_city (from_city, to_city) VALUES (2, 3);
+INSERT INTO ticket_city (from_city, to_city) VALUES (2, 5);
+INSERT INTO ticket_city (from_city, to_city) VALUES (3, 4);
+INSERT INTO ticket_city (from_city, to_city) VALUES (3, 5);
+INSERT INTO ticket_city (from_city, to_city) VALUES (3, 6);
+INSERT INTO ticket_city (from_city, to_city) VALUES (4, 1);
+INSERT INTO ticket_city (from_city, to_city) VALUES (4, 2);
+INSERT INTO ticket_city (from_city, to_city) VALUES (4, 3);
+INSERT INTO ticket_city (from_city, to_city) VALUES (4, 6);
+INSERT INTO ticket_city (from_city, to_city) VALUES (5, 1);
+INSERT INTO ticket_city (from_city, to_city) VALUES (5, 2);
+INSERT INTO ticket_city (from_city, to_city) VALUES (5, 3);
+INSERT INTO ticket_city (from_city, to_city) VALUES (5, 4);
+INSERT INTO ticket_city (from_city, to_city) VALUES (6, 1);
+INSERT INTO ticket_city (from_city, to_city) VALUES (6, 2);
+INSERT INTO ticket_city (from_city, to_city) VALUES (6, 3);
+
