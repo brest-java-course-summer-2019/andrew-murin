@@ -43,7 +43,7 @@ public class DataBaseConfig {
     @Bean
     public SessionFactory sessionFactory() throws Exception{
         LocalSessionFactoryBuilder builder = new LocalSessionFactoryBuilder(dataSource());
-        builder.setProperty("hibernate.hbm2ddl.auto", "create");
+        builder.setProperty("hibernate.hbm2ddl.auto", "update");
         builder.scanPackages("com.epam.brest2019.courses.*");
         builder.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL57Dialect");
         builder.setProperty("hibernate.format_sql", "true");

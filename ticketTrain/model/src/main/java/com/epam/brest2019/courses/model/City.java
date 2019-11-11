@@ -14,7 +14,11 @@ public class City {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "city_id")
+//    @ManyToOne
+//    @JoinColumns({
+//            @JoinColumn(name = "ticket_direction_from"),
+//            @JoinColumn(name = "ticket_direction_to")
+//    })
     private Integer cityId;
 
     /**

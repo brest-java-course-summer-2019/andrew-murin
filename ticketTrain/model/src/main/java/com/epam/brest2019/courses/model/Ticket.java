@@ -47,17 +47,17 @@ public class Ticket {
      * Direction of train_from
      */
     @NotNull
-    @Column(name = "ticket_direction_from")
     @OneToMany
     @JoinColumn(name = "city_id")
+    @Column(name = "ticket_direction_from")
     private List<City> ticketDirectionFrom;
     /**
      * Direction of train_to
      */
     @NotNull
-    @Column(name = "ticket_direction_to")
     @OneToMany
     @JoinColumn(name = "city_id")
+    @Column(name = "ticket_direction_to")
     private List<City> ticketDirectionTo;
 
     /**
