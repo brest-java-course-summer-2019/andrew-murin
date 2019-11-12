@@ -5,6 +5,7 @@ import com.epam.brest2019.courses.dao.PaymentDaoJdbcImpl;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
@@ -15,9 +16,21 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 
 @Configuration
-@PropertySource({"classpath:db.properties", "classpath:data.sql"})
 @EnableTransactionManagement
 public class DataBaseConfig {
+
+    @Value("${datasource.driver}")
+    private String DB_DRIVER_CLASS_NAME;
+
+    @Value("${datasource.url}")
+    private String DB_URL;
+
+    @Value("${datasource.user}")
+    private String DB_USER_NAME;
+
+    @Value("${datasource.password}")
+    private String DB_PASSWORD;
+
 
     @Autowired
     private Environment environment;
@@ -57,10 +70,16 @@ public class DataBaseConfig {
     @Bean
     public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName(environment.getProperty("datasource.driver"));
-        dataSource.setUrl(environment.getProperty("datasource.url"));
-        dataSource.setUsername(environment.getProperty("datasource.user"));
-        dataSource.setPassword(environment.getProperty("datasource.password"));
+//        dataSource.setDriverClassName(environment.getProperty("datasource.driver"));
+//        dataSource.setUrl(environment.getProperty("datasource.url"));
+//        dataSource.setUsername(environment.getProperty("datasource.user"));
+//        dataSource.setPassword(environment.getProperty("datasource.password"));
+
+        dataSource.setDriverClassName(DB_DRIVER_CLASS_NAME);
+        dataSource.setUrl(DB_URL);
+        dataSource.setUsername(DB_USER_NAME);
+        dataSource.setPassword(DB_PASSWORD);
+
 
         return dataSource;
     }

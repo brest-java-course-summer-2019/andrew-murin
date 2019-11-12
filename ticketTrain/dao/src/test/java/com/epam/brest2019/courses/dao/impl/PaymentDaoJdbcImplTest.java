@@ -2,12 +2,14 @@ package com.epam.brest2019.courses.dao.impl;
 
 import com.epam.brest2019.courses.dao.PaymentDao;
 import com.epam.brest2019.courses.dao.config.DataBaseConfig;
+import com.epam.brest2019.courses.dao.config.DataSourceConfig;
 import com.epam.brest2019.courses.model.Payment;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -16,8 +18,9 @@ import java.util.List;
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
 
+@ActiveProfiles(profiles = "h2-database")
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {DataBaseConfig.class})
+@ContextConfiguration(classes = {DataSourceConfig.class, DataBaseConfig.class})
 public class PaymentDaoJdbcImplTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(PaymentDaoJdbcImplTest.class);
 
