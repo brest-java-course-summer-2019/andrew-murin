@@ -1,5 +1,6 @@
 package com.epam.brest2019.courses.dao.impl;
 
+
 import com.epam.brest2019.courses.dao.PaymentDao;
 import com.epam.brest2019.courses.dao.config.DataBaseConfig;
 import com.epam.brest2019.courses.dao.config.DataSourceConfig;
@@ -11,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
@@ -18,7 +20,8 @@ import java.util.List;
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
 
-@ActiveProfiles(profiles = "h2-database")
+@Sql("classpath:data.sql")
+@ActiveProfiles(profiles = "mysql-database")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {DataSourceConfig.class, DataBaseConfig.class})
 public class PaymentDaoJdbcImplTest {
@@ -46,7 +49,7 @@ public class PaymentDaoJdbcImplTest {
         LOGGER.debug("findAllPayment ({})", Payment.class);
         List<Payment> payments = paymentDao.findAll();
         assertNotNull(paymentDao);
-//        assertTrue(payments.size() > 0);
+        assertTrue(payments.size() > 0);
     }
 //
 //    @Test

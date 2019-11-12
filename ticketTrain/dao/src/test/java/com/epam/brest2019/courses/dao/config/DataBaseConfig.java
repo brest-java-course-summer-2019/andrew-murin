@@ -79,8 +79,6 @@ public class DataBaseConfig {
         dataSource.setUrl(DB_URL);
         dataSource.setUsername(DB_USER_NAME);
         dataSource.setPassword(DB_PASSWORD);
-
-
         return dataSource;
     }
 
