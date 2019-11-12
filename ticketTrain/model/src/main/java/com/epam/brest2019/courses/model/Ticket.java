@@ -11,7 +11,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -32,6 +31,7 @@ public class Ticket {
      * Cost of ticket
      */
     @Min(0)
+    @NotNull
     @Column(name = "ticket_cost")
     private BigDecimal ticketCost;
     /**
@@ -43,20 +43,19 @@ public class Ticket {
     @JsonSerialize(using = LocalDateSerializer.class)
     @Column(name = "ticket_date")
     private LocalDate ticketDate;
+
     /**
      * Direction of train_from
      */
     @NotNull
-    @OneToMany
-    @Column(name = "city_from", unique = false)
-    private List<City> city_from;
-    /**
-     * Direction of train_to
-     */
+    @ManyToOne
+    @JoinColumn(name = "from_city", foreignKey = @ForeignKey(name = "fk_from_city"))
+    private City fromCity;
+
     @NotNull
-    @OneToMany
-    @Column(name = "city_to", unique = false)
-    private List<City> city_to;
+    @ManyToOne
+    @JoinColumn(name = "to_city", foreignKey = @ForeignKey(name = "fk_to_city"))
+    private City toCity;
 
     /**
      * CityFrom for sql-query
@@ -77,15 +76,31 @@ public class Ticket {
 
     }
 
+    public City getFromCity() {
+        return fromCity;
+    }
+
+    public void setFromCity(City fromCity) {
+        this.fromCity = fromCity;
+    }
+
+    public City getToCity() {
+        return toCity;
+    }
+
+    public void setToCity(City toCity) {
+        this.toCity = toCity;
+    }
+
     /**
      * Constructor with parameters.
      *
-     * @param city_from
-     * @param city_to
+     * @param fromCity
+     * @param toCity
      */
-    public Ticket(List<City> city_from, List<City> city_to){
-        this.city_from = city_from;
-        this.city_to = city_to;
+    public Ticket(City fromCity, City toCity){
+        this.fromCity = fromCity;
+        this.toCity = toCity;
     }
 
      /** Get this ticketDate of train.
@@ -168,37 +183,6 @@ public class Ticket {
         this.ticketDate = ticketDate;
     }
 
-    /**
-     * Get this direction of train.
-     * @return directionFrom of train.
-     */
-    public List<City> getCity_from() {
-        return city_from;
-    }
-
-    /**
-     * Set this direction of train.
-     * @param city_from of train.
-     */
-    public void setTicketDirectionFrom(List<City> city_from) {
-        this.city_from = city_from;
-    }
-
-    /**
-     * Get this direction_to of train.
-     * @return direction_to of train.
-     */
-    public List<City> getCity_to() {
-        return city_to;
-    }
-
-    /**
-     * Set this direction of train.
-     * @param city_to of train.
-     */
-    public void setTicketDirectionTo(List<City> city_to) {
-        this.city_to = city_to;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -208,13 +192,13 @@ public class Ticket {
         return Objects.equals(getTicketId(), ticket.getTicketId()) &&
                 Objects.equals(getTicketCost(), ticket.getTicketCost()) &&
                 Objects.equals(getTicketDate(), ticket.getTicketDate()) &&
-                Objects.equals(getCity_from(), ticket.getCity_from()) &&
-                Objects.equals(getCity_to(), ticket.getCity_to()) &&
+                Objects.equals(getFromCity(), ticket.getFromCity()) &&
+                Objects.equals(getToCity(), ticket.getToCity()) &&
                 Objects.equals(getCityFrom(), ticket.getCityFrom());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTicketId(), getTicketCost(), getTicketDate(), getCity_from(), getCity_to());
+        return Objects.hash(getTicketId(), getTicketCost(), getTicketDate(), getFromCity(), getToCity());
     }
 }
