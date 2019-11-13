@@ -24,6 +24,7 @@ import java.util.List;
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 @Sql("classpath:data.sql")
 @ActiveProfiles(profiles = "mysql-database")
@@ -37,17 +38,21 @@ public class PaymentDaoJdbcImplTest {
 
     private Payment payment;
 
-//    @Before
-//    public void changes(){
-//        LocalDate localDate = LocalDate.of(2019, 3, 7);
-//        payment = new Payment(localDate, 1);
-//        payment = paymentDao.add(payment);
-//    }
+    @Before
+    public void changes(){
+        LocalDate localDate = LocalDate.now();
 
-//    @After
-//    public void cleanChanges(){
-//        paymentDao.delete(payment.getPaymentId());
-//    }
+        Ticket ticket = new Ticket();
+        ticket.setTicketId(1);
+
+        payment = new Payment(localDate, ticket);
+        paymentDao.add(payment);
+    }
+
+    @After
+    public void cleanChanges(){
+        paymentDao.delete(payment);
+    }
 
     @Test
     public void findAllPayment(){
@@ -67,75 +72,76 @@ public class PaymentDaoJdbcImplTest {
         assertTrue(payments.size() > 0);
     }
 
-//    @Test
-//    public void add(){
-//        LocalDate localDate = LocalDate.of(2019, 1, 7);
-//
-//        Ticket ticket = new Ticket();
-//        ticket.setTicketId(1);
-//
-//        Payment payment = new Payment(localDate, ticket);
-//        paymentDao.add(payment);
-//
-//        List<Payment> payments = paymentDao.findAll();
-//
-//        int sizeBefore = payments.size();
-//
-//        paymentDao.delete(payment.getPaymentId());
-//        assertEquals((sizeBefore) - 1, paymentDao.findAll().size());
-//    }
+    @Test
+    public void findByPaymentId(){
+        LOGGER.debug("findByPaymentId ({})", Payment.class);
 
-//    @Test
-//    public void findByPaymentId(){
-//        LOGGER.debug("findByPaymentId ({})", Payment.class);
-//
-//        Payment newPayment = paymentDao.findById(payment.getPaymentId());
-//        assertNotNull(paymentDao);
-//        assertEquals(newPayment.getPaymentId(), payment.getPaymentId());
-//        assertEquals(newPayment.getPaymentDate(), LocalDate.now());
-//        assertEquals(newPayment.getTicketId(), payment.getTicketId());
-//    }
-//
-//    @Test
-//    public void update(){
-//        LocalDate localDate = LocalDate.of(2019, 2, 7);
-//        payment.setPaymentDate(localDate);
-//        payment.setTicketId(1);
-//        paymentDao.update(payment);
-//        Payment updatePayment =  paymentDao.findById(payment.getPaymentId()).get();
-//        assertEquals(updatePayment.getPaymentId(), payment.getPaymentId());
-//        assertEquals(updatePayment.getPaymentDate(), payment.getPaymentDate());
-//        assertEquals(updatePayment.getTicketId(), payment.getTicketId());
-//    }
-//
-//    @Test
-//    public void delete(){
-//        LocalDate localDate = LocalDate.of(2019, 1, 7);
-//        Payment payment = new Payment(localDate, 1);
-//        paymentDao.add(payment);
-//        List<Payment> payments = paymentDao.findAll();
-//        int sizeBefore = payments.size();
-//        paymentDao.delete(payment.getPaymentId());
-//        assertEquals((sizeBefore) - 1, paymentDao.findAll().size());
-//    }
-//
-//    @Test
-//    public void findAllWithDirection() {
-//        List<Payment> payments = paymentDao.findAllWitchDirection();
-//
-//        assertNotNull(payments);
-//        assertFalse(payments.isEmpty());
-//        assertTrue(payments.size() > 0);
-//    }
-//
-//    @Test
-//    public void searchByDate() {
-//        LocalDate startDate = LocalDate.of(2019,01,01);
-//        LocalDate finishDate = LocalDate.of(2019,12,12);
-//
-//        List<Payment> payments = paymentDao.searchByDate(startDate, finishDate);
-//
-//        assertNotNull(payments);
-//        assertFalse(payments.isEmpty());
-//    }
+        Payment newPayment = paymentDao.findById(payment.getPaymentId());
+
+        assertNotNull(paymentDao);
+        assertEquals(newPayment.getPaymentId(), payment.getPaymentId());
+        assertEquals(newPayment.getPaymentDate(), LocalDate.now());
+        assertEquals(newPayment.getTicketId().getTicketId(), payment.getTicketId().getTicketId());
+    }
+
+    @Test
+    public void add(){
+
+        Payment payment = new Payment();
+        payment.setPaymentDate(LocalDate.now());
+
+        List<Payment> payments = paymentDao.findAll();
+        int sizeBefore = payments.size();
+
+        paymentDao.add(payment);
+
+        assertEquals((sizeBefore) + 1, paymentDao.findAll().size());
+    }
+
+    @Test
+    public void delete(){
+        Payment payment = new Payment();
+
+        paymentDao.add(payment);
+
+        List<Payment> payments = paymentDao.findAll();
+        int sizeAdd = payments.size();
+
+        paymentDao.delete(payment);
+        assertEquals(sizeAdd - 1, paymentDao.findAll().size());
+    }
+
+    @Test
+    public void update(){
+        LocalDate localDate = LocalDate.of(2019, 2, 7);
+        payment.setPaymentDate(localDate);
+
+        paymentDao.update(payment);
+
+        Payment updatePayment =  paymentDao.findById(payment.getPaymentId());
+
+        assertEquals(updatePayment.getPaymentId(), payment.getPaymentId());
+        assertEquals(updatePayment.getPaymentDate(), payment.getPaymentDate());
+        assertEquals(updatePayment.getTicketId().getTicketId(), payment.getTicketId().getTicketId());
+    }
+
+    @Test
+    public void findAllWithDirection() {
+        List<Payment> payments = paymentDao.findAllWitchDirection();
+
+        assertNotNull(payments);
+        assertFalse(payments.isEmpty());
+        assertTrue(payments.size() > 0);
+    }
+
+    @Test
+    public void searchByDate() {
+        LocalDate startDate = LocalDate.of(2019,01,01);
+        LocalDate finishDate = LocalDate.of(2019,12,12);
+
+        List<Payment> payments = paymentDao.searchByDate(startDate, finishDate);
+
+        assertNotNull(payments);
+        assertFalse(payments.isEmpty());
+    }
 }

@@ -8,6 +8,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "payment")
-public class Payment {
+public class Payment implements Serializable {
 
     /**
      * Payment Id

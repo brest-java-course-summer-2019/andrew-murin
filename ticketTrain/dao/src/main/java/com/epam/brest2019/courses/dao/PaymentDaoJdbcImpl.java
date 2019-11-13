@@ -5,14 +5,15 @@ import com.epam.brest2019.courses.model.Payment;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @PropertySource("classpath:sql_query_payment.properties")
@@ -43,135 +44,71 @@ public class PaymentDaoJdbcImpl implements PaymentDao {
     private String SEARCH_BY_DATE;
 
     private final SessionFactory sessionFactory;
-
+    private Transact transact;
 
     @Autowired
     public PaymentDaoJdbcImpl (SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
+        transact = new Transact(sessionFactory);
     }
-
 
     @Override
     public List<Payment> findAll() {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-
-        NativeQuery findAll = session.createSQLQuery(SELECT_ALL);
-
-        List<Payment> payments = findAll.getResultList();
-
-        transaction.commit();
-        session.close();
-
+        List<Payment> payments = transact.sessionFixture(SELECT_ALL);
         return payments;
     }
 
-
     @Override
     public List<Payment> findByTicketId(Integer ticketId) {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
+        Map<String, Integer> map = new HashMap<>();
+        map.put("ticketId", ticketId);
 
-        NativeQuery findByTicketId = session.createSQLQuery(FIND_BY_TICKET_ID);
-
-        findByTicketId.setParameter("ticketId", ticketId);
-
-        List<Payment> payments = findByTicketId.getResultList();
-
-        transaction.commit();
-        session.close();
-
+        List<Payment> payments = transact.sessionParameter(FIND_BY_TICKET_ID, map);
         return payments;
     }
 
     @Override
     public Payment findById(Integer paymentId) {
-        return null;
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        Payment payment = session.find(Payment.class, paymentId);
+
+        transaction.commit();
+        session.close();
+
+        return payment;
     }
 
+    @Override
+    public void add(Payment payment) {
+        transact.dmlQueryFixture(payment, "a");
+    }
 
-//    @Override
-//    public Payment findById(Integer paymentId) {
-//        Session session = sessionFactory.openSession();
-//        Transaction transaction = session.beginTransaction();
-//
-//        NativeQuery findById = session.createSQLQuery(FIND_BY_ID);
-//        findById.setParameter("paymentId", paymentId);
-//
-//        Payment payment = (Payment) findById;
-//
-//        transaction.commit();
-//        session.close();
-//
-//        return payment;
-//    }
-
-
-//    @Override
-//    public void add(Payment payment) {
-//        Session session = sessionFactory.openSession();
-//        Transaction transaction = session.beginTransaction();
-//
-////        NativeQuery addPayment = session.createSQLQuery(ADD_PAYMENT);
-////        addPayment.setParameter("paymentDate", payment.getPaymentDate());
-////        addPayment.setParameter("ticketId", payment.getTicketId());
-//
-//        session.persist(payment);
-//
-//        transaction.commit();
-//        session.close();
-//    }
-//
-//    @Override
-//    public void delete(Integer paymentId) {
-//
-//        Session session = sessionFactory.openSession();
-//        Transaction transaction = session.beginTransaction();
-//
-//        session.delete(paymentId);
-//
-//        transaction.commit();
-//        session.close();
-//    }
-
+    @Override
+    public void delete(Payment paymentId) {
+        transact.dmlQueryFixture(paymentId, "d");
+    }
 
     @Override
     public void update(Payment payment) {
-
+        transact.dmlQueryFixture(payment, "u");
     }
 
     @Override
     public List<Payment> findAllWitchDirection() {
-        return null;
+        List<Payment> payments = transact.sessionFixture(FIND_ALL_WITH_DIRECTION);
+        return payments;
     }
 
     @Override
     public List<Payment> searchByDate(LocalDate startDate, LocalDate finishDate) {
-        return null;
+        Map<String, LocalDate> map = new HashMap<>();
+        map.put("startDate", startDate);
+        map.put("finishDate", finishDate);
+
+        List<Payment> payments = transact.sessionParameter(SEARCH_BY_DATE, map);
+        return payments;
     }
 
-
-
-
-
-//
-//    @Override
-//    public void update(Payment payment) {
-//        Session session = sessionFactory.openSession();
-//        Transaction transaction = session.beginTransaction();
-//        session.update(payment);
-//        transaction.commit();
-//    }
-//
-
-//
-//    @Override
-//    public List<Payment> findAllWitchDirection() {
-//        return null;
-//    }
-//
-//    @Override
-//    public List<Payment> searchByDate(LocalDate startDate, LocalDate finishDate) {
-//        return null;
-//    }
 }

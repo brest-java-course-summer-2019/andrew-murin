@@ -51,7 +51,7 @@ public interface PaymentDao {
      *
      * @param paymentId payment id
      */
-    void delete(Integer paymentId);
+    void delete(Payment paymentId);
 
     /**
      * Find all directions
