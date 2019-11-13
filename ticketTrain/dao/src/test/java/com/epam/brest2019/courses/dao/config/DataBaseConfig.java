@@ -43,12 +43,6 @@ public class DataBaseConfig {
     }
 
     @Bean
-    public Transact transact() throws Exception {
-        Transact transact = new Transact(sessionFactory());
-        return transact;
-    }
-
-    @Bean
     public SessionFactory sessionFactory() throws Exception{
         LocalSessionFactoryBuilder builder = new LocalSessionFactoryBuilder(dataSource());
         builder.setProperty("hibernate.hbm2ddl.auto", "create");

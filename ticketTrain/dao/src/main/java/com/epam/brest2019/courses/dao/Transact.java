@@ -5,7 +5,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Map;
@@ -14,7 +13,6 @@ public class Transact {
 
     private final SessionFactory sessionFactory;
 
-    @Autowired
     public Transact (SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
