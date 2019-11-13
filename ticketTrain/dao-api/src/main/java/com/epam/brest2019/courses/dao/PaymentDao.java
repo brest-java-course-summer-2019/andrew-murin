@@ -29,7 +29,7 @@ public interface PaymentDao {
      * @param paymentId payment id
      * @return payment by id
      */
-    Optional<Payment> findById(Integer paymentId);
+    Payment findById(Integer paymentId);
 
     /**
      * Persist new payment.
@@ -37,7 +37,7 @@ public interface PaymentDao {
      * @param payment payment
      * @return payment
      */
-    Payment add(Payment payment);
+    void add(Payment payment);
 
     /**
      * Update payment.

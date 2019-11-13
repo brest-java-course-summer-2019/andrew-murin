@@ -44,12 +44,11 @@ public class DataBaseConfig {
     @Bean
     public SessionFactory sessionFactory() throws Exception{
         LocalSessionFactoryBuilder builder = new LocalSessionFactoryBuilder(dataSource());
-        builder.setProperty("hibernate.hbm2ddl.auto", "update");
+        builder.setProperty("hibernate.hbm2ddl.auto", "create");
         builder.scanPackages("com.epam.brest2019.courses.*");
         builder.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL57Dialect");
         builder.setProperty("hibernate.format_sql", "true");
         builder.setProperty("hibernate.show_sql", "true");
-//        builder.setProperty("hibernate.id.new_generator_mappings", "false");
 
         return builder.buildSessionFactory();
     }
@@ -70,15 +69,11 @@ public class DataBaseConfig {
     @Bean
     public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
-//        dataSource.setDriverClassName(environment.getProperty("datasource.driver"));
-//        dataSource.setUrl(environment.getProperty("datasource.url"));
-//        dataSource.setUsername(environment.getProperty("datasource.user"));
-//        dataSource.setPassword(environment.getProperty("datasource.password"));
-
         dataSource.setDriverClassName(DB_DRIVER_CLASS_NAME);
         dataSource.setUrl(DB_URL);
         dataSource.setUsername(DB_USER_NAME);
         dataSource.setPassword(DB_PASSWORD);
+
         return dataSource;
     }
 

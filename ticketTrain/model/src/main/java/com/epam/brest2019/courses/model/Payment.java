@@ -83,11 +83,11 @@ public class Payment {
     /**
      * Constructor with parameters
      *
-     * @param paymentDate
+     * @param localDate
      * @param ticketId
      */
-    public Payment(LocalDate paymentDate, Ticket ticketId) {
-        this.paymentDate = paymentDate;
+    public Payment(LocalDate localDate, Ticket ticketId) {
+        this.paymentDate = localDate;
         this.ticketId = ticketId;
     }
 
