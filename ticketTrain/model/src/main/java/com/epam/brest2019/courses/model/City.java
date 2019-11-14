@@ -28,14 +28,14 @@ public class City {
     @NotNull
     @OneToMany
     @JoinColumn(name = "from_city", foreignKey = @ForeignKey(name = "fk_from_city"))
-    private List<Ticket> city_from;
+    private List<Ticket> cityFrom;
     /**
      * Direction of train_to
      */
     @NotNull
     @OneToMany
     @JoinColumn(name = "to_city", foreignKey = @ForeignKey(name = "fk_to_city"))
-    private List<Ticket> city_to;
+    private List<Ticket> cityTo;
 
 
     /**
@@ -44,20 +44,20 @@ public class City {
     public City() {
     }
 
-    public List<Ticket> getCity_from() {
-        return city_from;
+    public List<Ticket> getCityFrom() {
+        return cityFrom;
     }
 
-    public void setCity_from(List<Ticket> city_from) {
-        this.city_from = city_from;
+    public void setCityFrom(List<Ticket> cityFrom) {
+        this.cityFrom = cityFrom;
     }
 
-    public List<Ticket> getCity_to() {
-        return city_to;
+    public List<Ticket> getCityTo() {
+        return cityTo;
     }
 
-    public void setCity_to(List<Ticket> city_to) {
-        this.city_to = city_to;
+    public void setCityTo(List<Ticket> cityTo) {
+        this.cityTo = cityTo;
     }
 
     /**
@@ -95,4 +95,6 @@ public class City {
     public void setCityName(String cityName) {
         this.cityName = cityName;
     }
+
+
 }

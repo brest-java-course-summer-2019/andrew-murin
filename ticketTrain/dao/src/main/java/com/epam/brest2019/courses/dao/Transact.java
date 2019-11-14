@@ -9,40 +9,41 @@ import org.hibernate.query.NativeQuery;
 import java.util.List;
 import java.util.Map;
 
-public class Transact {
+public class Transact<T> {
 
-    private final SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
 
     public Transact (SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
 
-    List<Payment> sessionFixture(String sqlQuery) {
+    synchronized List<T> sessionFixture(String sqlQuery) {
 
         Transaction transaction = null;
-        List<Payment> payments = null;
+        List<T> payments = null;
 
         try ( Session session = sessionFactory.openSession() ) {
             transaction = session.beginTransaction();
 
             NativeQuery query = session.createSQLQuery(sqlQuery);
-             payments = query.getResultList();
+            payments = query.getResultList();
 
             transaction.commit();
 
         } catch (Exception ex) {
             if(transaction != null)
                 transaction.rollback();
+            ex.printStackTrace();
 
         }
         return payments;
     }
 
-    List<Payment> sessionParameter(String sqlQuery, Map param) {
+    synchronized List<T> sessionParameter(String sqlQuery, Map param) {
 
         Transaction transaction = null;
-        List<Payment> payments = null;
+        List<T> payments = null;
 
         try ( Session session = sessionFactory.openSession() ) {
 
@@ -59,13 +60,12 @@ public class Transact {
         } catch (Exception ex) {
             if(transaction != null)
                 transaction.rollback();
-
             ex.printStackTrace();
         }
         return payments;
     }
 
-    void dmlQueryFixture(Payment payment, String dmlQuery) {
+    synchronized void dmlQueryFixture(T payment, String dmlQuery) {
 
         Transaction transaction = null;
 

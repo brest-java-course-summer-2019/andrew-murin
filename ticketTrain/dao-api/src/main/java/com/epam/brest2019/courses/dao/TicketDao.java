@@ -16,7 +16,7 @@ public interface TicketDao {
      * @param ticket new ticket
      * @return new ticket object.
      */
-    Ticket add(Ticket ticket);
+    void add(Ticket ticket);
 
     /**
      * Update ticket
@@ -30,7 +30,7 @@ public interface TicketDao {
      *
      * @param ticketId ticket id
      */
-    void delete(Integer ticketId);
+    void delete(Ticket ticketId);
 
     /**
      * Get tickets.
@@ -44,7 +44,7 @@ public interface TicketDao {
      * @param ticketId ticketId.
      * @return Ticket
      */
-    Optional<Ticket> findById(Integer ticketId);
+    Ticket findById(Integer ticketId);
 
     /**
      * Find tickets by date & direction

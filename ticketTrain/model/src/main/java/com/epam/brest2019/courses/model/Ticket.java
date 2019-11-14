@@ -76,22 +76,6 @@ public class Ticket {
 
     }
 
-    public City getFromCity() {
-        return fromCity;
-    }
-
-    public void setFromCity(City fromCity) {
-        this.fromCity = fromCity;
-    }
-
-    public City getToCity() {
-        return toCity;
-    }
-
-    public void setToCity(City toCity) {
-        this.toCity = toCity;
-    }
-
     /**
      * Constructor with parameters.
      *
@@ -183,22 +167,31 @@ public class Ticket {
         this.ticketDate = ticketDate;
     }
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Ticket)) return false;
-        Ticket ticket = (Ticket) o;
-        return Objects.equals(getTicketId(), ticket.getTicketId()) &&
-                Objects.equals(getTicketCost(), ticket.getTicketCost()) &&
-                Objects.equals(getTicketDate(), ticket.getTicketDate()) &&
-                Objects.equals(getFromCity(), ticket.getFromCity()) &&
-                Objects.equals(getToCity(), ticket.getToCity()) &&
-                Objects.equals(getCityFrom(), ticket.getCityFrom());
+    public City getFromCity() {
+        return fromCity;
     }
 
+    public void setFromCity(City fromCity) {
+        this.fromCity = fromCity;
+    }
+
+    public City getToCity() {
+        return toCity;
+    }
+
+    public void setToCity(City toCity) {
+        this.toCity = toCity;
+    }
+
+
     @Override
-    public int hashCode() {
-        return Objects.hash(getTicketId(), getTicketCost(), getTicketDate(), getFromCity(), getToCity());
+    public String toString() {
+        return "Ticket{" +
+                "ticketId=" + ticketId +
+                ", ticketCost=" + ticketCost +
+                ", ticketDate=" + ticketDate +
+                ", fromCity=" + fromCity +
+                ", toCity=" + toCity +
+                '}';
     }
 }

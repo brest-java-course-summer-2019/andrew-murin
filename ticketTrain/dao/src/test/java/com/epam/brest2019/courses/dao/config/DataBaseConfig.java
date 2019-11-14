@@ -1,8 +1,7 @@
 package com.epam.brest2019.courses.dao.config;
 
-import com.epam.brest2019.courses.dao.PaymentDao;
-import com.epam.brest2019.courses.dao.PaymentDaoJdbcImpl;
-import com.epam.brest2019.courses.dao.Transact;
+import com.epam.brest2019.courses.dao.*;
+import com.epam.brest2019.courses.model.Ticket;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +40,12 @@ public class DataBaseConfig {
         PaymentDao paymentDao = new PaymentDaoJdbcImpl(sessionFactory());
         return paymentDao;
     }
+
+//    @Bean
+//    public TicketDao ticketDao() throws Exception {
+//        TicketDao ticketDao = new TicketDaoJdbcImpl(sessionFactory());
+//        return ticketDao;
+//    }
 
     @Bean
     public SessionFactory sessionFactory() throws Exception{

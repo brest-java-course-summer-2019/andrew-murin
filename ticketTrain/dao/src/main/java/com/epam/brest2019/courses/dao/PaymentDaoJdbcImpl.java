@@ -15,6 +15,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ *  Payment DAO Interface implementation
+ */
 @Repository
 @PropertySource("classpath:sql_query_payment.properties")
 public class PaymentDaoJdbcImpl implements PaymentDao {
