@@ -19,52 +19,78 @@ public class Transact {
 
 
     List<Payment> sessionFixture(String sqlQuery) {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
 
-        NativeQuery query = session.createSQLQuery(sqlQuery);
-        List<Payment> payments = query.getResultList();
+        Transaction transaction = null;
+        List<Payment> payments = null;
 
-        transaction.commit();
-        session.close();
+        try ( Session session = sessionFactory.openSession() ) {
+            transaction = session.beginTransaction();
 
+            NativeQuery query = session.createSQLQuery(sqlQuery);
+             payments = query.getResultList();
+
+            transaction.commit();
+
+        } catch (Exception ex) {
+            if(transaction != null)
+                transaction.rollback();
+
+        }
         return payments;
     }
 
     List<Payment> sessionParameter(String sqlQuery, Map param) {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
 
-        NativeQuery query = session.createSQLQuery(sqlQuery);
-        for(Object key : param.keySet()) {
-            query.setParameter((String) key, param.get(key));
+        Transaction transaction = null;
+        List<Payment> payments = null;
+
+        try ( Session session = sessionFactory.openSession() ) {
+
+            transaction = session.beginTransaction();
+
+            NativeQuery query = session.createSQLQuery(sqlQuery);
+            for (Object key : param.keySet()) {
+                query.setParameter((String) key, param.get(key));
+            }
+
+            payments = query.getResultList();
+            transaction.commit();
+
+        } catch (Exception ex) {
+            if(transaction != null)
+                transaction.rollback();
+
+            ex.printStackTrace();
         }
-
-        List<Payment> payments = query.getResultList();
-
-        transaction.commit();
-        session.close();
-
         return payments;
     }
 
     void dmlQueryFixture(Payment payment, String dmlQuery) {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
 
-        switch (dmlQuery) {
-            case "a":
-                session.persist(payment);
-                break;
-            case "d":
-                session.remove(payment);
-                break;
-            case "u":
-                session.update(payment);
-                break;
+        Transaction transaction = null;
+
+        try ( Session session = sessionFactory.openSession() ) {
+
+            transaction = session.beginTransaction();
+
+            switch (dmlQuery) {
+                case "a":
+                    session.persist(payment);
+                    break;
+                case "d":
+                    session.remove(payment);
+                    break;
+                case "u":
+                    session.update(payment);
+                    break;
+            }
+
+            transaction.commit();
+
+        } catch (Exception ex) {
+            if (transaction != null)
+                transaction.rollback();
+            ex.printStackTrace();
         }
-
-        transaction.commit();
-        session.close();
     }
 }
