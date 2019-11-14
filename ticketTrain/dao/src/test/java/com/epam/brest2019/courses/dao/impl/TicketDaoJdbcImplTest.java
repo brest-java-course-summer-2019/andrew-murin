@@ -5,6 +5,8 @@ import com.epam.brest2019.courses.dao.config.DataBaseConfig;
 import com.epam.brest2019.courses.dao.config.DataSourceConfig;
 import com.epam.brest2019.courses.model.City;
 import com.epam.brest2019.courses.model.Ticket;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -15,6 +17,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -33,6 +37,29 @@ public class TicketDaoJdbcImplTest {
 
     @Autowired
     private TicketDao ticketDao;
+
+    private Ticket ticket;
+
+    @Before
+    public void changes() {
+        ticket = new Ticket();
+        City city = new City();
+
+        ticket.setTicketDate(LocalDate.now());
+        ticket.setFromCity(city);
+
+        city.setCityId(4);
+        ticket.setToCity(city);
+
+        ticket.setTicketCost(new BigDecimal(25));
+        ticketDao.add(ticket);
+    }
+
+    @After
+    public void cleanChanges() {
+        ticketDao.delete(ticket);
+    }
+
 
     @Test
     public void findAll(){
@@ -53,7 +80,17 @@ public class TicketDaoJdbcImplTest {
     @Test
     public void add(){
         LOGGER.debug("Add Ticket: {}",Ticket.class);
-        Ticket ticket = new Ticket();
+
+        ticket = new Ticket();
+        City city = new City();
+
+        ticket.setTicketDate(LocalDate.now());
+        ticket.setFromCity(city);
+
+        city.setCityId(4);
+        ticket.setToCity(city);
+
+        ticket.setTicketCost(new BigDecimal(25));
 
         List<Ticket> tickets = ticketDao.findAll();
         int sizeBefore = tickets.size();
@@ -61,7 +98,6 @@ public class TicketDaoJdbcImplTest {
         ticketDao.add(ticket);
 
         assertEquals(sizeBefore + 1, ticketDao.findAll().size());
-
     }
 //
 //    @Test
@@ -83,14 +119,13 @@ public class TicketDaoJdbcImplTest {
 //
     @Test
     public void delete(){
-        Ticket ticket = new Ticket();
-        ticketDao.add(ticket);
 
         List<Ticket> tickets = ticketDao.findAll();
-
         int sizeBefore = tickets.size();
 
-        assertEquals(sizeBefore - 1, ticketDao.findAll().size());
+        ticketDao.add(ticket);
+
+        assertEquals(sizeBefore + 1, ticketDao.findAll().size());
     }
 //
 //    @Test

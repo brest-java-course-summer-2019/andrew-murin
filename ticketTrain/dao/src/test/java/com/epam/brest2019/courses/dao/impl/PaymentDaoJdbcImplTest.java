@@ -39,7 +39,7 @@ public class PaymentDaoJdbcImplTest {
     private Payment payment;
 
     @Before
-    public void changes(){
+    public void changes() {
         LocalDate localDate = LocalDate.now();
 
         Ticket ticket = new Ticket();

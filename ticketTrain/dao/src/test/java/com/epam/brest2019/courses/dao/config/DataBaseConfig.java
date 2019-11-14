@@ -35,17 +35,17 @@ public class DataBaseConfig {
     @Autowired
     private Environment environment;
 
-    @Bean
-    public PaymentDao paymentDao() throws Exception {
-        PaymentDao paymentDao = new PaymentDaoJdbcImpl(sessionFactory());
-        return paymentDao;
-    }
-
 //    @Bean
-//    public TicketDao ticketDao() throws Exception {
-//        TicketDao ticketDao = new TicketDaoJdbcImpl(sessionFactory());
-//        return ticketDao;
+//    public PaymentDao paymentDao() throws Exception {
+//        PaymentDao paymentDao = new PaymentDaoJdbcImpl(sessionFactory());
+//        return paymentDao;
 //    }
+
+    @Bean
+    public TicketDao ticketDao() throws Exception {
+        TicketDao ticketDao = new TicketDaoJdbcImpl(sessionFactory());
+        return ticketDao;
+    }
 
     @Bean
     public SessionFactory sessionFactory() throws Exception{
