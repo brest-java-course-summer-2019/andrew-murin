@@ -33,9 +33,8 @@ public interface PaymentService {
      * Persist new payment.
      *
      * @param payment payment
-     * @return payment
      */
-    Payment add(Payment payment);
+    void add(Payment payment);
 
     /**
      * Update payment.
@@ -49,7 +48,7 @@ public interface PaymentService {
      *
      * @param paymentId payment id
      */
-    void delete(Integer paymentId);
+    void delete(Payment paymentId);
 
     /**
      * Find all directions

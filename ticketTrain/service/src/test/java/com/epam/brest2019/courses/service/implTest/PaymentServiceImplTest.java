@@ -1,10 +1,16 @@
-package com.epam.brest2019.courses.service;
+package com.epam.brest2019.courses.service.implTest;
 
 import com.epam.brest2019.courses.model.Payment;
+import com.epam.brest2019.courses.model.Ticket;
+import com.epam.brest2019.courses.service.PaymentService;
+import com.epam.brest2019.courses.service.config.DataSourceConfig;
+import com.epam.brest2019.courses.service.config.ServiceConfig;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
@@ -12,8 +18,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Sql("classpath:data.sql")
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(locations = {"classpath:test-service.xml"})
+@ActiveProfiles(profiles = "h2-database")
+@ContextConfiguration(classes = {ServiceConfig.class, DataSourceConfig.class})
 public class PaymentServiceImplTest {
 
     @Autowired
@@ -46,7 +54,7 @@ public class PaymentServiceImplTest {
         Payment payment = paymentService.findById(id);
 
         assertNotNull(payment);
-        assertEquals(2, (int)createFixture().getTicketId());
+        assertEquals(2, (int) payment.getPaymentId());
     }
 
     @Test
@@ -62,18 +70,26 @@ public class PaymentServiceImplTest {
         int id = 2;
         Payment payment = createFixture();
         payment.setPaymentId(id);
+
         paymentService.update(payment);
+
         payment = paymentService.findById(id);
 
         assertNotNull(payment);
-        assertEquals((int)payment.getTicketId(),2 );
+        assertEquals((int)payment.getPaymentId(),2 );
     }
 
     @Test
     void delete(){
-        int id = 3;
-        paymentService.delete(id);
-        assertThrows(RuntimeException.class, () -> paymentService.findById(id));
+        int id = 7;
+        Payment payment = createFixture();
+        payment.setPaymentId(id);
+
+        int size = paymentService.findAll().size();
+
+        paymentService.delete(payment);
+
+        assertEquals(size, paymentService.findAll().size() + 1);
     }
 
     @Test
@@ -94,7 +110,13 @@ public class PaymentServiceImplTest {
 
     private Payment createFixture(){
         Payment payment = new Payment();
-        payment.setTicketId(2);
+        Ticket ticket = new Ticket();
+
+        payment.setPaymentDate(LocalDate.now());
+        ticket.setTicketId(1);
+
+        payment.setTicketId(ticket);
+
         return payment;
     }
 }

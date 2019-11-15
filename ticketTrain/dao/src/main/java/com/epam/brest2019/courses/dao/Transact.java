@@ -1,5 +1,6 @@
 package com.epam.brest2019.courses.dao;
 
+import com.epam.brest2019.courses.model.Payment;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;

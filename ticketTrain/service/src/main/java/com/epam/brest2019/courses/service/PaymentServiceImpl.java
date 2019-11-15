@@ -6,13 +6,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
-//@Transactional
 public class PaymentServiceImpl implements PaymentService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PaymentServiceImpl.class);
@@ -39,14 +37,14 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public Payment findById(Integer paymentId) {
         LOGGER.debug("Find by id: {}", paymentId);
-        return paymentDao.findById(paymentId)
-                .orElseThrow(() -> new RuntimeException("Failed to get payment from DB"));
+
+        return paymentDao.findById(paymentId);
     }
 
     @Override
-    public Payment add(Payment payment) {
+    public void add(Payment payment) {
         LOGGER.debug("Add: {}", payment);
-        return paymentDao.add(payment);
+        paymentDao.add(payment);
     }
 
     @Override
@@ -56,7 +54,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public void delete(Integer paymentId) {
+    public void delete(Payment paymentId) {
         LOGGER.debug("Delete: {}", paymentId);
         paymentDao.delete(paymentId);
     }

@@ -24,9 +24,9 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public Ticket add(Ticket ticket) {
+    public void add(Ticket ticket) {
         LOGGER.debug("Add new ticket: {}",ticket);
-        return ticketDao.add(ticket);
+        ticketDao.add(ticket);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public void delete(Integer ticketId) {
+    public void delete(Ticket ticketId) {
         LOGGER.debug("Delete ticket with id: {}", ticketId);
         ticketDao.delete(ticketId);
     }
@@ -50,8 +50,7 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public Ticket findById(Integer ticketId) {
         LOGGER.debug("Find ticket by Id: {}", ticketId);
-        return ticketDao.findById(ticketId)
-                .orElseThrow(() -> new RuntimeException("Failed to get ticket from DB"));
+        return ticketDao.findById(ticketId);
     }
 
     @Override

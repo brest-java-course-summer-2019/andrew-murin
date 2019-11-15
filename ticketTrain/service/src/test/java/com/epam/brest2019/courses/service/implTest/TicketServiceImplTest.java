@@ -1,10 +1,16 @@
-package com.epam.brest2019.courses.service;
+package com.epam.brest2019.courses.service.implTest;
 
+import com.epam.brest2019.courses.model.City;
 import com.epam.brest2019.courses.model.Ticket;
+import com.epam.brest2019.courses.service.TicketService;
+import com.epam.brest2019.courses.service.config.DataSourceConfig;
+import com.epam.brest2019.courses.service.config.ServiceConfig;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.math.BigDecimal;
@@ -14,8 +20,10 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 
+@Sql("classpath:data.sql")
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(locations = {"classpath:test-service.xml"})
+@ActiveProfiles(profiles = "h2-database")
+@ContextConfiguration(classes = {ServiceConfig.class, DataSourceConfig.class})
 public class TicketServiceImplTest {
 
     private final static Integer CITY_FROM = 1;
@@ -32,6 +40,7 @@ public class TicketServiceImplTest {
         assertFalse(tickets.isEmpty());
     }
 
+
     @Test
     void findById(){
         int id = 2;
@@ -39,51 +48,56 @@ public class TicketServiceImplTest {
 
 
         assertNotNull(ticket);
-        assertEquals(CITY_FROM, ticket.getTicketDirectionFrom());
-        assertEquals(CITY_TO, ticket.getTicketDirectionTo());
+        assertEquals(id, (int) ticket.getTicketId());
     }
 
     @Test
     void update(){
         int id = 3;
         Ticket ticket = createFixture();
+        City city = new City();
+
         ticket.setTicketId(id);
+
+        city.setCityId(CITY_FROM);
+        ticket.setFromCity(city);
+
+        assertEquals(CITY_FROM, ticket.getFromCity().getCityId());
+
+        city.setCityId(CITY_TO);
+        ticket.setToCity(city);
+
         ticketService.update(ticket);
         ticket = ticketService.findById(id);
 
         assertNotNull(ticket);
-        assertEquals(CITY_FROM, ticket.getTicketDirectionFrom());
-        assertEquals(CITY_TO, ticket.getTicketDirectionTo());
+        assertEquals(CITY_TO, ticket.getToCity().getCityId());
     }
 
     @Test
     void delete(){
-        Ticket testAddTicket = createFixture();
+        Ticket ticket = createFixture();
 
-        LocalDate localDate = LocalDate.of(2020,8,05);
+        ticketService.add(ticket);
+        int sizeBefore = ticketService.findAll().size();
 
-        testAddTicket.setTicketDate(localDate);
-        testAddTicket.setTicketCost(new BigDecimal(24.5));
-        testAddTicket.setTicketId(5);
+        ticketService.delete(ticket);
+        int sizeAfter = ticketService.findAll().size();
 
-        ticketService.add(testAddTicket);
-        int sizeBeforeDelete = ticketService.findAll().size();
-
-        ticketService.delete(testAddTicket.getTicketId());
-
-        int sizeAfterDelete = ticketService.findAll().size();
-
-        assertEquals(sizeBeforeDelete -1, sizeAfterDelete);
+        assertTrue(sizeBefore < sizeAfter);
 
     }
 
     @Test
     void add(){
-        long count = ticketService.findAll().size();
-        ticketService.add(createFixture());
-        long newCount = ticketService.findAll().size();
-        assertTrue(count < newCount);
+        int sizeBefore = ticketService.findAll().size();
 
+        Ticket ticket = createFixture();
+
+        ticketService.add(ticket);
+        int sizeAfter = ticketService.findAll().size();
+
+        assertTrue(sizeBefore < sizeAfter);
     }
 
     @Test
@@ -109,8 +123,17 @@ public class TicketServiceImplTest {
 
     private Ticket createFixture(){
         Ticket ticket = new Ticket();
-        ticket.setTicketDirectionFrom(CITY_FROM);
-        ticket.setTicketDirectionTo(CITY_TO);
+        City city = new City();
+
+        city.setCityId(CITY_FROM);
+        ticket.setFromCity(city);
+
+        city.setCityId(CITY_TO);
+        ticket.setToCity(city);
+
+        ticket.setTicketCost(new BigDecimal(50));
+        ticket.setTicketDate(LocalDate.now());
+
         return ticket;
     }
 

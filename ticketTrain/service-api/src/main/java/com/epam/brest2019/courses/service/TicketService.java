@@ -16,7 +16,7 @@ public interface TicketService {
      * @param ticket new ticket
      * @return new ticket object.
      */
-    Ticket add(Ticket ticket);
+    void add(Ticket ticket);
 
     /**
      * Update ticket
@@ -30,7 +30,7 @@ public interface TicketService {
      *
      * @param ticketId ticket id
      */
-    void delete(Integer ticketId);
+    void delete(Ticket ticketId);
 
     /**
      * Get tickets.
