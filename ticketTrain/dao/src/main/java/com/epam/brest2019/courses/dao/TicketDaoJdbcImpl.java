@@ -1,7 +1,9 @@
 package com.epam.brest2019.courses.dao;
 
 import com.epam.brest2019.courses.model.Ticket;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -26,15 +28,6 @@ public class TicketDaoJdbcImpl implements TicketDao {
     @Value("${ticket.findById}")
     private String FIND_BY_ID;
 
-    @Value("${ticket.add}")
-    private String ADD_DIRECTION;
-
-    @Value("${ticket.update}")
-    private String UPDATE;
-
-    @Value("${ticket.delete}")
-    private String DELETE;
-
     @Value("${ticket.findAllWithDirection}")
     private String SELECT_ALL_WITH_DIRECTION;
 
@@ -42,7 +35,18 @@ public class TicketDaoJdbcImpl implements TicketDao {
     private String SEARCH_BY_DATE;
 
 
+    private static final String ADD = "a";
+    private static final String UPDATE = "u";
+    private static final String DELETE = "d";
+
+    private static final String STRART_DATE = "startDate";
+    private static final String FINISH_DATE = "finishDate";
+    private static final String FROM_CITY = "fromCity";
+    private static final String TO_CITY = "toCity";
+
+
     private final SessionFactory sessionFactory;
+
     private Transact transact;
 
     @Autowired
@@ -51,56 +55,20 @@ public class TicketDaoJdbcImpl implements TicketDao {
         transact = new Transact(sessionFactory);
     }
 
-//    @Override
-//    public Ticket add(Ticket ticket){
-//        MapSqlParameterSource parameters = new MapSqlParameterSource();
-//        parameters.addValue(TICKET_DIRECTION_FROM, ticket.getTicketDirectionFrom());
-//        parameters.addValue(TICKET_DIRECTION_TO, ticket.getTicketDirectionTo());
-//        parameters.addValue(TICKET_COST, ticket.getTicketCost());
-//        parameters.addValue(TICKET_DATE, ticket.getTicketDate());
-//
-//        KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
-//        namedParameterJdbcTemplate.update(ADD_DIRECTION, parameters, generatedKeyHolder);
-//        ticket.setTicketId(generatedKeyHolder.getKey().intValue());
-//        return ticket;
-//    }
-//
-
-
-//    @Override
-//    public void update(Ticket ticket) {
-//        Optional.of(namedParameterJdbcTemplate.update(UPDATE, new BeanPropertySqlParameterSource(ticket)))
-//                .filter(this::successfullyUpdated)
-//                .orElseThrow(() -> new RuntimeException("Failed to update ticket in DB"));
-//    }
-//
-//    private boolean successfullyUpdated(int numRowsUpdated) {
-//        return numRowsUpdated > 0;
-//    }
-//
-//    @Override
-//    public void delete(Integer ticketId){
-//        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
-//        mapSqlParameterSource.addValue(TICKET_ID, ticketId);
-//        Optional.of(namedParameterJdbcTemplate.update(DELETE, mapSqlParameterSource))
-//                .filter(this::successfullyUpdated)
-//                .orElseThrow(() -> new RuntimeException("Failed to delete ticket from DB"));
-//    }
-
 
     @Override
     public void add(Ticket ticket) {
-        transact.dmlQueryFixture(ticket, "a");
+        transact.dmlQueryFixture(ticket, ADD);
     }
 
     @Override
     public void update(Ticket ticket) {
-
+        transact.dmlQueryFixture(ticket, UPDATE);
     }
 
     @Override
     public void delete(Ticket ticketId) {
-        transact.dmlQueryFixture(ticketId, "d");
+        transact.dmlQueryFixture(ticketId, DELETE);
     }
 
     @Override
@@ -111,36 +79,42 @@ public class TicketDaoJdbcImpl implements TicketDao {
 
     @Override
     public Ticket findById(Integer ticketId) {
-//        Map<String, Integer> map = new HashMap<>();
-//        map.put("ticketId", ticketId);
-//
-//        List<Ticket> tickets = transact.sessionParameter(FIND_BY_ID, map);
-//        return tickets.get(0);
-    return null;
+        Transaction transaction = null;
+        Ticket ticket = null;
+
+        try ( Session session = sessionFactory.openSession() ) {
+            transaction = session.beginTransaction();
+
+            ticket = session.find(Ticket.class, ticketId);
+
+            transaction.commit();
+
+        } catch (Exception ex) {
+            if(transaction != null) {
+                transaction.rollback();
+                ex.printStackTrace();
+            }
+        }
+
+        return ticket;
     }
 
     @Override
     public List<Ticket> searchTicket(LocalDate startDate, LocalDate finishDate, Integer fromCity, Integer toCity) {
-        return null;
+        Map map = new HashMap<>();
+        map.put(STRART_DATE, startDate);
+        map.put(FINISH_DATE, finishDate);
+        map.put(FROM_CITY, fromCity);
+        map.put(TO_CITY, toCity);
+
+        List<Ticket> tickets = transact.sessionParameter(SEARCH_BY_DATE, map);
+        return tickets;
     }
 
     @Override
     public List<Ticket> findAllWithDirection() {
-        return null;
+        List<Ticket> tickets = transact.sessionFixture(SELECT_ALL_WITH_DIRECTION);
+        return tickets;
     }
-
-//    @Override
-//    public Optional<Ticket> findById(Integer ticketId) {
-//        SqlParameterSource namedParameters = new MapSqlParameterSource(TICKET_ID, ticketId);
-//        List<Ticket> results = namedParameterJdbcTemplate.query(FIND_BY_ID, namedParameters,
-//                BeanPropertyRowMapper.newInstance(Ticket.class));
-//        return Optional.ofNullable(DataAccessUtils.uniqueResult(results));
-//    }
-//
-//    @Override
-//    public List<Ticket> findAllWithDirection() {
-//        List<Ticket> tickets = transact.sessionFixture(SELECT_ALL_WITH_DIRECTION);
-//        return tickets;
-//    }
 
 }

@@ -50,12 +50,12 @@ public interface TicketDao {
      * Find tickets by date & direction
      * @param startDate
      * @param finishDate
-     * @param directionFrom
-     * @param directionTo
+     * @param fromCity
+     * @param toCity
      * @return
      */
     List<Ticket> searchTicket(LocalDate startDate, LocalDate finishDate,
-                              Integer directionFrom, Integer directionTo);
+                              Integer fromCity, Integer toCity);
 
     /**
      * Find all directions and replace numbers of directions on city names

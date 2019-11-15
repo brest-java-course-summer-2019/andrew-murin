@@ -27,7 +27,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 @Sql("classpath:data.sql")
-@ActiveProfiles(profiles = "mysql-database")
+@ActiveProfiles(profiles = "h2-database")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {DataSourceConfig.class, DataBaseConfig.class})
 public class PaymentDaoJdbcImplTest {
@@ -86,6 +86,7 @@ public class PaymentDaoJdbcImplTest {
 
     @Test
     public void add(){
+        LOGGER.debug("Add Payment ({})", Payment.class);
 
         Payment payment = new Payment();
         payment.setPaymentDate(LocalDate.now());
@@ -100,6 +101,8 @@ public class PaymentDaoJdbcImplTest {
 
     @Test
     public void delete(){
+        LOGGER.debug("Delete Payment ({})", Payment.class);
+
         Payment payment = new Payment();
 
         paymentDao.add(payment);
@@ -113,6 +116,8 @@ public class PaymentDaoJdbcImplTest {
 
     @Test
     public void update(){
+        LOGGER.debug("Update Payment({})", Payment.class);
+
         LocalDate localDate = LocalDate.of(2019, 2, 7);
         payment.setPaymentDate(localDate);
 
@@ -127,6 +132,8 @@ public class PaymentDaoJdbcImplTest {
 
     @Test
     public void findAllWithDirection() {
+        LOGGER.debug("findAllWithDirection Payment({})", Payment.class);
+
         List<Payment> payments = paymentDao.findAllWitchDirection();
 
         assertNotNull(payments);
@@ -136,6 +143,8 @@ public class PaymentDaoJdbcImplTest {
 
     @Test
     public void searchByDate() {
+        LOGGER.debug("searchByDate Payment ({})", Payment.class);
+
         LocalDate startDate = LocalDate.of(2019,01,01);
         LocalDate finishDate = LocalDate.of(2019,12,12);
 
