@@ -33,7 +33,7 @@ public class TicketServiceImplTest {
     private TicketService ticketService;
 
     @Test
-    void findAll(){
+    public void findAll(){
         List<Ticket> tickets = ticketService.findAll();
 
         assertNotNull(tickets);
@@ -42,7 +42,7 @@ public class TicketServiceImplTest {
 
 
     @Test
-    void findById(){
+    public void findById(){
         int id = 2;
         Ticket ticket = ticketService.findById(id);
 
@@ -52,7 +52,7 @@ public class TicketServiceImplTest {
     }
 
     @Test
-    void update(){
+    public void update(){
         int id = 3;
         Ticket ticket = createFixture();
         City city = new City();
@@ -75,7 +75,7 @@ public class TicketServiceImplTest {
     }
 
     @Test
-    void delete(){
+    public void delete(){
         Ticket ticket = createFixture();
 
         ticketService.add(ticket);
@@ -84,12 +84,12 @@ public class TicketServiceImplTest {
         ticketService.delete(ticket);
         int sizeAfter = ticketService.findAll().size();
 
-        assertTrue(sizeBefore < sizeAfter);
+        assertTrue(sizeBefore > sizeAfter);
 
     }
 
     @Test
-    void add(){
+    public void add(){
         int sizeBefore = ticketService.findAll().size();
 
         Ticket ticket = createFixture();
@@ -97,11 +97,11 @@ public class TicketServiceImplTest {
         ticketService.add(ticket);
         int sizeAfter = ticketService.findAll().size();
 
-        assertTrue(sizeBefore < sizeAfter);
+        assertTrue(sizeBefore  < sizeAfter);
     }
 
     @Test
-    void searchTicket() {
+    public void searchTicket() {
 
         LocalDate startDate = LocalDate.of(2019,01,01);
         LocalDate finishDate = LocalDate.of(2019,12,12);
@@ -113,7 +113,7 @@ public class TicketServiceImplTest {
     }
 
     @Test
-    void findAllWithDirection() {
+    public void findAllWithDirection() {
         List<Ticket> tickets = ticketService.findAllWithDirection();
 
         assertNotNull(tickets);

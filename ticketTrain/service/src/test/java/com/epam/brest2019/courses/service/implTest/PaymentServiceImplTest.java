@@ -32,7 +32,7 @@ public class PaymentServiceImplTest {
 
 
     @Test
-    void findAll(){
+    public void findAll(){
         List<Payment> payments = paymentService.findAll();
 
         assertNotNull(payments);
@@ -40,7 +40,7 @@ public class PaymentServiceImplTest {
     }
 
     @Test
-    void findByTicketId(){
+    public void findByTicketId(){
         int id = 2;
         List<Payment> payment = paymentService.findByTicketId(id);
 
@@ -49,7 +49,7 @@ public class PaymentServiceImplTest {
     }
 
     @Test
-    void findById(){
+    public void findById(){
         int id = 2;
         Payment payment = paymentService.findById(id);
 
@@ -58,7 +58,7 @@ public class PaymentServiceImplTest {
     }
 
     @Test
-    void add(){
+    public void add(){
         long sizeBefore = paymentService.findAll().size();
         paymentService.add(createFixture());
         long sizeAfter = paymentService.findAll().size();
@@ -66,7 +66,7 @@ public class PaymentServiceImplTest {
     }
 
     @Test
-    void update(){
+    public void update(){
         int id = 2;
         Payment payment = createFixture();
         payment.setPaymentId(id);
@@ -80,7 +80,7 @@ public class PaymentServiceImplTest {
     }
 
     @Test
-    void delete(){
+    public void delete(){
         int id = 7;
         Payment payment = createFixture();
         payment.setPaymentId(id);
@@ -93,7 +93,7 @@ public class PaymentServiceImplTest {
     }
 
     @Test
-    void findAllWithDirection() {
+    public void findAllWithDirection() {
         List<Payment> payments = paymentService.findAllWitchDirection();
 
         assertNotNull(payments);
@@ -101,7 +101,7 @@ public class PaymentServiceImplTest {
     }
 
     @Test
-    void searchByDate() {
+    public void searchByDate() {
         List<Payment> payments = paymentService.searchByDate(START_DATE, FINISH_DATE);
 
         assertNotNull(payments);
