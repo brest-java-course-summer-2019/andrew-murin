@@ -23,12 +23,10 @@ public class TicketRestConsumer implements TicketService {
         this.restTemplate = restTemplate;
     }
 
-    @Override
-    public Ticket add(Ticket ticket) {
+        @Override
+    public void add(Ticket ticket) {
         LOGGER.debug("Add ticket ({})", ticket);
-        ResponseEntity responseEntity = restTemplate.postForEntity(url, ticket, Ticket.class);
-        Object result = responseEntity.getBody();
-        return (Ticket) result;
+        restTemplate.postForEntity(url, ticket, Ticket.class);
     }
 
     @Override
@@ -36,13 +34,13 @@ public class TicketRestConsumer implements TicketService {
         LOGGER.debug("Update ticket({})", ticket);
         restTemplate.put(url, ticket);
     }
-
-    @Override
-    public void delete(Integer ticketId) {
-        LOGGER.debug("Delete ticket by id({})", ticketId);
-        restTemplate.delete(url + "/" + ticketId);
-    }
-
+//
+//    @Override
+//    public void delete(Integer ticketId) {
+//        LOGGER.debug("Delete ticket by id({})", ticketId);
+//        restTemplate.delete(url + "/" + ticketId);
+//    }
+//
     @Override
     public List<Ticket> findAll() {
         LOGGER.debug("Find all tickets");
@@ -69,6 +67,11 @@ public class TicketRestConsumer implements TicketService {
         LOGGER.debug("Find all with direction");
         ResponseEntity responseEntity = restTemplate.getForEntity(url + "/find-all-with-direction", List.class);
         return (List<Ticket>) responseEntity.getBody();
+    }
+
+    @Override
+    public void delete(Ticket ticketId) {
+
     }
 
 }

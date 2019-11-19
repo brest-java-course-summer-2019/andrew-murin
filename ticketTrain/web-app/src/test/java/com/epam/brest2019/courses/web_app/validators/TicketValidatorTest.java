@@ -26,18 +26,18 @@ class TicketValidatorTest {
         result = new BeanPropertyBindingResult(ticket, "ticket");
     }
 
-    @Test
-    void shouldRejectSameDirections() {
-        Mockito.when(ticket.getTicketCost()).thenReturn(new BigDecimal(10));
-        Mockito.when(ticket.getTicketDate()).thenReturn(LocalDate.MAX);
-
-        Mockito.when(ticket.getTicketDirectionFrom()).thenReturn(1);
-        Mockito.when(ticket.getTicketDirectionTo()).thenReturn(1);
-
-        ticketValidator.validate(ticket, result);
-
-        assertTrue(result.hasErrors());
-    }
+//    @Test
+//    void shouldRejectSameDirections() {
+//        Mockito.when(ticket.getTicketCost()).thenReturn(new BigDecimal(10));
+//        Mockito.when(ticket.getTicketDate()).thenReturn(LocalDate.MAX);
+//
+//        Mockito.when(ticket.getTicketDirectionFrom()).thenReturn(1);
+//        Mockito.when(ticket.getTicketDirectionTo()).thenReturn(1);
+//
+//        ticketValidator.validate(ticket, result);
+//
+//        assertTrue(result.hasErrors());
+//    }
 
 
     @Test

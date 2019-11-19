@@ -1,5 +1,6 @@
 package com.epam.brest2019.courses.web_app.consumers;
 
+import com.epam.brest2019.courses.model.City;
 import com.epam.brest2019.courses.model.Ticket;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
@@ -66,8 +67,8 @@ public class TicketRestConsumerTest {
         Ticket ticket = ticketRestConsumerTest.findById(1);
 
         assertEquals(tickets.getTicketId(), ticket.getTicketId());
-        assertEquals(tickets.getTicketDirectionFrom(), ticket.getTicketDirectionFrom());
-        assertEquals(tickets.getTicketDirectionTo(), ticket.getTicketDirectionTo());
+        assertEquals(tickets.getFromCity().getCityId(), ticket.getFromCity().getCityId());
+        assertEquals(tickets.getToCity().getCityId(), ticket.getToCity().getCityId());
     }
 
     @Test
@@ -78,14 +79,14 @@ public class TicketRestConsumerTest {
 
         ticketRestConsumerTest.add(ticket);
     }
-
-    @Test
-    void delete() {
-
-        ticketRestConsumerTest.delete(1);
-
-        Mockito.verify(mockRestTemplate).delete("url/" + 1);
-    }
+//
+//    @Test
+//    void delete() {
+//
+//        ticketRestConsumerTest.delete(1);
+//
+//        Mockito.verify(mockRestTemplate).delete("url/" + 1);
+//    }
 
     @Test
     void update() {
@@ -98,11 +99,19 @@ public class TicketRestConsumerTest {
 
     private Ticket createTicketFixture(int id) {
         Ticket ticket = new Ticket();
+        City city = new City();
+
         ticket.setTicketId(id);
-        ticket.setTicketDirectionFrom(1 + id);
-        ticket.setTicketDirectionTo(2 + id);
+
+        city.setCityId(1);
+        ticket.setFromCity(city);
+
+        city.setCityId(2);
+        ticket.setToCity(city);
+
         ticket.setTicketCost(new BigDecimal(25));
         ticket.setTicketDate(LocalDate.now());
+
         return ticket;
     }
 

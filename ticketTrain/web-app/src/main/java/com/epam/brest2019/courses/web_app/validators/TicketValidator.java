@@ -22,9 +22,9 @@ public class TicketValidator implements Validator {
         Ticket ticket = (Ticket) target;
 
 
-        if (ticket.getTicketDirectionFrom().equals(ticket.getTicketDirectionTo())){
-            errors.rejectValue("ticketDirectionFrom", "ticketDirection");
-        }
+//        if (ticket.getTicketDirectionFrom().equals(ticket.getTicketDirectionTo())){
+//            errors.rejectValue("ticketDirectionFrom", "ticketDirection");
+//        }
 
         if (ticket.getTicketDate().isBefore(LocalDate.now())) {
             errors.rejectValue("ticketDate", "ticketDate.BeforeNow");
