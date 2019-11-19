@@ -25,8 +25,8 @@
         <module>dao</module>
         <module>service-api</module>
         <module>service</module>
-        <module>web-app</module>
         <module>rest-app</module>
+        <module>web-app</module>
     </modules>
 
     <distributionManagement>

@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -50,10 +49,9 @@ public class PaymentRestController {
 
     @PostMapping("/payments")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Payment> addPayment(@RequestBody Payment payment) {
+    public void addPayment(@RequestBody Payment payment) {
         LOGGER.debug("Add payment ({})", payment);
-        Payment result = paymentService.add(payment);
-        return new ResponseEntity<>(result, HttpStatus.CREATED);
+        paymentService.add(payment);
     }
 
     @PutMapping("/payments")
@@ -62,12 +60,12 @@ public class PaymentRestController {
         LOGGER.debug("Update payment ({})", payment);
         paymentService.update(payment);
     }
-
-    @DeleteMapping("/payments/{paymentId}")
-    public void deletePayment(@PathVariable("paymentId") Integer paymentId) {
-        LOGGER.debug("Delete payment by paymentId ({})", paymentId);
-        paymentService.delete(paymentId);
-    }
+//
+//    @DeleteMapping("/payments/{paymentId}")
+//    public void deletePayment(@PathVariable("paymentId") Payment paymentId) {
+//        LOGGER.debug("Delete payment by paymentId ({})", paymentId);
+//        paymentService.delete(paymentId);
+//    }
 
     @GetMapping("/payments/{startDate}/{finishDate}")
     public List<Payment> searchByDate(@PathVariable("startDate") String startDate,
@@ -79,10 +77,5 @@ public class PaymentRestController {
 
         return paymentService.searchByDate(startDateView, finishDateView);
     }
-
-
-
-
-
 
 }

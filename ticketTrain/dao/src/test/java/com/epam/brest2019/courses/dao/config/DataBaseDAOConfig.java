@@ -15,7 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 
 @Configuration
-@ComponentScan(basePackageClasses = {DataBaseDAOConfig.class, DataSourceConfig.class})
+@ComponentScan(basePackageClasses = DataSourceConfig.class)
 @ContextConfiguration(classes = DataSourceConfig.class)
 public class DataBaseDAOConfig {
 

@@ -42,12 +42,10 @@ public class TicketRestController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Ticket> add(@RequestBody Ticket ticket) {
+    public void add(@RequestBody Ticket ticket) {
         LOGGER.debug("Add ticket ({})", ticket);
-        Ticket result = ticketService.add(ticket);
-        return new ResponseEntity<>(result, HttpStatus.CREATED);
+        ticketService.add(ticket);
     }
-
 
     @PutMapping("/tickets")
     @ResponseStatus(HttpStatus.ACCEPTED)
@@ -56,11 +54,11 @@ public class TicketRestController {
         ticketService.update(ticket);
     }
 
-    @DeleteMapping("/tickets/{id}")
-    public void delete(@PathVariable("id") Integer id) {
-        LOGGER.debug("Delete ticket ({})", id);
-        ticketService.delete(id);
-    }
+//    @DeleteMapping("/tickets/{id}")
+//    public void delete(@PathVariable("id") Ticket ticketId) {
+//        LOGGER.debug("Delete ticket ({})", ticketId);
+//        ticketService.delete(ticketId);
+//    }
 
 
     @GetMapping("/tickets/{startDate}/{finishDate}/{directionFrom}/{directionTo}")
