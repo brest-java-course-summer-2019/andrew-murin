@@ -6,10 +6,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.stereotype.Repository;
 
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -18,9 +21,8 @@ import java.util.*;
  *  Ticket DAO Interface implementation
  */
 @Repository
-@PropertySource("classpath:sql_query_ticket.properties")
+@PropertySource("classpath:/sql_query_ticket.properties")
 public class TicketDaoJdbcImpl implements TicketDao {
-
 
     @Value("${ticket.findAll}")
     private String SELECT_ALL;
@@ -39,7 +41,7 @@ public class TicketDaoJdbcImpl implements TicketDao {
     private static final String UPDATE = "u";
     private static final String DELETE = "d";
 
-    private static final String STRART_DATE = "startDate";
+    private static final String START_DATE = "startDate";
     private static final String FINISH_DATE = "finishDate";
     private static final String FROM_CITY = "fromCity";
     private static final String TO_CITY = "toCity";
@@ -102,7 +104,7 @@ public class TicketDaoJdbcImpl implements TicketDao {
     @Override
     public List<Ticket> searchTicket(LocalDate startDate, LocalDate finishDate, Integer fromCity, Integer toCity) {
         Map map = new HashMap<>();
-        map.put(STRART_DATE, startDate);
+        map.put(START_DATE, startDate);
         map.put(FINISH_DATE, finishDate);
         map.put(FROM_CITY, fromCity);
         map.put(TO_CITY, toCity);
@@ -115,6 +117,13 @@ public class TicketDaoJdbcImpl implements TicketDao {
     public List<Ticket> findAllWithDirection() {
         List<Ticket> tickets = transact.sessionFixture(SELECT_ALL_WITH_DIRECTION);
         return tickets;
+    }
+
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() throws IOException {
+        PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();
+        propertySourcesPlaceholderConfigurer.setIgnoreUnresolvablePlaceholders(true);
+        return propertySourcesPlaceholderConfigurer;
     }
 
 }

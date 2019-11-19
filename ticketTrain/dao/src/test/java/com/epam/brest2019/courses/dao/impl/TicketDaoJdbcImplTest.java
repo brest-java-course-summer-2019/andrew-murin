@@ -1,10 +1,10 @@
 package com.epam.brest2019.courses.dao.impl;
 
 import com.epam.brest2019.courses.dao.TicketDao;
-import com.epam.brest2019.courses.dao.config.DataBaseConfig;
-import com.epam.brest2019.courses.dao.config.DataSourceConfig;
+import com.epam.brest2019.courses.dao.config.DataBaseDAOConfig;
 import com.epam.brest2019.courses.model.City;
 import com.epam.brest2019.courses.model.Ticket;
+import com.epam.brest2019.courses.test_db.DataSourceConfig;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +26,7 @@ import static org.junit.Assert.*;
 @Sql("classpath:data.sql")
 @ActiveProfiles(profiles = "h2-database")
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {DataSourceConfig.class, DataBaseConfig.class})
+@ContextConfiguration(classes = {DataSourceConfig.class, DataBaseDAOConfig.class})
 public class TicketDaoJdbcImplTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TicketDaoJdbcImplTest.class);

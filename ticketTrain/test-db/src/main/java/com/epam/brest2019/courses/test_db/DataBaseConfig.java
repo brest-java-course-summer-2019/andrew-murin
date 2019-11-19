@@ -1,55 +1,47 @@
-package com.epam.brest2019.courses.dao.config;
+package com.epam.brest2019.courses.test_db;
 
-import com.epam.brest2019.courses.dao.*;
-import com.epam.brest2019.courses.model.Ticket;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
+
 @Configuration
+@ContextConfiguration
 @EnableTransactionManagement
 public class DataBaseConfig {
 
-    @Value("${datasource.driver}")
+    @Value("${datasource.driver.h2}")
     private String DB_DRIVER_CLASS_NAME;
 
-    @Value("${datasource.url}")
+    @Value("${datasource.url.h2}")
     private String DB_URL;
 
-    @Value("${datasource.user}")
+    @Value("${datasource.user.h2}")
     private String DB_USER_NAME;
 
-    @Value("${datasource.password}")
+    @Value("${datasource.password.h2}")
     private String DB_PASSWORD;
-
 
     @Autowired
     private Environment environment;
 
-    @Bean
-    public PaymentDao paymentDao() throws Exception {
-        PaymentDao paymentDao = new PaymentDaoJdbcImpl(sessionFactory());
-        return paymentDao;
-    }
-
-    @Bean
-    public TicketDao ticketDao() throws Exception {
-        TicketDao ticketDao = new TicketDaoJdbcImpl(sessionFactory());
-        return ticketDao;
-    }
 
     @Bean
     public SessionFactory sessionFactory() throws Exception{
+
         LocalSessionFactoryBuilder builder = new LocalSessionFactoryBuilder(dataSource());
+
         builder.setProperty("hibernate.hbm2ddl.auto", "create");
         builder.scanPackages("com.epam.brest2019.courses.*");
         builder.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL57Dialect");
@@ -74,11 +66,18 @@ public class DataBaseConfig {
 
     @Bean
     public DataSource dataSource() {
+
+//        BasicDataSource dataSource = new BasicDataSource();
+//        dataSource.setDriverClassName(DB_DRIVER_CLASS_NAME);
+//        dataSource.setUrl(DB_URL);
+//        dataSource.setUsername(DB_USER_NAME);
+//        dataSource.setPassword(DB_PASSWORD);
+//
         BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName(DB_DRIVER_CLASS_NAME);
-        dataSource.setUrl(DB_URL);
-        dataSource.setUsername(DB_USER_NAME);
-        dataSource.setPassword(DB_PASSWORD);
+        dataSource.setDriverClassName("org.h2.Driver");
+        dataSource.setUrl("jdbc:h2:mem:test_database;MODE=MYSQL;DB_CLOSE_DELAY=-1");
+        dataSource.setUsername("sa");
+        dataSource.setPassword("");
 
         return dataSource;
     }

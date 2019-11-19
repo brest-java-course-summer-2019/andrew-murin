@@ -20,6 +20,7 @@
 
     <modules>
         <module>model</module>
+        <module>test-db</module>
         <module>dao-api</module>
         <module>dao</module>
         <module>service-api</module>
@@ -138,6 +139,11 @@
             <dependency>
                 <groupId>com.epam.brest2019.courses</groupId>
                 <artifactId>service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.epam.brest2019.courses</groupId>
+                <artifactId>test-db</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
