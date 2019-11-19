@@ -12,7 +12,6 @@ import java.util.List;
 
 
 @Service
-@Transactional
 public class TicketServiceImpl implements TicketService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Ticket.class);
