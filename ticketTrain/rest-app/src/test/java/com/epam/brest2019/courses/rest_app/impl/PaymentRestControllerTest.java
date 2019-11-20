@@ -150,7 +150,7 @@ public class PaymentRestControllerTest {
 
         Mockito.verify(paymentService, Mockito.times(1)).add(any());
     }
-//
+
     @Test
     void updatePayment() throws Exception {
         Payment payment = createFixture(1);
@@ -163,15 +163,15 @@ public class PaymentRestControllerTest {
                 .content(json)
         ).andExpect(status().isAccepted());
     }
-//
-//    @Test
-//    void deletePayment() throws Exception {
-//        mockMvc.perform(MockMvcRequestBuilders.delete("/payments/{paymentId}", 1))
-//                .andExpect(MockMvcResultMatchers.status().isOk());
-//
-//        Mockito.verify(paymentService, Mockito.times(1)).delete(any());
-//
-//    }
+
+    @Test
+    void deletePayment() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/payments/{paymentId}", 1))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        Mockito.verify(paymentService, Mockito.times(1)).delete(any());
+
+    }
 
     @Test
     void searchByDate() throws Exception {

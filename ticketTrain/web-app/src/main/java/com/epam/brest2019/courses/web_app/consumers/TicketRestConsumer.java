@@ -34,13 +34,13 @@ public class TicketRestConsumer implements TicketService {
         LOGGER.debug("Update ticket({})", ticket);
         restTemplate.put(url, ticket);
     }
-//
-//    @Override
-//    public void delete(Integer ticketId) {
-//        LOGGER.debug("Delete ticket by id({})", ticketId);
-//        restTemplate.delete(url + "/" + ticketId);
-//    }
-//
+
+    @Override
+    public void delete(Ticket ticketId) {
+        LOGGER.debug("Delete ticket by id({})", ticketId);
+        restTemplate.delete(url + "/" + ticketId);
+    }
+
     @Override
     public List<Ticket> findAll() {
         LOGGER.debug("Find all tickets");
@@ -69,9 +69,5 @@ public class TicketRestConsumer implements TicketService {
         return (List<Ticket>) responseEntity.getBody();
     }
 
-    @Override
-    public void delete(Ticket ticketId) {
-
-    }
 
 }

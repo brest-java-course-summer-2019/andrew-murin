@@ -143,15 +143,13 @@ public class TicketRestControllerTest {
         Mockito.verify(ticketService, Mockito.times(1)).update(any());
     }
 
-//    @Test
-//    public void deleteTicket() throws Exception {
-//        Ticket ticket = createFixtureForAllDirection(1);
-//        mockMvc.perform(
-//                MockMvcRequestBuilders.delete("/tickets/{ticketId}", 1))
-//                .andExpect(MockMvcResultMatchers.status().isOk());
-//
-//        Mockito.verify(ticketService, Mockito.times(1)).delete(ticket);
-//    }
+    @Test
+    public void deleteTicket() throws Exception {
+        Ticket ticket = createFixtureForAllDirection(1);
+        mockMvc.perform(
+                MockMvcRequestBuilders.delete("/tickets/{ticketId}", 1))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
 
     @Test
     public void searchTicket() throws Exception {

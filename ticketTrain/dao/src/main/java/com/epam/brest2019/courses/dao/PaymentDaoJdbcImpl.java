@@ -19,7 +19,7 @@ import java.util.Map;
  *  Payment DAO Interface implementation
  */
 @Repository
-@PropertySource("classpath:sql_query_payment.properties")
+@PropertySource("classpath:/sql_query_payment.properties")
 public class PaymentDaoJdbcImpl implements PaymentDao {
 
     @Value("${payment.findAll}")

@@ -54,11 +54,12 @@ public class TicketRestController {
         ticketService.update(ticket);
     }
 
-//    @DeleteMapping("/tickets/{id}")
-//    public void delete(@PathVariable("id") Ticket ticketId) {
-//        LOGGER.debug("Delete ticket ({})", ticketId);
-//        ticketService.delete(ticketId);
-//    }
+    @DeleteMapping("/tickets/{id}")
+    public void delete(@PathVariable("id") Integer ticketId) {
+        LOGGER.debug("Delete ticket ({})", ticketId);
+        Ticket ticket = ticketService.findById(ticketId);
+        ticketService.delete(ticket);
+    }
 
 
     @GetMapping("/tickets/{startDate}/{finishDate}/{directionFrom}/{directionTo}")

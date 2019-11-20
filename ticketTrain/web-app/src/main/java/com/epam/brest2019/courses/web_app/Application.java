@@ -1,5 +1,6 @@
 package com.epam.brest2019.courses.web_app;
 
+import com.epam.brest2019.courses.web_app.consumers.PaymentRestConsumer;
 import com.epam.brest2019.courses.web_app.consumers.TicketRestConsumer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,11 +35,11 @@ public class Application extends WebMvcConfigurerAdapter {
         SpringApplication.run(Application.class, args);
     }
 
-//    @Bean
-//    public PaymentRestConsumer paymentService() {
-//        PaymentRestConsumer paymentService = new PaymentRestConsumer(restUrl + restPayments, restTemplate());
-//        return paymentService;
-//    }
+    @Bean
+    public PaymentRestConsumer paymentService() {
+        PaymentRestConsumer paymentService = new PaymentRestConsumer(restUrl + restPayments, restTemplate());
+        return paymentService;
+    }
 
     @Bean
     public TicketRestConsumer ticketService() {

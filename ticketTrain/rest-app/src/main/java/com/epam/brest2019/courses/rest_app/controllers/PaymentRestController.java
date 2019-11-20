@@ -60,12 +60,13 @@ public class PaymentRestController {
         LOGGER.debug("Update payment ({})", payment);
         paymentService.update(payment);
     }
-//
-//    @DeleteMapping("/payments/{paymentId}")
-//    public void deletePayment(@PathVariable("paymentId") Payment paymentId) {
-//        LOGGER.debug("Delete payment by paymentId ({})", paymentId);
-//        paymentService.delete(paymentId);
-//    }
+
+    @DeleteMapping("/payments/{paymentId}")
+    public void deletePayment(@PathVariable("paymentId") Integer paymentId) {
+        LOGGER.debug("Delete payment by paymentId ({})", paymentId);
+        Payment payment = paymentService.findById(paymentId);
+        paymentService.delete(payment);
+    }
 
     @GetMapping("/payments/{startDate}/{finishDate}")
     public List<Payment> searchByDate(@PathVariable("startDate") String startDate,

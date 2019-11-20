@@ -80,8 +80,10 @@ public class TicketController {
     @GetMapping("/search-tickets")
     public final String gotoSearchTickets(Model model) {
         LOGGER.debug("Search tickets");
+
         List<Ticket> tickets = ticketService.findAllWithDirection();
         model.addAttribute("tickets", tickets);
+
         return "search-tickets";
     }
 
@@ -120,82 +122,83 @@ public class TicketController {
         model.addAttribute("ticket", ticket);
         return "ticket";
     }
-//
-//    /**
-//     *Update department into persistence storage.
-//     *
-//     * @param ticket
-//     * @return tickets.
-//     */
-//    @PostMapping("/ticket/{id}")
-//    public final String updateTicket(@Valid Ticket ticket, BindingResult result) {
-//        LOGGER.debug("Update ticket({}, {})",ticket, result);
-//
-//
+
+    /**
+     *Update department into persistence storage.
+     *
+     * @param ticket
+     * @return tickets.
+     */
+    @PostMapping("/ticket/{id}")
+    public final String updateTicket(@ModelAttribute("ticketForm") @Valid Ticket ticket, BindingResult result) {
+        LOGGER.debug("Update ticket({}, {})",ticket, result);
+
+
 //        ticketValidator.validate(ticket, result);
-//
-//        if (result.hasErrors()) {
-//            return "ticket/" + ticket.getTicketId();
-//
-//        } else {
-//            this.ticketService.update(ticket);
-//            return "redirect:/tickets";
-//        }
-//
-//    }
-//
-//    /**
-//     * Goto add ticket page
-//     *
-//     * @param model
-//     * @return ticket
-//     */
-//    @GetMapping("/ticket")
-//    public final String gotoTicketAddPage(Model model) {
-//        LOGGER.debug("Go to add ticket page({})", model);
-//
-//        Ticket ticket = new Ticket();
-//
-//        List<Ticket> tickets = ticketService.findAll();
-//
-//        model.addAttribute("isNew", true);
-//        model.addAttribute("ticket", ticket);
-//        model.addAttribute("tickets", tickets);
-//
-//        return "ticket";
-//    }
-//
-//    /**
-//     * Persist new ticket into persistence storage.
-//     *
-//     * @param ticket new department with filled data.
-//     * @return tickets
-//     */
-//    @PostMapping("/ticket")
-//    public final String addTicket(@Valid Ticket ticket, BindingResult result) {
-//        LOGGER.debug("Add Ticket({}, {})", ticket, result);
-//
-//        ticketValidator.validate(ticket, result);
-//
-//        if (result.hasErrors()) {
-//            return "ticket/" + ticket.getTicketId();
-//        } else {
-//            this.ticketService.add(ticket);
-//            return "redirect:/tickets";
-//        }
-//    }
-//
-//    /**
-//     * Delete ticket
-//     *
-//     * @param id, model
-//     * @return tickets.
-//     */
-//    @GetMapping("/ticket/{id}/delete")
-//    public final String deleteTicketById(@PathVariable Integer id) {
-//        LOGGER.debug("Delete ticket by id({})", id);
-//        ticketService.delete(id);
-//        return "redirect:/tickets";
-//    }
+
+        if (result.hasErrors()) {
+            return "ticket/" + ticket.getTicketId();
+
+        } else {
+            this.ticketService.update(ticket);
+            return "redirect:/tickets";
+        }
+
+    }
+
+    /**
+     * Goto add ticket page
+     *
+     * @param model
+     * @return ticket
+     */
+    @GetMapping("/ticket")
+    public final String gotoTicketAddPage(Model model) {
+        LOGGER.debug("Go to add ticket page({})", model);
+
+        Ticket ticket = new Ticket();
+
+        List<Ticket> tickets = ticketService.findAll();
+
+        model.addAttribute("isNew", true);
+        model.addAttribute("ticket", ticket);
+        model.addAttribute("tickets", tickets);
+
+        return "ticket";
+    }
+
+    /**
+     * Persist new ticket into persistence storage.
+     *
+     * @param ticket new department with filled data.
+     * @return tickets
+     */
+    @PostMapping("/ticket")
+    public final String addTicket(@Valid Ticket ticket, BindingResult result) {
+        LOGGER.debug("Add Ticket({}, {})", ticket, result);
+
+        ticketValidator.validate(ticket, result);
+
+        if (result.hasErrors()) {
+            return "ticket/" + ticket.getTicketId();
+        } else {
+            this.ticketService.add(ticket);
+            return "redirect:/tickets";
+        }
+    }
+
+    /**
+     * Delete ticket
+     *
+     * @param id, model
+     * @return tickets.
+     */
+    @GetMapping("/ticket/{id}/delete")
+    public final String deleteTicketById(@PathVariable Integer id) {
+        LOGGER.debug("Delete ticket by id({})", id);
+        Ticket ticket = ticketService.findById(id);
+        ticketService.delete(ticket);
+        return "redirect:/tickets";
+    }
 
 }

@@ -79,14 +79,16 @@ public class TicketRestConsumerTest {
 
         ticketRestConsumerTest.add(ticket);
     }
-//
-//    @Test
-//    void delete() {
-//
-//        ticketRestConsumerTest.delete(1);
-//
-//        Mockito.verify(mockRestTemplate).delete("url/" + 1);
-//    }
+
+    @Test
+    void delete() {
+        int id = 1;
+        ticket = createTicketFixture(id);
+
+        ticketRestConsumerTest.delete(ticket);
+
+        Mockito.verify(mockRestTemplate).delete("url/" + ticket);
+    }
 
     @Test
     void update() {
