@@ -122,19 +122,19 @@
                             <td th:if="${#fields.hasErrors('fromCity.cityId')}" th:errors="*{fromCity.cityId}">Name Error</td>
                         </tr>
 
-<!--                        <tr>-->
-<!--                            <div class="form-group">-->
-<!--                                <label>Select to a city</label>-->
-<!--                                <select class="form-control" id="ticketTo" name="ticketTo" th:field="*{ticketDirectionTo}">-->
-<!--                                    <option value=1>BREST</option>-->
-<!--                                    <option value=2>MINSK</option>-->
-<!--                                    <option value=3>VITEBSK</option>-->
-<!--                                    <option value=4>GOMEL</option>-->
-<!--                                    <option value=5>GRODNO</option>-->
-<!--                                    <option value=6>MOGILEV</option>-->
-<!--                                </select>-->
-<!--                            </div>-->
-<!--                            <td th:if="${#fields.hasErrors('ticketDirectionTo')}" th:errors="*{ticketDirectionTo}">Name Error</td>-->
+                        <tr>
+                            <div class="form-group">
+                                <label>Select to a city</label>
+                                <select class="form-control" id="toCity" name="toCity" th:field="*{toCity.cityId}">
+                                    <option value=1>BREST</option>
+                                    <option value=2>MINSK</option>
+                                    <option value=3>VITEBSK</option>
+                                    <option value=4>GOMEL</option>
+                                    <option value=5>GRODNO</option>
+                                    <option value=6>MOGILEV</option>
+                                </select>
+                            </div>
+                            <td th:if="${#fields.hasErrors('toCity.cityId')}" th:errors="*{toCity.cityId}">Name Error</td>
 
                         </tr>
                         <tr>

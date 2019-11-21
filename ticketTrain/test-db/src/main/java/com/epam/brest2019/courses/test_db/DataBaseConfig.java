@@ -20,17 +20,17 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 public class DataBaseConfig {
 
-    @Value("${datasource.driver.h2}")
-    private String DB_DRIVER_CLASS_NAME;
-
-    @Value("${datasource.url.h2}")
-    private String DB_URL;
-
-    @Value("${datasource.user.h2}")
-    private String DB_USER_NAME;
-
-    @Value("${datasource.password.h2}")
-    private String DB_PASSWORD;
+//    @Value("${datasource.driver.h2}")
+//    private String DB_DRIVER_CLASS_NAME;
+//
+//    @Value("${datasource.url.h2}")
+//    private String DB_URL;
+//
+//    @Value("${datasource.user.h2}")
+//    private String DB_USER_NAME;
+//
+//    @Value("${datasource.password.h2}")
+//    private String DB_PASSWORD;
 
     @Autowired
     private Environment environment;
@@ -72,11 +72,13 @@ public class DataBaseConfig {
 //        dataSource.setUsername(DB_USER_NAME);
 //        dataSource.setPassword(DB_PASSWORD);
 //
+
+
         BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName("org.h2.Driver");
-        dataSource.setUrl("jdbc:h2:mem:test_database;MODE=MYSQL;DB_CLOSE_DELAY=-1");
-        dataSource.setUsername("sa");
-        dataSource.setPassword("");
+        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/test_database");
+        dataSource.setUsername("root");
+        dataSource.setPassword("rootpasswordgiven");
 
         return dataSource;
     }

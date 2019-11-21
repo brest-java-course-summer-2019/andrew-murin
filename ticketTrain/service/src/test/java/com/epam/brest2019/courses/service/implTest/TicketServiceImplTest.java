@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @Sql("classpath:data.sql")
 @ExtendWith(SpringExtension.class)
-@ActiveProfiles(profiles = "h2-database")
+@ActiveProfiles(profiles = "mysql-database")
 @ContextConfiguration(classes = {ServiceConfig.class, DataSourceConfig.class})
 public class TicketServiceImplTest {
 

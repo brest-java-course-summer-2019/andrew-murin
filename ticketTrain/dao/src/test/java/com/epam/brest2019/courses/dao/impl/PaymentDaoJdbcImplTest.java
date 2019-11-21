@@ -27,7 +27,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 @Sql("classpath:data.sql")
-@ActiveProfiles(profiles = "h2-database")
+@ActiveProfiles(profiles = "mysql-database")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {DataSourceConfig.class, DataBaseDAOConfig.class})
 public class PaymentDaoJdbcImplTest {

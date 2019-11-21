@@ -60,13 +60,13 @@ public class Ticket {
     /**
      * CityFrom for sql-query
      */
-    @Transient
+
     private String cityFrom;
 
     /**
      * CityTo for sql-query
      */
-    @Transient
+
     private String cityTo;
 
     /**
