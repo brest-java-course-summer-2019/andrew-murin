@@ -15,6 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import java.util.ArrayList;
 import java.util.List;
+
 @SpringBootApplication(scanBasePackages = {"com.epam.brest2019.courses.*"})
 public class Application extends WebMvcConfigurerAdapter {
 

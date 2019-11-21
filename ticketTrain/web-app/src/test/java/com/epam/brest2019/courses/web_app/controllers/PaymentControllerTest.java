@@ -6,6 +6,7 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -25,11 +26,12 @@ import org.springframework.web.context.WebApplicationContext;
 @ContextConfiguration(locations = "classpath*:app-context-test.xml")
 public class PaymentControllerTest {
 
-    @Autowired
+    @Mock
     private PaymentService paymentService;
 
     @Autowired
     private WebApplicationContext wac;
+
 
     private MockMvc mockMvc;
 
@@ -55,20 +57,20 @@ public class PaymentControllerTest {
 
     }
 
-    @Test
-    void gotoEditPaidTicketPage() throws Exception {
-        int id = 1;
-
-        Mockito.when(paymentService.findById(Mockito.anyInt())).thenReturn(createFixture(id));
-
-        mockMvc.perform(
-                MockMvcRequestBuilders.get("/paid-ticket/{id}", id))
-                .andDo(MockMvcResultHandlers.print())
-                    .andExpect(MockMvcResultMatchers.status().isOk())
-                    .andExpect(MockMvcResultMatchers.content()
-                        .string(Matchers.containsString("#")));
-
-    }
+//    @Test
+//    void gotoEditPaidTicketPage() throws Exception {
+//        int id = 1;
+//
+//        Mockito.when(paymentService.findById(Mockito.anyInt())).thenReturn(createFixture(id));
+//
+//        mockMvc.perform(
+//                MockMvcRequestBuilders.get("/paid-ticket/{id}", id))
+//                .andDo(MockMvcResultHandlers.print())
+//                    .andExpect(MockMvcResultMatchers.status().isOk())
+//                    .andExpect(MockMvcResultMatchers.content()
+//                        .string(Matchers.containsString("#")));
+//
+//    }
 
     @Test
     void payTicket() throws Exception {

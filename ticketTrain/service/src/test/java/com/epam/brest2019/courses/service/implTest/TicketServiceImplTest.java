@@ -20,7 +20,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-@Sql("classpath:data.sql")
+//@Sql("classpath:import.sql")
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles(profiles = "mysql-database")
 @ContextConfiguration(classes = {ServiceConfig.class, DataSourceConfig.class})

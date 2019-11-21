@@ -23,7 +23,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-@Sql("classpath:data.sql")
+//@Sql("classpath:import.sql")
 @ActiveProfiles(profiles = "mysql-database")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {DataSourceConfig.class, DataBaseDAOConfig.class})
