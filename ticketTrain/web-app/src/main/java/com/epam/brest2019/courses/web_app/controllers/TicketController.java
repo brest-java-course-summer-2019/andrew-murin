@@ -94,11 +94,14 @@ public class TicketController {
      * @param model model
      * @return tickets
      */
+
     @GetMapping("/tickets")
     public final String findAllWithDirection(Model model) {
         LOGGER.debug("Find all tickets");
 
-        List<Ticket> tickets = ticketService.findAllWithDirection();
+        Iterable<Ticket> tickets = ticketService.findAllWithDirection();
+
+        LOGGER.debug("LOGGER tickets ({})", tickets);
 
         model.addAttribute("tickets", tickets);
         model.addAttribute("ticketCount");

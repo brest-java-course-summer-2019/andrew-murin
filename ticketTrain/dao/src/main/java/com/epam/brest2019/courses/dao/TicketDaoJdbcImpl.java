@@ -1,9 +1,11 @@
 package com.epam.brest2019.courses.dao;
 
+import com.epam.brest2019.courses.model.Payment;
 import com.epam.brest2019.courses.model.Ticket;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -115,9 +117,31 @@ public class TicketDaoJdbcImpl implements TicketDao {
 
     @Override
     public List<Ticket> findAllWithDirection() {
-        List<Ticket> tickets = transact.sessionFixture(SELECT_ALL_WITH_DIRECTION);
+//        List<Ticket> tickets = transact.sessionFixture(SELECT_ALL_WITH_DIRECTION);
+//        return tickets;
+
+
+        Transaction transaction = null;
+        List<Ticket> tickets = null;
+
+        try (Session session = sessionFactory.openSession()) {
+
+            transaction = session.beginTransaction();
+
+            NativeQuery query = session.createSQLQuery(SELECT_ALL_WITH_DIRECTION);
+            tickets = query.getResultList();
+
+            transaction.commit();
+
+        } catch (Exception ex) {
+            if (transaction != null)
+                transaction.rollback();
+            ex.printStackTrace();
+
+        }
         return tickets;
     }
+
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() throws IOException {
