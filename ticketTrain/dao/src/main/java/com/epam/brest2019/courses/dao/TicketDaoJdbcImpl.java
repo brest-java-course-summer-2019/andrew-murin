@@ -128,8 +128,23 @@ public class TicketDaoJdbcImpl implements TicketDao {
 
             transaction = session.beginTransaction();
 
-            NativeQuery query = session.createSQLQuery(SELECT_ALL_WITH_DIRECTION);
-            tickets = query.getResultList();
+            String sql = "SELECT t.id, c.city_name AS cityFrom, s.city_name AS cityTo, t.ticket_cost, t.ticket_date FROM ticket t" +
+                    " INNER JOIN city c ON t.from_city = c.id INNER JOIN city s ON t.to_city = s.id";
+
+
+//            String jpql = "SELECT t" +
+//                    " FROM Ticket t";
+            String jpql = "SELECT t" +
+                    " FROM Ticket t" +
+                    " JOIN t.fromCity c";
+//                    " WHERE t.fk_from_city = c.id";
+
+
+
+
+//            NativeQuery query = session.createNativeQuery(SELECT_ALL_WITH_DIRECTION, "ticketSqlMapping");
+            tickets = session.createQuery(jpql, Ticket.class).getResultList();
+
 
             transaction.commit();
 

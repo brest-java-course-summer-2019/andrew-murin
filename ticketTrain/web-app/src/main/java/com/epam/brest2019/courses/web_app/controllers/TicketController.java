@@ -99,13 +99,13 @@ public class TicketController {
     public final String findAllWithDirection(Model model) {
         LOGGER.debug("Find all tickets");
 
-        Iterable<Ticket> tickets = ticketService.findAllWithDirection();
+        List<Ticket> tickets = ticketService.findAllWithDirection();
 
-        LOGGER.debug("LOGGER tickets ({})", tickets);
+
 
         model.addAttribute("tickets", tickets);
-        model.addAttribute("ticketCount");
-        model.addAttribute("ticketSum");
+//        model.addAttribute("ticketCount");
+//        model.addAttribute("ticketSum");
 
         return "tickets";
     }

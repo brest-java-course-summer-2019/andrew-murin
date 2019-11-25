@@ -239,12 +239,12 @@ public class Payment implements Serializable {
     }
 
 
-    @Override
-    public String toString() {
-        return "Payment{" +
-                "paymentId=" + paymentId +
-                ", PaymentDate=" + paymentDate +
-                ", ticketId=" + ticketId +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Payment{" +
+//                "paymentId=" + paymentId +
+//                ", PaymentDate=" + paymentDate +
+//                ", ticketId=" + ticketId +
+//                '}';
+//    }
 }

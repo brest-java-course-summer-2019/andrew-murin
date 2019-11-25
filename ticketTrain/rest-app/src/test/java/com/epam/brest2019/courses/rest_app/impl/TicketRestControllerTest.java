@@ -175,8 +175,8 @@ public class TicketRestControllerTest {
         Ticket ticket = new Ticket();
 
         ticket.setTicketId(ticketId);
-        ticket.setCityFrom("MINSK" + ticketId);
-        ticket.setCityTo("BREST" + ticketId);
+//        ticket.setCityFrom("MINSK" + ticketId);
+//        ticket.setCityTo("BREST" + ticketId);
 
         return ticket;
     }

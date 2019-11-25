@@ -1,7 +1,12 @@
 package com.epam.brest2019.courses.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,7 +14,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "city")
-public class City {
+public class City implements Serializable {
 
     /**
      * cityId
@@ -28,6 +33,7 @@ public class City {
     @NotNull
     @OneToMany
     @JoinColumn(name = "from_city", foreignKey = @ForeignKey(name = "fk_from_city"))
+    @JsonIgnore
     private List<Ticket> cityFrom;
     /**
      * Direction of train_to
@@ -35,6 +41,7 @@ public class City {
     @NotNull
     @OneToMany
     @JoinColumn(name = "to_city", foreignKey = @ForeignKey(name = "fk_to_city"))
+    @JsonIgnore
     private List<Ticket> cityTo;
 
 

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--suppress ALL -->
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -59,7 +59,7 @@
             <span class="navbar-brand mr-auto">Train schedule</span>
             <ul class="navbar-nav float-right">
                 <li>
-                <a href="tickets.html"
+                <a href="ticket.html"
                    th:href="@{/ticket}"
                    th:onclick="@{ticket.forms['ticketForm'].submit(); return false;}"
                    class="btn btn-dark btn"
@@ -93,8 +93,8 @@
                         <tbody>
                             <tr th:each="ticket : ${tickets}">
                                 <td th:text="${ticket.ticketId}">Number</td>
-                                <!--<td th:text="${ticket.cityFrom}">From</td>-->
-                                <!--<td th:text="${ticket.cityTo}">To</td>-->
+                                <td th:text="${ticket.fromCity.cityName}">From</td>
+                                <td th:text="${ticket.toCity.cityName}">To</td>
                                 <td th:text="${ticket.ticketCost}">Cost</td>
                                 <td th:text="${ticket.ticketDate}">Date</td>
                                 <!--<td>-->
