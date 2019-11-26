@@ -47,18 +47,6 @@ public class Payment implements Serializable {
     private Ticket ticketId;
 
     /**
-     * City from for sql-query
-     */
-    @Transient
-    private String cityFrom;
-
-    /**
-     * City To for sql-query
-     */
-    @Transient
-    private String cityTo;
-
-    /**
      * Summing all costs by different directions
      */
     @Transient
@@ -146,43 +134,6 @@ public class Payment implements Serializable {
      */
     public void setTicketId(Ticket ticketId) {
         this.ticketId = ticketId;
-    }
-
-
-    /**
-     * Get cityFrom
-     *
-     * @return cityFrom city from
-     */
-    public String getCityFrom() {
-        return cityFrom;
-    }
-
-    /**
-     * Set cityFrom
-     *
-     * @param cityFrom city from
-     */
-    public void setCityFrom(String cityFrom) {
-        this.cityFrom = cityFrom;
-    }
-
-    /**
-     * Get cityTo
-     *
-     * @return cityTo city to
-     */
-    public String getCityTo() {
-        return cityTo;
-    }
-
-    /**
-     *Set cityTo
-     *
-     * @param cityTo
-     */
-    public void setCityTo(String cityTo) {
-        this.cityTo = cityTo;
     }
 
     /**

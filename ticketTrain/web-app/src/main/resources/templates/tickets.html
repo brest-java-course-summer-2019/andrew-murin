@@ -97,31 +97,31 @@
                                 <td th:text="${ticket.toCity.cityName}">To</td>
                                 <td th:text="${ticket.ticketCost}">Cost</td>
                                 <td th:text="${ticket.ticketDate}">Date</td>
-                                <!--<td>-->
-                                    <!--<span class="navbar-nav float-right"-->
-                                          <!--th:attr="data-id=${ticket.ticketId}">-->
-                                        <!--<a  href="tickets.html"-->
-                                            <!--th:href="@{|/pay-ticket/${ticket.ticketId}|}"-->
-                                            <!--class="btn btn-dark"-->
-                                            <!--title="Pay ticket"-->
-                                            <!--data-toggle="tooltip"-->
-                                            <!--data-placement="top">-->
-                                                <!--<i class="fa fa-pencil"></i>-->
-                                            <!--<span class="d-none d-md-inline">Pay</span></a>-->
-
-                                    <!--</span>-->
-                                <!--</td>-->
                                 <td>
-                                    <!--<span data-toggle="modal" data-target="#deleteDialog"-->
-                                          <!--class="navbar-nav float-right"-->
-                                          <!--th:attr="data-id=${ticket.ticketId}, data-name=${ticket.toCity.cityId}">-->
-                                        <!--<a href="#" class="btn btn-dark"-->
-                                           <!--title="delete ticket"-->
-                                           <!--data-toggle="tooltip"-->
-                                           <!--data-placement="top">-->
-                                            <!--<i class="fa fa-remove"></i>-->
-                                            <!--<span class="d-none d-md-inline">Delete</span></a>-->
-                                    <!--</span>-->
+                                    <span class="navbar-nav float-right"
+                                          th:attr="data-id=${ticket.ticketId}">
+                                        <a  href="tickets.html"
+                                            th:href="@{|/pay-ticket/${ticket.ticketId}|}"
+                                            class="btn btn-dark"
+                                            title="Pay ticket"
+                                            data-toggle="tooltip"
+                                            data-placement="top">
+                                                <i class="fa fa-pencil"></i>
+                                            <span class="d-none d-md-inline">Pay</span></a>
+
+                                    </span>
+                                </td>
+                                <td>
+                                    <span data-toggle="modal" data-target="#deleteDialog"
+                                          class="navbar-nav float-right"
+                                          th:attr="data-id=${ticket.ticketId}, data-name=${ticket.toCity.cityId}">
+                                        <a href="#" class="btn btn-dark"
+                                           title="delete ticket"
+                                           data-toggle="tooltip"
+                                           data-placement="top">
+                                            <i class="fa fa-remove"></i>
+                                            <span class="d-none d-md-inline">Delete</span></a>
+                                    </span>
 
                                     <span class="navbar-nav float-right">
                                         <a  href="ticket.html"

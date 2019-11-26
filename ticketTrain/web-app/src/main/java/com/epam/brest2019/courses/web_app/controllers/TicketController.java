@@ -177,7 +177,7 @@ public class TicketController {
      * @return tickets
      */
     @PostMapping("/ticket")
-    public final String addTicket(@Valid Ticket ticket, BindingResult result) {
+    public final String addTicket(@Valid @ModelAttribute("ticketForm") Ticket ticket, BindingResult result) {
         LOGGER.debug("Add Ticket({}, {})", ticket, result);
 
         ticketValidator.validate(ticket, result);

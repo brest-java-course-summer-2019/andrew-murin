@@ -85,92 +85,92 @@
     </nav>
 </header>
 
-<!--<section id="ticket">-->
-<!--    <div class="container-fluid">-->
-<!--        <div class="row">-->
-<!--            <div class="col">-->
-<!--                <div class="card-body">-->
-<!--                    <form id ="ticketForm"-->
-<!--                          th:object="${ticket}"-->
-<!--                          action="tickets.html"-->
-<!--                          th:action="@{${#httpServletRequest.servletPath}}"-->
-<!--                          th:method="@{post}">-->
+<section id="ticket">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="card-body">
+                    <form id ="ticketForm"
+                          th:object="${ticket}"
+                          action="tickets.html"
+                          th:action="@{${#httpServletRequest.servletPath}}"
+                          th:method="@{post}">
 
-<!--                        <div th:if="${#fields.hasErrors('*')}"-->
-<!--                             class="alert alert-danger">-->
-<!--                            <p>Please fix errors below:</p>-->
-<!--                        </div>-->
+                        <div th:if="${#fields.hasErrors('*')}"
+                             class="alert alert-danger">
+                            <p>Please fix errors below:</p>
+                        </div>
 
-<!--                        &lt;!&ndash;Send with form a ticketId&ndash;&gt;-->
-<!--                        <input id="ticketId"-->
-<!--                               type="hidden"-->
-<!--                               th:field="*{ticketId}"/>-->
+                        <!--Send with form a ticketId-->
+                        <input id="ticketId"
+                               type="hidden"
+                               th:field="*{ticketId}"/>
 
 
-<!--                        <tr>-->
-<!--                            <div class="form-group">-->
-<!--                                <label>Select from a city</label>-->
-<!--                                    <select class="form-control" id="fromCity" name="fromCity" th:field="*{fromCity.cityId}">-->
-<!--                                        <option value=1>BREST</option>-->
-<!--                                        <option value=2>MINSK</option>-->
-<!--                                        <option value=3>VITEBSK</option>-->
-<!--                                        <option value=4>GOMEL</option>-->
-<!--                                        <option value=5>GRODNO</option>-->
-<!--                                        <option value=6>MOGILEV</option>-->
-<!--                                    </select>-->
-<!--                            </div>-->
-<!--                            <td th:if="${#fields.hasErrors('fromCity.cityId')}" th:errors="*{fromCity.cityId}">Name Error</td>-->
-<!--                        </tr>-->
+                        <tr>
+                            <div class="form-group">
+                                <label>Select from a city</label>
+                                    <select class="form-control" id="fromCity" name="fromCity" th:field="*{fromCity.cityId}">
+                                        <option value=1>BREST</option>
+                                        <option value=2>MINSK</option>
+                                        <option value=3>VITEBSK</option>
+                                        <option value=4>GOMEL</option>
+                                        <option value=5>GRODNO</option>
+                                        <option value=6>MOGILEV</option>
+                                    </select>
+                            </div>
+                            <td th:if="${#fields.hasErrors('fromCity.cityId')}" th:errors="*{fromCity.cityId}">Name Error</td>
+                        </tr>
 
-<!--                        <tr>-->
-<!--                            <div class="form-group">-->
-<!--                                <label>Select to a city</label>-->
-<!--                                <select class="form-control" id="toCity" name="toCity" th:field="*{toCity.cityId}">-->
-<!--                                    <option value=1>BREST</option>-->
-<!--                                    <option value=2>MINSK</option>-->
-<!--                                    <option value=3>VITEBSK</option>-->
-<!--                                    <option value=4>GOMEL</option>-->
-<!--                                    <option value=5>GRODNO</option>-->
-<!--                                    <option value=6>MOGILEV</option>-->
-<!--                                </select>-->
-<!--                            </div>-->
-<!--                            <td th:if="${#fields.hasErrors('toCity.cityId')}" th:errors="*{toCity.cityId}">Name Error</td>-->
-<!--                        </tr>-->
-<!--                        -->
-<!--                        <tr>-->
-<!--                            <div class="form-group">-->
-<!--                                <label>Price of ticket</label>-->
-<!--                                <input class="form-control "-->
-<!--                                       id="ticketCost"-->
-<!--                                       type="text"-->
-<!--                                       value=""-->
-<!--                                       placeholder="Enter price"-->
-<!--                                       th:field="*{ticketCost}"/>-->
-<!--                            </div>-->
-<!--                            <td th:if="${#fields.hasErrors('ticketCost')}" th:errors="*{ticketCost}">Name Error</td>-->
-<!--                        </tr>-->
+                        <tr>
+                            <div class="form-group">
+                                <label>Select to a city</label>
+                                <select class="form-control" id="toCity" name="toCity" th:field="*{toCity.cityId}">
+                                    <option value=1>BREST</option>
+                                    <option value=2>MINSK</option>
+                                    <option value=3>VITEBSK</option>
+                                    <option value=4>GOMEL</option>
+                                    <option value=5>GRODNO</option>
+                                    <option value=6>MOGILEV</option>
+                                </select>
+                            </div>
+                            <td th:if="${#fields.hasErrors('toCity.cityId')}" th:errors="*{toCity.cityId}">Name Error</td>
+                        </tr>
 
-<!--                        <tr><td><label>Select a date</label>-->
-<!--                            <div class="form-group">-->
-<!--                                <input id="ticketDate"-->
-<!--                                       name="ticketDate"-->
-<!--                                       type="date"-->
-<!--                                       class="form-control"-->
-<!--                                       value=""-->
-<!--                                       th:field="*{ticketDate}">-->
-<!--                            </div>-->
-<!--                            <div th:if="${#fields.hasErrors('ticketDate')}"-->
-<!--                                 class="alert alert-danger">-->
-<!--                                <p>Please fix errors below:</p>-->
-<!--                            </div>-->
-<!--                            <td th:if="${#fields.hasErrors('ticketDate')}" th:errors="*{ticketDate}">Name Error</td>-->
-<!--                        </tr>-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</section>-->
+                        <tr>
+                            <div class="form-group">
+                                <label>Price of ticket</label>
+                                <input class="form-control "
+                                       id="ticketCost"
+                                       type="text"
+                                       value=""
+                                       placeholder="Enter price"
+                                       th:field="*{ticketCost}"/>
+                            </div>
+                            <td th:if="${#fields.hasErrors('ticketCost')}" th:errors="*{ticketCost}">Name Error</td>
+                        </tr>
+
+                        <tr><td><label>Select a date</label>
+                            <div class="form-group">
+                                <input id="ticketDate"
+                                       name="ticketDate"
+                                       type="date"
+                                       class="form-control"
+                                       value=""
+                                       th:field="*{ticketDate}">
+                            </div>
+                            <div th:if="${#fields.hasErrors('ticketDate')}"
+                                 class="alert alert-danger">
+                                <p>Please fix errors below:</p>
+                            </div>
+                            <td th:if="${#fields.hasErrors('ticketDate')}" th:errors="*{ticketDate}">Name Error</td>
+                        </tr>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
