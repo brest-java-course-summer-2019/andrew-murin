@@ -37,6 +37,7 @@ public class PaymentRestController {
     public List<Payment> findByTicketId(@PathVariable("ticketId") Integer ticketId) {
         LOGGER.debug("Find payments by ticketId ({})", ticketId);
         List<Payment> payments = paymentService.findByTicketId(ticketId);
+
         return payments;
     }
 

@@ -1,11 +1,9 @@
 package com.epam.brest2019.courses.dao;
 
-import com.epam.brest2019.courses.model.Payment;
 import com.epam.brest2019.courses.model.Ticket;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -13,17 +11,18 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.stereotype.Repository;
 
-
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
  *  Ticket DAO Interface implementation
  */
 @Repository
-@PropertySource("classpath:/sql_query_ticket.properties")
+@PropertySource("classpath:/jpql_query_ticket.properties")
 public class TicketDaoJdbcImpl implements TicketDao {
 
     @Value("${ticket.findAll}")
@@ -45,8 +44,8 @@ public class TicketDaoJdbcImpl implements TicketDao {
 
     private static final String START_DATE = "startDate";
     private static final String FINISH_DATE = "finishDate";
-    private static final String FROM_CITY = "fromCity";
-    private static final String TO_CITY = "toCity";
+    private static final String FROM_CITY = "fromCityId";
+    private static final String TO_CITY = "toCityId";
 
 
     private final SessionFactory sessionFactory;
@@ -105,6 +104,7 @@ public class TicketDaoJdbcImpl implements TicketDao {
 
     @Override
     public List<Ticket> searchTicket(LocalDate startDate, LocalDate finishDate, Integer fromCity, Integer toCity) {
+
         Map map = new HashMap<>();
         map.put(START_DATE, startDate);
         map.put(FINISH_DATE, finishDate);
@@ -117,44 +117,9 @@ public class TicketDaoJdbcImpl implements TicketDao {
 
     @Override
     public List<Ticket> findAllWithDirection() {
-//        List<Ticket> tickets = transact.sessionFixture(SELECT_ALL_WITH_DIRECTION);
-//        return tickets;
-
-
-        Transaction transaction = null;
-        List<Ticket> tickets = null;
-
-        try (Session session = sessionFactory.openSession()) {
-
-            transaction = session.beginTransaction();
-
-            String sql = "SELECT t.id, c.city_name AS cityFrom, s.city_name AS cityTo, t.ticket_cost, t.ticket_date FROM ticket t" +
-                    " INNER JOIN city c ON t.from_city = c.id INNER JOIN city s ON t.to_city = s.id";
-
-
-//            String jpql = "SELECT t" +
-//                    " FROM Ticket t";
-            String jpql = "SELECT t" +
-                    " FROM Ticket t" +
-                    " JOIN t.fromCity c";
-//                    " WHERE t.fk_from_city = c.id";
-
-
-
-
-//            NativeQuery query = session.createNativeQuery(SELECT_ALL_WITH_DIRECTION, "ticketSqlMapping");
-            tickets = session.createQuery(jpql, Ticket.class).getResultList();
-
-
-            transaction.commit();
-
-        } catch (Exception ex) {
-            if (transaction != null)
-                transaction.rollback();
-            ex.printStackTrace();
-
-        }
+        List<Ticket> tickets = transact.sessionFixture(SELECT_ALL_WITH_DIRECTION);
         return tickets;
+
     }
 
 

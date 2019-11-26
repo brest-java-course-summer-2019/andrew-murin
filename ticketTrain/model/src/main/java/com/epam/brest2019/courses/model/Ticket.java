@@ -1,12 +1,10 @@
 package com.epam.brest2019.courses.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -19,20 +17,6 @@ import java.time.LocalDate;
 /**
  * POJO Ticket for model.
  */
-@SqlResultSetMapping(name = "ticketSqlMapping",
-                    entities = {
-                        @EntityResult(
-                                entityClass = com.epam.brest2019.courses.model.Ticket.class,
-                                fields = {@FieldResult(name = "ticketId", column="id"),
-                                            @FieldResult(name = "ticketCost", column = "ticket_cost"),
-                                            @FieldResult(name = "ticketDate", column = "ticket_date"),
-                                            @FieldResult(name = "fromCity", column = "from_city"),
-                                            @FieldResult(name = "toCity", column = "to_city"),
-                                            @FieldResult(name = "cityFrom", column = "cityFrom"),
-                                            @FieldResult(name = "cityTo", column = "cityTo")}
-                        )
-                    })
-
 @Entity
 @Table(name = "ticket")
 public class Ticket implements Serializable {
@@ -55,7 +39,7 @@ public class Ticket implements Serializable {
      * date train
      */
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Type(type = "org.hibernate.type.LocalDateType")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     @Column(name = "ticket_date")
@@ -74,17 +58,6 @@ public class Ticket implements Serializable {
     @JoinColumn(name = "to_city", foreignKey = @ForeignKey(name = "fk_to_city"))
     private City toCity;
 
-//    /**
-//     * CityFrom for sql-query
-//     */
-//    @Transient
-//    private String cityFrom;
-//
-//    /**
-//     * CityTo for sql-query
-//     */
-//    @Transient
-//    private String cityTo;
 
     /**
      * Constructor without parameters.
@@ -112,38 +85,6 @@ public class Ticket implements Serializable {
         this.fromCity = fromCity;
         this.toCity = toCity;
     }
-
-//     /** Get this ticketDate of train.
-//     *
-//      * @return ticketDate of train.
-//     */
-//    public String getCityFrom() {
-//        return cityFrom;
-//    }
-//
-//    /**
-//     * Set cityFrom.
-//     * @param cityFrom city from
-//     */
-//    public void setCityFrom(String cityFrom) {
-//        this.cityFrom = cityFrom;
-//    }
-//
-//    /**
-//     * Get cityTo
-//     * @return cityTo.
-//     */
-//    public String getCityTo() {
-//        return cityTo;
-//    }
-//
-//     /**
-//     * Set cityTo.
-//     * @param cityTo city to
-//     */
-//    public void setCityTo(String cityTo) {
-//        this.cityTo = cityTo;
-//    }
 
     /**
      * Get this ticket id.

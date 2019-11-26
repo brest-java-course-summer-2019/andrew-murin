@@ -3,7 +3,7 @@ package com.epam.brest2019.courses.dao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.query.NativeQuery;
+import org.hibernate.query.Query;
 
 import java.util.List;
 import java.util.Map;
@@ -26,7 +26,7 @@ public class Transact<T> {
 
             transaction = session.beginTransaction();
 
-            NativeQuery query = session.createSQLQuery(sqlQuery);
+            Query query = session.createQuery(sqlQuery);
             payments = query.getResultList();
 
             transaction.commit();
@@ -49,7 +49,7 @@ public class Transact<T> {
 
             transaction = session.beginTransaction();
 
-            NativeQuery query = session.createSQLQuery(sqlQuery);
+            Query query = session.createQuery(sqlQuery);
             for (Object key : param.keySet()) {
                 query.setParameter((String) key, param.get(key));
             }

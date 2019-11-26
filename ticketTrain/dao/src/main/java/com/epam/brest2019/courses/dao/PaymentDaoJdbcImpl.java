@@ -5,6 +5,7 @@ import com.epam.brest2019.courses.model.Payment;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -19,14 +20,11 @@ import java.util.Map;
  *  Payment DAO Interface implementation
  */
 @Repository
-@PropertySource("classpath:/sql_query_payment.properties")
+@PropertySource("classpath:/jpql_query_payment.properties")
 public class PaymentDaoJdbcImpl implements PaymentDao {
 
     @Value("${payment.findAll}")
     private String SELECT_ALL;
-
-    @Value("${payment.findById}")
-    private String FIND_BY_ID;
 
     @Value("${payment.findByTicketId}")
     private String FIND_BY_TICKET_ID;
