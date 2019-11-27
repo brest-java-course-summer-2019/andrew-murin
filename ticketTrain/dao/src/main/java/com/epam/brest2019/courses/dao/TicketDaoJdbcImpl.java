@@ -25,16 +25,13 @@ import java.util.Map;
 @PropertySource("classpath:/jpql_query_ticket.properties")
 public class TicketDaoJdbcImpl implements TicketDao {
 
-    @Value("${ticket.findAll}")
+    @Value("${tickets.findAll}")
     private String SELECT_ALL;
 
-    @Value("${ticket.findById}")
-    private String FIND_BY_ID;
-
-    @Value("${ticket.findAllWithDirection}")
+    @Value("${tickets.findAllWithDirection}")
     private String SELECT_ALL_WITH_DIRECTION;
 
-    @Value("${ticket.searchByDate}")
+    @Value("${tickets.searchByDate}")
     private String SEARCH_BY_DATE;
 
 

@@ -23,16 +23,16 @@ import java.util.Map;
 @PropertySource("classpath:/jpql_query_payment.properties")
 public class PaymentDaoJdbcImpl implements PaymentDao {
 
-    @Value("${payment.findAll}")
+    @Value("${payments.findAll}")
     private String SELECT_ALL;
 
-    @Value("${payment.findByTicketId}")
+    @Value("${payments.findByTicketId}")
     private String FIND_BY_TICKET_ID;
 
-    @Value("${payment.findAllWitchDirection}")
+    @Value("${payments.findAllWitchDirection}")
     private String FIND_ALL_WITH_DIRECTION;
 
-    @Value("${payment.searchByDate}")
+    @Value("${payments.searchByDate}")
     private String SEARCH_BY_DATE;
 
 
