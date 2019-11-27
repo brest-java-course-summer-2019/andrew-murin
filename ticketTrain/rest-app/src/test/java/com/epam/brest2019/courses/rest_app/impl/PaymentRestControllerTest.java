@@ -58,6 +58,8 @@ public class PaymentRestControllerTest {
 
     @BeforeEach
     void before() {
+        LOGGER.debug("Before");
+
         mockMvc = MockMvcBuilders.standaloneSetup(paymentRestController)
                 .setMessageConverters(new MappingJackson2HttpMessageConverter())
                 .alwaysDo(print())
@@ -66,11 +68,14 @@ public class PaymentRestControllerTest {
 
     @AfterEach
     void after() {
+        LOGGER.debug("After");
+
         Mockito.reset(paymentService);
     }
 
     @Test
     void findAll() throws Exception {
+        LOGGER.debug("findAll");
 
         Mockito.when(paymentService.findAll()).thenReturn(Arrays.asList(createFixture(0), createFixture(1)));
 
@@ -89,6 +94,8 @@ public class PaymentRestControllerTest {
 
     @Test
     void findAllWitchDirection() throws Exception {
+        LOGGER.debug("findAllWitchDirection");
+
         Mockito.when(paymentService.findAllWitchDirection()).thenReturn(Arrays.asList(createFixture(0), createFixture(1)));
 
         mockMvc.perform(
@@ -106,6 +113,8 @@ public class PaymentRestControllerTest {
 
     @Test
     void findByTicketId() throws Exception {
+        LOGGER.debug("findByTicketId");
+
         int id = 1;
         Mockito.when(paymentService.findByTicketId(id)).thenReturn(Arrays.asList(createFixture(0), createFixture(1)));
 
@@ -124,6 +133,8 @@ public class PaymentRestControllerTest {
 
     @Test
     void findById() throws Exception {
+        LOGGER.debug("findById");
+
         int id = 1;
         Mockito.when(paymentService.findById(id)).thenReturn((createFixture(id)));
 
@@ -140,6 +151,8 @@ public class PaymentRestControllerTest {
 
     @Test
     void addPayment() throws Exception{
+        LOGGER.debug("addPayment");
+
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/payments")
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -153,6 +166,8 @@ public class PaymentRestControllerTest {
 
     @Test
     void updatePayment() throws Exception {
+        LOGGER.debug("updatePayment");
+
         Payment payment = createFixture(1);
         String json = objectMapper.writeValueAsString(payment);
 
@@ -166,6 +181,8 @@ public class PaymentRestControllerTest {
 
     @Test
     void deletePayment() throws Exception {
+        LOGGER.debug("deletePayment");
+
         mockMvc.perform(MockMvcRequestBuilders.delete("/payments/{paymentId}", 1))
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
@@ -175,6 +192,8 @@ public class PaymentRestControllerTest {
 
     @Test
     void searchByDate() throws Exception {
+        LOGGER.debug("Search by date");
+
         Mockito.when(paymentService.searchByDate(START_DATE, FINISH_DATE)).thenReturn(Arrays.asList(createFixture(1)));
 
         mockMvc.perform(
@@ -206,6 +225,7 @@ public class PaymentRestControllerTest {
         payment.setPaymentId(paymentId);
         payment.setTicketId(ticket);
         payment.setPaymentDate(LocalDate.now());
+
         return payment;
     }
 

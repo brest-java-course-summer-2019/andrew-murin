@@ -5,7 +5,7 @@ import com.epam.brest2019.courses.dao.PaymentDao;
 import com.epam.brest2019.courses.dao.PaymentDaoJdbcImpl;
 import com.epam.brest2019.courses.dao.TicketDao;
 import com.epam.brest2019.courses.dao.TicketDaoJdbcImpl;
-import com.epam.brest2019.courses.test_db.DataSourceConfig;
+import com.epam.brest2019.courses.test_db.DataBaseConfig;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,8 +15,8 @@ import org.springframework.test.context.ContextConfiguration;
 
 
 @Configuration
-@ComponentScan(basePackageClasses = DataSourceConfig.class)
-@ContextConfiguration(classes = DataSourceConfig.class)
+@ComponentScan(basePackageClasses = DataBaseConfig.class)
+@ContextConfiguration(classes = DataBaseConfig.class)
 public class DataBaseDAOConfig {
 
     @Autowired

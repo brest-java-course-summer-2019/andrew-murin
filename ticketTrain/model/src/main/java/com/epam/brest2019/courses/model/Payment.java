@@ -190,13 +190,4 @@ public class Payment implements Serializable {
         this.ticketCount = ticketCount;
     }
 
-
-//    @Override
-//    public String toString() {
-//        return "Payment{" +
-//                "paymentId=" + paymentId +
-//                ", PaymentDate=" + paymentDate +
-//                ", ticketId=" + ticketId +
-//                '}';
-//    }
 }

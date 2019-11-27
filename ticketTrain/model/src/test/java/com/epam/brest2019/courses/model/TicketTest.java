@@ -21,8 +21,9 @@ public class TicketTest {
     private static final String TO_MINSK = "MINSK";
 
 
-    Ticket ticket = new Ticket();
-    City city = new City();
+    private Ticket ticket = new Ticket();
+
+    private City city = new City();
 
 
     @Test
@@ -44,16 +45,31 @@ public class TicketTest {
         Assert.assertEquals(localDate, ticket.getTicketDate());
     }
 
-//    @Test
-//    public void getCityFrom() {
-//        ticket.setCityFrom(FROM_BREST);
-//        Assert.assertEquals(ticket.getCityFrom(), FROM_BREST);
-//    }
-//
-//    @Test
-//    public void getCityTo() {
-//        ticket.setCityTo(TO_MINSK);
-//        Assert.assertEquals(ticket.getCityTo(), TO_MINSK);
-//    }
+    @Test
+    public void getCityFrom() {
+        city = createFixture();
+
+        ticket.setFromCity(city);
+
+        Assert.assertEquals(ticket.getFromCity().getCityId(), CITY_FROM);
+    }
+
+    @Test
+    public void getCityTo() {
+        city = createFixture();
+
+        ticket.setToCity(city);
+
+        Assert.assertEquals(ticket.getToCity().getCityName(), TO_MINSK);
+    }
+
+    private City createFixture() {
+        City city = new City();
+
+        city.setCityId(CITY_FROM);
+        city.setCityName(TO_MINSK);
+
+        return city;
+    }
 
 }

@@ -5,7 +5,6 @@ import com.epam.brest2019.courses.dao.PaymentDao;
 import com.epam.brest2019.courses.dao.config.DataBaseDAOConfig;
 import com.epam.brest2019.courses.model.Payment;
 import com.epam.brest2019.courses.model.Ticket;
-import com.epam.brest2019.courses.test_db.DataSourceConfig;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.time.LocalDate;
@@ -26,11 +24,12 @@ import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-//@Sql("classpath:import.sql")
-@ActiveProfiles(profiles = "mysql-database")
+
+@ActiveProfiles(profiles = "dev")
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {DataSourceConfig.class, DataBaseDAOConfig.class})
+@ContextConfiguration(classes = {DataBaseDAOConfig.class})
 public class PaymentDaoJdbcImplTest {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(PaymentDaoJdbcImplTest.class);
 
     @Autowired
@@ -130,16 +129,16 @@ public class PaymentDaoJdbcImplTest {
         assertEquals(updatePayment.getTicketId().getTicketId(), payment.getTicketId().getTicketId());
     }
 
-    @Test
-    public void findAllWithDirection() {
-        LOGGER.debug("findAllWithDirection Payment({})", Payment.class);
-
-        List<Payment> payments = paymentDao.findAllWitchDirection();
-
-        assertNotNull(payments);
-        assertFalse(payments.isEmpty());
-        assertTrue(payments.size() > 0);
-    }
+//    @Test
+//    public void findAllWithDirection() {
+//        LOGGER.debug("findAllWithDirection Payment({})", Payment.class);
+//
+//        List<Payment> payments = paymentDao.findAllWitchDirection();
+//
+//        assertNotNull(payments);
+//        assertFalse(payments.isEmpty());
+//        assertTrue(payments.size() > 0);
+//    }
 
     @Test
     public void searchByDate() {

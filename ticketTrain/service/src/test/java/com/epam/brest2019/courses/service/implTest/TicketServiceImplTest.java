@@ -7,10 +7,10 @@ import com.epam.brest2019.courses.service.config.ServiceConfig;
 import com.epam.brest2019.courses.test_db.DataSourceConfig;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.math.BigDecimal;
@@ -20,11 +20,11 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-//@Sql("classpath:import.sql")
 @ExtendWith(SpringExtension.class)
-@ActiveProfiles(profiles = "mysql-database")
 @ContextConfiguration(classes = {ServiceConfig.class, DataSourceConfig.class})
 public class TicketServiceImplTest {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(TicketServiceImplTest.class);
 
     private final static Integer CITY_FROM = 1;
     private final static Integer CITY_TO = 3;
@@ -34,6 +34,8 @@ public class TicketServiceImplTest {
 
     @Test
     public void findAll(){
+        LOGGER.debug("findAll");
+
         List<Ticket> tickets = ticketService.findAll();
 
         assertNotNull(tickets);
@@ -43,6 +45,8 @@ public class TicketServiceImplTest {
 
     @Test
     public void findById(){
+        LOGGER.debug("findById");
+
         int id = 2;
         Ticket ticket = ticketService.findById(id);
 
@@ -53,6 +57,8 @@ public class TicketServiceImplTest {
 
     @Test
     public void update(){
+        LOGGER.debug("Update");
+
         int id = 3;
         Ticket ticket = createFixture();
         City city = new City();
@@ -76,6 +82,8 @@ public class TicketServiceImplTest {
 
     @Test
     public void delete(){
+        LOGGER.debug("Delete");
+
         Ticket ticket = createFixture();
 
         ticketService.add(ticket);
@@ -90,6 +98,8 @@ public class TicketServiceImplTest {
 
     @Test
     public void add(){
+        LOGGER.debug("Add");
+
         int sizeBefore = ticketService.findAll().size();
 
         Ticket ticket = createFixture();
@@ -102,6 +112,7 @@ public class TicketServiceImplTest {
 
     @Test
     public void searchTicket() {
+        LOGGER.debug("Search ticket");
 
         LocalDate startDate = LocalDate.of(2019,01,01);
         LocalDate finishDate = LocalDate.of(2019,12,12);
@@ -114,6 +125,8 @@ public class TicketServiceImplTest {
 
     @Test
     public void findAllWithDirection() {
+        LOGGER.debug("findAllWithDirection");
+
         List<Ticket> tickets = ticketService.findAllWithDirection();
 
         assertNotNull(tickets);

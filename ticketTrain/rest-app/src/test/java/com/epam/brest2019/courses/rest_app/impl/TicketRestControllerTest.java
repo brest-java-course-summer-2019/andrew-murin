@@ -13,7 +13,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.context.ContextConfiguration;
@@ -34,8 +35,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(locations = {"classpath*:rest-spring-test.xml"})
+@ContextConfiguration
 public class TicketRestControllerTest {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(TicketRestControllerTest.class);
 
     @Mock
     private TicketService ticketService;
@@ -52,6 +55,8 @@ public class TicketRestControllerTest {
 
     @BeforeEach
     void before() {
+        LOGGER.debug("Before");
+
         mockMvc = MockMvcBuilders.standaloneSetup(ticketRestController)
                 .setMessageConverters(new MappingJackson2HttpMessageConverter())
                 .alwaysDo(print())
@@ -60,11 +65,15 @@ public class TicketRestControllerTest {
 
     @AfterEach
     void after() {
+        LOGGER.debug("After");
+
         Mockito.reset(ticketService);
     }
 
     @Test
     public void findAll() throws Exception {
+        LOGGER.debug("findAll");
+
         Mockito.when(ticketService.findAll()).thenReturn(Arrays.asList(createFixture(0), createFixture(1)));
 
         mockMvc.perform(
@@ -80,6 +89,8 @@ public class TicketRestControllerTest {
 
     @Test
     public void findAllWithDirection() throws Exception {
+        LOGGER.debug("findAllWithDirection");
+
         Mockito.when(ticketService.findAllWithDirection())
                 .thenReturn(Arrays.asList(createFixtureForAllDirection(0),createFixtureForAllDirection(1)));
 
@@ -99,6 +110,8 @@ public class TicketRestControllerTest {
 
     @Test
     public void findById() throws Exception {
+        LOGGER.debug("findById");
+
         int id = 1;
         Mockito.when(ticketService.findById(id)).thenReturn(createFixture(1));
 
@@ -116,6 +129,8 @@ public class TicketRestControllerTest {
 
     @Test
     public void addTicket() throws Exception{
+        LOGGER.debug("addTicket");
+
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/tickets")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -130,6 +145,8 @@ public class TicketRestControllerTest {
 
     @Test
     public void updateTicket() throws Exception {
+        LOGGER.debug("updateTicket");
+
         Ticket ticket = createFixtureForAllDirection(1);
         String json = new ObjectMapper().writeValueAsString(ticket);
 
@@ -145,7 +162,10 @@ public class TicketRestControllerTest {
 
     @Test
     public void deleteTicket() throws Exception {
+        LOGGER.debug("deleteTicket");
+
         Ticket ticket = createFixtureForAllDirection(1);
+
         mockMvc.perform(
                 MockMvcRequestBuilders.delete("/tickets/{ticketId}", 1))
                 .andExpect(MockMvcResultMatchers.status().isOk());
@@ -153,6 +173,8 @@ public class TicketRestControllerTest {
 
     @Test
     public void searchTicket() throws Exception {
+        LOGGER.debug("Search Ticket");
+
         Integer directionFrom = 1;
         Integer directionTo = 2;
 
@@ -175,8 +197,6 @@ public class TicketRestControllerTest {
         Ticket ticket = new Ticket();
 
         ticket.setTicketId(ticketId);
-//        ticket.setCityFrom("MINSK" + ticketId);
-//        ticket.setCityTo("BREST" + ticketId);
 
         return ticket;
     }

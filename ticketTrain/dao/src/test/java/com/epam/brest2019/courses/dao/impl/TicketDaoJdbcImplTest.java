@@ -4,7 +4,6 @@ import com.epam.brest2019.courses.dao.TicketDao;
 import com.epam.brest2019.courses.dao.config.DataBaseDAOConfig;
 import com.epam.brest2019.courses.model.City;
 import com.epam.brest2019.courses.model.Ticket;
-import com.epam.brest2019.courses.test_db.DataSourceConfig;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,10 +21,10 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-//@Sql("classpath:import.sql")
-@ActiveProfiles(profiles = "mysql-database")
+
+@ActiveProfiles(profiles = "dev")
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {DataSourceConfig.class, DataBaseDAOConfig.class})
+@ContextConfiguration(classes = {DataBaseDAOConfig.class})
 public class TicketDaoJdbcImplTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TicketDaoJdbcImplTest.class);

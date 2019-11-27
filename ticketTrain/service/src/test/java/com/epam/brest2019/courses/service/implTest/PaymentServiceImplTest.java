@@ -7,10 +7,10 @@ import com.epam.brest2019.courses.service.config.ServiceConfig;
 import com.epam.brest2019.courses.test_db.DataSourceConfig;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
@@ -18,11 +18,12 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-//@Sql("classpath:import.sql")
+
 @ExtendWith(SpringExtension.class)
-@ActiveProfiles(profiles = "mysql-database")
 @ContextConfiguration(classes = {ServiceConfig.class, DataSourceConfig.class})
 public class PaymentServiceImplTest {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(PaymentServiceImplTest.class);
 
     @Autowired
     private PaymentService paymentService;
@@ -33,6 +34,8 @@ public class PaymentServiceImplTest {
 
     @Test
     public void findAll(){
+        LOGGER.debug("findAll");
+
         List<Payment> payments = paymentService.findAll();
 
         assertNotNull(payments);
@@ -41,6 +44,8 @@ public class PaymentServiceImplTest {
 
     @Test
     public void findByTicketId(){
+        LOGGER.debug("findByTicketId");
+
         int id = 2;
         List<Payment> payment = paymentService.findByTicketId(id);
 
@@ -50,6 +55,8 @@ public class PaymentServiceImplTest {
 
     @Test
     public void findById(){
+        LOGGER.debug("findById");
+
         int id = 2;
         Payment payment = paymentService.findById(id);
 
@@ -59,6 +66,8 @@ public class PaymentServiceImplTest {
 
     @Test
     public void add(){
+        LOGGER.debug("Add");
+
         long sizeBefore = paymentService.findAll().size();
         paymentService.add(createFixture());
         long sizeAfter = paymentService.findAll().size();
@@ -67,6 +76,8 @@ public class PaymentServiceImplTest {
 
     @Test
     public void update(){
+        LOGGER.debug("Update");
+
         int id = 2;
         Payment payment = createFixture();
         payment.setPaymentId(id);
@@ -81,6 +92,8 @@ public class PaymentServiceImplTest {
 
     @Test
     public void delete(){
+        LOGGER.debug("Delete");
+
         int id = 7;
         Payment payment = createFixture();
         payment.setPaymentId(id);
@@ -92,16 +105,19 @@ public class PaymentServiceImplTest {
         assertEquals(size, paymentService.findAll().size() + 1);
     }
 
-    @Test
-    public void findAllWithDirection() {
-        List<Payment> payments = paymentService.findAllWitchDirection();
-
-        assertNotNull(payments);
-        assertFalse(payments.isEmpty());
-    }
+//    @Test
+//    public void findAllWithDirection() {
+//        LOGGER.debug("findAllWithDirection");
+//        List<Payment> payments = paymentService.findAllWitchDirection();
+//
+//        assertNotNull(payments);
+//        assertFalse(payments.isEmpty());
+//    }
 
     @Test
     public void searchByDate() {
+        LOGGER.debug("Search by Date");
+
         List<Payment> payments = paymentService.searchByDate(START_DATE, FINISH_DATE);
 
         assertNotNull(payments);

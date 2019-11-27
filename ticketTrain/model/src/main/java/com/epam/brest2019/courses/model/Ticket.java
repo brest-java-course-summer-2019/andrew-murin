@@ -150,15 +150,4 @@ public class Ticket implements Serializable {
         this.toCity = toCity;
     }
 
-
-    @Override
-    public String toString() {
-        return "Ticket{" +
-                "ticketId=" + ticketId +
-                ", ticketCost=" + ticketCost +
-                ", ticketDate=" + ticketDate +
-                ", fromCity=" + fromCity +
-                ", toCity=" + toCity +
-                '}';
-    }
 }

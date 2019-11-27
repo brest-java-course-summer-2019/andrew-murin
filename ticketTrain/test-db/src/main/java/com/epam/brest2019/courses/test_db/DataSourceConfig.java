@@ -11,7 +11,7 @@ import org.springframework.core.io.ClassPathResource;
 @Configuration
 public class DataSourceConfig {
 
-    @Profile("h2-database")
+    @Profile("dev")
     @Bean
     public PropertySourcesPlaceholderConfigurer dataSourceH2() {
         PropertySourcesPlaceholderConfigurer properties = new PropertySourcesPlaceholderConfigurer();
@@ -21,7 +21,7 @@ public class DataSourceConfig {
         return properties;
     }
 
-    @Profile("mysql-database")
+    @Profile("prod")
     @Bean
     public PropertySourcesPlaceholderConfigurer dataSourceMySQL() {
         PropertySourcesPlaceholderConfigurer properties = new PropertySourcesPlaceholderConfigurer();

@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.util.Collections;
@@ -18,6 +20,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 public class TicketServiceMockTest {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(TicketServiceMockTest.class);
 
     private static final Integer CITY_FROM = 1;
     private static final Integer CITY_TO = 6;
@@ -43,6 +47,8 @@ public class TicketServiceMockTest {
 
     @Test
     public void findAll(){
+        LOGGER.debug("findAll");
+
         Mockito.when(ticketDao.findAll()).thenReturn(Collections.singletonList(createFixture()));
 
         List<Ticket> result = ticketService.findAll();
@@ -55,6 +61,8 @@ public class TicketServiceMockTest {
 
     @Test
     public void findById(){
+        LOGGER.debug("findById");
+
         int id = 1;
         Mockito.when(ticketDao.findById(id)).thenReturn(createFixture());
 
@@ -68,6 +76,8 @@ public class TicketServiceMockTest {
 
     @Test
     public void update(){
+        LOGGER.debug("update");
+
         ticketService.update(createFixture());
 
         Mockito.verify(ticketDao).update(ticketCaptor.capture());
@@ -79,6 +89,8 @@ public class TicketServiceMockTest {
 
     @Test
     public void delete(){
+        LOGGER.debug("Delete");
+
         Ticket ticket = createFixture();
 
         ticketService.delete(ticket);
@@ -88,6 +100,8 @@ public class TicketServiceMockTest {
 
     @Test
     public void add(){
+        LOGGER.debug("Add");
+
         Ticket ticket = createFixture();
 
         ticketService.add(ticket);
@@ -97,6 +111,8 @@ public class TicketServiceMockTest {
 
     @Test
     public void searchTicket() {
+        LOGGER.debug("Search Ticket");
+
         Ticket ticket = createFixture();
 
         Mockito.when(ticketDao.searchTicket(START_DATE, FINISH_DATE, CITY_FROM, CITY_TO))
@@ -113,6 +129,8 @@ public class TicketServiceMockTest {
 
     @Test
     public void findAllWithDirection() {
+        LOGGER.debug("findAllWithDirection");
+
         Mockito.when(ticketDao.findAllWithDirection()).thenReturn(Collections.singletonList(createFixture()));
 
         List<Ticket> result = ticketService.findAllWithDirection();

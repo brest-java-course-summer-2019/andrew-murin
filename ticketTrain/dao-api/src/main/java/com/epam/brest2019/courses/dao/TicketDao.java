@@ -4,7 +4,6 @@ import com.epam.brest2019.courses.model.Ticket;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Ticket DAO Interface
