@@ -129,16 +129,16 @@ public class PaymentDaoJdbcImplTest {
         assertEquals(updatePayment.getTicketId().getTicketId(), payment.getTicketId().getTicketId());
     }
 
-//    @Test
-//    public void findAllWithDirection() {
-//        LOGGER.debug("findAllWithDirection Payment({})", Payment.class);
-//
-//        List<Payment> payments = paymentDao.findAllWitchDirection();
-//
-//        assertNotNull(payments);
-//        assertFalse(payments.isEmpty());
-//        assertTrue(payments.size() > 0);
-//    }
+    @Test
+    public void findAllWithDirection() {
+        LOGGER.debug("findAllWithDirection Payment({})", Payment.class);
+
+        List<Payment> payments = paymentDao.findAllWitchDirection();
+
+        assertNotNull(payments);
+        assertFalse(payments.isEmpty());
+        assertTrue(payments.size() > 0);
+    }
 
     @Test
     public void searchByDate() {

@@ -98,11 +98,7 @@ public class TicketRestControllerTest {
                 MockMvcRequestBuilders.get("/tickets/find-all-with-direction")
                 .accept(MediaType.APPLICATION_JSON_UTF8)
         ).andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$[0].cityFrom", Matchers.is("MINSK0")))
-                .andExpect(jsonPath("$[0].cityTo", Matchers.is("BREST0")))
                 .andExpect(jsonPath("$[0].ticketId", Matchers.is(0)))
-                .andExpect(jsonPath("$[1].cityFrom", Matchers.is("MINSK1")))
-                .andExpect(jsonPath("$[1].cityTo", Matchers.is("BREST1")))
                 .andExpect(jsonPath("$[1].ticketId", Matchers.is(1)));
 
         Mockito.verify(ticketService).findAllWithDirection();
