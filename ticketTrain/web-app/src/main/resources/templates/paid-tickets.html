@@ -125,39 +125,39 @@
                         <div th:if="${isSearch}">
 <!--without filter-->
                             <tr th:each="payment : ${payments}">
-                                <td th:text="${payment.paymentId}">Payment_id</td>
-                                <td th:text="${payment.ticketId}">Ticket_id</td>
-                                <td th:text="${payment.paymentDate}">Payment_Date</td>
-                                <td th:text="${payment.cityFrom}">From</td>
-                                <td th:text="${payment.cityTo}">To</td>
-                                <td th:text="${payment.ticketCost}">Cost</td>
+                                <td th:text="${payment}">Payment_id</td>
+<!--                                <td th:text="${payment.ticketId}">Ticket_id</td>-->
+<!--                                <td th:text="${payment.paymentDate}">Payment_Date</td>-->
+<!--                                <td th:text="${payment.cityFrom}">From</td>-->
+<!--                                <td th:text="${payment.cityTo}">To</td>-->
+<!--                                <td th:text="${payment.ticketCost}">Cost</td>-->
 
-                                <td>
+<!--                                <td>-->
 
-                                            <span data-toggle="modal" data-target="#deleteDialog"
-                                                  class="navbar-nav float-right"
-                                                  th:attr="data-id=${payment.paymentId}, data-name=${payment.ticketId}">
-                                                <a href="#"
-                                                   class="btn btn-dark"
-                                                   title="delete payment"
-                                                   data-toggle="tooltip"
-                                                   data-placement="top">
-                                                    <i class="fa fa-remove"></i>
-                                                    <span class="d-none d-md-inline">Delete</span></a>
-                                            </span>
+<!--                                            <span data-toggle="modal" data-target="#deleteDialog"-->
+<!--                                                  class="navbar-nav float-right"-->
+<!--                                                  th:attr="data-id=${payment.paymentId}, data-name=${payment.ticketId}">-->
+<!--                                                <a href="#"-->
+<!--                                                   class="btn btn-dark"-->
+<!--                                                   title="delete payment"-->
+<!--                                                   data-toggle="tooltip"-->
+<!--                                                   data-placement="top">-->
+<!--                                                    <i class="fa fa-remove"></i>-->
+<!--                                                    <span class="d-none d-md-inline">Delete</span></a>-->
+<!--                                            </span>-->
 
-                                    <span class="navbar-nav float-right">
-                                                    <a  href="ticket.html"
-                                                        th:href="@{|/paid-ticket/${payment.paymentId}|}"
-                                                        class="btn btn-dark"
-                                                        title="Edit payment"
-                                                        data-toggle="tooltip"
-                                                        data-placement="top">
-                                                            <i class="fa fa-pencil"></i>
-                                                        <span class="d-none d-md-inline">Edit</span></a>
+<!--                                    <span class="navbar-nav float-right">-->
+<!--                                                    <a  href="ticket.html"-->
+<!--                                                        th:href="@{|/paid-ticket/${payment.paymentId}|}"-->
+<!--                                                        class="btn btn-dark"-->
+<!--                                                        title="Edit payment"-->
+<!--                                                        data-toggle="tooltip"-->
+<!--                                                        data-placement="top">-->
+<!--                                                            <i class="fa fa-pencil"></i>-->
+<!--                                                        <span class="d-none d-md-inline">Edit</span></a>-->
 
-                                            </span>
-                                </td>
+<!--                                            </span>-->
+<!--                                </td>-->
                             </tr>
 
 
@@ -171,19 +171,20 @@
 
                             <tr th:each="payment : ${payments}">
                                 <!--<td th:text="${payment.paymentId}">Payment_id</td>-->
-                                <td th:text="${payment.ticketId}">Ticket_id</td>
-                                <!--<td th:text="${payment.paymentDate}">Payment_Date</td>-->
-                                <td th:text="${payment.cityFrom}">From</td>
-                                <td th:text="${payment.cityTo}">To</td>
-                                <td th:text="${payment.ticketCount}">Count</td>
-                                <td th:text="${payment.totalCost}">totalCost</td>
+                                <td th:text="#{payment}">Payment</td>
+<!--                                <td th:text="${payment.ticketId}">Ticket_id</td>-->
+<!--                                &lt;!&ndash;<td th:text="${payment.paymentDate}">Payment_Date</td>&ndash;&gt;-->
+<!--                                <td th:text="${payment.cityFrom}">From</td>-->
+<!--                                <td th:text="${payment.cityTo}">To</td>-->
+<!--                                <td th:text="${payment.ticketCount}">Count</td>-->
+<!--                                <td th:text="${payment.totalCost}">totalCost</td>-->
                             </tr>
                             <tr>
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td th:text="${countTicket}">Count ticket</td>
-                                <th th:text="${totalSum}">Summ of cost ticket</th>
+<!--                                <td th:text="${countTicket}">Count ticket</td>-->
+<!--                                <th th:text="${totalSum}">Summ of cost ticket</th>-->
                             </tr>
                         </div>
                     </tbody>
@@ -223,14 +224,14 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 <script>
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    })
-    $('#deleteDialog').on('show.bs.modal', function (event) {
-        var target = $(event.relatedTarget)
-        $(this).find('.modal-body').text('Please confirm delete ticket: "' + target.data('name') + '"')
-        document.getElementById('deleteUrl').href = '/paid-ticket/' + target.data('id') + '/delete';
-    })
+<!--    $(function () {-->
+<!--        $('[data-toggle="tooltip"]').tooltip()-->
+<!--    })-->
+<!--    $('#deleteDialog').on('show.bs.modal', function (event) {-->
+<!--        var target = $(event.relatedTarget)-->
+<!--        $(this).find('.modal-body').text('Please confirm delete ticket: "' + target.data('name') + '"')-->
+<!--        document.getElementById('deleteUrl').href = '/paid-ticket/' + target.data('id') + '/delete';-->
+<!--    })-->
 </script>
 
 </body>

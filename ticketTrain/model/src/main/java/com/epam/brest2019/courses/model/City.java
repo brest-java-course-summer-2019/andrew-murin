@@ -30,7 +30,7 @@ public class City implements Serializable {
     @Column(name = "city_name")
     private String cityName;
 
-    @NotNull
+//    @NotNull
     @OneToMany
     @JoinColumn(name = "from_city", foreignKey = @ForeignKey(name = "fk_from_city"))
     @JsonIgnore
@@ -38,7 +38,7 @@ public class City implements Serializable {
     /**
      * Direction of train_to
      */
-    @NotNull
+//    @NotNull
     @OneToMany
     @JoinColumn(name = "to_city", foreignKey = @ForeignKey(name = "fk_to_city"))
     @JsonIgnore

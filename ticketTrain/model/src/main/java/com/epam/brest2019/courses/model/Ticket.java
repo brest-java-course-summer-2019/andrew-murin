@@ -32,7 +32,7 @@ public class Ticket implements Serializable {
      * Cost of ticket
      */
     @Min(0)
-    @NotNull
+//    @NotNull
     @Column(name = "ticket_cost")
     private BigDecimal ticketCost;
     /**
@@ -40,6 +40,7 @@ public class Ticket implements Serializable {
      */
 
     @Type(type = "org.hibernate.type.LocalDateType")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     @Column(name = "ticket_date")
@@ -48,12 +49,12 @@ public class Ticket implements Serializable {
     /**
      * Direction of train_from
      */
-    @NotNull
+//    @NotNull
     @ManyToOne
     @JoinColumn(name = "from_city", foreignKey = @ForeignKey(name = "fk_from_city"))
     private City fromCity;
 
-    @NotNull
+//    @NotNull
     @ManyToOne
     @JoinColumn(name = "to_city", foreignKey = @ForeignKey(name = "fk_to_city"))
     private City toCity;

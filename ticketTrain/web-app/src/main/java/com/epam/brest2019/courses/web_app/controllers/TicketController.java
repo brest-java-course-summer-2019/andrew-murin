@@ -121,8 +121,10 @@ public class TicketController {
     public final String gotoEditTicketPage(@PathVariable Integer id, Model model) {
         LOGGER.debug("gotoEditTicketPage({})", id);
 
-        Ticket ticket = ticketService.findById(id);
-        model.addAttribute("ticket", ticket);
+//        Ticket ticket = ticketService.findById(id);
+
+        model.addAttribute("ticket", ticketService.findById(id));
+
         return "ticket";
     }
 
@@ -177,10 +179,10 @@ public class TicketController {
      * @return tickets
      */
     @PostMapping("/ticket")
-    public final String addTicket(@Valid @ModelAttribute("ticketForm") Ticket ticket, BindingResult result) {
+    public final String addTicket(@Valid Ticket ticket, BindingResult result) {
         LOGGER.debug("Add Ticket({}, {})", ticket, result);
 
-        ticketValidator.validate(ticket, result);
+//        ticketValidator.validate(ticket, result);
 
         if (result.hasErrors()) {
             return "ticket/" + ticket.getTicketId();

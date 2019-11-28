@@ -12,18 +12,18 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!--&lt;!&ndash; Use spring servlet for all requests, including static resources &ndash;&gt;-->
-    <!--<mvc:default-servlet-handler />-->
+    <!-- Use spring servlet for all requests, including static resources -->
+    <mvc:default-servlet-handler />
 
-    <!--&lt;!&ndash; Use @MVC annotations &ndash;&gt;-->
-    <!--<mvc:annotation-driven />-->
+    <!-- Use @MVC annotations -->
+    <mvc:annotation-driven />
 
-    <!--<mvc:resources mapping="/resources/**" location="/resources/" />-->
+    <mvc:resources mapping="/resources/**" location="/resources/" />
 
-    <!--&lt;!&ndash; Component scan for @Controller, @Service... annotations &ndash;&gt;-->
-    <!--<context:component-scan base-package="com.epam.brest2019.courses.*" />-->
+    <!-- Component scan for @Controller, @Service... annotations -->
+    <context:component-scan base-package="com.epam.brest2019.courses.*" />
 
-    <!--<context:property-placeholder location="classpath:application.properties"/>-->
+    <context:property-placeholder location="classpath:application.properties"/>
 
 
 

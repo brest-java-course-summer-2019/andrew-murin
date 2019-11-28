@@ -40,8 +40,8 @@ public class TicketControllerTest {
 
 
     private static final String TICKET_ID = "ticketId";
-    private static final String FROM_CITY = "fromCity";
-    private static final String TO_CITY = "toCity";
+    private static final String CITY_FROM = "cityFrom.cityId";
+    private static final String CITY_TO = "cityTo.cityId";
     private static final String TICKET_DATE = "ticketDate";
     private static final String TICKET_COST = "ticketCost";
 
@@ -65,23 +65,19 @@ public class TicketControllerTest {
                 MockMvcRequestBuilders.get("/ticket"))
                 .andDo(MockMvcResultHandlers.print())
                         .andExpect(MockMvcResultMatchers.status().isOk())
-                        .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
-                        .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("#")));
-
-
+                        .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"));
     }
 
-//    @Test
-//    void findAllWithDirection() throws Exception {
-//        mockMvc.perform(
-//                MockMvcRequestBuilders.get("/tickets"))
-//                .andDo(MockMvcResultHandlers.print())
-//                        .andExpect(MockMvcResultMatchers.status().isOk())
-//                        .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
-//                        .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("<title>Tickets</title>")));
-//
-//
-//    }
+    @Test
+    void findAllWithDirection() throws Exception {
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/tickets"))
+                .andDo(MockMvcResultHandlers.print())
+                        .andExpect(MockMvcResultMatchers.status().isOk())
+                        .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
+                        .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("<title>Tickets</title>")));
+
+    }
 
 //    @Test
 //    void gotoEditTicketPage() throws Exception {
@@ -92,42 +88,50 @@ public class TicketControllerTest {
 //        mockMvc.perform(
 //                MockMvcRequestBuilders.get("/ticket/{id}", id))
 //                .andDo(MockMvcResultHandlers.print())
-//                        .andExpect(MockMvcResultMatchers.status().isOk())
-//                        .andExpect(MockMvcResultMatchers.content()
-//                            .string(Matchers.containsString("#")));
+//                        .andExpect(MockMvcResultMatchers.status().isOk());
+////                        .andExpect(MockMvcResultMatchers.content()
+////                            .string(Matchers.containsString("#")));
 //
 //
 //    }
 
-//    //TODO schould be fall
-//    @Test
-//    void addTicket() throws Exception {
-//        mockMvc.perform(
-//                MockMvcRequestBuilders.post("/ticket")
-//                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-//                            .param(FROM_CITY, "1")
-//                            .param(TO_CITY, "3")
-//                            .param(TICKET_DATE, "2019-12-12")
-//                            .param(TICKET_COST, "12")
-//            )
-//                            .andExpect(MockMvcResultMatchers.status().is4xxClientError());
-//
-//    }
+//     //TODO how to send object?
+    @Test
+    void addTicket() throws Exception {
+        mockMvc.perform(
+                MockMvcRequestBuilders.post("/ticket")
+                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                            .param(TICKET_ID, "22")
+                            .param(CITY_FROM, "1")
+                            .param(CITY_TO, "3")
+                            .param(TICKET_DATE, "2019-12-12")
+                            .param(TICKET_COST, "12")
+            )
+                            .andExpect(MockMvcResultMatchers.status().isFound())
+                            .andExpect(MockMvcResultMatchers.view().name("redirect:/tickets"))
+                            .andExpect(MockMvcResultMatchers.redirectedUrl("/tickets"));
+
+    }
+
+//  //TODO Should work, but something not such
+    @Test
+    void updateTicket() throws Exception {
+        Ticket ticket = createFixture(1);
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.post("/ticket/{id}", 1)
+                    .contentType(MediaType.APPLICATION_JSON)
+                            .param(TICKET_ID, "1")
+                            .param(CITY_FROM, "2")
+                            .param(CITY_TO, "4")
+                            .param(TICKET_DATE, "2020-06-11")
+                            .param(TICKET_COST, "24.24")
+        ).andDo(MockMvcResultHandlers.print())
+                        .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+                        .andExpect(MockMvcResultMatchers.redirectedUrl("/tickets"));
 
 
-//    @Test
-//    void updateTicket() throws Exception {
-//        Ticket ticket = createFixture(1);
-//
-//        mockMvc.perform(
-//                MockMvcRequestBuilders.post("/ticket/{id}", 1)
-//                    .contentType(MediaType.APPLICATION_JSON)
-//                        .sessionAttr("ticketForm", ticket)
-//        ).andDo(MockMvcResultHandlers.print())
-//                        .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
-//                        .andExpect(MockMvcResultMatchers.redirectedUrl("/tickets"));
-//
-//    }
+    }
 
     @Test
     void deleteTicket() throws Exception {
