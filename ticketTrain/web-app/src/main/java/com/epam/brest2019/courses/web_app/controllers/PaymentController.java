@@ -55,9 +55,9 @@ public class PaymentController {
         LOGGER.debug("Find all paid tickets");
 //        List<Payment> payments = paymentService.findAllWitchDirection();
 
-//
+
 //        ObjectMapper mapper = new ObjectMapper();
-//        List<Payment> paymentList = mapper.convertValue(payments,
+//        List<Payment> paymentList = mapper.convertValue(paymentService.findAllWitchDirection(),
 //                new TypeReference<List<Payment>>(){
 //                    }
 //        );
@@ -114,7 +114,7 @@ public class PaymentController {
 
 
         payment.setPaymentDate(LocalDate.parse(paidTicketDate));
-        paymentValidator.validate(payment, result);
+//        paymentValidator.validate(payment, result);
 
         if(result.hasErrors()){
             return "redirect:/paid-ticket/" + payment.getPaymentId();
@@ -123,6 +123,7 @@ public class PaymentController {
             this.paymentService.update(payment);
             return "redirect:/paid-tickets";
         }
+
     }
 
     /**

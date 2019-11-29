@@ -37,7 +37,7 @@ public class PaymentRestConsumer implements PaymentService {
     @Override
     public List<Payment> findAllWitchDirection() {
         LOGGER.debug("Find all ticket with direction");
-        ResponseEntity responseEntity = restTemplate.getForEntity(url + "/find-All-With-Direction", List.class);
+        ResponseEntity responseEntity = restTemplate.getForEntity(url + "/find-all-with-direction", List.class);
         return (List<Payment>) responseEntity.getBody();
     }
 

@@ -54,7 +54,7 @@ public class PaymentRestConsumerTest {
     void findAllWithDirection() {
         List<Payment> payments = Arrays.asList();
 
-        Mockito.when(mockRestTemplate.getForEntity("url/find-All-With-Direction", List.class))
+        Mockito.when(mockRestTemplate.getForEntity("url/find-all-with-direction", List.class))
                 .thenReturn(new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK));
 
         List<Payment> payment = paymentRestConsumerTest.findAllWitchDirection();

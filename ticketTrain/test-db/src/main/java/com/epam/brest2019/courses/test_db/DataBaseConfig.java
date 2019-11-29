@@ -29,7 +29,7 @@ public class DataBaseConfig {
 
         builder.setProperty("hibernate.hbm2ddl.auto", "create");
         builder.scanPackages("com.epam.brest2019.courses.*");
-        builder.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL57Dialect");
+        builder.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
         builder.setProperty("hibernate.format_sql", "true");
         builder.setProperty("hibernate.show_sql", "true");
 

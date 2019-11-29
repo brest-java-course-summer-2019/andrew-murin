@@ -13,7 +13,7 @@ public class DataSourceConfig {
 
     @Profile("dev")
     @Bean
-    public PropertySourcesPlaceholderConfigurer dataSourceH2() {
+    public static PropertySourcesPlaceholderConfigurer dataSourceH2() {
         PropertySourcesPlaceholderConfigurer properties = new PropertySourcesPlaceholderConfigurer();
         properties.setLocation(new ClassPathResource("application-dev.properties"));
         properties.setIgnoreResourceNotFound(false);
@@ -23,7 +23,7 @@ public class DataSourceConfig {
 
     @Profile("prod")
     @Bean
-    public PropertySourcesPlaceholderConfigurer dataSourceMySQL() {
+    public static PropertySourcesPlaceholderConfigurer dataSourceMySQL() {
         PropertySourcesPlaceholderConfigurer properties = new PropertySourcesPlaceholderConfigurer();
         properties.setLocation(new ClassPathResource("application-prod.properties"));
         properties.setIgnoreResourceNotFound(false);

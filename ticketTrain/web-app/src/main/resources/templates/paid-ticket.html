@@ -105,11 +105,11 @@
                         <tr>
                                 <label>Select number of train</label>
                                 <select class="form-control" id="ticketId" name="ticketId"
-                                        th:field="*{ticketId}">
+                                        th:field="*{ticketId.ticketId}">
                                     <option th:each="ticket : ${tickets}"
                                             th:value="${ticket.ticketId}"
                                             th:text="${ticket.ticketId}"
-                                            th:selected="${ticket.ticketId} == ${paidTicket.ticketId}">1</option>
+                                            th:selected="${ticket.ticketId} == ${paidTicket.ticketId.ticketId}">1</option>
                                 </select>
                         </tr>
 

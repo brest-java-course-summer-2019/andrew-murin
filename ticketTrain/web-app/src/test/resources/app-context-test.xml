@@ -38,7 +38,7 @@
     <!-- Thymeleaf Template Resolver -->
     <bean id="templateResolver"
           class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
-<!--        <property name="prefix" value="templates/" />-->
+        <property name="prefix" value="/resources/" />
         <property name="suffix" value=".html" />
         <property name="templateMode" value="HTML" />
         <!-- Template cache is true by default. Set to false if you want             -->
