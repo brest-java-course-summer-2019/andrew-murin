@@ -38,7 +38,7 @@ public class PaymentControllerTest {
     private static final String PAYMENT_ID = "paymentId";
     private static final String PAYMENT_DATE = "paymentDate";
     private static final String PAID_TICKET_DATE = "paidTicketDate";
-    private static final String TICKET_ID = "ticketId";
+    private static final String TICKET_ID = "ticketId.ticketId";
 
 
     @BeforeEach
@@ -57,20 +57,20 @@ public class PaymentControllerTest {
 
     }
 
-//    @Test
-//    void gotoEditPaidTicketPage() throws Exception {
-//        int id = 1;
-//
-//        Mockito.when(paymentService.findById(Mockito.anyInt())).thenReturn(createFixture(id));
-//
-//        mockMvc.perform(
-//                MockMvcRequestBuilders.get("/paid-ticket/{id}", id))
-//                .andDo(MockMvcResultHandlers.print())
-//                    .andExpect(MockMvcResultMatchers.status().isOk())
-//                    .andExpect(MockMvcResultMatchers.content()
-//                        .string(Matchers.containsString("#")));
-//
-//    }
+    @Test
+    void gotoEditPaidTicketPage() throws Exception {
+        int id = 1;
+
+        Mockito.when(paymentService.findById(Mockito.anyInt())).thenReturn(createFixture(id));
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/paid-ticket/{id}", id))
+                .andDo(MockMvcResultHandlers.print())
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.content()
+                        .string(Matchers.containsString("#")));
+
+    }
 
     @Test
     void payTicket() throws Exception {
@@ -88,8 +88,8 @@ public class PaymentControllerTest {
                     .contentType(MediaType.APPLICATION_JSON)
                         .param(PAID_TICKET_DATE, "2020-09-25")
                         .param(PAYMENT_ID, "1")
-                        .param(TICKET_ID, "new Ticket()")
-                        .param(PAYMENT_DATE, "2020-09-25")
+                        .param(TICKET_ID, "1")
+                        .param(PAYMENT_DATE, "2020-09-11")
         ).andExpect(MockMvcResultMatchers.status().isFound())
                 .andExpect(MockMvcResultMatchers.view().name("redirect:/paid-tickets"));
     }

@@ -35,6 +35,7 @@ public class Payment implements Serializable {
      */
     @Column(name = "payment_date")
     @Type(type = "org.hibernate.type.LocalDateType")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate paymentDate;

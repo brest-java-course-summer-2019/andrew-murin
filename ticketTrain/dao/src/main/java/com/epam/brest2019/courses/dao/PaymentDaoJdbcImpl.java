@@ -11,6 +11,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,9 @@ public class PaymentDaoJdbcImpl implements PaymentDao {
     @Value("${payment.findByTicketId}")
     private String FIND_BY_TICKET_ID;
 
+    @Value("${payment.findById}")
+    private String FIND_BY_PAYMENT_ID;
+
     @Value("${payment.findAllWitchDirection}")
     private String FIND_ALL_WITH_DIRECTION;
 
@@ -40,6 +44,7 @@ public class PaymentDaoJdbcImpl implements PaymentDao {
     private static final String DELETE = "d";
 
     private static final String TICKET_ID = "ticketId";
+    private static final String PAYMENT_ID = "paymentId";
     private static final String STRART_DATE = "startDate";
     private static final String FINISH_DATE = "finishDate";
 
@@ -76,7 +81,7 @@ public class PaymentDaoJdbcImpl implements PaymentDao {
 
         try ( Session session = sessionFactory.openSession() ) {
             transaction = session.beginTransaction();
-
+            //TODO may be session.get() ????
             payment = session.find(Payment.class, paymentId);
 
             transaction.commit();

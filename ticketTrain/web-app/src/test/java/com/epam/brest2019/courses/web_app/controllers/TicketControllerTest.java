@@ -59,41 +59,41 @@ public class TicketControllerTest {
     }
 
 
-//    @Test
-//    void gotoTicketAddPage() throws Exception {
-//        mockMvc.perform(
-//                MockMvcRequestBuilders.get("/ticket"))
-//                .andDo(MockMvcResultHandlers.print())
-//                        .andExpect(MockMvcResultMatchers.status().isOk())
-//                        .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"));
-//    }
-//
-//    @Test
-//    void findAllWithDirection() throws Exception {
-//        mockMvc.perform(
-//                MockMvcRequestBuilders.get("/tickets"))
-//                .andDo(MockMvcResultHandlers.print())
-//                        .andExpect(MockMvcResultMatchers.status().isOk())
-//                        .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
-//                        .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("<title>Tickets</title>")));
-//
-//    }
-//
-//    @Test
-//    void gotoEditTicketPage() throws Exception {
-//        int id = 1;
-//
-//        Mockito.when(ticketService.findById(Mockito.anyInt())).thenReturn(createFixture(id));
-//
-//        mockMvc.perform(
-//                MockMvcRequestBuilders.get("/ticket/{id}", id))
-//                .andDo(MockMvcResultHandlers.print())
-//                        .andExpect(MockMvcResultMatchers.status().isOk());
-////                        .andExpect(MockMvcResultMatchers.content()
-////                            .string(Matchers.containsString("#")));
-//
-//
-//    }
+    @Test
+    void gotoTicketAddPage() throws Exception {
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/ticket"))
+                .andDo(MockMvcResultHandlers.print())
+                        .andExpect(MockMvcResultMatchers.status().isOk())
+                        .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"));
+    }
+
+    @Test
+    void findAllWithDirection() throws Exception {
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/tickets"))
+                .andDo(MockMvcResultHandlers.print())
+                        .andExpect(MockMvcResultMatchers.status().isOk())
+                        .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
+                        .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("<title>Tickets</title>")));
+
+    }
+
+    @Test
+    void gotoEditTicketPage() throws Exception {
+        int id = 1;
+
+        Mockito.when(ticketService.findById(Mockito.anyInt())).thenReturn(createFixture(id));
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/ticket/{id}", id))
+                .andDo(MockMvcResultHandlers.print())
+                        .andExpect(MockMvcResultMatchers.status().isOk())
+                        .andExpect(MockMvcResultMatchers.content()
+                            .string(Matchers.containsString("#")));
+
+
+    }
 
 
     @Test
@@ -144,20 +144,20 @@ public class TicketControllerTest {
 
     }
 
-//    @Test
-//    void searchTicket() throws Exception {
-//        mockMvc.perform(
-//                MockMvcRequestBuilders.post("/search-tickets")
-//                        .param(TICKET_START_DATE, "2019-08-12")
-//                        .param(TICKET_FINISH_DATE, "2019-10-01")
-//                        .param(DIRECTION_FROM, "1")
-//                        .param(DIRECTION_TO, "2"))
-//                .andDo(MockMvcResultHandlers.print())
-//                        .andExpect(MockMvcResultMatchers.status().isOk())
-//                        .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF8"))
-//                        .andExpect(MockMvcResultMatchers.view().name("tickets"));
-//
-//    }
+    @Test
+    void searchTicket() throws Exception {
+        mockMvc.perform(
+                MockMvcRequestBuilders.post("/search-tickets")
+                        .param(TICKET_START_DATE, "2019-08-12")
+                        .param(TICKET_FINISH_DATE, "2019-10-01")
+                        .param(DIRECTION_FROM, "1")
+                        .param(DIRECTION_TO, "2"))
+                .andDo(MockMvcResultHandlers.print())
+                        .andExpect(MockMvcResultMatchers.status().isOk())
+                        .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF8"))
+                        .andExpect(MockMvcResultMatchers.view().name("tickets"));
+
+    }
 
 
     private Ticket createFixture(Integer ticketId) {

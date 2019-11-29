@@ -121,9 +121,8 @@ public class TicketController {
     public final String gotoEditTicketPage(@PathVariable Integer id, Model model) {
         LOGGER.debug("gotoEditTicketPage({})", id);
 
-//        Ticket ticket = ticketService.findById(id);
-
-        model.addAttribute("ticket", ticketService.findById(id));
+        Ticket ticket = ticketService.findById(id);
+        model.addAttribute("ticket", ticket);
 
         return "ticket";
     }
@@ -161,9 +160,9 @@ public class TicketController {
     public final String gotoTicketAddPage(Model model) {
         LOGGER.debug("Go to add ticket page({})", model);
 
-        Ticket ticket = new Ticket();
-
         List<Ticket> tickets = ticketService.findAll();
+
+        Ticket ticket = new Ticket();
 
         model.addAttribute("isNew", true);
         model.addAttribute("ticket", ticket);
