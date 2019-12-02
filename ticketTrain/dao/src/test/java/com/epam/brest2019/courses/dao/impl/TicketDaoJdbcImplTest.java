@@ -22,7 +22,6 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 
-@ActiveProfiles(profiles = "dev")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {DataBaseDAOConfig.class})
 public class TicketDaoJdbcImplTest {

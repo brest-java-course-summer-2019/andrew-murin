@@ -69,7 +69,6 @@ public class PaymentControllerTest {
                     .andExpect(MockMvcResultMatchers.status().isOk())
                     .andExpect(MockMvcResultMatchers.content()
                         .string(Matchers.containsString("#")));
-
     }
 
     @Test

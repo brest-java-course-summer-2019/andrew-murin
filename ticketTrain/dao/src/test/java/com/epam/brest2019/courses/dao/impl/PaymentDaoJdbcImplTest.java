@@ -25,7 +25,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 
-@ActiveProfiles(profiles = "dev")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {DataBaseDAOConfig.class})
 public class PaymentDaoJdbcImplTest {

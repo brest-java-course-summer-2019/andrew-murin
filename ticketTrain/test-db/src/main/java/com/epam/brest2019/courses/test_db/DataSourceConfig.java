@@ -10,12 +10,12 @@ import org.springframework.core.io.ClassPathResource;
 @ComponentScan("com.epam.brest2019.courses.*")
 @Configuration
 public class DataSourceConfig {
-
+/*
     @Profile("dev")
     @Bean
     public static PropertySourcesPlaceholderConfigurer dataSourceH2() {
         PropertySourcesPlaceholderConfigurer properties = new PropertySourcesPlaceholderConfigurer();
-        properties.setLocation(new ClassPathResource("application-dev.properties"));
+        properties.setLocation(new ClassPathResource("application-test.properties"));
         properties.setIgnoreResourceNotFound(false);
 
         return properties;
@@ -25,11 +25,11 @@ public class DataSourceConfig {
     @Bean
     public static PropertySourcesPlaceholderConfigurer dataSourceMySQL() {
         PropertySourcesPlaceholderConfigurer properties = new PropertySourcesPlaceholderConfigurer();
-        properties.setLocation(new ClassPathResource("application-prod.properties"));
+        properties.setLocation(new ClassPathResource("application.properties"));
         properties.setIgnoreResourceNotFound(false);
 
         return properties;
     }
-
+*/
 
 }

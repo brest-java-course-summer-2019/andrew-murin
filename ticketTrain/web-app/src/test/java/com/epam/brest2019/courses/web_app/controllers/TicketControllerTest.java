@@ -1,12 +1,15 @@
 package com.epam.brest2019.courses.web_app.controllers;
 
+import com.epam.brest2019.courses.dao.TicketDao;
 import com.epam.brest2019.courses.model.City;
 import com.epam.brest2019.courses.model.Ticket;
 import com.epam.brest2019.courses.service.TicketService;
+import com.epam.brest2019.courses.service.TicketServiceImpl;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,8 @@ import org.springframework.web.context.WebApplicationContext;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import static org.mockito.Mockito.times;
+
 
 @ExtendWith(SpringExtension.class)
 @WebAppConfiguration
@@ -34,7 +39,10 @@ public class TicketControllerTest {
     private WebApplicationContext wac;
 
     @Mock
-    private TicketService ticketService;
+    private TicketDao ticketDao;
+
+    @InjectMocks
+    private TicketServiceImpl ticketService;
 
     private MockMvc mockMvc;
 
@@ -92,7 +100,7 @@ public class TicketControllerTest {
                         .andExpect(MockMvcResultMatchers.content()
                             .string(Matchers.containsString("#")));
 
-
+        Mockito.verify(ticketService, times(1)).findById(Mockito.anyInt());
     }
 
 

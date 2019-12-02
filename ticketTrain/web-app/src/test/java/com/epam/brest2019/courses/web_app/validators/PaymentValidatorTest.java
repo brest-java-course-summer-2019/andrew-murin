@@ -9,6 +9,8 @@ import org.springframework.validation.BindingResult;
 
 //import java.time.LocalDate;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PaymentValidatorTest {
@@ -43,12 +45,12 @@ public class PaymentValidatorTest {
         assertTrue(result.hasErrors());
     }
 
-//    @Test
-//    void shouldRejectDateAfterPayment() {
-//        Mockito.when(payment.getPaymentDate()).thenReturn(LocalDate.MAX);
-//
-//        paymentValidator.validate(payment, result);
-//
-//        assertTrue(result.hasErrors());
-//    }
+    @Test
+    void shouldRejectDateAfterPayment() {
+        Mockito.when(payment.getPaymentDate()).thenReturn(LocalDate.MAX);
+
+        paymentValidator.validate(payment, result);
+
+        assertTrue(result.hasErrors());
+    }
 }

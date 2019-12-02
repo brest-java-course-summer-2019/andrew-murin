@@ -138,7 +138,7 @@ public class TicketController {
         LOGGER.debug("Update ticket({}, {})",ticket, result);
 
 
-//        ticketValidator.validate(ticket, result);
+        ticketValidator.validate(ticket, result);
 
         if (result.hasErrors()) {
             return "ticket/" + ticket.getTicketId();
@@ -181,7 +181,7 @@ public class TicketController {
     public final String addTicket(@Valid Ticket ticket, BindingResult result) {
         LOGGER.debug("Add Ticket({}, {})", ticket, result);
 
-//        ticketValidator.validate(ticket, result);
+        ticketValidator.validate(ticket, result);
 
         if (result.hasErrors()) {
             return "ticket/" + ticket.getTicketId();
