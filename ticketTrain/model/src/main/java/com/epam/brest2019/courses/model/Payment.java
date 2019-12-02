@@ -40,6 +40,11 @@ public class Payment implements Serializable {
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate paymentDate;
 
+    @Transient
+    private String fromCity;
+
+    @Transient
+    private String toCity;
     /**
      * Ticket Id
      */
@@ -80,6 +85,15 @@ public class Payment implements Serializable {
     public Payment(LocalDate localDate, Ticket ticketId) {
         this.paymentDate = localDate;
         this.ticketId = ticketId;
+    }
+
+    public Payment(Ticket ticketId, String fromCity, String toCity, LocalDate paymentDate, Integer ticketCount, BigDecimal totalCost) {
+        this.ticketId = ticketId;
+        this.fromCity = fromCity;
+        this.toCity = toCity;
+        this.paymentDate = paymentDate;
+        this.ticketCount = ticketCount;
+        this.totalCost = totalCost;
     }
 
     /**
