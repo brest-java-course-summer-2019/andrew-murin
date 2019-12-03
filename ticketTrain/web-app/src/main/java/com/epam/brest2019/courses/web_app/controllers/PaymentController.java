@@ -53,32 +53,32 @@ public class PaymentController {
     @GetMapping("/paid-tickets")
     public final String paidTickets(Model model) throws JsonProcessingException {
         LOGGER.debug("Find all paid tickets");
-//        List<Payment> payments = paymentService.findAllWitchDirection();
+        List<Payment> payments = paymentService.findAllWitchDirection();
 
 
-//        ObjectMapper mapper = new ObjectMapper();
-//        List<Payment> paymentList = mapper.convertValue(paymentService.findAllWitchDirection(),
-//                new TypeReference<List<Payment>>(){
-//                    }
-//        );
+        ObjectMapper mapper = new ObjectMapper();
+        List<Payment> paymentList = mapper.convertValue(paymentService.findAllWitchDirection(),
+                new TypeReference<List<Payment>>(){
+                    }
+        );
 
 
 
-//        int totalCountTicket = paymentList.stream()
-//                .filter(payment -> payment.getTicketCount() != null)
-//                .mapToInt(Payment::getTicketCount).sum();
-//
-//
-//        BigDecimal summ = paymentList.stream()
-//                .filter(payment -> payment.getTotalCost() != null)
-//                .map(Payment::getTotalCost)
-//                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        int totalCountTicket = (int) paymentList.stream()
+                .filter(payment -> payment.getTicketCount() != null)
+                .mapToLong(Payment::getTicketCount).sum();
+
+
+        BigDecimal summ = paymentList.stream()
+                .filter(payment -> payment.getTicketCost() != null)
+                .map(Payment::getTicketCost)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
 
 
         model.addAttribute("isNotSearch", true);
         model.addAttribute("payments", paymentService.findAllWitchDirection());
-//        model.addAttribute("countTicket", totalCountTicket);
-//        model.addAttribute("totalSum", summ);
+        model.addAttribute("countTicket", totalCountTicket);
+        model.addAttribute("totalSum", summ);
 
         return "paid-tickets";
     }

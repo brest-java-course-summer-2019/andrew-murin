@@ -104,7 +104,7 @@
                 <table class="table table-striped">
                     <thead class="thead-inverse">
                         <tr th:if="${isSearch}">
-                            <th>№</th>
+                            <th></th>
                             <th>Train</th>
                             <th>Date</th>
                             <th>From</th>
@@ -170,21 +170,18 @@
                         <div th:if="${isNotSearch}">
 
                             <tr th:each="payment : ${payments}">
-                                <!--<td th:text="${payment.paymentId}">Payment_id</td>-->
-                                <td th:text="${payment}">Payment</td>
-<!--                                <td th:text="${payment.ticketId}">Ticket_id</td>-->
-<!--                                &lt;!&ndash;<td th:text="${payment.paymentDate}">Payment_Date</td>&ndash;&gt;-->
-<!--                                <td th:text="${payment.cityFrom}">From</td>-->
-<!--                                <td th:text="${payment.cityTo}">To</td>-->
-<!--                                <td th:text="${payment.ticketCount}">Count</td>-->
-<!--                                <td th:text="${payment.totalCost}">totalCost</td>-->
+                                <td th:text="${payment.ticketId.ticketId}">Ticket_id</td>
+                                <td th:text="${payment.ticketId.fromCity.cityName}">From</td>
+                                <td th:text="${payment.ticketId.toCity.cityName}">To</td>
+                                <td th:text="${payment.ticketCount}">Count</td>
+                                <td th:text="${payment.ticketCost}">totalCost</td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <td></td>
                                 <td></td>
-<!--                                <td th:text="${countTicket}">Count ticket</td>-->
-<!--                                <th th:text="${totalSum}">Summ of cost ticket</th>-->
+                                <td th:text="${countTicket}">Count ticket</td>
+                                <th th:text="${totalSum}">Summ of cost ticket</th>
                             </tr>
                         </div>
                     </tbody>
@@ -224,14 +221,14 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 <script>
-<!--    $(function () {-->
-<!--        $('[data-toggle="tooltip"]').tooltip()-->
-<!--    })-->
-<!--    $('#deleteDialog').on('show.bs.modal', function (event) {-->
-<!--        var target = $(event.relatedTarget)-->
-<!--        $(this).find('.modal-body').text('Please confirm delete ticket: "' + target.data('name') + '"')-->
-<!--        document.getElementById('deleteUrl').href = '/paid-ticket/' + target.data('id') + '/delete';-->
-<!--    })-->
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+    $('#deleteDialog').on('show.bs.modal', function (event) {
+        var target = $(event.relatedTarget)
+        $(this).find('.modal-body').text('Please confirm delete ticket: "' + target.data('name') + '"')
+        document.getElementById('deleteUrl').href = '/paid-ticket/' + target.data('id') + '/delete';
+    })
 </script>
 
 </body>

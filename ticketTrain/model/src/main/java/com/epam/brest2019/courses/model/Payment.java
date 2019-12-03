@@ -40,11 +40,6 @@ public class Payment implements Serializable {
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate paymentDate;
 
-    @Transient
-    private String fromCity;
-
-    @Transient
-    private String toCity;
     /**
      * Ticket Id
      */
@@ -62,13 +57,7 @@ public class Payment implements Serializable {
      * Counting all tickets by different directions
      */
     @Transient
-    private Integer ticketCount;
-
-    /**
-     *For get total amount by all directions
-     */
-    @Transient
-    private BigDecimal totalCost;
+    private Long ticketCount;
 
     /**
      * Constructor without parameters
@@ -87,13 +76,17 @@ public class Payment implements Serializable {
         this.ticketId = ticketId;
     }
 
-    public Payment(Ticket ticketId, String fromCity, String toCity, LocalDate paymentDate, Integer ticketCount, BigDecimal totalCost) {
+    /**
+     * Use for jpql-query
+     *
+     * @param ticketId
+     * @param ticketCount
+     * @param ticketCost
+     */
+    public Payment(Ticket ticketId, Long ticketCount, BigDecimal ticketCost) {
         this.ticketId = ticketId;
-        this.fromCity = fromCity;
-        this.toCity = toCity;
-        this.paymentDate = paymentDate;
         this.ticketCount = ticketCount;
-        this.totalCost = totalCost;
+        this.ticketCost = ticketCost;
     }
 
     /**
@@ -152,24 +145,6 @@ public class Payment implements Serializable {
     }
 
     /**
-     * Get totalCost
-     *
-     * @return totalCost
-     */
-    public BigDecimal getTotalCost() {
-        return totalCost;
-    }
-
-    /**
-     * Set totalCost
-     *
-     * @param totalCost
-     */
-    public void setTotalCost(BigDecimal totalCost) {
-        this.totalCost = totalCost;
-    }
-
-    /**
      * Get ticketCost
      *
      * @return ticketCost
@@ -192,7 +167,7 @@ public class Payment implements Serializable {
      *
      * @return
      */
-    public Integer getTicketCount() {
+    public Long getTicketCount() {
         return ticketCount;
     }
 
@@ -201,7 +176,7 @@ public class Payment implements Serializable {
      *
      * @param ticketCount
      */
-    public void setTicketCount(Integer ticketCount) {
+    public void setTicketCount(Long ticketCount) {
         this.ticketCount = ticketCount;
     }
 

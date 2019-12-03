@@ -1,7 +1,9 @@
 package com.epam.brest2019.courses.dao;
 
 
+import com.epam.brest2019.courses.model.City;
 import com.epam.brest2019.courses.model.Payment;
+import com.epam.brest2019.courses.model.Ticket;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
