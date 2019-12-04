@@ -194,14 +194,14 @@ public class TicketController {
     /**
      * Delete ticket
      *
-     * @param id, model
+     * @param ticketId, model
      * @return tickets.
      */
     @GetMapping("/ticket/{id}/delete")
-    public final String deleteTicketById(@PathVariable Integer id) {
-        LOGGER.debug("Delete ticket by id({})", id);
-        Ticket ticket = ticketService.findById(id);
-        ticketService.delete(ticket);
+    public final String deleteTicketById(@PathVariable("id") Integer ticketId) {
+        LOGGER.debug("Delete ticket by id({})", ticketId);
+        ticketService.delete(ticketId);
+
         return "redirect:/tickets";
     }
 

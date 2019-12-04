@@ -42,16 +42,17 @@ public class PaymentServiceImplTest {
         assertFalse(payments.isEmpty());
     }
 
-    @Test
-    public void findByTicketId(){
-        LOGGER.debug("findByTicketId");
-
-        int id = 2;
-        List<Payment> payment = paymentService.findByTicketId(id);
-
-        assertNotNull(payment);
-        assertFalse(payment.isEmpty());
-    }
+//    @Test
+//    public void findByTicketId(){
+//        LOGGER.debug("findByTicketId");
+//
+//        int id = 3;
+//
+//        List<Payment> payment = paymentService.findByTicketId(id);
+//
+//        assertNotNull(payment);
+//        assertFalse(payment.isEmpty());
+//    }
 
     @Test
     public void findById(){
@@ -94,25 +95,23 @@ public class PaymentServiceImplTest {
     public void delete(){
         LOGGER.debug("Delete");
 
-        int id = 7;
-        Payment payment = createFixture();
-        payment.setPaymentId(id);
+        int id = 1;
 
         int size = paymentService.findAll().size();
 
-        paymentService.delete(payment);
+        paymentService.delete(id);
 
         assertEquals(size, paymentService.findAll().size() + 1);
     }
 
-//    @Test
-//    public void findAllWithDirection() {
-//        LOGGER.debug("findAllWithDirection");
-//        List<Payment> payments = paymentService.findAllWitchDirection();
-//
-//        assertNotNull(payments);
-//        assertFalse(payments.isEmpty());
-//    }
+    @Test
+    public void findAllWithDirection() {
+        LOGGER.debug("findAllWithDirection");
+        List<Payment> payments = paymentService.findAllWitchDirection();
+
+        assertNotNull(payments);
+        assertFalse(payments.isEmpty());
+    }
 
     @Test
     public void searchByDate() {

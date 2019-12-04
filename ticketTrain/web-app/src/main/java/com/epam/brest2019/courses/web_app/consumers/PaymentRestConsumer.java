@@ -68,7 +68,7 @@ public class PaymentRestConsumer implements PaymentService {
     }
 
     @Override
-    public void delete(Payment paymentId) {
+    public void delete(Integer paymentId) {
         LOGGER.debug("Delete payment ({})", paymentId);
         restTemplate.delete(url + "/" + paymentId);
     }

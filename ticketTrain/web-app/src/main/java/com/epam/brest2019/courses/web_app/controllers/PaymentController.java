@@ -128,15 +128,16 @@ public class PaymentController {
 
     /**
      * Delete paid-ticket
-     * @param paymentId
+     * @param id
      * @return paid-tickets
      */
     @GetMapping("/paid-ticket/{id}/delete")
-    public final String deletePayment(Integer paymentId) {
-        LOGGER.debug("Delete paid-ticket({})", paymentId);
+    public final String deletePayment(@PathVariable Integer id) {
+        LOGGER.debug("Delete paid-ticket({})", id);
 
-        Payment payment = paymentService.findById(paymentId);
-        this.paymentService.delete(payment);
+//        Payment payment = paymentService.findById(id);
+
+        this.paymentService.delete(id);
 
         return "redirect:/paid-tickets";
     }
@@ -164,13 +165,14 @@ public class PaymentController {
 
         } catch (Exception ex) {
             startDateView = LocalDate.of(2019,1,1);
-            finishDateView = LocalDate.of(2019,12,12);
+            finishDateView = LocalDate.now();
         }
 
         List<Payment> payments = paymentService.searchByDate(startDateView, finishDateView);
 
         model.addAttribute("isSearch", true);
-        model.addAttribute("payments", payments);
+        model.addAttribute("paymentsSearched", payments);
+
         return "paid-tickets";
     }
 

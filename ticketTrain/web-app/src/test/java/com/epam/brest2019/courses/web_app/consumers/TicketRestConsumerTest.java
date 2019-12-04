@@ -83,11 +83,10 @@ public class TicketRestConsumerTest {
     @Test
     void delete() {
         int id = 1;
-        ticket = createTicketFixture(id);
 
-        ticketRestConsumerTest.delete(ticket);
+        ticketRestConsumerTest.delete(id);
 
-        Mockito.verify(mockRestTemplate).delete("url/" + ticket);
+        Mockito.verify(mockRestTemplate).delete("url/" + id);
     }
 
     @Test

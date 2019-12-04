@@ -30,7 +30,7 @@ public interface TicketService {
      *
      * @param ticketId ticket id
      */
-    void delete(Ticket ticketId);
+    void delete(Integer ticketId);
 
     /**
      * Get tickets.

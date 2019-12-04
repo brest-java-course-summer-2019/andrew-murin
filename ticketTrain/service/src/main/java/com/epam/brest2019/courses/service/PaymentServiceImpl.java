@@ -54,9 +54,12 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public void delete(Payment paymentId) {
+    public void delete(Integer paymentId) {
         LOGGER.debug("Delete: {}", paymentId);
-        paymentDao.delete(paymentId);
+
+        Payment payment = paymentDao.findById(paymentId);
+
+        paymentDao.delete(payment);
     }
 
     @Override

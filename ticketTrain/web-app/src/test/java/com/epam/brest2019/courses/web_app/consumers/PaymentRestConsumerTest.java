@@ -93,11 +93,12 @@ public class PaymentRestConsumerTest {
     @Test
     void delete() {
         int id = 1;
-        Payment payment =createPaymentFixture(id);
 
-        paymentRestConsumerTest.delete(payment);
+        Payment payment = createPaymentFixture(id);
 
-        Mockito.verify(mockRestTemplate).delete("url/" + payment);
+        paymentRestConsumerTest.delete(id);
+
+        Mockito.verify(mockRestTemplate).delete("url/" + id);
     }
 
     @Test

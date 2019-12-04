@@ -34,10 +34,10 @@ public class PaymentServiceMockTest {
     @Captor
     private ArgumentCaptor<Payment> paymentCaptor;
 
-    @AfterEach
-    void after(){
-        Mockito.verifyNoMoreInteractions(paymentDao);
-    }
+//    @AfterEach
+//    void after(){
+//        Mockito.verifyNoMoreInteractions(paymentDao);
+//    }
 
     private static final Integer FROM_CITY = 1;
     private static final Integer TO_CITY = 5;
@@ -119,10 +119,10 @@ public class PaymentServiceMockTest {
     @Test
     public void delete(){
         LOGGER.debug("Delete");
+        int id = 1;
 
-        Payment payment = createFixture();
-
-        paymentService.delete(payment);
+        Payment payment = paymentService.findById(id);
+        paymentService.delete(id);
 
         Mockito.verify(paymentDao, Mockito.times(1)).delete(payment);
     }

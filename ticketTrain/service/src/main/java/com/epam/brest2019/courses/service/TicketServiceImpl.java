@@ -34,9 +34,10 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public void delete(Ticket ticketId) {
+    public void delete(Integer ticketId) {
         LOGGER.debug("Delete ticket with id: {}", ticketId);
-        ticketDao.delete(ticketId);
+        Ticket ticket = ticketDao.findById(ticketId);
+        ticketDao.delete(ticket);
     }
 
     @Override

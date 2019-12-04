@@ -61,7 +61,7 @@ public class PaymentControllerTest {
     void gotoEditPaidTicketPage() throws Exception {
         int id = 1;
 
-        Mockito.when(paymentService.findById(Mockito.anyInt())).thenReturn(createFixture(id));
+//        Mockito.when(paymentService.findById(Mockito.anyInt())).thenReturn(createFixture(id));
 
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/paid-ticket/{id}", id))

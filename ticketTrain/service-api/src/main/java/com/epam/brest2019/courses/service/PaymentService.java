@@ -48,7 +48,7 @@ public interface PaymentService {
      *
      * @param paymentId payment id
      */
-    void delete(Payment paymentId);
+    void delete(Integer paymentId);
 
     /**
      * Find all directions

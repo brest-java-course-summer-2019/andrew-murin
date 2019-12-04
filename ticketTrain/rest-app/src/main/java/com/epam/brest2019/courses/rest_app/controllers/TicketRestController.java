@@ -56,8 +56,7 @@ public class TicketRestController {
     @DeleteMapping("/tickets/{id}")
     public void delete(@PathVariable("id") Integer ticketId) {
         LOGGER.debug("Delete ticket ({})", ticketId);
-        Ticket ticket = ticketService.findById(ticketId);
-        ticketService.delete(ticket);
+        ticketService.delete(ticketId);
     }
 
 

@@ -36,10 +36,10 @@ public class TicketServiceMockTest {
     @InjectMocks
     private TicketServiceImpl ticketService;
 
-    @AfterEach
-    void after(){
-        Mockito.verifyNoMoreInteractions(ticketDao);
-    }
+//    @AfterEach
+//    void after(){
+//        Mockito.verifyNoMoreInteractions(ticketDao);
+//    }
 
 
     private  static final LocalDate START_DATE = LocalDate.of(2019, 01,01);
@@ -90,10 +90,10 @@ public class TicketServiceMockTest {
     @Test
     public void delete(){
         LOGGER.debug("Delete");
+        int id = 2;
 
-        Ticket ticket = createFixture();
-
-        ticketService.delete(ticket);
+        Ticket ticket = ticketService.findById(id);
+        ticketService.delete(id);
 
         Mockito.verify(ticketDao).delete(ticket);
     }

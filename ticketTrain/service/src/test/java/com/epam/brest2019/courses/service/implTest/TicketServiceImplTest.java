@@ -89,7 +89,7 @@ public class TicketServiceImplTest {
         ticketService.add(ticket);
         int sizeBefore = ticketService.findAll().size();
 
-        ticketService.delete(ticket);
+        ticketService.delete(ticket.getTicketId());
         int sizeAfter = ticketService.findAll().size();
 
         assertTrue(sizeBefore > sizeAfter);

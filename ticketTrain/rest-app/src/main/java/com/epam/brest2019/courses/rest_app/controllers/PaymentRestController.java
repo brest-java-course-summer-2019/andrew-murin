@@ -63,10 +63,10 @@ public class PaymentRestController {
     }
 
     @DeleteMapping("/payments/{paymentId}")
-    public void deletePayment(@PathVariable("paymentId") Integer paymentId) {
+    public void deletePayment(@PathVariable Integer paymentId) {
         LOGGER.debug("Delete payment by paymentId ({})", paymentId);
-        Payment payment = paymentService.findById(paymentId);
-        paymentService.delete(payment);
+
+        paymentService.delete(paymentId);
     }
 
     @GetMapping("/payments/{startDate}/{finishDate}")

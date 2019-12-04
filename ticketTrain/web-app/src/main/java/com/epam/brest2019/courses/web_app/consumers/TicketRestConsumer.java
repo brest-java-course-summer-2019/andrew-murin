@@ -36,7 +36,7 @@ public class TicketRestConsumer implements TicketService {
     }
 
     @Override
-    public void delete(Ticket ticketId) {
+    public void delete(Integer ticketId) {
         LOGGER.debug("Delete ticket by id({})", ticketId);
         restTemplate.delete(url + "/" + ticketId);
     }

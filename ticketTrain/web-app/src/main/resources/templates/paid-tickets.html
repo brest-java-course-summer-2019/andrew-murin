@@ -124,19 +124,19 @@
                     <tbody>
                         <div th:if="${isSearch}">
 <!--without filter-->
-                            <tr th:each="payment : ${payments}">
-                                <td th:text="${payment.paymentId}">Payment_id</td>
-                                <td th:text="${payment.ticketId?.ticketId}">Ticket_id</td>
-                                <td th:text="${payment.paymentDate}">Payment_Date</td>
-                                <td th:text="${payment.ticketId.fromCity.cityName}">From</td>
-                                <td th:text="${payment.ticketId.toCity.cityName}">To</td>
-                                <td th:text="${payment.ticketId.ticketCost}">Cost</td>
+                            <tr th:each="payments : ${paymentsSearched}">
+                                <td th:text="${payments.paymentId}">Payment_id</td>
+                                <td th:text="${payments.ticketId?.ticketId}">Ticket_id</td>
+                                <td th:text="${payments.paymentDate}">Payment_Date</td>
+                                <td th:text="${payments.ticketId.fromCity.cityName}">From</td>
+                                <td th:text="${payments.ticketId.toCity.cityName}">To</td>
+                                <td th:text="${payments.ticketId.ticketCost}">Cost</td>
 
                                 <td>
 
                                             <span data-toggle="modal" data-target="#deleteDialog"
                                                   class="navbar-nav float-right"
-                                                  th:attr="data-id=${payment.paymentId}, data-name=${payment.ticketId.ticketId}">
+                                                  th:attr="data-id=${payments.paymentId}, data-name=${payments.paymentId}">
                                                 <a href="#"
                                                    class="btn btn-dark"
                                                    title="delete payment"
@@ -148,7 +148,7 @@
 
                                     <span class="navbar-nav float-right">
                                                     <a  href="ticket.html"
-                                                        th:href="@{|/paid-ticket/${payment.paymentId}|}"
+                                                        th:href="@{|/paid-ticket/${payments.paymentId}|}"
                                                         class="btn btn-dark"
                                                         title="Edit payment"
                                                         data-toggle="tooltip"

@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -51,13 +52,13 @@ public class Payment implements Serializable {
      * Summing all costs by different directions
      */
     @Transient
-    private BigDecimal ticketCost;
+    private BigDecimal ticketCost = new BigDecimal(2);
 
     /**
      * Counting all tickets by different directions
      */
     @Transient
-    private Long ticketCount;
+    private Long ticketCount = 5L;
 
     /**
      * Constructor without parameters
@@ -84,6 +85,7 @@ public class Payment implements Serializable {
      * @param ticketCost
      */
     public Payment(Ticket ticketId, Long ticketCount, BigDecimal ticketCost) {
+//        this.paymentId = paymentId;
         this.ticketId = ticketId;
         this.ticketCount = ticketCount;
         this.ticketCost = ticketCost;
@@ -179,5 +181,4 @@ public class Payment implements Serializable {
     public void setTicketCount(Long ticketCount) {
         this.ticketCount = ticketCount;
     }
-
 }
