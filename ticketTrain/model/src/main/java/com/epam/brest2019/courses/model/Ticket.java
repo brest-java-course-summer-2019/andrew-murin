@@ -32,7 +32,6 @@ public class Ticket implements Serializable {
      * Cost of ticket
      */
     @Min(0)
-//    @NotNull
     @Column(name = "ticket_cost")
     private BigDecimal ticketCost;
     /**
@@ -49,12 +48,13 @@ public class Ticket implements Serializable {
     /**
      * Direction of train_from
      */
-//    @NotNull
     @ManyToOne
     @JoinColumn(name = "from_city", foreignKey = @ForeignKey(name = "fk_from_city"))
     private City fromCity;
 
-//    @NotNull
+    /**
+     * Direction of train_to
+     */
     @ManyToOne
     @JoinColumn(name = "to_city", foreignKey = @ForeignKey(name = "fk_to_city"))
     private City toCity;

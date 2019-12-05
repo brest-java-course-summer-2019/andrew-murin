@@ -101,8 +101,6 @@ public class TicketController {
 
         List<Ticket> tickets = ticketService.findAllWithDirection();
 
-
-
         model.addAttribute("tickets", tickets);
 //        model.addAttribute("ticketCount");
 //        model.addAttribute("ticketSum");
@@ -120,8 +118,8 @@ public class TicketController {
     @GetMapping("/ticket/{id}")
     public final String gotoEditTicketPage(@PathVariable Integer id, Model model) {
         LOGGER.debug("gotoEditTicketPage({})", id);
-
         Ticket ticket = ticketService.findById(id);
+
         model.addAttribute("ticket", ticket);
 
         return "ticket";

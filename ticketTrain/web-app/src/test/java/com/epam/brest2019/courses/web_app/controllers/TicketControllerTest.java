@@ -1,16 +1,12 @@
 package com.epam.brest2019.courses.web_app.controllers;
 
-import com.epam.brest2019.courses.dao.TicketDao;
 import com.epam.brest2019.courses.model.City;
 import com.epam.brest2019.courses.model.Ticket;
 import com.epam.brest2019.courses.service.TicketService;
-import com.epam.brest2019.courses.service.TicketServiceImpl;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -38,11 +34,14 @@ public class TicketControllerTest {
     @Autowired
     private WebApplicationContext wac;
 
-    @Mock
-    private TicketDao ticketDao;
+    @Autowired
+    private TicketService ticketService;
 
-    @InjectMocks
-    private TicketServiceImpl ticketService;
+//    @Mock
+//    private TicketDao ticketDao;
+//
+//    @InjectMocks
+//    private TicketServiceImpl ticketService;
 
     private MockMvc mockMvc;
 

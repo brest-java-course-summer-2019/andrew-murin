@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -12,8 +14,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Objects;
 
 
 /**
@@ -44,8 +44,9 @@ public class Payment implements Serializable {
     /**
      * Ticket Id
      */
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ticket_id")
+    @Fetch(FetchMode.JOIN)
     private Ticket ticketId;
 
     /**
@@ -85,7 +86,6 @@ public class Payment implements Serializable {
      * @param ticketCost
      */
     public Payment(Ticket ticketId, Long ticketCount, BigDecimal ticketCost) {
-//        this.paymentId = paymentId;
         this.ticketId = ticketId;
         this.ticketCount = ticketCount;
         this.ticketCost = ticketCost;

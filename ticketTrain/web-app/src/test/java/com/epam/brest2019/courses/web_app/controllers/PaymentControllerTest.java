@@ -6,7 +6,6 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -20,17 +19,21 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.mockito.Mockito.times;
+
 
 @ExtendWith(SpringExtension.class)
 @WebAppConfiguration
 @ContextConfiguration(locations = "classpath*:app-context-test.xml")
 public class PaymentControllerTest {
 
-    @Mock
-    private PaymentService paymentService;
-
+    //    @Mock
+    //    private PaymentService paymentService;
     @Autowired
     private WebApplicationContext wac;
+
+    @Autowired
+    private PaymentService paymentService;
 
 
     private MockMvc mockMvc;
@@ -51,9 +54,9 @@ public class PaymentControllerTest {
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/paid-tickets"))
                 .andDo(MockMvcResultHandlers.print())
-                    .andExpect(MockMvcResultMatchers.status().isOk())
-                    .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
-                    .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("<title>Paid tickets</title>")));
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
+                .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("<title>Paid tickets</title>")));
 
     }
 
@@ -61,14 +64,16 @@ public class PaymentControllerTest {
     void gotoEditPaidTicketPage() throws Exception {
         int id = 1;
 
-//        Mockito.when(paymentService.findById(Mockito.anyInt())).thenReturn(createFixture(id));
+        Mockito.when(paymentService.findById(Mockito.anyInt())).thenReturn(createFixture(id));
 
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/paid-ticket/{id}", id))
                 .andDo(MockMvcResultHandlers.print())
-                    .andExpect(MockMvcResultMatchers.status().isOk())
-                    .andExpect(MockMvcResultMatchers.content()
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content()
                         .string(Matchers.containsString("#")));
+
+        Mockito.verify(paymentService, times(1)).findById(Mockito.anyInt());
     }
 
     @Test
@@ -76,7 +81,7 @@ public class PaymentControllerTest {
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/pay-ticket/1")
         ).andDo(MockMvcResultHandlers.print())
-                    .andExpect(MockMvcResultMatchers.redirectedUrl("/tickets"));
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/tickets"));
     }
 
 
@@ -84,7 +89,7 @@ public class PaymentControllerTest {
     void updatePaidTicket() throws Exception {
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/paid-ticket/{id}", 1)
-                    .contentType(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
                         .param(PAID_TICKET_DATE, "2020-09-25")
                         .param(PAYMENT_ID, "1")
                         .param(TICKET_ID, "1")
@@ -98,10 +103,10 @@ public class PaymentControllerTest {
 
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/paid-ticket/{id}/delete", 1)
-                    .contentType(MediaType.APPLICATION_JSON))
-                        .andExpect(MockMvcResultMatchers.status().isFound())
-                        .andExpect(MockMvcResultMatchers.redirectedUrl("/paid-tickets"))
-                        .andExpect(MockMvcResultMatchers.view().name("redirect:/paid-tickets"));
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isFound())
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/paid-tickets"))
+                .andExpect(MockMvcResultMatchers.view().name("redirect:/paid-tickets"));
     }
 
     @Test
@@ -109,10 +114,10 @@ public class PaymentControllerTest {
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/paid-tickets"))
                 .andDo(MockMvcResultHandlers.print())
-                        .andExpect(MockMvcResultMatchers.status().isOk())
-                        .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
-                        .andExpect(MockMvcResultMatchers.view().name("paid-tickets"))
-                        .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("<title>Paid tickets</title>")));
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
+                .andExpect(MockMvcResultMatchers.view().name("paid-tickets"))
+                .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("<title>Paid tickets</title>")));
     }
 
     private Payment createFixture(Integer id) {
