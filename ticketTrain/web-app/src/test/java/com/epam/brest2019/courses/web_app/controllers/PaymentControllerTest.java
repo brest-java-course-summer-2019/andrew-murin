@@ -4,13 +4,18 @@ import com.epam.brest2019.courses.model.Payment;
 import com.epam.brest2019.courses.service.PaymentService;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -22,20 +27,16 @@ import org.springframework.web.context.WebApplicationContext;
 import static org.mockito.Mockito.times;
 
 
-@ExtendWith(SpringExtension.class)
-@WebAppConfiguration
-@ContextConfiguration(locations = "classpath*:app-context-test.xml")
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 public class PaymentControllerTest {
 
-    //    @Mock
-    //    private PaymentService paymentService;
-    @Autowired
-    private WebApplicationContext wac;
 
-    @Autowired
+    @Mock
     private PaymentService paymentService;
 
-
+    @Autowired
     private MockMvc mockMvc;
 
     private static final String PAYMENT_ID = "paymentId";
@@ -44,13 +45,13 @@ public class PaymentControllerTest {
     private static final String TICKET_ID = "ticketId.ticketId";
 
 
-    @BeforeEach
-    void setup() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-    }
+//    @BeforeEach
+//    void setup() {
+//        mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+//    }
 
     @Test
-    void paidTickets() throws Exception {
+    public void paidTickets() throws Exception {
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/paid-tickets"))
                 .andDo(MockMvcResultHandlers.print())
@@ -61,7 +62,7 @@ public class PaymentControllerTest {
     }
 
     @Test
-    void gotoEditPaidTicketPage() throws Exception {
+    public void gotoEditPaidTicketPage() throws Exception {
         int id = 1;
 
         Mockito.when(paymentService.findById(Mockito.anyInt())).thenReturn(createFixture(id));
@@ -77,7 +78,7 @@ public class PaymentControllerTest {
     }
 
     @Test
-    void payTicket() throws Exception {
+    public void payTicket() throws Exception {
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/pay-ticket/1")
         ).andDo(MockMvcResultHandlers.print())
@@ -86,7 +87,7 @@ public class PaymentControllerTest {
 
 
     @Test
-    void updatePaidTicket() throws Exception {
+    public void updatePaidTicket() throws Exception {
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/paid-ticket/{id}", 1)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -99,7 +100,7 @@ public class PaymentControllerTest {
     }
 
     @Test
-    void deletePayment() throws Exception {
+    public void deletePayment() throws Exception {
 
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/paid-ticket/{id}/delete", 1)
@@ -110,7 +111,7 @@ public class PaymentControllerTest {
     }
 
     @Test
-    void searchByDate() throws Exception {
+    public void searchByDate() throws Exception {
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/paid-tickets"))
                 .andDo(MockMvcResultHandlers.print())

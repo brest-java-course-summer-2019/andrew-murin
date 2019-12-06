@@ -14,13 +14,13 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableAutoConfiguration
-@ComponentScan
+@ComponentScan("com.epam.brest2019.courses.*")
 @ContextConfiguration
 public class DataBaseConfig {
 
 
     @Autowired
-    DataSource dataSource;
+    private DataSource dataSource;
 
     @Bean
     public SessionFactory sessionFactory() throws Exception{

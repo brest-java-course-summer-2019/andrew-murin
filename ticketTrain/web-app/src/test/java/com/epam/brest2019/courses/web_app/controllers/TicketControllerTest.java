@@ -4,21 +4,22 @@ import com.epam.brest2019.courses.model.City;
 import com.epam.brest2019.courses.model.Ticket;
 import com.epam.brest2019.courses.service.TicketService;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -26,23 +27,15 @@ import java.time.LocalDate;
 import static org.mockito.Mockito.times;
 
 
-@ExtendWith(SpringExtension.class)
-@WebAppConfiguration
-@ContextConfiguration(locations = "classpath*:app-context-test.xml")
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 public class TicketControllerTest {
 
-    @Autowired
-    private WebApplicationContext wac;
-
-    @Autowired
+    @Mock
     private TicketService ticketService;
 
-//    @Mock
-//    private TicketDao ticketDao;
-//
-//    @InjectMocks
-//    private TicketServiceImpl ticketService;
-
+    @Autowired
     private MockMvc mockMvc;
 
 
@@ -59,15 +52,8 @@ public class TicketControllerTest {
     private static final String DIRECTION_TO = "directionTo";
 
 
-    @BeforeEach
-    public void setup(){
-        mockMvc = MockMvcBuilders.webAppContextSetup(wac)
-                .build();
-    }
-
-
     @Test
-    void gotoTicketAddPage() throws Exception {
+    public void gotoTicketAddPage() throws Exception {
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/ticket"))
                 .andDo(MockMvcResultHandlers.print())
@@ -76,7 +62,7 @@ public class TicketControllerTest {
     }
 
     @Test
-    void findAllWithDirection() throws Exception {
+    public void findAllWithDirection() throws Exception {
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/tickets"))
                 .andDo(MockMvcResultHandlers.print())
@@ -87,7 +73,7 @@ public class TicketControllerTest {
     }
 
     @Test
-    void gotoEditTicketPage() throws Exception {
+    public void gotoEditTicketPage() throws Exception {
         int id = 1;
 
         Mockito.when(ticketService.findById(Mockito.anyInt())).thenReturn(createFixture(id));
@@ -104,7 +90,7 @@ public class TicketControllerTest {
 
 
     @Test
-    void addTicket() throws Exception {
+    public void addTicket() throws Exception {
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/ticket")
                     .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -122,7 +108,7 @@ public class TicketControllerTest {
 
 
     @Test
-    void updateTicket() throws Exception {
+    public void updateTicket() throws Exception {
         Ticket ticket = createFixture(1);
 
         mockMvc.perform(
@@ -141,7 +127,7 @@ public class TicketControllerTest {
     }
 
     @Test
-    void deleteTicket() throws Exception {
+    public void deleteTicket() throws Exception {
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/ticket/{id}/delete", 1)
                     .contentType(MediaType.APPLICATION_JSON))
@@ -152,7 +138,7 @@ public class TicketControllerTest {
     }
 
     @Test
-    void searchTicket() throws Exception {
+    public void searchTicket() throws Exception {
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/search-tickets")
                         .param(TICKET_START_DATE, "2019-08-12")
