@@ -41,8 +41,8 @@ public class PaymentController {
     @Autowired
     private TicketService ticketService;
 
-    @Autowired
-    private PaymentValidator paymentValidator;
+//    @Autowired
+//    private PaymentValidator paymentValidator;
 
     /**
      * Goto paid-tickets page.

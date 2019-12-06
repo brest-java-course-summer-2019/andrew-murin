@@ -3,37 +3,27 @@ package com.epam.brest2019.courses.web_app.controllers;
 import com.epam.brest2019.courses.model.Payment;
 import com.epam.brest2019.courses.service.PaymentService;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import static org.mockito.Mockito.times;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
-@AutoConfigureMockMvc
+@WebMvcTest(PaymentController.class)
 public class PaymentControllerTest {
 
-
-    @Mock
+    @MockBean
     private PaymentService paymentService;
 
     @Autowired
@@ -44,11 +34,6 @@ public class PaymentControllerTest {
     private static final String PAID_TICKET_DATE = "paidTicketDate";
     private static final String TICKET_ID = "ticketId.ticketId";
 
-
-//    @BeforeEach
-//    void setup() {
-//        mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-//    }
 
     @Test
     public void paidTickets() throws Exception {
