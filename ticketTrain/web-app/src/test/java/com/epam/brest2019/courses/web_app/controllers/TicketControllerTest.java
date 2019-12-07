@@ -25,7 +25,6 @@ import static org.mockito.Mockito.times;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(TicketController.class)
-
 public class TicketControllerTest {
 
     @MockBean
@@ -105,7 +104,6 @@ public class TicketControllerTest {
 
     @Test
     public void updateTicket() throws Exception {
-        Ticket ticket = createFixture(1);
 
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/ticket/{id}", 1)

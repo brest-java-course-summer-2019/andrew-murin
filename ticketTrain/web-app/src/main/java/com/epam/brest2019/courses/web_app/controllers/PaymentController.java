@@ -41,8 +41,8 @@ public class PaymentController {
     @Autowired
     private TicketService ticketService;
 
-//    @Autowired
-//    private PaymentValidator paymentValidator;
+    @Autowired
+    private PaymentValidator paymentValidator;
 
     /**
      * Goto paid-tickets page.
@@ -51,7 +51,7 @@ public class PaymentController {
      * @return paid-tickets
      */
     @GetMapping("/paid-tickets")
-    public final String paidTickets(Model model) throws JsonProcessingException {
+    public final String paidTickets(Model model) {
         LOGGER.debug("Find all paid tickets");
         List<Payment> payments = paymentService.findAllWitchDirection();
 
@@ -114,7 +114,7 @@ public class PaymentController {
 
 
         payment.setPaymentDate(LocalDate.parse(paidTicketDate));
-//        paymentValidator.validate(payment, result);
+        paymentValidator.validate(payment, result);
 
         if(result.hasErrors()){
             return "redirect:/paid-ticket/" + payment.getPaymentId();
@@ -134,8 +134,6 @@ public class PaymentController {
     @GetMapping("/paid-ticket/{id}/delete")
     public final String deletePayment(@PathVariable Integer id) {
         LOGGER.debug("Delete paid-ticket({})", id);
-
-//        Payment payment = paymentService.findById(id);
 
         this.paymentService.delete(id);
 
@@ -182,7 +180,6 @@ public class PaymentController {
      * @param payment
      * @return tickets
      */
-    //TODO may be will fall becouse Ticket store null fields
     @GetMapping("/pay-ticket/{id}")
     public final String payTicket(@PathVariable Integer id,
                                   @Valid Payment payment, BindingResult result) {
