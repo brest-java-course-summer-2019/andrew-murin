@@ -19,7 +19,7 @@ import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 @ComponentScan(basePackageClasses = {DataSourceConfig.class, DataBaseConfig.class})
-@PropertySource("classpath:application-test.properties")
+@PropertySource("classpath:application-dev.properties")
 public class ServiceConfig {
 
     @Autowired

@@ -33,8 +33,8 @@ public class TicketController {
     @Autowired
     private TicketService ticketService;
 
-    @Autowired
-    TicketValidator ticketValidator;
+//    @Autowired
+//    TicketValidator ticketValidator;
 
     /**
      * Find tickets by date & directions
@@ -103,6 +103,8 @@ public class TicketController {
         List<Ticket> tickets = ticketService.findAllWithDirection();
 
         model.addAttribute("tickets", tickets);
+//        model.addAttribute("ticketCount");
+//        model.addAttribute("ticketSum");
 
         return "tickets";
     }
@@ -135,7 +137,7 @@ public class TicketController {
         LOGGER.debug("Update ticket({}, {})",ticket, result);
 
 
-        ticketValidator.validate(ticket, result);
+//        ticketValidator.validate(ticket, result);
 
         if (result.hasErrors()) {
             return "ticket/" + ticket.getTicketId();
@@ -178,7 +180,7 @@ public class TicketController {
     public final String addTicket(@Valid Ticket ticket, BindingResult result) {
         LOGGER.debug("Add Ticket({}, {})", ticket, result);
 
-        ticketValidator.validate(ticket, result);
+//        ticketValidator.validate(ticket, result);
 
         if (result.hasErrors()) {
             return "ticket/" + ticket.getTicketId();

@@ -5,7 +5,6 @@ import com.epam.brest2019.courses.test_db.DataSourceConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.test.context.ActiveProfiles;
 
 @EntityScan("com.epam.brest2019.courses.*")
 @SpringBootApplication(scanBasePackages = {"com.epam.brest2019.courses.*"}, scanBasePackageClasses = {DataBaseConfig.class, DataSourceConfig.class})

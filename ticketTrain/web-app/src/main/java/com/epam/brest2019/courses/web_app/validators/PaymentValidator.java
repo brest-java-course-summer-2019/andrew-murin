@@ -18,7 +18,7 @@ public class PaymentValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
 
-        ValidationUtils.rejectIfEmpty(errors, "ticketId.ticketId", "ticketId.ticketId.empty");
+        ValidationUtils.rejectIfEmpty(errors, "ticketId", "ticketId.empty");
         ValidationUtils.rejectIfEmpty(errors, "paymentDate", "paymentDate.empty");
 
     }

@@ -15,7 +15,7 @@ public class DataSourceConfig {
     @Bean
     public static PropertySourcesPlaceholderConfigurer dataSourceH2() {
         PropertySourcesPlaceholderConfigurer properties = new PropertySourcesPlaceholderConfigurer();
-        properties.setLocation(new ClassPathResource("application-test.properties"));
+        properties.setLocation(new ClassPathResource("application-dev.properties"));
         properties.setIgnoreResourceNotFound(false);
 
         return properties;
