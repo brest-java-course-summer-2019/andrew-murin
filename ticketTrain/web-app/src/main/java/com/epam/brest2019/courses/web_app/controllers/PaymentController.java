@@ -41,8 +41,8 @@ public class PaymentController {
     @Autowired
     private TicketService ticketService;
 
-//    @Autowired
-//    private PaymentValidator paymentValidator;
+    @Autowired
+    private PaymentValidator paymentValidator;
 
     /**
      * Goto paid-tickets page.
@@ -114,7 +114,7 @@ public class PaymentController {
 
 
         payment.setPaymentDate(LocalDate.parse(paidTicketDate));
-//        paymentValidator.validate(payment, result);
+        paymentValidator.validate(payment, result);
 
         if(result.hasErrors()){
             return "redirect:/paid-ticket/" + payment.getPaymentId();
@@ -135,7 +135,7 @@ public class PaymentController {
     public final String deletePayment(@PathVariable Integer id) {
         LOGGER.debug("Delete paid-ticket({})", id);
 
-//        Payment payment = paymentService.findById(id);
+        Payment payment = paymentService.findById(id);
 
         this.paymentService.delete(id);
 

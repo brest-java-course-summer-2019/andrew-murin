@@ -25,7 +25,6 @@ import static org.mockito.Mockito.times;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(TicketController.class)
-
 public class TicketControllerTest {
 
     @MockBean

@@ -5,6 +5,8 @@ import com.epam.brest2019.courses.dao.PaymentDao;
 import com.epam.brest2019.courses.dao.config.DataBaseDAOConfig;
 import com.epam.brest2019.courses.model.Payment;
 import com.epam.brest2019.courses.model.Ticket;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -32,6 +35,9 @@ public class PaymentDaoJdbcImplTest {
 
     @Autowired
     private PaymentDao paymentDao;
+
+    @Autowired
+    private SessionFactory sessionFactory;
 
     private Payment payment;
 
@@ -52,7 +58,7 @@ public class PaymentDaoJdbcImplTest {
     }
 
     @Test
-    public void findAllPayment(){
+    public void findAllPayment() throws SQLException {
         LOGGER.debug("findAllPayment ({})", Payment.class);
 
         List<Payment> payments = paymentDao.findAll();

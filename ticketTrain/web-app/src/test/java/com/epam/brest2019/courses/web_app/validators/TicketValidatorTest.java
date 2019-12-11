@@ -26,16 +26,16 @@ class TicketValidatorTest {
         result = new BeanPropertyBindingResult(ticket, "ticket");
     }
 
+    //Ticket can't be earlier that now
+    @Test
+    void ShouldRejectDateAfterNow() {
+        Mockito.when(ticket.getTicketCost()).thenReturn(new BigDecimal(10));
+        Mockito.when(ticket.getTicketDate()).thenReturn(LocalDate.MIN);
 
-//    @Test
-//    void ShouldRejectDateAfterNow() {
-//        Mockito.when(ticket.getTicketCost()).thenReturn(new BigDecimal(10));
-//        Mockito.when(ticket.getTicketDate()).thenReturn(LocalDate.MAX);
-//
-//        ticketValidator.validate(ticket, result);
-//
-//        assertTrue(result.hasErrors());
-//    }
+        ticketValidator.validate(ticket, result);
+
+        assertTrue(result.hasErrors());
+    }
 
 
     @Test
