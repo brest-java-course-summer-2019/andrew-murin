@@ -1,7 +1,5 @@
 package com.epam.brest2019.courses.web_app;
 
-import com.epam.brest2019.courses.test_db.DataBaseConfig;
-import com.epam.brest2019.courses.test_db.DataSourceConfig;
 import com.epam.brest2019.courses.web_app.consumers.PaymentRestConsumer;
 import com.epam.brest2019.courses.web_app.consumers.TicketRestConsumer;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@SpringBootApplication(scanBasePackages = {"com.epam.brest2019.courses.*"}, scanBasePackageClasses = {DataBaseConfig.class, DataSourceConfig.class})
+@SpringBootApplication
 public class Application extends WebMvcConfigurerAdapter {
 
     @Value("${rest.url}")

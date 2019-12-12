@@ -3,6 +3,7 @@ package com.epam.brest2019.courses.dao.impl;
 
 import com.epam.brest2019.courses.dao.PaymentDao;
 import com.epam.brest2019.courses.dao.config.DataBaseDAOConfig;
+import com.epam.brest2019.courses.model.City;
 import com.epam.brest2019.courses.model.Payment;
 import com.epam.brest2019.courses.model.Ticket;
 import org.hibernate.Session;
@@ -14,9 +15,12 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
@@ -29,6 +33,7 @@ import static org.junit.Assert.assertFalse;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {DataBaseDAOConfig.class})
+@TestPropertySource("classpath:application-test.properties")
 public class PaymentDaoJdbcImplTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PaymentDaoJdbcImplTest.class);
@@ -91,13 +96,19 @@ public class PaymentDaoJdbcImplTest {
     public void add(){
         LOGGER.debug("Add Payment ({})", Payment.class);
 
-        Payment payment = new Payment();
-        payment.setPaymentDate(LocalDate.now());
+        payment = paymentDao.findById(7);
+
+        Payment newPayment = new Payment();
+
+        newPayment.setPaymentDate(payment.getPaymentDate());
+        newPayment.setTicketId(payment.getTicketId());
+        newPayment.setTicketCost(payment.getTicketCost());
+        newPayment.setTicketCount(payment.getTicketCount());
 
         List<Payment> payments = paymentDao.findAll();
         int sizeBefore = payments.size();
 
-        paymentDao.add(payment);
+        paymentDao.add(newPayment);
 
         assertEquals((sizeBefore) + 1, paymentDao.findAll().size());
     }
@@ -106,9 +117,7 @@ public class PaymentDaoJdbcImplTest {
     public void delete(){
         LOGGER.debug("Delete Payment ({})", Payment.class);
 
-        Payment payment = new Payment();
-
-        paymentDao.add(payment);
+        payment = paymentDao.findById(1);
 
         List<Payment> payments = paymentDao.findAll();
         int sizeAdd = payments.size();
@@ -156,4 +165,27 @@ public class PaymentDaoJdbcImplTest {
         assertNotNull(payments);
         assertFalse(payments.isEmpty());
     }
+
+//    private Payment createFixture() {
+//        ticket = new Ticket();
+//        City city = new City();
+//        payment = new Payment();
+//
+//        ticket.setTicketId(22);
+//        ticket.setTicketDate(LocalDate.now());
+//        ticket.setFromCity(city);
+//
+//        city.setCityId(4);
+//        ticket.setToCity(city);
+//
+//        ticket.setTicketCost(new BigDecimal(25));
+//
+//        payment.setTicketId(ticket);
+//        payment.setTicketCount(1L);
+//        payment.setTicketCost(new BigDecimal(23));
+//        payment.setPaymentDate(LocalDate.now());
+//        payment.setPaymentId(11);
+//
+//        return payment;
+//    }
 }
