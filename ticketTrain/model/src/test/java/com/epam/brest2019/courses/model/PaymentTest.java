@@ -43,11 +43,12 @@ public class PaymentTest {
         Assert.assertEquals(payment.getTicketCost(), SUMM);
     }
 
-//    @Test
-//    public void getTicketCount() {
-//        payment.setTicketCount(NUMBER);
-//        Assert.assertEquals(payment.getTicketCount(), NUMBER);
-//    }
+    @Test
+    public void getTicketCount() {
+        Long id = 1L;
+        payment.setTicketCount(id);
+        Assert.assertEquals(payment.getTicketCount(), id);
+    }
 
 
 }

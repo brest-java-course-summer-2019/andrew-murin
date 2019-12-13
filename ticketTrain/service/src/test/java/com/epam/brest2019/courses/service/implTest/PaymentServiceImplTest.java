@@ -44,18 +44,6 @@ public class PaymentServiceImplTest {
         assertFalse(payments.isEmpty());
     }
 
-//    @Test
-//    public void findByTicketId(){
-//        LOGGER.debug("findByTicketId");
-//
-//        int id = 3;
-//
-//        List<Payment> payment = paymentService.findByTicketId(id);
-//
-//        assertNotNull(payment);
-//        assertFalse(payment.isEmpty());
-//    }
-
     @Test
     public void findById(){
         LOGGER.debug("findById");

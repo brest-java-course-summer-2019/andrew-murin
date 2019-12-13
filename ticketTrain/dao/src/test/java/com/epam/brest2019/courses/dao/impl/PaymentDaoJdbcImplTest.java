@@ -166,26 +166,4 @@ public class PaymentDaoJdbcImplTest {
         assertFalse(payments.isEmpty());
     }
 
-//    private Payment createFixture() {
-//        ticket = new Ticket();
-//        City city = new City();
-//        payment = new Payment();
-//
-//        ticket.setTicketId(22);
-//        ticket.setTicketDate(LocalDate.now());
-//        ticket.setFromCity(city);
-//
-//        city.setCityId(4);
-//        ticket.setToCity(city);
-//
-//        ticket.setTicketCost(new BigDecimal(25));
-//
-//        payment.setTicketId(ticket);
-//        payment.setTicketCount(1L);
-//        payment.setTicketCost(new BigDecimal(23));
-//        payment.setPaymentDate(LocalDate.now());
-//        payment.setPaymentId(11);
-//
-//        return payment;
-//    }
 }
