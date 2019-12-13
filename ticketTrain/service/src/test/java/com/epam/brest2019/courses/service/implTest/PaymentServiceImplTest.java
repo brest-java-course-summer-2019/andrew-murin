@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
@@ -21,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {ServiceConfig.class, DataSourceConfig.class})
+@TestPropertySource("classpath:application-test.properties")
 public class PaymentServiceImplTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PaymentServiceImplTest.class);
@@ -28,8 +30,8 @@ public class PaymentServiceImplTest {
     @Autowired
     private PaymentService paymentService;
 
-    private static final LocalDate START_DATE = LocalDate.of(2019,01,01);
-    private static final LocalDate FINISH_DATE = LocalDate.of(2019,12,12);
+    private static final LocalDate START_DATE = LocalDate.of(2018,01,01);
+    private static final LocalDate FINISH_DATE = LocalDate.of(2020,12,12);
 
 
     @Test
