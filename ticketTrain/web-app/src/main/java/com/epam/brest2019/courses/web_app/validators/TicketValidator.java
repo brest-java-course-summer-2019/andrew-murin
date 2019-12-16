@@ -21,6 +21,10 @@ public class TicketValidator implements Validator {
 
         Ticket ticket = (Ticket) target;
 
+        if (ticket.getFromCity().getCityId().equals(ticket.getToCity().getCityId())) {
+            errors.rejectValue("fromCity", "ticketDirection");
+        }
+
 
         if (ticket.getTicketDate().isBefore(LocalDate.now())) {
             errors.rejectValue("ticketDate", "ticketDate.BeforeNow");
