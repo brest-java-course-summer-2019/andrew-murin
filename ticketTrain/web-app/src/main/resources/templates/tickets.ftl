@@ -12,8 +12,7 @@
           crossorigin="anonymous">
 
     <link rel="stylesheet"
-          href="../../resources/static/css/style.css"
-          th:href="@{/css/style.css}">
+          href="/css/style.css">
 
     <title>Tickets</title>
 </head>
@@ -21,10 +20,8 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <a class="navbar-brand"
-           href="index.html"
-           th:href="@{/index}">
-            <img src="../../resources/static/img/account.png"
-                 th:src="@{/img/account.png}"
+           href="/index">
+            <img src="/img/account.png"
                  width="30" height="30" alt="logo">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -36,18 +33,15 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                     <a class="nav-link"
-                       href="search-tickets.html"
-                       th:href="@{/search-tickets}">Search</a>
+                       href="/search-tickets">Search</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link"
-                       href="tickets.html"
-                       th:href="@{/tickets}">Schedule</a>
+                       href="/tickets">Schedule</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link"
-                       href="paid-tickets.html"
-                       th:href="@{/paid-tickets}">Paid tickets</a>
+                       href="/paid-tickets">Paid tickets</a>
                 </li>
             </ul>
         </div>
@@ -59,9 +53,7 @@
             <span class="navbar-brand mr-auto">Train schedule</span>
             <ul class="navbar-nav float-right">
                 <li>
-                <a href="ticket.html"
-                   th:href="@{/ticket}"
-                   th:onclick="@{ticket.forms['ticketForm'].submit(); return false;}"
+                <a href="/ticket"
                    class="btn btn-dark btn"
                    data-toggle="tooltip"
                    data-placement="left"
@@ -91,17 +83,16 @@
 
 
                         <tbody>
-                            <tr th:each="ticket : ${tickets}">
-                                <td th:text="${ticket.ticketId}">Number</td>
-                                <td th:text="${ticket.fromCity.cityName}">From</td>
-                                <td th:text="${ticket.toCity.cityName}">To</td>
-                                <td th:text="${ticket.ticketCost}">Cost</td>
-                                <td th:text="${ticket.ticketDate}">Date</td>
+                            <#list tickets as ticket>
+                                <td>${ticket.ticketId}</td>
+                                <td>${ticket.fromCity.cityName}</td>
+                                <td>${ticket.toCity.cityName}</td>
+                                <td>${ticket.ticketCost}</td>
+                                <td>${ticket.ticketDate}</td>
                                 <td>
                                     <span class="navbar-nav float-right"
-                                          th:attr="data-id=${ticket.ticketId}">
-                                        <a  href="tickets.html"
-                                            th:href="@{|/pay-ticket/${ticket.ticketId}|}"
+                                            attr="data-id=${ticket.ticketId}">
+                                        <a href="/pay-ticket/${ticket.ticketId}"
                                             class="btn btn-dark"
                                             title="Pay ticket"
                                             data-toggle="tooltip"
@@ -114,7 +105,7 @@
                                 <td>
                                     <span data-toggle="modal" data-target="#deleteDialog"
                                           class="navbar-nav float-right"
-                                          th:attr="data-id=${ticket.ticketId}, data-name=${ticket.toCity.cityId}">
+                                          attr="data-id=${ticket.ticketId}, data-name=${ticket.toCity.cityId}">
                                         <a href="#" class="btn btn-dark"
                                            title="delete ticket"
                                            data-toggle="tooltip"
@@ -124,8 +115,7 @@
                                     </span>
 
                                     <span class="navbar-nav float-right">
-                                        <a  href="ticket.html"
-                                            th:href="@{|/ticket/${ticket.ticketId}|}"
+                                        <a href="/ticket/${ticket.ticketId}"
                                             class="btn btn-dark"
                                             title="Edit ticket"
                                             data-toggle="tooltip"
@@ -136,6 +126,7 @@
                                     </span>
                                 </td>
                             </tr>
+                            </#list>
                         </tbody>
 
                     </table>

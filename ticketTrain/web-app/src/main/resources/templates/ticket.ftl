@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--suppress ALL -->
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -11,19 +11,15 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <link rel="stylesheet"
-          href="../../resources/static/css/style.css"
-          th:href="@{/css/style.css}">
-
+          href="/css/style.css">
     <title>Ticket</title>
 </head>
 
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <a class="navbar-brand"
-       href="index.html"
-       th:href="@{/index}">
-        <img src="../../resources/static/img/account.png"
-             th:src="@{/img/account.png}"
+       href="/index">
+        <img src="/img/account.png"
              width="30" height="30" alt="logo">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -35,18 +31,15 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a class="nav-link"
-                   href="search-tickets.html"
-                   th:href="@{/search-tickets}">Search</a>
+                   href="/search-tickets">Search</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link"
-                   href="tickets.html"
-                   th:href="@{/tickets}">Schedule</a>
+                   href="/tickets">Schedule</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link"
-                   href="paid-tickets.html"
-                   th:href="@{/paid-tickets}">Paid tickets</a>
+                   href="/paid-tickets">Paid tickets</a>
             </li>
         </ul>
     </div>
@@ -56,12 +49,17 @@
 <header>
     <nav id="main-header"
          class="py-1 mb-3 navbar navbar-expand-sm navbar-light bg-light text-dark">
-        <span class="navbar-brand mr-auto"
-              th:text="${isNew} ? 'Add ticket' : 'Edit ticket'">Edit ticket</span>
+        <span class="navbar-brand mr-auto">
+            <#--${true?then('Add ticket', 'Edit ticket')}-->
+            <#if isNew??>
+                Add ticket
+                <#else >
+                Edit ticket
+            </#if>
+        </span>
 
         <ul class="navbar-nav float-right">
-            <li class="nav-item"><a href="tickets.html"
-                                    th:href="@{/tickets}"
+            <li class="nav-item"><a href="/tickets"
                                     class="btn btn-dark"
                                     data-toggle="tooltip"
                                     data-placement="left"
@@ -72,9 +70,7 @@
         </ul>
 
         <ul class="navbar-nav">
-            <li class="nav-item"><a href="tickets.html"
-                                    th:href="@{/tickets}"
-                                    th:onclick="@{document.forms['ticketForm'].submit(); return false;}"
+            <li class="nav-item"><a href="/tickets"
                                     class="btn btn-dark"
                                     title="Save ticket"
                                     data-toggle="tooltip"
@@ -91,26 +87,24 @@
             <div class="col">
                 <div class="card-body">
                     <form id ="ticketForm"
-                          th:object="${ticket}"
-                          action="tickets.html"
-                          th:action="@{${#httpServletRequest.servletPath}}"
-                          th:method="@{post}">
+                          action="tickets.ftl"
+                          method="post">
 
-                        <div th:if="${#fields.hasErrors('all')}"
-                             class="alert alert-danger">
-                            <p>Please fix errors below:</p>
-                        </div>
+                        <#--<div th:if="${#fields.hasErrors('all')}"-->
+                             <#--class="alert alert-danger">-->
+                            <#--<p>Please fix errors below:</p>-->
+                        <#--</div>-->
 
                         <!--Send with form a ticketId-->
-                        <input id="ticketId"
-                               type="hidden"
-                               th:field="*{ticketId}"/>
+                        <#--<input id="ticketId"-->
+                               <#--type="hidden"-->
+                               <#--field="${ticket.ticketId}"/>-->
 
 
                         <tr>
                             <div class="form-group">
                                 <label>Select from a city</label>
-                                    <select class="form-control" id="fromCity" name="fromCity" th:field="*{fromCity.cityId}">
+                                    <select class="form-control" id="fromCity" name="fromCity" field="#{ticket.fromCity.cityId}">
                                         <option value=1>BREST</option>
                                         <option value=2>MINSK</option>
                                         <option value=3>VITEBSK</option>
@@ -119,13 +113,13 @@
                                         <option value=6>MOGILEV</option>
                                     </select>
                             </div>
-                            <td th:if="${#fields.hasErrors('fromCity.cityId')}" th:errors="*{fromCity.cityId}">Name Error</td>
+                            <#--<td th:if="${#fields.hasErrors('fromCity.cityId')}" th:errors="*{fromCity.cityId}">Name Error</td>-->
                         </tr>
 
                         <tr>
                             <div class="form-group">
                                 <label>Select to a city</label>
-                                <select class="form-control" id="toCity" name="toCity" th:field="*{toCity.cityId}">
+                                <select class="form-control" id="toCity" name="toCity" field="${ticket.toCity.cityId}">
                                     <option value=1>BREST</option>
                                     <option value=2>MINSK</option>
                                     <option value=3>VITEBSK</option>
@@ -134,7 +128,7 @@
                                     <option value=6>MOGILEV</option>
                                 </select>
                             </div>
-                            <td th:if="${#fields.hasErrors('toCity.cityId')}" th:errors="*{toCity.cityId}">Name Error</td>
+                            <#--<td th:if="${#fields.hasErrors('toCity.cityId')}" th:errors="*{toCity.cityId}">Name Error</td>-->
                         </tr>
 
                         <tr>
@@ -145,9 +139,9 @@
                                        type="text"
                                        value=""
                                        placeholder="Enter price"
-                                       th:field="*{ticketCost}"/>
+                                       field="${ticket.ticketCost}"/>
                             </div>
-                            <td th:if="${#fields.hasErrors('ticketCost')}" th:errors="*{ticketCost}">Name Error</td>
+                            <#--<td th:if="${#fields.hasErrors('ticketCost')}" th:errors="*{ticketCost}">Name Error</td>-->
                         </tr>
 
                         <tr><td><label>Select a date</label>
@@ -157,13 +151,13 @@
                                        type="date"
                                        class="form-control"
                                        value=""
-                                       th:field="*{ticketDate}">
+                                       field="${ticket.ticketDate}">
                             </div>
-                            <div th:if="${#fields.hasErrors('ticketDate')}"
-                                 class="alert alert-danger">
-                                <p>Please fix errors below:</p>
-                            </div>
-                            <td th:if="${#fields.hasErrors('ticketDate')}" th:errors="*{ticketDate}">Name Error</td>
+                            <#--<div th:if="${#fields.hasErrors('ticketDate')}"-->
+                                 <#--class="alert alert-danger">-->
+                                <#--<p>Please fix errors below:</p>-->
+                            <#--</div>-->
+                            <#--<td th:if="${#fields.hasErrors('ticketDate')}" th:errors="*{ticketDate}">Name Error</td>-->
                         </tr>
                     </form>
                 </div>

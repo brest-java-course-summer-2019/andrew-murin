@@ -10,8 +10,7 @@
           crossorigin="anonymous">
 
     <link rel="stylesheet"
-          href="../../resources/static/css/style.css"
-          th:href="@{/css/style.css}">
+          href="/css/style.css">
 
     <title>Search</title>
 </head>
@@ -19,10 +18,8 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <a class="navbar-brand"
-       href="index.html"
-       th:href="@{/index}">
-        <img src="../../resources/static/img/account.png"
-             th:src="@{/img/account.png}"
+       href="/index">
+        <img src="/img/account.png"
              width="30" height="30" alt="logo">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -34,18 +31,15 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a class="nav-link"
-                   href="search-tickets.html"
-                   th:href="@{/search-tickets}">Search</a>
+                   href="/search-tickets">Search</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link"
-                   href="tickets.html"
-                   th:href="@{/tickets}">Schedule</a>
+                   href="/tickets">Schedule</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link"
-                   href="paid-tickets.html"
-                   th:href="@{/paid-tickets}">Paid tickets</a>
+                   href="/paid-tickets">Paid tickets</a>
             </li>
         </ul>
     </div>
@@ -59,13 +53,11 @@
         <span class="navbar-brand mr-auto">Choise direction</span>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a href="tickets.html"
+                    <a href="/tickets"
                        class="btn btn-dark"
                        title="Search tickets"
                        data-toggle="tooltip"
                        data-placement="bottom"
-                       th:href="@{/tickets}"
-                       th:onclick="@{document.forms['FormSearchDate'].submit(); return false;}">
                     <i class="fas fa-undo"></i>
                         <span class="d-none d-sm-inline">&nbsp;Search</span></a>
                 </li>
@@ -79,21 +71,21 @@
             <div class="col">
                 <div class="card-body">
                     <form id ="FormSearchDate"
-                          action="tickets.html"
-                          th:object="${tickets}"
-                          th:action="@{${#httpServletRequest.servletPath}}"
-                          th:method="@{post}">
+                          action="tickets.ftl">
+                          <#--th:object="${tickets}"-->
+                          <#--th:action="@{${#httpServletRequest.servletPath}}"-->
+                          <#--th:method="@{post}">-->
 
                         <tr>
                             <div class="form-group">
                                 <label>Select from a city</label>
-                                <select class="form-control" id="directionFrom" name="directionFrom" th:value="directionFrom">
-                                    <option th:value=1>BREST</option>
-                                    <option th:value=2>MINSK</option>
-                                    <option th:value=3>VITEBSK</option>
-                                    <option th:value=4>GOMEL</option>
-                                    <option th:value=5>GRODNO</option>
-                                    <option th:value=6>MOGILEV</option>
+                                <select class="form-control" id="directionFrom" name="directionFrom" value="directionFrom">
+                                    <option value=1>BREST</option>
+                                    <option value=2>MINSK</option>
+                                    <option value=3>VITEBSK</option>
+                                    <option value=4>GOMEL</option>
+                                    <option value=5>GRODNO</option>
+                                    <option value=6>MOGILEV</option>
                                 </select>
                             </div>
                         </tr>
@@ -101,13 +93,13 @@
                         <tr>
                             <div class="form-group">
                                 <label>Select to a city</label>
-                                <select class="form-control" id="directionTo" name="directionTo" th:value="directionTo">
-                                    <option th:value=1>BREST</option>
-                                    <option th:value=2>MINSK</option>
-                                    <option th:value=3>VITEBSK</option>
-                                    <option th:value=4>GOMEL</option>
-                                    <option th:value=5>GRODNO</option>
-                                    <option th:value=6>MOGILEV</option>
+                                <select class="form-control" id="directionTo" name="directionTo" value="directionTo">
+                                    <option value=1>BREST</option>
+                                    <option value=2>MINSK</option>
+                                    <option value=3>VITEBSK</option>
+                                    <option value=4>GOMEL</option>
+                                    <option value=5>GRODNO</option>
+                                    <option value=6>MOGILEV</option>
                                 </select>
                             </div>
                         </tr>

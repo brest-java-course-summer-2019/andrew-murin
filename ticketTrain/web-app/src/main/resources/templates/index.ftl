@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
@@ -11,8 +11,7 @@
               crossorigin="anonymous">
 
         <link rel="stylesheet"
-              href="/static/css/style.css"
-              th:href="@{/css/style.css}">
+              href="/css/style.css">
 
         <title>Ticket train</title>
     </head>
@@ -20,10 +19,8 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
             <a class="navbar-brand"
-               href="index.html"
-               th:href="@{/index}">
-                <img src="../static/img/account.png"
-                     th:src="@{/img/account.png}"
+               href="/index">
+                <img src="/img/account.png"
                      width="30" height="30" alt="logo">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -35,25 +32,22 @@
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
                         <a class="nav-link"
-                           href="search-tickets.html"
-                           th:href="@{/search-tickets}">Search</a>
+                           href="/search-tickets">Search</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link"
-                           href="tickets.html"
-                           th:href="@{/tickets}">Schedule</a>
+                           href="/tickets">Schedule</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link"
-                           href="paid-tickets.html"
-                           th:href="@{/paid-tickets}">Paid tickets</a>
+                           href="/paid-tickets">Paid tickets</a>
                     </li>
                 </ul>
             </div>
         </nav>
 
         <div class="container">
-            <h1>Hello World</h1>
+            <h1>Hello World!!!!!!!</h1>
         </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

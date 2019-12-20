@@ -10,8 +10,7 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <link rel="stylesheet"
-          href="../../resources/static/css/style.css"
-          th:href="@{/css/style.css}">
+          href="/css/style.css">
 
     <title>Ticket</title>
 </head>
@@ -19,10 +18,8 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <a class="navbar-brand"
-       href="index.html"
-       th:href="@{/index}">
-        <img src="../../resources/static/img/account.png"
-             th:src="@{/img/account.png}"
+       href="/index">
+        <img src="/img/account.png"
              width="30" height="30" alt="logo">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -34,18 +31,15 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a class="nav-link"
-                   href="search-tickets.html"
-                   th:href="@{/search-tickets}">Search</a>
+                   href="/search-tickets">Search</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link"
-                   href="tickets.html"
-                   th:href="@{/tickets}">Schedule</a>
+                   href="/tickets">Schedule</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link"
-                   href="paid-tickets.html"
-                   th:href="@{/paid-tickets}">Paid tickets</a>
+                   href="/paid-tickets">Paid tickets</a>
             </li>
         </ul>
     </div>
@@ -58,29 +52,25 @@
         <span class="navbar-brand mr-auto">Edit payment-ticket</span>
 
         <ul class="navbar-nav float-right">
-            <li class="nav-item"><a href="tickets.html"
-                                    th:href="@{/paid-tickets}"
+            <li class="nav-item"><a href="/paid-tickets"
                                     class="btn btn-dark"
                                     data-toggle="tooltip"
                                     data-placement="left"
                                     title="Return">
                             <i class="fas fa-undo"></i>
-                            <span class="d-none d-sm-inline"
-                                    th:text="Return">&nbsp;Return</span></a>
+                            <span class="d-none d-sm-inline">&nbsp;Return</span></a>
             </li>
         </ul>
 
         <ul class="navbar-nav">
-            <li class="nav-item"><a href="tickets.html"
-                                    th:href="@{/paid-tickets}"
-                                    th:onclick="@{document.forms['paidTicketForm'].submit(); return false;}"
+            <li class="nav-item"><a href="/paid-tickets"
+                                    <#--th:onclick="@{document.forms['paidTicketForm'].submit(); return false;}"-->
                                     class="btn btn-dark"
                                     title="Save payment"
                                     data-toggle="tooltip"
                                     data-placement="bottom">
                             <i class="fas fa-undo"></i>
-                            <span class="d-none d-sm-inline"
-                                    th:text="Save">&nbsp;Save</span></a>
+                            <span class="d-none d-sm-inline">&nbsp;Save</span></a>
         </ul>
     </nav>
 </header>
@@ -91,24 +81,24 @@
             <div class="col">
                 <div class="card-body">
                     <form id ="paidTicketForm"
-                          th:object="${paidTicket}"
-                          action="paid-tickets.html"
-                          th:method="@{post}">
+                          <#--th:object="${paidTicket}"-->
+                          action="paid-tickets.ftl"
+                          method="post">
 
 
                         <input id="field_ticketId"
-                                th:type="hidden"
-                                th:field="*{paymentId}"/>
+                                type="hidden"
+                                field="${paidTicket.paymentId}"/>
 
 
                         <tr>
                                 <label>Select number of train</label>
                                 <select class="form-control" id="ticketId" name="ticketId"
-                                        th:field="*{ticketId.ticketId}">
-                                    <option th:each="ticket : ${tickets}"
-                                            th:value="${ticket.ticketId}"
-                                            th:text="${ticket.ticketId}"
-                                            th:selected="${ticket.ticketId} == ${paidTicket.ticketId.ticketId}">1</option>
+                                        field="${paidTicket.ticketId.ticketId}">
+                                    <#--<option th:each="ticket : ${tickets}"-->
+                                            <#--th:value="${ticket.ticketId}"-->
+                                            <#--th:text="${ticket.ticketId}"-->
+                                            <#--th:selected="${ticket.ticketId} == ${paidTicket.ticketId.ticketId}">1</option>-->
                                 </select>
                         </tr>
 

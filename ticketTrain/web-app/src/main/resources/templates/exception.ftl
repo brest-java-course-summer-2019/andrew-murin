@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Error</title>
 </head>
 <body>
     <h1>Sorry, an error occurred</h1>
-    <a href="tickets.html"
-       th:href="@{/tickets}">Return</a>
+    <a href="/tickets">Return</a>
 </body>
 </html>
