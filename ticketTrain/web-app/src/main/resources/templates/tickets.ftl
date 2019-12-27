@@ -83,6 +83,7 @@
 
 
                         <tbody>
+                            <tr>
                             <#list tickets as ticket>
                                 <td>${ticket.ticketId}</td>
                                 <td>${ticket.fromCity.cityName}</td>
@@ -105,7 +106,8 @@
                                 <td>
                                     <span data-toggle="modal" data-target="#deleteDialog"
                                           class="navbar-nav float-right"
-                                          attr="data-id=${ticket.ticketId}, data-name=${ticket.toCity.cityId}">
+                                          data-id="${ticket.ticketId}"
+                                          data-name="${ticket.ticketId}">
                                         <a href="#" class="btn btn-dark"
                                            title="delete ticket"
                                            data-toggle="tooltip"

@@ -44,6 +44,7 @@ public class TicketController {
      * @param directionTo
      * @param model
      * @return tickets
+     * @return tickets
      */
     @PostMapping("/search-tickets")
     public final String searchTickets(@ModelAttribute("startDate") String startDate,

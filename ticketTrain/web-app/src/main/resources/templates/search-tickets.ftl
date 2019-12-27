@@ -1,3 +1,4 @@
+<#import "/spring.ftl" as spring/>
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -53,11 +54,12 @@
         <span class="navbar-brand mr-auto">Choise direction</span>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a href="/tickets"
+                    <a href="#"
+                       onclick="document.getElementById('FormSearchDate').submit();"
                        class="btn btn-dark"
                        title="Search tickets"
                        data-toggle="tooltip"
-                       data-placement="bottom"
+                       data-placement="bottom">
                     <i class="fas fa-undo"></i>
                         <span class="d-none d-sm-inline">&nbsp;Search</span></a>
                 </li>
@@ -71,10 +73,8 @@
             <div class="col">
                 <div class="card-body">
                     <form id ="FormSearchDate"
-                          action="tickets.ftl">
-                          <#--th:object="${tickets}"-->
-                          <#--th:action="@{${#httpServletRequest.servletPath}}"-->
-                          <#--th:method="@{post}">-->
+                          method="post"
+                          action="/search-tickets"
 
                         <tr>
                             <div class="form-group">
@@ -124,7 +124,6 @@
                         </tr>
                     </form>
 
-                    </form>
                 </div>
             </div>
         </div>

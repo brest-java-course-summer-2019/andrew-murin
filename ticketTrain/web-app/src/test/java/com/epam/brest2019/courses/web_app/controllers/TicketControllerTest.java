@@ -124,7 +124,7 @@ public class TicketControllerTest {
     @Test
     public void deleteTicket() throws Exception {
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/ticket/{id}/delete", 1)
+                MockMvcRequestBuilders.get("/ticket/{id}/delete", 10)
                     .contentType(MediaType.APPLICATION_JSON))
                         .andExpect(MockMvcResultMatchers.status().isFound())
                         .andExpect(MockMvcResultMatchers.redirectedUrl("/tickets"));
