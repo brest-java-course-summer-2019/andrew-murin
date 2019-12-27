@@ -181,7 +181,7 @@ public class TicketController {
         ticketValidator.validate(ticket, result);
 
         if (result.hasErrors()) {
-            return "ticket/" + ticket.getTicketId();
+            return "ticket/";
         } else {
             this.ticketService.add(ticket);
             return "redirect:/tickets";

@@ -95,7 +95,7 @@
 
 
                         <input id="ticketId"
-                               <#--type="hidden"-->
+                               type="hidden"
                                name="ticketId"/>
 
 
@@ -165,13 +165,22 @@
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     })
+
     $(function () {
         var link = window.location.href;
         $("#ticketForm").setAttribute(action, link);
     })
-    if ($("#isNew").text().indexOf('Edit ticekt')) {
-        alert().te
+
+    if($("body:contains('Edit ticket')").length) {
+        $("#ticketId").val(
+            <#if isNew??>
+                ""
+            <#else>
+                ${ticket.ticketId}
+            </#if>
+        )
     }
+
 </script>
 
 </body>
