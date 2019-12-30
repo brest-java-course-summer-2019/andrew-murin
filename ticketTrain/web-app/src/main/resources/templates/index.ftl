@@ -47,7 +47,8 @@
         </nav>
 
         <div class="container">
-            <h1>Hello World!!!!!!!</h1>
+            <h1>Hi everyone!</h1>
+            <p>This project was developed by Andrey Murin on courses of <strong>&lt;Epam&gt;</strong></p>
         </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

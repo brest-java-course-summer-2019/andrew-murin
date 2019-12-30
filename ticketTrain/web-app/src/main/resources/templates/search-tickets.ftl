@@ -1,6 +1,5 @@
-<#import "/spring.ftl" as spring/>
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -12,7 +11,6 @@
 
     <link rel="stylesheet"
           href="/css/style.css">
-
     <title>Search</title>
 </head>
 
@@ -79,7 +77,7 @@
                         <tr>
                             <div class="form-group">
                                 <label>Select from a city</label>
-                                <select class="form-control" id="directionFrom" name="directionFrom" value="directionFrom">
+                                <select class="form-control" id="directionFrom" name="directionFrom">
                                     <option value=1>BREST</option>
                                     <option value=2>MINSK</option>
                                     <option value=3>VITEBSK</option>
@@ -93,7 +91,7 @@
                         <tr>
                             <div class="form-group">
                                 <label>Select to a city</label>
-                                <select class="form-control" id="directionTo" name="directionTo" value="directionTo">
+                                <select class="form-control" id="directionTo" name="directionTo">
                                     <option value=1>BREST</option>
                                     <option value=2>MINSK</option>
                                     <option value=3>VITEBSK</option>

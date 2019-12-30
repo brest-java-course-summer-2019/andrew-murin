@@ -1,6 +1,7 @@
 package com.epam.brest2019.courses.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
@@ -53,12 +54,14 @@ public class Payment implements Serializable {
      * Summing all costs by different directions
      */
     @Transient
+//    @JsonIgnore
     private BigDecimal ticketCost = new BigDecimal(2);
 
     /**
      * Counting all tickets by different directions
      */
     @Transient
+//    @JsonIgnore
     private Long ticketCount = 5L;
 
     /**
