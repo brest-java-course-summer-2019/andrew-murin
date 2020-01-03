@@ -2,6 +2,7 @@ package com.epam.brest2019.courses.web_app;
 
 import com.epam.brest2019.courses.web_app.consumers.PaymentRestConsumer;
 import com.epam.brest2019.courses.web_app.consumers.TicketRestConsumer;
+import com.epam.brest2019.courses.web_app.validators.PaymentValidator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +16,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 @SpringBootApplication
 public class Application extends WebMvcConfigurerAdapter {
@@ -32,7 +32,6 @@ public class Application extends WebMvcConfigurerAdapter {
     @Autowired
     private ObjectMapper objectMapper;
 
-
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
@@ -48,6 +47,12 @@ public class Application extends WebMvcConfigurerAdapter {
         TicketRestConsumer ticketService = new TicketRestConsumer(restUrl + restTickets, restTemplate());
         return ticketService;
     }
+
+//    @Bean
+//    public PaymentValidator paymentValidator() {
+//        return new PaymentValidator();
+//    }
+
 
     @Bean
     public RestTemplate restTemplate() {

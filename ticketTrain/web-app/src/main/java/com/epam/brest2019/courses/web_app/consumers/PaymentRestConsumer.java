@@ -58,7 +58,7 @@ public class PaymentRestConsumer implements PaymentService {
     @Override
     public void add(Payment payment) {
         LOGGER.debug("Add payment ({})", payment);
-        ResponseEntity responseEntity = restTemplate.postForEntity(url, payment, Payment.class);
+        restTemplate.postForEntity(url, payment, Payment.class);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class PaymentRestConsumer implements PaymentService {
     @Override
     public List<Payment> searchByDate(LocalDate startDate, LocalDate finishDate) {
         LOGGER.debug("Search paid-tickets by date");
-        ResponseEntity responseEntity =restTemplate.getForEntity(url + "/" + startDate + "/" + finishDate, List.class);
+        ResponseEntity responseEntity = restTemplate.getForEntity(url + "/" + startDate + "/" + finishDate, List.class);
         return (List<Payment>) responseEntity.getBody();
     }
 

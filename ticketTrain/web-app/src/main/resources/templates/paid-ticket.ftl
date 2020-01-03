@@ -91,6 +91,7 @@
                                         name="paymentId"
                                         type="hidden"
                                         value="${paidTicket.paymentId}"
+                                        readonly
                                         />
 
                             </td>
@@ -105,8 +106,9 @@
                                     <input id="paidTicketId"
                                            class="form-control"
                                            name="ticketId.ticketId"
-                                           value="${paidTicket.ticketId.ticketId}"
-                                           readonly>
+                                           value="${(paidTicket.ticketId.ticketId)!1}"
+                                           readonly
+                                    />
                                 </div>
                             </td>
                         </tr>

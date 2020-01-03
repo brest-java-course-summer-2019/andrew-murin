@@ -3,6 +3,7 @@ package com.epam.brest2019.courses.web_app.controllers;
 import com.epam.brest2019.courses.model.City;
 import com.epam.brest2019.courses.model.Ticket;
 import com.epam.brest2019.courses.service.TicketService;
+import com.epam.brest2019.courses.web_app.validators.TicketValidator;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,6 +30,9 @@ public class TicketControllerTest {
 
     @MockBean
     private TicketService ticketService;
+
+    @MockBean
+    private TicketValidator ticketValidator;
 
     @Autowired
     private MockMvc mockMvc;

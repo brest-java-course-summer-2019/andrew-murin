@@ -16,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class TicketValidatorTest {
 
     private Ticket ticket;
-    private Ticket tickets;
 
     private TicketValidator ticketValidator = new TicketValidator();
 

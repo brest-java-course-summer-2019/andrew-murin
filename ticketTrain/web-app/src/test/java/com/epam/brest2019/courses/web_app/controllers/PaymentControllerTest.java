@@ -2,6 +2,7 @@ package com.epam.brest2019.courses.web_app.controllers;
 
 import com.epam.brest2019.courses.model.Payment;
 import com.epam.brest2019.courses.service.PaymentService;
+import com.epam.brest2019.courses.web_app.validators.PaymentValidator;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,6 +26,9 @@ public class PaymentControllerTest {
 
     @MockBean
     private PaymentService paymentService;
+
+    @MockBean
+    private PaymentValidator paymentValidator;
 
     @Autowired
     private MockMvc mockMvc;
