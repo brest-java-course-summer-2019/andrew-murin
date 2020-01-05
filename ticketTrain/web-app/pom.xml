@@ -9,7 +9,7 @@
 
     <artifactId>web-app</artifactId>
 
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <parent>
         <artifactId>ticketTrain</artifactId>

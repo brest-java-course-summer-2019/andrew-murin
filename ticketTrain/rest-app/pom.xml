@@ -10,7 +10,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <name>Ticket Train Rest server</name>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <artifactId>rest-app</artifactId>
 
     <properties>

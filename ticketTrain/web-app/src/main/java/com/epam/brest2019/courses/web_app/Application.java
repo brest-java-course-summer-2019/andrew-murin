@@ -48,11 +48,6 @@ public class Application extends WebMvcConfigurerAdapter {
         return ticketService;
     }
 
-//    @Bean
-//    public PaymentValidator paymentValidator() {
-//        return new PaymentValidator();
-//    }
-
 
     @Bean
     public RestTemplate restTemplate() {
