@@ -1,6 +1,5 @@
 package com.epam.brest2019.courses.rest_app.wiremock;
 
-import com.epam.brest2019.courses.model.Payment;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.mysql.cj.util.TestUtils;
 import org.junit.Rule;
@@ -9,21 +8,18 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.context.ApplicationContext;
-import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import wiremock.org.apache.commons.io.FileUtils;
 import wiremock.org.apache.http.HttpStatus;
 
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.util.List;
+import java.util.Objects;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -31,40 +27,84 @@ import static org.junit.Assert.assertNotNull;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class PaymentRestControllerWireMockTest {
 
+    private static final int PORT = 9999;
+    private static final String LOCAL_HOST = "http://localhost:";
+
+    private static final String PAYMENTS_JSON = "mapping/payments.json";
+    private static final String PAYMENTS_ALL_JSON = "mapping/payments_all.json";
+    private static final String PAYMENTS_BY_TICKET_ID_2_JSON = "mapping/payments_byTicketId_2.json";
+
     @Autowired
     private TestRestTemplate restTemplate;
 
-    @Autowired
-    private ApplicationContext applicationContext;
-
     @Rule
-    public WireMockRule wireMockRule = new WireMockRule(wireMockConfig().port(8089));
+    public WireMockRule wireMockRule = new WireMockRule(PORT);
+
 
     @Test
     public void whenRequestGetPayments() throws IOException {
-        ResponseEntity payments = restTemplate.getForEntity("http://localhost:8088/payments", String.class);
 
-//        String body = payments.getBody().toString();
-
-        wireMockRule.stubFor(get(urlMatching("/payments"))
+        wireMockRule.stubFor(get(urlEqualTo("/payments"))
             .willReturn(aResponse()
                     .withStatus(HttpStatus.SC_OK)
-                    .withBody(String.valueOf(payments.getBody()))));
+                    .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE)
+                    .withBody(getJSON(PAYMENTS_JSON))));
 
 
+        ResponseEntity payments = restTemplate.getForEntity(LOCAL_HOST + PORT + "/payments", String.class);
 
-        assertEquals(payments.getStatusCodeValue(), 200);
         assertNotNull(payments.getBody());
-        assertEquals(String.valueOf(payments.getBody()), FileUtils.readFileToString(FileUtils.toFile(TestUtils.class.getClassLoader().getResource("mapping/payments.json")), String.valueOf(StandardCharsets.UTF_8)));
+        assertEquals(payments.getStatusCodeValue(), 200);
+        assertEquals(payments.getHeaders().getContentType().toString(), MediaType.APPLICATION_JSON_UTF8_VALUE);
+        assertEquals(payments.getBody(), getJSON(PAYMENTS_JSON));
+
+        wireMockRule.verify(getRequestedFor(urlEqualTo("/payments")));
 
     }
 
-    private String getJSON(String path) throws IOException {
-        Resource resource = applicationContext.getResource("classpath:" + path);
-        return new String(Files.readAllBytes(resource.getFile().toPath()));
+    @Test
+    public void whenRequestGetFindPaymentsWithDirections() throws IOException {
+
+        wireMockRule.stubFor(get(urlEqualTo("/payments/find-all-with-direction"))
+            .willReturn(aResponse()
+                    .withStatus(HttpStatus.SC_OK)
+                    .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE)
+                    .withBody(getJSON(PAYMENTS_ALL_JSON))));
+
+        ResponseEntity payments = restTemplate
+                .getForEntity(LOCAL_HOST + PORT + "/payments/find-all-with-direction", String.class);
+
+
+        assertNotNull(payments.getBody());
+        assertEquals(payments.getStatusCodeValue(), 200);
+        assertEquals(payments.getHeaders().getContentType().toString(), MediaType.APPLICATION_JSON_UTF8_VALUE);
+        assertEquals(payments.getBody(), getJSON(PAYMENTS_ALL_JSON));
+
+        wireMockRule.verify(getRequestedFor(urlEqualTo("/payments/find-all-with-direction")));
+
     }
 
 
+//    @Test
+//    public void whenRequestOnFindPaymentsByTicketId() throws IOException {
+//
+//        wireMockRule.stubFor(get(urlEqualTo("/payments/ticket/2"))
+//                .willReturn(aResponse()
+//                        .withStatus(HttpStatus.SC_OK)
+//                        .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE)
+//                        .withBody(getJSON(PAYMENTS_BY_TICKET_ID_2_JSON))));
+//
+//        ResponseEntity payments = restTemplate
+//                .getForEntity(LOCAL_HOST + PORT + "/payments/ticket/2", String.class);
+//
+//
+//        assertNotNull(payments.getBody());
+//        assertEquals(payments.getStatusCodeValue(), 200);
+//        assertEquals(payments.getHeaders().getContentType().toString(), MediaType.APPLICATION_JSON_UTF8_VALUE);
+//        assertEquals(payments.getBody(), getJSON(PAYMENTS_ALL_JSON));
+//
+//        wireMockRule.verify(getRequestedFor(urlEqualTo("/payments/ticket/2")));
+//    }
 
 
 
@@ -77,12 +117,11 @@ public class PaymentRestControllerWireMockTest {
 
 
 
-
-
-
-
-
-
-
+  private String getJSON(String path) throws IOException {
+        String file = FileUtils.readFileToString(
+                Objects.requireNonNull(FileUtils.toFile(TestUtils.class.getClassLoader().getResource(path))),
+                String.valueOf(StandardCharsets.UTF_8));
+        return file;
+    }
 
 }
