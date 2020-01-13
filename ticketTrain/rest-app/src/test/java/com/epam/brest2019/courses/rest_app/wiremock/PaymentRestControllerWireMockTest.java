@@ -33,13 +33,13 @@ public class PaymentRestControllerWireMockTest {
     private static final int PORT = 9999;
     private static final String LOCAL_HOST = "http://localhost:";
 
-    private static final String PAYMENTS_JSON = "mapping/payments_json/payments.json";
-    private static final String PAYMENTS_ALL_JSON = "mapping/payments_json/payments_all.json";
-    private static final String PAYMENTS_BY_TICKET_ID_2_JSON = "mapping/payments_json/payments_by_TicketId_2.json";
-    private static final String PAYMENTS_BY_ID_1_JSON = "mapping/payments_json/payments_by_Id_1.json";
-    private static final String PAYMENTS_ADD_JSON = "mapping/payments_json/payments_add.json";
-    private static final String PAYMENTS_UPDATE_JSON = "mapping/payments_json/payments_update.json";
-    private static final String PAYMENTS_SEARCH_JSON = "mapping/payments_json/payment_search.json";
+    private static final String PAYMENTS_JSON = "mapping/payments/payments.json";
+    private static final String PAYMENTS_ALL_JSON = "mapping/payments/payments_all.json";
+    private static final String PAYMENTS_BY_TICKET_ID_2_JSON = "mapping/payments/payments_by_TicketId_2.json";
+    private static final String PAYMENTS_BY_ID_1_JSON = "mapping/payments/payments_by_Id_1.json";
+    private static final String PAYMENTS_ADD_JSON = "mapping/payments/payments_add.json";
+    private static final String PAYMENTS_UPDATE_JSON = "mapping/payments/payments_update.json";
+    private static final String PAYMENTS_SEARCH_JSON = "mapping/payments/payment_search.json";
 
 
     @Autowired
@@ -52,35 +52,35 @@ public class PaymentRestControllerWireMockTest {
     @Test
     public void whenRequestGetPayments() throws IOException {
 
-        wireMockRule.stubFor(get(urlEqualTo("/payments"))
-            .willReturn(aResponse()
-                    .withStatus(HttpStatus.SC_OK)
-                    .withHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE)
-                    .withBody(getJSON(PAYMENTS_JSON))));
+        wireMockRule.stubFor(get(urlEqualTo("/mapping/payments"))
+                .willReturn(aResponse()
+                        .withStatus(HttpStatus.SC_OK)
+                        .withHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE)
+                        .withBody(getJSON(PAYMENTS_JSON))));
 
 
-        ResponseEntity payments = restTemplate.getForEntity(LOCAL_HOST + PORT + "/payments", String.class);
+        ResponseEntity payments = restTemplate.getForEntity(LOCAL_HOST + PORT + "/mapping/payments", String.class);
 
         assertNotNull(payments.getBody());
         assertEquals(payments.getStatusCodeValue(), 200);
         assertEquals(payments.getHeaders().getContentType().toString(), APPLICATION_JSON_UTF8_VALUE);
         assertEquals(payments.getBody(), getJSON(PAYMENTS_JSON));
 
-        wireMockRule.verify(getRequestedFor(urlEqualTo("/payments")));
+        wireMockRule.verify(getRequestedFor(urlEqualTo("/mapping/payments")));
 
     }
 
     @Test
     public void whenRequestGetFindPaymentsWithDirections() throws IOException {
 
-        wireMockRule.stubFor(get(urlEqualTo("/payments/find-all-with-direction"))
-            .willReturn(aResponse()
-                    .withStatus(HttpStatus.SC_OK)
-                    .withHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE)
-                    .withBody(getJSON(PAYMENTS_ALL_JSON))));
+        wireMockRule.stubFor(get(urlEqualTo("/mapping/payments/find-all-with-direction"))
+                .willReturn(aResponse()
+                        .withStatus(HttpStatus.SC_OK)
+                        .withHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE)
+                        .withBody(getJSON(PAYMENTS_ALL_JSON))));
 
         ResponseEntity payments = restTemplate
-                .getForEntity(LOCAL_HOST + PORT + "/payments/find-all-with-direction", String.class);
+                .getForEntity(LOCAL_HOST + PORT + "/mapping/payments/find-all-with-direction", String.class);
 
 
         assertNotNull(payments.getBody());
@@ -88,7 +88,7 @@ public class PaymentRestControllerWireMockTest {
         assertEquals(payments.getHeaders().getContentType().toString(), APPLICATION_JSON_UTF8_VALUE);
         assertEquals(payments.getBody(), getJSON(PAYMENTS_ALL_JSON));
 
-        wireMockRule.verify(getRequestedFor(urlEqualTo("/payments/find-all-with-direction")));
+        wireMockRule.verify(getRequestedFor(urlEqualTo("/mapping/payments/find-all-with-direction")));
 
     }
 
@@ -96,14 +96,14 @@ public class PaymentRestControllerWireMockTest {
     @Test
     public void whenRequestOnFindPaymentsByTicketId() throws IOException {
 
-        wireMockRule.stubFor(get(urlEqualTo("/payments/ticket/2"))
+        wireMockRule.stubFor(get(urlEqualTo("/mapping/payments/ticket/2"))
                 .willReturn(aResponse()
                         .withStatus(HttpStatus.SC_OK)
                         .withHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE)
                         .withBody(getJSON(PAYMENTS_BY_TICKET_ID_2_JSON))));
 
         ResponseEntity payments = restTemplate
-                .getForEntity(LOCAL_HOST + PORT + "/payments/ticket/2", String.class);
+                .getForEntity(LOCAL_HOST + PORT + "/mapping/payments/ticket/2", String.class);
 
 
         assertNotNull(payments.getBody());
@@ -111,26 +111,26 @@ public class PaymentRestControllerWireMockTest {
         assertEquals(payments.getHeaders().getContentType().toString(), APPLICATION_JSON_UTF8_VALUE);
         assertEquals(payments.getBody(), getJSON(PAYMENTS_BY_TICKET_ID_2_JSON));
 
-        wireMockRule.verify(getRequestedFor(urlEqualTo("/payments/ticket/2")));
+        wireMockRule.verify(getRequestedFor(urlEqualTo("/mapping/payments/ticket/2")));
     }
 
     @Test
     public void whenRequestOnPaymentsFindById() throws IOException {
 
-        wireMockRule.stubFor(get(urlEqualTo("/payments/1"))
+        wireMockRule.stubFor(get(urlEqualTo("/mapping/payments/1"))
                 .willReturn(aResponse()
                         .withStatus(HttpStatus.SC_OK)
                         .withHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE)
                         .withBody(getJSON(PAYMENTS_BY_ID_1_JSON))));
 
-        ResponseEntity payments = restTemplate.getForEntity(LOCAL_HOST + PORT + "/payments/1", String.class);
+        ResponseEntity payments = restTemplate.getForEntity(LOCAL_HOST + PORT + "/mapping/payments/1", String.class);
 
         assertNotNull(payments.getBody());
         assertEquals(payments.getStatusCodeValue(), 200);
         assertEquals(payments.getHeaders().getContentType().toString(), APPLICATION_JSON_UTF8_VALUE);
         assertEquals(payments.getBody(), getJSON(PAYMENTS_BY_ID_1_JSON));
 
-        wireMockRule.verify(getRequestedFor(urlEqualTo("/payments/1")));
+        wireMockRule.verify(getRequestedFor(urlEqualTo("/mapping/payments/1")));
     }
 
     @Test
@@ -182,36 +182,36 @@ public class PaymentRestControllerWireMockTest {
     @Test
     public void whenRequestOnDeletePayment() {
 
-        wireMockRule.stubFor(delete(urlEqualTo("/payments/1"))
+        wireMockRule.stubFor(delete(urlEqualTo("/mapping/payments/1"))
                 .willReturn((aResponse()
                         .withStatus(HttpStatus.SC_NO_CONTENT))));
 
-        restTemplate.delete(LOCAL_HOST + PORT + "/payments/1", Payment.class);
+        restTemplate.delete(LOCAL_HOST + PORT + "/mapping/payments/1", Payment.class);
 
-        wireMockRule.verify(deleteRequestedFor(urlEqualTo("/payments/1")));
+        wireMockRule.verify(deleteRequestedFor(urlEqualTo("/mapping/payments/1")));
     }
 
     @Test
     public void whenRequestOnSearchPaymentByDate() throws IOException {
 
-        wireMockRule.stubFor(get(urlEqualTo("/payments/2019-01-01/2019-12-12"))
+        wireMockRule.stubFor(get(urlEqualTo("/mapping/payments/2019-01-01/2019-12-12"))
                 .willReturn(aResponse()
                         .withStatus(HttpStatus.SC_OK)
                         .withHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE)
                         .withBody(getJSON(PAYMENTS_SEARCH_JSON))));
 
-        ResponseEntity searchPayment = restTemplate.getForEntity(LOCAL_HOST + PORT +"/payments/2019-01-01/2019-12-12", String.class);
+        ResponseEntity searchPayment = restTemplate.getForEntity(LOCAL_HOST + PORT + "/mapping/payments/2019-01-01/2019-12-12", String.class);
 
         assertNotNull(searchPayment.getBody());
         assertEquals(searchPayment.getBody(), getJSON(PAYMENTS_SEARCH_JSON));
         assertEquals(searchPayment.getStatusCodeValue(), 200);
         assertEquals(searchPayment.getHeaders().getContentType().toString(), APPLICATION_JSON_UTF8_VALUE);
 
-        wireMockRule.verify(getRequestedFor(urlEqualTo("/payments/2019-01-01/2019-12-12")));
+        wireMockRule.verify(getRequestedFor(urlEqualTo("/mapping/payments/2019-01-01/2019-12-12")));
     }
 
 
-  private String getJSON(String path) throws IOException {
+    private String getJSON(String path) throws IOException {
         String file = FileUtils.readFileToString(
                 Objects.requireNonNull(FileUtils.toFile(TestUtils.class.getClassLoader().getResource(path))),
                 String.valueOf(StandardCharsets.UTF_8));

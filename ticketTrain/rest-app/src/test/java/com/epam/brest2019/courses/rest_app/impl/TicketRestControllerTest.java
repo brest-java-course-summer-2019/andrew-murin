@@ -77,7 +77,7 @@ public class TicketRestControllerTest {
         Mockito.when(ticketService.findAll()).thenReturn(Arrays.asList(createFixture(0), createFixture(1)));
 
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/tickets")
+                MockMvcRequestBuilders.get("/mapping/tickets")
                 .accept(MediaType.APPLICATION_JSON_UTF8)
         ).andExpect(jsonPath("$[0].ticketId", Matchers.is(0)))
                 .andExpect(jsonPath("$[0].ticketCost", Matchers.is(0)))
@@ -95,7 +95,7 @@ public class TicketRestControllerTest {
                 .thenReturn(Arrays.asList(createFixtureForAllDirection(0),createFixtureForAllDirection(1)));
 
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/tickets/find-all-with-direction")
+                MockMvcRequestBuilders.get("/mapping/tickets/find-all-with-direction")
                 .accept(MediaType.APPLICATION_JSON_UTF8)
         ).andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$[0].ticketId", Matchers.is(0)))
@@ -112,7 +112,7 @@ public class TicketRestControllerTest {
         Mockito.when(ticketService.findById(id)).thenReturn(createFixture(1));
 
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/tickets/{ticketId}", 1)
+                MockMvcRequestBuilders.get("/mapping/tickets/{ticketId}", 1)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -128,7 +128,7 @@ public class TicketRestControllerTest {
         LOGGER.debug("addTicket");
 
         mockMvc.perform(
-                MockMvcRequestBuilders.post("/tickets")
+                MockMvcRequestBuilders.post("/mapping/tickets")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(objectMapper.writeValueAsString(createFixtureForAllDirection(1)))
                 .accept(MediaType.APPLICATION_JSON_UTF8))
@@ -147,7 +147,7 @@ public class TicketRestControllerTest {
         String json = new ObjectMapper().writeValueAsString(ticket);
 
         mockMvc.perform(
-                MockMvcRequestBuilders.put("/tickets")
+                MockMvcRequestBuilders.put("/mapping/tickets")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(json)
@@ -163,7 +163,7 @@ public class TicketRestControllerTest {
         Ticket ticket = createFixtureForAllDirection(1);
 
         mockMvc.perform(
-                MockMvcRequestBuilders.delete("/tickets/{ticketId}", 1))
+                MockMvcRequestBuilders.delete("/mapping/tickets/{ticketId}", 1))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
@@ -179,7 +179,7 @@ public class TicketRestControllerTest {
 
         mockMvc.perform(
                 MockMvcRequestBuilders
-                        .get("/tickets/{startDate}/{finishDate}/{directionFrom}/{directionTo}", START_DATE, FINISH_DATE, directionFrom, directionTo)
+                        .get("/mapping/tickets/{startDate}/{finishDate}/{directionFrom}/{directionTo}", START_DATE, FINISH_DATE, directionFrom, directionTo)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andDo(print())
                 .andExpect(status().isOk())

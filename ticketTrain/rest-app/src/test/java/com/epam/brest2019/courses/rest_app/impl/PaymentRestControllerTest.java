@@ -80,7 +80,7 @@ public class PaymentRestControllerTest {
         Mockito.when(paymentService.findAll()).thenReturn(Arrays.asList(createFixture(0), createFixture(1)));
 
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/payments")
+                MockMvcRequestBuilders.get("/mapping/payments")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -99,7 +99,7 @@ public class PaymentRestControllerTest {
         Mockito.when(paymentService.findAllWitchDirection()).thenReturn(Arrays.asList(createFixture(0), createFixture(1)));
 
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/payments/find-all-with-direction")
+                MockMvcRequestBuilders.get("/mapping/payments/find-all-with-direction")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -119,7 +119,7 @@ public class PaymentRestControllerTest {
         Mockito.when(paymentService.findByTicketId(id)).thenReturn(Arrays.asList(createFixture(0), createFixture(1)));
 
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/payments/ticket/{ticketId}", id)
+                MockMvcRequestBuilders.get("/mapping/payments/ticket/{ticketId}", id)
                         .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -139,7 +139,7 @@ public class PaymentRestControllerTest {
         Mockito.when(paymentService.findById(id)).thenReturn((createFixture(id)));
 
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/payments/{paymentId}", 1)
+                MockMvcRequestBuilders.get("/mapping/payments/{paymentId}", 1)
                         .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -154,7 +154,7 @@ public class PaymentRestControllerTest {
         LOGGER.debug("addPayment");
 
         mockMvc.perform(
-                MockMvcRequestBuilders.post("/payments")
+                MockMvcRequestBuilders.post("/mapping/payments")
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(objectMapper.writeValueAsString(createFixture(1)))
                 .accept(MediaType.APPLICATION_JSON_UTF8))
@@ -172,7 +172,7 @@ public class PaymentRestControllerTest {
         String json = objectMapper.writeValueAsString(payment);
 
         mockMvc.perform(
-                MockMvcRequestBuilders.put("/payments")
+                MockMvcRequestBuilders.put("/mapping/payments")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(json)
@@ -183,7 +183,7 @@ public class PaymentRestControllerTest {
     void deletePayment() throws Exception {
         LOGGER.debug("deletePayment");
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("/payments/{paymentId}", 1))
+        mockMvc.perform(MockMvcRequestBuilders.delete("/mapping/payments/{paymentId}", 1))
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
         Mockito.verify(paymentService, Mockito.times(1)).delete(any());
@@ -197,7 +197,7 @@ public class PaymentRestControllerTest {
         Mockito.when(paymentService.searchByDate(START_DATE, FINISH_DATE)).thenReturn(Arrays.asList(createFixture(1)));
 
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/payments/{startDate}/{finishDate}", START_DATE, FINISH_DATE)
+                MockMvcRequestBuilders.get("/mapping/payments/{startDate}/{finishDate}", START_DATE, FINISH_DATE)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andDo(print())
                 .andExpect(status().isOk())
