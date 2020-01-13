@@ -217,5 +217,4 @@ public class PaymentRestControllerWireMockTest {
                 String.valueOf(StandardCharsets.UTF_8));
         return file;
     }
-
 }
