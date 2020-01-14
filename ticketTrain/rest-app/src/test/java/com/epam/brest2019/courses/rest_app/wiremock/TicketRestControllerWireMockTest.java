@@ -1,5 +1,6 @@
 package com.epam.brest2019.courses.rest_app.wiremock;
 
+import com.epam.brest2019.courses.model.Ticket;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.mysql.cj.util.TestUtils;
 import org.junit.Rule;
@@ -36,8 +37,9 @@ public class TicketRestControllerWireMockTest {
     private static final String TICKETS_ALL_JSON = "mapping/tickets/tickets_all.json";
     private static final String TICKETS_BY_ID_3_JSON = "mapping/tickets/tickets_by_Id_3.json";
     private static final String TICKETS_ADD_JSON = "mapping/tickets/tickets_add.json";
-    private static final String TICKETS_SEARCH_JSON = "mapping/tickets/tickets_search.json";
     private static final String TICKETS_UPDATE_JSON = "mapping/tickets/tickets_update.json";
+    private static final String TICKETS_SEARCH_JSON = "mapping/tickets/tickets_search.json";
+
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -129,13 +131,13 @@ public class TicketRestControllerWireMockTest {
 
     }
 
-    //TODO trouble with put-query
+    //TODO trouble run together with searchByDate
     @Test
     public void whenRequestOnUpdateTicket() throws IOException {
 
         wireMockRule.stubFor(put(urlEqualTo("/tickets"))
                 .willReturn((aResponse()
-                        .withStatus(HttpStatus.SC_ACCEPTED)
+                        .withStatus(HttpStatus.SC_OK)
                         .withHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE)
                         .withBody(getJSON(TICKETS_UPDATE_JSON)))));
 
@@ -143,10 +145,12 @@ public class TicketRestControllerWireMockTest {
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         HttpEntity<String> ticketUpdate = new HttpEntity<>(getJSON(TICKETS_UPDATE_JSON), headers);
 
-        restTemplate.put(LOCAL_HOST + PORT + "/tickets", ticketUpdate);
+        restTemplate.put(LOCAL_HOST + PORT + "/tickets", new Ticket());
 
         wireMockRule.verify(putRequestedFor(urlEqualTo("/tickets")));
     }
+
+
 
     @Test
     public void whenRequestOnDeleteTicket() {
@@ -163,21 +167,21 @@ public class TicketRestControllerWireMockTest {
     @Test
     public void whenRequestOnSearchTicketsByDateAndDirections() throws IOException {
 
-        wireMockRule.stubFor(get(urlEqualTo("/tickets/2019-01-01/2019-12-12/3/4"))
+        wireMockRule.stubFor(get(urlEqualTo("/tickets/2019-09-26/2019-09-27/3/4"))
                 .willReturn(aResponse()
                         .withStatus(HttpStatus.SC_OK)
                         .withHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE)
                         .withBody(getJSON(TICKETS_SEARCH_JSON))));
 
         ResponseEntity searchPayment = restTemplate
-                .getForEntity(LOCAL_HOST + PORT + "/tickets/2019-01-01/2019-12-12/3/4", String.class);
+                .getForEntity(LOCAL_HOST + PORT + "/tickets/2019-09-26/2019-09-27/3/4", String.class);
 
         assertNotNull(searchPayment.getBody());
         assertEquals(searchPayment.getBody(), getJSON(TICKETS_SEARCH_JSON));
         assertEquals(searchPayment.getStatusCodeValue(), 200);
         assertEquals(searchPayment.getHeaders().getContentType().toString(), APPLICATION_JSON_UTF8_VALUE);
 
-        wireMockRule.verify(getRequestedFor(urlEqualTo("/tickets/2019-01-01/2019-12-12/3/4")));
+        wireMockRule.verify(getRequestedFor(urlEqualTo("/tickets/2019-09-26/2019-09-27/3/4")));
     }
 
 
