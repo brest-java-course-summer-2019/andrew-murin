@@ -2,7 +2,6 @@ package com.epam.brest2019.courses.web_app;
 
 import com.epam.brest2019.courses.web_app.consumers.PaymentRestConsumer;
 import com.epam.brest2019.courses.web_app.consumers.TicketRestConsumer;
-import com.epam.brest2019.courses.web_app.validators.PaymentValidator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

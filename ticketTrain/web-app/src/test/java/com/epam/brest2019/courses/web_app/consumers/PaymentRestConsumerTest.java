@@ -1,138 +1,127 @@
 package com.epam.brest2019.courses.web_app.consumers;
 
-import com.epam.brest2019.courses.model.City;
 import com.epam.brest2019.courses.model.Payment;
-import com.epam.brest2019.courses.model.Ticket;
-import org.junit.Assert;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 import org.springframework.web.client.RestTemplate;
+import wiremock.org.apache.http.HttpStatus;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import static org.mockito.MockitoAnnotations.initMocks;
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
 public class PaymentRestConsumerTest {
 
-    @Mock
-    private RestTemplate mockRestTemplate;
+//    @Autowired
+    private RestTemplate restTemplate = new RestTemplate();
 
+//    @Autowired
     private PaymentRestConsumer paymentRestConsumerTest;
 
     private Payment payment;
 
+    private static final int PORT = 9999;
+    private static final String LOCAL_HOST = "http://localhost:";
+
+    @Rule
+    public WireMockRule wireMockRule = new WireMockRule(PORT);
 
     private static final LocalDate START_DATE = LocalDate.of(2019,01,01);
     private static final LocalDate FINISH_DATE = LocalDate.of(2019,12,12);
 
-    @BeforeEach
-    void setUp() {
-        initMocks(this);
-        paymentRestConsumerTest = new PaymentRestConsumer("url", mockRestTemplate);
+    @Before
+    public void setUp() {
+        paymentRestConsumerTest = new PaymentRestConsumer(LOCAL_HOST + PORT, restTemplate);
     }
 
     @Test
-    void findAll() {
-        List<Payment> payments = Arrays.asList();
-        Mockito.when(mockRestTemplate.getForEntity("url/", List.class))
-                .thenReturn(new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK));
+    public void findAll() {
 
-        List<Payment> payment =  paymentRestConsumerTest.findAll();
+        wireMockRule.stubFor(get(urlEqualTo("/payments"))
+                .willReturn(aResponse()
+                        .withStatus(200)));
 
-        Assert.assertEquals(payments,payment);
+        List<Payment> payments = paymentRestConsumerTest.findAll();
+
+        wireMockRule.verify(getRequestedFor(urlEqualTo("/payments")));
     }
 
     @Test
-    void findAllWithDirection() {
-        List<Payment> payments = Arrays.asList();
+    public void findAllWithDirection() {
 
-        Mockito.when(mockRestTemplate.getForEntity("url/find-all-with-direction", List.class))
-                .thenReturn(new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK));
+        wireMockRule.stubFor(get(urlEqualTo("/find-all-with-direction"))
+                .willReturn(aResponse()
+                        .withStatus(200)));
 
         List<Payment> payment = paymentRestConsumerTest.findAllWitchDirection();
 
-        Assert.assertEquals(payments, payment);
+        wireMockRule.verify(getRequestedFor(urlEqualTo("/find-all-with-direction")));
+//        Assert.assertEquals(payments, payment);
     }
 
     @Test
-    void findById() {
-        Payment payments = createPaymentFixture(1);
+    public void findById() {
 
-        Mockito.when(mockRestTemplate.getForEntity("url/" + 1, Payment.class))
-                .thenReturn(new ResponseEntity<>(createPaymentFixture(1), HttpStatus.OK));
+        wireMockRule.stubFor(get(urlEqualTo("/3"))
+                .willReturn(aResponse()
+                        .withStatus(200)));
 
-        Payment payment = paymentRestConsumerTest.findById(1);
 
-        Assert.assertEquals(payments.getPaymentId(), payment.getPaymentId());
-        Assert.assertEquals(payments.getPaymentDate(), payment.getPaymentDate());
+        Payment payment = paymentRestConsumerTest.findById(3);
+
+        wireMockRule.verify(getRequestedFor(urlEqualTo("/3")));
     }
 
     @Test
-    void add() {
-        Mockito.when(mockRestTemplate.postForEntity("url", payment, Payment.class))
-                .thenReturn(new ResponseEntity<>(createPaymentFixture(1), HttpStatus.OK));
+    public void add() {
+        wireMockRule.stubFor(post(urlEqualTo("/"))
+                .willReturn((aResponse()
+                                .withStatus(HttpStatus.SC_CREATED))));
 
         paymentRestConsumerTest.add(payment);
+
+        wireMockRule.verify(postRequestedFor(urlEqualTo("/")));
     }
 
     @Test
-    void update() {
+    public void update() {
+
+        wireMockRule.stubFor(put(urlEqualTo("/"))
+                .willReturn((aResponse()
+                                .withStatus(HttpStatus.SC_ACCEPTED))));
+
+
         paymentRestConsumerTest.update(payment);
 
-        Mockito.verify(mockRestTemplate).put("url", payment);
+        wireMockRule.verify(putRequestedFor(urlEqualTo("/")));
+    }
+
+
+    @Test
+    public void deletee() {
+
+        wireMockRule.stubFor(delete(urlEqualTo("/1"))
+                .willReturn((aResponse()
+                        .withStatus(HttpStatus.SC_NO_CONTENT))));
+
+        paymentRestConsumerTest.delete(1);
+
+        wireMockRule.verify(deleteRequestedFor(urlEqualTo("/1")));
     }
 
     @Test
-    void delete() {
-        int id = 1;
+    public void searchByDate() {
 
-        Payment payment = createPaymentFixture(id);
-
-        paymentRestConsumerTest.delete(id);
-
-        Mockito.verify(mockRestTemplate).delete("url/" + id);
-    }
-
-    @Test
-    void searchByDate() {
-        List<Payment> payments = Arrays.asList();
-
-        Mockito.when(mockRestTemplate.getForEntity("url/" + START_DATE + "/" + FINISH_DATE, List.class))
-                .thenReturn(new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK));
+        wireMockRule.stubFor(get(urlEqualTo("/2019-01-01/2019-12-12"))
+                .willReturn(aResponse()
+                                .withStatus(HttpStatus.SC_OK)));
 
         List<Payment> payment = paymentRestConsumerTest.searchByDate(START_DATE, FINISH_DATE);
 
-        Assert.assertEquals(payments, payment);
+        wireMockRule.verify(getRequestedFor(urlEqualTo("/2019-01-01/2019-12-12")));
     }
 
-    private Payment createPaymentFixture(int id) {
-        Payment payment = new Payment();
-        Ticket ticket = new Ticket();
-        City city = new City();
-
-        payment.setPaymentId(1);
-        payment.setPaymentDate(LocalDate.now());
-
-        ticket.setTicketId(id);
-        ticket.setTicketCost(new BigDecimal(12));
-        ticket.setTicketDate(LocalDate.now());
-
-        city.setCityId(1);
-        ticket.setFromCity(city);
-
-        city.setCityId(2);
-        ticket.setToCity(city);
-
-        payment.setTicketId(ticket);
-
-        return payment;
-    }
 }
