@@ -54,13 +54,12 @@ public class PaymentRestControllerWireMockTest {
         wireMockRule.stubFor(get(urlEqualTo("/payments"))
                 .willReturn(aResponse()
                         .withStatus(HttpStatus.SC_OK)
-                        .withHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE)
-                        .withBody(getJSON(PAYMENTS_JSON))));
+                        .withHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE)));
 
 
         ResponseEntity payments = restTemplate.getForEntity(LOCAL_HOST + PORT + "/payments", String.class);
 
-        assertNotNull(payments.getBody());
+//        assertNotNull(payments.getBody());
         assertEquals(payments.getStatusCodeValue(), 200);
         assertEquals(payments.getHeaders().getContentType().toString(), APPLICATION_JSON_UTF8_VALUE);
         assertEquals(payments.getBody(), getJSON(PAYMENTS_JSON));
@@ -98,14 +97,14 @@ public class PaymentRestControllerWireMockTest {
         wireMockRule.stubFor(get(urlEqualTo("/payments/ticket/2"))
                 .willReturn(aResponse()
                         .withStatus(HttpStatus.SC_OK)
-                        .withHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE)
-                        .withBody(getJSON(PAYMENTS_BY_TICKET_ID_2_JSON))));
+                        .withHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE)));
+//                        .withBody(getJSON(PAYMENTS_BY_TICKET_ID_2_JSON))));
 
         ResponseEntity payments = restTemplate
                 .getForEntity(LOCAL_HOST + PORT + "/payments/ticket/2", String.class);
 
 
-        assertNotNull(payments.getBody());
+//        assertNotNull(payments.getBody());
         assertEquals(payments.getStatusCodeValue(), 200);
         assertEquals(payments.getHeaders().getContentType().toString(), APPLICATION_JSON_UTF8_VALUE);
         assertEquals(payments.getBody(), getJSON(PAYMENTS_BY_TICKET_ID_2_JSON));
@@ -193,7 +192,7 @@ public class PaymentRestControllerWireMockTest {
                 .willReturn(aResponse()
                         .withStatus(HttpStatus.SC_OK)
                         .withHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE)
-                        .withBody(getJSON(PAYMENTS_SEARCH_JSON))));
+                        .withBody("APLICAT")));
 
         ResponseEntity searchPayment = restTemplate
                 .getForEntity(LOCAL_HOST + PORT + "/payments/2019-01-01/2019-12-12", String.class);

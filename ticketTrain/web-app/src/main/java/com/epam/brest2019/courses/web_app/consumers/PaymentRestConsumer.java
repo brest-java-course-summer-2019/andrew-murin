@@ -29,7 +29,6 @@ public class PaymentRestConsumer implements PaymentService {
         this.restTemplate = restTemplate;
     }
 
-
     @Override
     public List<Payment> findAll() {
         LOGGER.debug("Find all payments");
