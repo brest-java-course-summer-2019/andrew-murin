@@ -23,7 +23,7 @@ public class PaymentRestConsumer implements PaymentService {
     public PaymentRestConsumer() {
     }
 
-    @Autowired
+
     public PaymentRestConsumer(String url, RestTemplate restTemplate) {
         this.url = url;
         this.restTemplate = restTemplate;
@@ -32,7 +32,7 @@ public class PaymentRestConsumer implements PaymentService {
     @Override
     public List<Payment> findAll() {
         LOGGER.debug("Find all payments");
-        ResponseEntity responseEntity = restTemplate.getForEntity(url + "/payments", List.class);
+        ResponseEntity responseEntity = restTemplate.getForEntity(url + "/", List.class);
         return (List<Payment>) responseEntity.getBody();
     }
 

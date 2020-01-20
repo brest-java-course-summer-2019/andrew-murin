@@ -15,6 +15,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
 
 
 /**
@@ -183,5 +184,22 @@ public class Payment implements Serializable {
      */
     public void setTicketCount(Long ticketCount) {
         this.ticketCount = ticketCount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Payment)) return false;
+        Payment payment = (Payment) o;
+        return Objects.equals(getPaymentId(), payment.getPaymentId()) &&
+                Objects.equals(getPaymentDate(), payment.getPaymentDate()) &&
+                Objects.equals(getTicketId(), payment.getTicketId()) &&
+                Objects.equals(getTicketCost(), payment.getTicketCost()) &&
+                Objects.equals(getTicketCount(), payment.getTicketCount());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getPaymentId(), getPaymentDate(), getTicketId(), getTicketCost(), getTicketCount());
     }
 }
