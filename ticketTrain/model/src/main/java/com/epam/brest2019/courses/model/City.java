@@ -1,13 +1,11 @@
 package com.epam.brest2019.courses.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * POJO City for model
@@ -103,5 +101,19 @@ public class City implements Serializable {
         this.cityName = cityName;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        City city = (City) o;
+        return Objects.equals(cityId, city.cityId) &&
+                Objects.equals(cityName, city.cityName) &&
+                Objects.equals(cityFrom, city.cityFrom) &&
+                Objects.equals(cityTo, city.cityTo);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(cityId, cityName, cityFrom, cityTo);
+    }
 }

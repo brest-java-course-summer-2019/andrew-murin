@@ -2,8 +2,6 @@ package com.epam.brest2019.courses.web_app.consumers;
 
 import com.epam.brest2019.courses.model.Payment;
 import com.epam.brest2019.courses.web_app.consumers.config.ConsumerConfiguration;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.mysql.cj.util.TestUtils;
 import org.junit.Before;
@@ -12,7 +10,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
@@ -27,7 +24,6 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static junit.framework.TestCase.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 
@@ -53,11 +49,11 @@ public class PaymentRestConsumerTest {
     private static final String PAYMENTS_UPDATE_JSON = "mapping/payments/payments_update.json";
     private static final String PAYMENTS_SEARCH_JSON = "mapping/payments/payment_search.json";
 
-    @Rule
-    public WireMockRule wireMockRule = new WireMockRule(PORT);
-
     private static final LocalDate START_DATE = LocalDate.of(2019,01,01);
     private static final LocalDate FINISH_DATE = LocalDate.of(2019,12,12);
+
+    @Rule
+    public WireMockRule wireMockRule = new WireMockRule(PORT);
 
     @Before
     public void setUp() {
@@ -132,7 +128,7 @@ public class PaymentRestConsumerTest {
     @Test
     public void update() throws IOException {
 
-        wireMockRule.stubFor(put("/")
+        wireMockRule.stubFor(put("/payments")
                 .willReturn((aResponse()
                         .withStatus(HttpStatus.SC_ACCEPTED)
                         .withHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE)
@@ -140,7 +136,7 @@ public class PaymentRestConsumerTest {
 
         paymentRestConsumerTest.update(payment);
 
-        wireMockRule.verify(putRequestedFor(urlEqualTo("/")));
+        wireMockRule.verify(putRequestedFor(urlEqualTo("/payments")));
     }
 
     @Test

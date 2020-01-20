@@ -19,19 +19,4 @@ public class ConsumerConfiguration {
         restTemplate.getMessageConverters().add(mappingJackson2HttpMessageConverter);
         return  restTemplate;
     }
-
-//    @Autowired
-//    private ObjectMapper objectMapper;
-//
-//    @Bean
-//    public RestTemplate restTemplate() {
-//        RestTemplate restTemplate = new RestTemplate();
-//        List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
-//        MappingJackson2HttpMessageConverter jsonMessageConveter = new MappingJackson2HttpMessageConverter();
-//        jsonMessageConveter.setObjectMapper(objectMapper);
-//        messageConverters.add(jsonMessageConveter);
-//        restTemplate.setMessageConverters(messageConverters);
-//        return restTemplate;
-//    }
-
 }

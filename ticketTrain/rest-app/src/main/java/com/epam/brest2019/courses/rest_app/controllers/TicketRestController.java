@@ -46,7 +46,7 @@ public class TicketRestController {
         ticketService.add(ticket);
     }
 
-    @PutMapping("/tickets")
+    @PutMapping("/tickets/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void update(@RequestBody Ticket ticket) {
         LOGGER.debug("Update ticket ({})", ticket);

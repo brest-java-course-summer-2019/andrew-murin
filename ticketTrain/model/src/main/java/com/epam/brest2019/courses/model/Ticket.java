@@ -13,6 +13,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * POJO Ticket for model.
@@ -151,4 +152,20 @@ public class Ticket implements Serializable {
         this.toCity = toCity;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ticket ticket = (Ticket) o;
+        return Objects.equals(ticketId, ticket.ticketId) &&
+                Objects.equals(ticketCost, ticket.ticketCost) &&
+                Objects.equals(ticketDate, ticket.ticketDate) &&
+                Objects.equals(fromCity, ticket.fromCity) &&
+                Objects.equals(toCity, ticket.toCity);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ticketId, ticketCost, ticketDate, fromCity, toCity);
+    }
 }
