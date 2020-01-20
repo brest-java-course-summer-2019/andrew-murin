@@ -2,6 +2,7 @@ package com.epam.brest2019.courses.web_app.consumers;
 
 import com.epam.brest2019.courses.model.Payment;
 import com.epam.brest2019.courses.web_app.consumers.config.ConsumerConfiguration;
+import com.github.tomakehurst.wiremock.http.Fault;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.mysql.cj.util.TestUtils;
 import org.junit.Before;
@@ -114,6 +115,7 @@ public class PaymentRestConsumerTest {
 
     @Test
     public void add() throws IOException {
+
         wireMockRule.stubFor(post("/")
                 .willReturn((aResponse()
                         .withStatus(HttpStatus.SC_CREATED)
@@ -167,6 +169,36 @@ public class PaymentRestConsumerTest {
         wireMockRule.verify(getRequestedFor(urlEqualTo("/2019-01-01/2019-12-12")));
     }
 
+
+    //Tests at bad case
+    @Test
+    public void faultPayments() {
+
+        wireMockRule.stubFor(get(urlEqualTo("/payments/fault"))
+                .willReturn(aResponse()
+                        .withStatus(HttpStatus.SC_BAD_REQUEST)
+                        .withFault(Fault.MALFORMED_RESPONSE_CHUNK)));
+
+        try {
+            restTemplate.getForEntity(LOCAL_HOST + PORT + "/payments/fault", Payment.class);
+        } catch (Exception ignored) { }
+
+        wireMockRule.verify(getRequestedFor(urlEqualTo("/payments/fault")));
+    }
+
+    @Test
+    public void errorByDeletePayments() {
+
+        wireMockRule.stubFor(get(urlEqualTo("/payments/10000000"))
+                .willReturn(aResponse()
+                        .withStatus(HttpStatus.SC_NOT_FOUND)));
+
+        try {
+            restTemplate.getForEntity(LOCAL_HOST + PORT + "/payments/10000000", Payment.class);
+        } catch (Exception ignored) { }
+
+        wireMockRule.verify(getRequestedFor(urlEqualTo("/payments/10000000")));
+    }
 
 
     private String getJSON(String path) throws IOException {
