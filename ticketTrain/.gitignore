@@ -29,6 +29,7 @@ web-app/target
 rest-app/target
 ticketTrain/
 
+com/epam/brest2019/courses/web_app/consumers/bararar.txt
 
 # Package Files #
 *.jar

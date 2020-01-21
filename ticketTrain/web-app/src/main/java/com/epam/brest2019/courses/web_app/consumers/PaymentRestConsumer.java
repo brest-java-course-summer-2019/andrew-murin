@@ -15,7 +15,7 @@ public class PaymentRestConsumer implements PaymentService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PaymentRestConsumer.class);
 
-
+    //Hi Klim
     private String url;
 
     private RestTemplate restTemplate;
