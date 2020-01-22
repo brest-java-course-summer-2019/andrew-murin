@@ -55,7 +55,7 @@ public class PaymentRestController {
         paymentService.add(payment);
     }
 
-    @PutMapping("/payments")
+    @PutMapping("/payments/")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void updatePayment(@RequestBody Payment payment) {
         LOGGER.debug("Update payment ({})", payment);

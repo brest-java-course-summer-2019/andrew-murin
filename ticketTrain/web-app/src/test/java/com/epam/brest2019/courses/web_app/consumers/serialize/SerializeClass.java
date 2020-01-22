@@ -17,9 +17,9 @@ public class SerializeClass {
 
     /**
      * Serialize String value to List<T>
-     * @param fileJSON
+     * @param fileJSON - path to file
      * @param <T>
-     * @return
+     * @return new List of objects
      * @throws IOException
      */
     public static  <T> T convertMapperList(String fileJSON) throws IOException {
@@ -34,7 +34,7 @@ public class SerializeClass {
      * @param fileJSON
      * @param clazz
      * @param <T>
-     * @return
+     * @return new Object
      * @throws IOException
      */
     public static  <T> T convertMapperObject(String fileJSON, Class<?> clazz) throws IOException {
@@ -44,14 +44,14 @@ public class SerializeClass {
 
     /**
      * Read the file and write to String value
-     * @param path
-     * @return
+     * @param path to file
+     * @return new string
      * @throws IOException
      */
     public static String getJSON(String path) throws IOException {
-        String file = FileUtils.readFileToString(
+
+        return  FileUtils.readFileToString(
                 Objects.requireNonNull(FileUtils.toFile(TestUtils.class.getClassLoader().getResource(path))),
                 String.valueOf(StandardCharsets.UTF_8));
-        return file;
     }
 }

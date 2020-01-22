@@ -9,11 +9,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.http.HttpHeaders;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
-import wiremock.org.apache.http.HttpHeaders;
 import wiremock.org.apache.http.HttpStatus;
 
 import java.io.IOException;
@@ -22,7 +21,7 @@ import java.util.List;
 
 import static com.epam.brest2019.courses.web_app.consumers.serialize.SerializeClass.*;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 
 @RunWith(SpringRunner.class)
@@ -43,12 +42,12 @@ public class PaymentRestConsumerTest {
     private static final LocalDate START_DATE = LocalDate.of(2019,01,01);
     private static final LocalDate FINISH_DATE = LocalDate.of(2019,12,12);
 
-    @Autowired
-    private RestTemplate restTemplate;
+    private Payment payment;
 
     private PaymentRestConsumer paymentRestConsumerTest;
 
-    private Payment payment;
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Rule
     public WireMockRule wireMockRule = new WireMockRule(PORT);
@@ -64,14 +63,12 @@ public class PaymentRestConsumerTest {
         wireMockRule.stubFor(get("/")
                 .willReturn(aResponse()
                         .withStatus(HttpStatus.SC_OK)
-                        .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE)
+                        .withHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE)
                         .withBody(getJSON(PAYMENTS_JSON))));
 
         List<Payment> payments = paymentRestConsumerTest.findAll();
         List<Payment> paymentList = convertMapperList(getJSON(PAYMENTS_JSON));
-//        List<Payment> payment = new PaymentRestConsumer(LOCAL_HOST + 8088 + "/payments", restTemplate).findAll();
 
-//        assertEquals(payments,payment);
         assertEquals(payments,paymentList);
         wireMockRule.verify(getRequestedFor(urlEqualTo("/")));
     }
@@ -82,15 +79,12 @@ public class PaymentRestConsumerTest {
         wireMockRule.stubFor(get("/find-all-with-direction")
                 .willReturn(aResponse()
                         .withStatus(HttpStatus.SC_OK)
-                        .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE)
+                        .withHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE)
                         .withBody(getJSON(PAYMENTS_ALL_JSON))));
 
         List<Payment> payments = paymentRestConsumerTest.findAllWitchDirection();
         List<Payment> paymentList = convertMapperList(getJSON(PAYMENTS_ALL_JSON));
-//        List<Payment> payment =
-//                new PaymentRestConsumer(LOCAL_HOST + 8088 + "/payments", restTemplate).findAllWitchDirection();
 
-//        assertEquals(paymentList, payment);
         assertEquals(payments, paymentList);
         wireMockRule.verify(getRequestedFor(urlEqualTo("/find-all-with-direction")));
     }
@@ -101,16 +95,12 @@ public class PaymentRestConsumerTest {
         wireMockRule.stubFor(get("/1")
                 .willReturn(aResponse()
                         .withStatus(HttpStatus.SC_OK)
-                        .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE)
+                        .withHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE)
                         .withBody(getJSON(PAYMENTS_BY_ID_1_JSON))));
-
 
         Payment payment = paymentRestConsumerTest.findById(1);
         Payment payments = convertMapperObject(getJSON(PAYMENTS_BY_ID_1_JSON), Payment.class);
-//        Payment paymentss =
-//                new PaymentRestConsumer(LOCAL_HOST + 8088 + "/payments", restTemplate).findById(1);
 
-//        assertEquals(payment, paymentss);
         assertEquals(payment, payments);
         wireMockRule.verify(getRequestedFor(urlEqualTo("/1")));
     }
@@ -129,19 +119,29 @@ public class PaymentRestConsumerTest {
         wireMockRule.verify(postRequestedFor(urlEqualTo("/")));
     }
 
-//    @Test
-//    public void update() throws IOException {
-//
-//        wireMockRule.stubFor(put("/payments")
-//                .willReturn((aResponse()
-//                        .withStatus(HttpStatus.SC_ACCEPTED)
-//                        .withHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE)
-//                        .withBody(getJSON(PAYMENTS_UPDATE_JSON)))));
-//
-//        paymentRestConsumerTest.update(payment);
-//
-//        wireMockRule.verify(putRequestedFor(urlEqualTo("/payments")));
-//    }
+    @Test
+    public void update() throws IOException {
+
+        wireMockRule.stubFor(get("/1")
+                .willReturn(aResponse()
+                        .withStatus(HttpStatus.SC_OK)
+                        .withHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE)
+                        .withBody(getJSON(PAYMENTS_BY_ID_1_JSON))));
+
+        wireMockRule.stubFor(put("/")
+                .willReturn((aResponse()
+                        .withStatus(HttpStatus.SC_OK)
+                        .withHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE))));
+
+
+        payment = paymentRestConsumerTest.findById(1);
+        payment.setPaymentDate(LocalDate.of(2020, 10, 10));
+
+        paymentRestConsumerTest.update(payment);
+
+        wireMockRule.verify(getRequestedFor(urlEqualTo("/1")));
+        wireMockRule.verify(putRequestedFor(urlEqualTo("/")));
+    }
 
     @Test
     public void deletePayment() {
@@ -166,11 +166,9 @@ public class PaymentRestConsumerTest {
 
         List<Payment> payment = paymentRestConsumerTest.searchByDate(START_DATE, FINISH_DATE);
         List<Payment> paymentList = convertMapperList(getJSON(PAYMENTS_SEARCH_JSON));
-//        List<Payment> payments = new PaymentRestConsumer(LOCAL_HOST + 8088 + "/payments", restTemplate).
-//                searchByDate(START_DATE, FINISH_DATE);
 
-//        assertEquals(payment, payments);
         assertEquals(payment, paymentList);
+
         wireMockRule.verify(getRequestedFor(urlEqualTo("/2019-01-01/2019-12-12")));
     }
 
@@ -203,4 +201,5 @@ public class PaymentRestConsumerTest {
 
         wireMockRule.verify(getRequestedFor(urlEqualTo("/payments/10000000")));
     }
+
 }

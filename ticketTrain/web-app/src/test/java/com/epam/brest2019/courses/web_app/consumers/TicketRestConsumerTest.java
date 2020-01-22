@@ -16,6 +16,7 @@ import wiremock.org.apache.http.HttpHeaders;
 import wiremock.org.apache.http.HttpStatus;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -41,12 +42,13 @@ public class TicketRestConsumerTest {
     private static final LocalDate START_DATE = LocalDate.of(2019, 9, 26);
     private static final LocalDate FINISH_DATE = LocalDate.of(2019, 9, 27);
 
-    @Autowired
-    private RestTemplate restTemplate;
+
+    private Ticket ticket;
 
     private TicketRestConsumer ticketRestConsumerTest;
 
-    private Ticket ticket;
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Rule
     public WireMockRule wireMockRule = new WireMockRule(PORT);
@@ -68,10 +70,6 @@ public class TicketRestConsumerTest {
         List<Ticket> ticket = ticketRestConsumerTest.findAll();
         List<Ticket> ticketList = convertMapperList(getJSON(TICKETS_JSON));
 
-
-//        List<Ticket> tickets = new TicketRestConsumer(LOCAL_HOST + 8088 + "/tickets", restTemplate).findAll();
-
-//        assertEquals(ticket,tickets);
         assertEquals(ticket,ticketList);
         wireMockRule.verify(getRequestedFor(urlEqualTo("/")));
     }
@@ -87,10 +85,7 @@ public class TicketRestConsumerTest {
 
         List<Ticket> ticket = ticketRestConsumerTest.findAllWithDirection();
         List<Ticket> ticketList = convertMapperList(getJSON(TICKETS_ALL_JSON));
-//        List<Ticket> tickets =
-//                new TicketRestConsumer(LOCAL_HOST + 8088 + "/tickets", restTemplate).findAllWithDirection();
 
-//        assertEquals(tickets,ticket);
         assertEquals(ticket,ticketList);
         wireMockRule.verify(getRequestedFor(urlEqualTo("/find-all-with-direction")));
     }
@@ -106,9 +101,7 @@ public class TicketRestConsumerTest {
 
         Ticket ticket = ticketRestConsumerTest.findById(3);
         Ticket ticketSingleList = convertMapperObject(getJSON(TICKETS_BY_ID_3_JSON), Ticket.class);
-//        Ticket tickets = new TicketRestConsumer(LOCAL_HOST + 8088 + "/tickets", restTemplate).findById(3);
 
-//        assertEquals(ticket, ticket);
         assertEquals(ticket, ticketSingleList);
         wireMockRule.verify(getRequestedFor(urlEqualTo("/3")));
     }
@@ -139,21 +132,29 @@ public class TicketRestConsumerTest {
         wireMockRule.verify(deleteRequestedFor(urlEqualTo("/1")));
     }
 
-//    @Test
-//    public void update() throws IOException {
-//
-//        wireMockRule.stubFor(put("/2")
-//                .willReturn((aResponse()
-//                        .withStatus(HttpStatus.SC_ACCEPTED)
-//                        .withHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE)
-//                        .withBody(getJSON(TICKETS_UPDATE_JSON)))));
-//
-//        Ticket ticket = new TicketRestConsumer(LOCAL_HOST + 8088 + "/tickets", restTemplate).findById(2);
-//        ticket.setTicketCost(new BigDecimal(7.55));
-//        ticketRestConsumerTest.update(ticket);
-//
-//        wireMockRule.verify(putRequestedFor(urlEqualTo("/2")));
-//    }
+    @Test
+    public void update() throws IOException {
+
+        wireMockRule.stubFor(get("/3")
+                .willReturn(aResponse()
+                        .withStatus(HttpStatus.SC_OK)
+                        .withHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE)
+                        .withBody(getJSON(TICKETS_BY_ID_3_JSON))));
+
+        wireMockRule.stubFor(put("/")
+                .willReturn((aResponse()
+                        .withStatus(HttpStatus.SC_ACCEPTED)
+                        .withHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE)
+                        .withBody(getJSON(TICKETS_UPDATE_JSON)))));
+
+        ticket = ticketRestConsumerTest.findById(3);
+        ticket.setTicketCost(new BigDecimal(4.44));
+
+        ticketRestConsumerTest.update(ticket);
+
+        wireMockRule.verify(getRequestedFor(urlEqualTo("/3")));
+        wireMockRule.verify(putRequestedFor(urlEqualTo("/")));
+    }
 
     @Test
     public void searchTicket() throws IOException {
@@ -161,14 +162,11 @@ public class TicketRestConsumerTest {
                 .willReturn(aResponse()
                         .withStatus(HttpStatus.SC_OK)
                         .withHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE)
-                        .withBody((String) getJSON(TICKETS_SEARCH_JSON))));
+                        .withBody(getJSON(TICKETS_SEARCH_JSON))));
 
         List<Ticket> ticket = ticketRestConsumerTest.searchTicket(START_DATE, FINISH_DATE, 3,4);
         List<Ticket> ticketList = convertMapperList(getJSON(TICKETS_SEARCH_JSON));
-//        List<Ticket> tickets = new TicketRestConsumer(LOCAL_HOST + 8088 + "/tickets", restTemplate)
-//                .searchTicket(START_DATE, FINISH_DATE, 3,4);
 
-//        assertEquals(ticket, tickets);
         assertEquals(ticket, ticketList);
         wireMockRule.verify(getRequestedFor(urlEqualTo("/2019-09-26/2019-09-27/3/4")));
 
