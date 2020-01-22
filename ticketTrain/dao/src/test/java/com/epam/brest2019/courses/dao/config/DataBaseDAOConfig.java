@@ -8,7 +8,6 @@ import com.epam.brest2019.courses.dao.TicketDaoJdbcImpl;
 import com.epam.brest2019.courses.test_db.DataBaseConfig;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -18,8 +17,6 @@ import org.springframework.test.context.ContextConfiguration;
 @Configuration
 @ComponentScan(basePackageClasses = DataBaseConfig.class)
 @ContextConfiguration(classes = DataBaseConfig.class)
-@ComponentScan("com.epam.brest2019.courses.test-db")
-@EnableAutoConfiguration
 public class DataBaseDAOConfig {
 
     @Autowired

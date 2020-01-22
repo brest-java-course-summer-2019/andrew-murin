@@ -4,7 +4,6 @@ import com.epam.brest2019.courses.model.Payment;
 import com.epam.brest2019.courses.service.PaymentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -15,7 +14,6 @@ public class PaymentRestConsumer implements PaymentService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PaymentRestConsumer.class);
 
-    //Hi Klim
     private String url;
 
     private RestTemplate restTemplate;
