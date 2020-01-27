@@ -72,7 +72,7 @@
                 <div class="card-body">
                     <form id ="FormSearchDate"
                           method="post"
-                          action="/search-tickets"
+                          action="/search-tickets">
 
                         <tr>
                             <div class="form-group">
