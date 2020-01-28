@@ -14,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
@@ -186,7 +183,8 @@ public class PaymentController {
     //TODO may be will fall becouse Ticket store null fields
     @GetMapping("/pay-ticket/{id}")
     public final String payTicket(@PathVariable Integer id,
-                                  @Valid Payment payment, BindingResult result) {
+                                  @Valid @RequestParam("email") String email, BindingResult res,
+                                  @Valid Payment payment, BindingResult result){
         LOGGER.debug("Pay ticket({}, {})",id, payment);
 
         Ticket ticket = new Ticket();
@@ -194,14 +192,16 @@ public class PaymentController {
 
         payment.setPaymentDate(LocalDate.now());
         payment.setTicketId(ticket);
+        payment.getEmail();
+        payment.setEmail(email);
 
-        if (result.hasErrors()){
-            return "redirect:/pay-ticket/" + id;
+        if (result.hasErrors() || res.hasErrors()){
+//            return "redirect:/pay-ticket/" + id;
+            return "ERROR";
         } else {
             paymentService.add(payment);
             return "redirect:/tickets";
         }
-
     }
 
 }

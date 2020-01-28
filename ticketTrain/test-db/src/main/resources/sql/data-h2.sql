@@ -17,5 +17,5 @@ INSERT INTO ticket (from_city, to_city, ticket_cost, ticket_date) VALUES (3, 6, 
 INSERT INTO ticket (from_city, to_city, ticket_cost, ticket_date) VALUES (4, 1, 9.34, '2019-09-28');
 
 
-INSERT INTO payment (payment_date, ticket_id) VALUES ('2019-09-18', 2);
-INSERT INTO payment (payment_date, ticket_id) VALUES ('2019-09-18', 7);
+INSERT INTO payment (payment_date, ticket_id, email) VALUES ('2019-09-18', 2, 'KlimukDmitry@gmail.com');
+INSERT INTO payment (payment_date, ticket_id, email) VALUES ('2019-09-18', 7, 'MihailovPavel@mail.ru');

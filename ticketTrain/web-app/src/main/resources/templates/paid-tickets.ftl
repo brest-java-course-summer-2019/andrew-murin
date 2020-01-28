@@ -104,6 +104,7 @@
                             <th>From</th>
                             <th>To</th>
                             <th>Cost</th>
+                            <th>E-mail\</th>
                         </tr>
                     </#if>
                     <#if isNotSearch??>
@@ -129,6 +130,7 @@
                                 <td>${paymentss.ticketId.fromCity.cityName}</td>
                                 <td>${paymentss.ticketId.toCity.cityName}</td>
                                 <td>${paymentss.ticketId.ticketCost}</td>
+                                <td>${paymentss.email}</td>
 
                                 <td>
 

@@ -3,7 +3,6 @@ package com.epam.brest2019.courses.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,7 +11,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "city")
-public class City implements Serializable {
+public class City{
 
     /**
      * cityId

@@ -1,11 +1,9 @@
 package com.epam.brest2019.courses.dao;
 
-import com.epam.brest2019.courses.model.Payment;
 import com.epam.brest2019.courses.model.Ticket;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

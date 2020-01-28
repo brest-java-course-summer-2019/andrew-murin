@@ -27,13 +27,13 @@ INSERT INTO ticket (from_city, to_city, ticket_cost, ticket_date) VALUES (6, 2, 
 INSERT INTO ticket (from_city, to_city, ticket_cost, ticket_date) VALUES (6, 3, 11.49, '2019-09-30');
 INSERT INTO ticket (from_city, to_city, ticket_cost, ticket_date) VALUES (6, 1, 8.50, '2019-09-30');
 
-INSERT INTO payment (payment_date, ticket_id) VALUES ('2019-09-18', 2);
-INSERT INTO payment (payment_date, ticket_id) VALUES ('2019-09-18', 7);
-INSERT INTO payment (payment_date, ticket_id) VALUES ('2019-09-22', 5);
-INSERT INTO payment (payment_date, ticket_id) VALUES ('2019-09-23', 4);
-INSERT INTO payment (payment_date, ticket_id) VALUES ('2019-09-25', 6);
-INSERT INTO payment (payment_date, ticket_id) VALUES ('2019-09-28', 4);
-INSERT INTO payment (payment_date, ticket_id) VALUES ('2019-09-19', 1);
-INSERT INTO payment (payment_date, ticket_id) VALUES ('2019-09-22', 10);
-INSERT INTO payment (payment_date, ticket_id) VALUES ('2019-09-23', 10);
-INSERT INTO payment (payment_date, ticket_id) VALUES ('2019-09-25', 1);
+INSERT INTO payment (payment_date, ticket_id, email) VALUES ('2019-09-18', 2, 'KlimukDmitry@gmail.com');
+INSERT INTO payment (payment_date, ticket_id, email) VALUES ('2019-09-18', 7, 'MihailovPavel@mail.ru');
+INSERT INTO payment (payment_date, ticket_id, email) VALUES ('2019-09-22', 5, 'PastuhovDmitry@mail.ru');
+INSERT INTO payment (payment_date, ticket_id, email) VALUES ('2019-09-23', 4, 'ChekuolisArtur@gmail.com');
+INSERT INTO payment (payment_date, ticket_id, email) VALUES ('2019-09-25', 6, 'MurinAndrew@gmail.com');
+INSERT INTO payment (payment_date, ticket_id, email) VALUES ('2019-09-28', 4, 'OmelyanukTatiana@gmail.com');
+INSERT INTO payment (payment_date, ticket_id, email) VALUES ('2019-09-19', 1, 'SorokaAlexandra@mail.ru');
+INSERT INTO payment (payment_date, ticket_id, email) VALUES ('2019-09-22', 10, 'KomarTatyana@gmail.com');
+INSERT INTO payment (payment_date, ticket_id, email) VALUES ('2019-09-23', 10, 'HikolsyVladislav@mail.ru');
+INSERT INTO payment (payment_date, ticket_id, email) VALUES ('2019-09-25', 1, 'YarmolovichOleg@gmail.com');

@@ -12,6 +12,8 @@ import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -27,6 +29,9 @@ public class PaymentServiceMockTest {
 
     @Mock
     private PaymentDao paymentDao;
+
+    @Mock
+    private JavaMailSender javaMailSender;
 
     @InjectMocks
     private PaymentServiceImpl paymentService;
@@ -99,6 +104,7 @@ public class PaymentServiceMockTest {
 
         Payment payment = createFixture();
 
+        paymentService.setJavaMailSender(javaMailSender);
         paymentService.add(payment);
 
         Mockito.verify(paymentDao, Mockito.times(1)).add(payment);

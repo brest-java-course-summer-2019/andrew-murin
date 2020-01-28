@@ -5,6 +5,8 @@ import com.epam.brest2019.courses.model.Payment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -16,10 +18,17 @@ public class PaymentServiceImpl implements PaymentService {
     private static final Logger LOGGER = LoggerFactory.getLogger(PaymentServiceImpl.class);
 
     private PaymentDao paymentDao;
+    private JavaMailSender javaMailSender;
+
 
     @Autowired
     public PaymentServiceImpl(PaymentDao paymentDao) {
         this.paymentDao = paymentDao;
+    }
+
+    @Autowired
+    public void setJavaMailSender(JavaMailSender javaMailSender) {
+        this.javaMailSender = javaMailSender;
     }
 
     @Override
@@ -44,6 +53,7 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public void add(Payment payment) {
         LOGGER.debug("Add: {}", payment);
+        sendMessage(payment);
         paymentDao.add(payment);
     }
 
@@ -72,5 +82,16 @@ public class PaymentServiceImpl implements PaymentService {
     public List<Payment> searchByDate(LocalDate startDate, LocalDate finishDate) {
         LOGGER.debug("Search paid-ticket by date({} - {})", startDate, finishDate);
         return paymentDao.searchByDate(startDate, finishDate);
+    }
+
+    private void sendMessage(Payment payment) {
+        SimpleMailMessage mail = new SimpleMailMessage();
+
+        mail.setFrom("payticketapplication@gmail.com");
+        mail.setTo("alze.andrey.1997@mail.ru");
+        mail.setSubject("Hi");
+        mail.setText("It is simple a message from my ticketTrain-application :) Have a nice a day! ");
+
+        javaMailSender.send(mail);
     }
 }

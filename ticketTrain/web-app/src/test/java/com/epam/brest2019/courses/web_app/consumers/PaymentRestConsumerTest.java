@@ -183,7 +183,8 @@ public class PaymentRestConsumerTest {
 
         try {
             restTemplate.getForEntity(LOCAL_HOST + PORT + "/payments/fault", Payment.class);
-        } catch (Exception ignored) { }
+        } catch (Exception ignored) {
+        }
 
         wireMockRule.verify(getRequestedFor(urlEqualTo("/payments/fault")));
     }
@@ -197,7 +198,8 @@ public class PaymentRestConsumerTest {
 
         try {
             restTemplate.getForEntity(LOCAL_HOST + PORT + "/payments/10000000", Payment.class);
-        } catch (Exception ignored) { }
+        } catch (Exception ignored) {
+        }
 
         wireMockRule.verify(getRequestedFor(urlEqualTo("/payments/10000000")));
     }

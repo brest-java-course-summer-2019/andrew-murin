@@ -91,17 +91,7 @@
                         <td>${ticket.ticketCost}</td>
                         <td>${ticket.ticketDate}</td>
                         <td>
-<!--                                    <span class="navbar-nav float-right"-->
-<!--                                          attr="data-id=${ticket.ticketId}">-->
-<!--                                        <a href="/pay-ticket/${ticket.ticketId}"-->
-<!--                                           class="btn btn-dark"-->
-<!--                                           title="Pay ticket"-->
-<!--                                           data-toggle="tooltip"-->
-<!--                                           data-placement="top">-->
-<!--                                                <i class="fa fa-pencil"></i>-->
-<!--                                            <span class="d-none d-md-inline">Pay</span></a>-->
 
-<!--                                    </span>                                    -->
                                      <span data-toggle="modal" data-target="#sendMail"
                                            class="navbar-nav float-right"
                                            data-id=${ticket.ticketId}"
@@ -161,6 +151,7 @@
             </div>
             <div class="modal-body">
                 Please confirm delete ticket
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -176,18 +167,34 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header alert-warning">
-                <h5 class="modal-title" id="exampleModalLabel">Send a message to @gmail</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Send a message to E-mail</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+
             <div class="modal-body">
+
                 Please confirm purchaise of ticket
+
+
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <a id="sendMessage" href="#" class="btn btn-warning">Pay</a>
-            </div>
+            <form id = "send" method="post" action="">
+                <div class="form-group">
+                    <input id="email"
+                           class="form-control"
+                           type="email"
+                           name="email"
+                           value=""
+                           placeholder="your_mail@gmail.com"/>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <a id="sendMessage" href="" class="btn btn-warning">Pay</a>
+
+                </div>
+            </form>
         </div>
     </div>
 </div>

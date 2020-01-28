@@ -1,7 +1,6 @@
 package com.epam.brest2019.courses.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
@@ -12,18 +11,17 @@ import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.io.Serializable;
+import javax.validation.constraints.Email;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
-
 
 /**
  * POJO Payment for model
  */
 @Entity
 @Table(name = "payment")
-public class Payment implements Serializable {
+public class Payment {
 
     /**
      * Payment Id
@@ -42,6 +40,10 @@ public class Payment implements Serializable {
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate paymentDate;
+
+    @Column(name = "email")
+    @Email
+    private String email;
 
     /**
      * Ticket Id
@@ -169,6 +171,24 @@ public class Payment implements Serializable {
     }
 
     /**
+     * Get email
+     *
+     * @return email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * Set ticketCost
+     *
+     * @param email
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
      * Get ticketCount
      *
      * @return
@@ -189,17 +209,18 @@ public class Payment implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Payment)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Payment payment = (Payment) o;
-        return Objects.equals(getPaymentId(), payment.getPaymentId()) &&
-                Objects.equals(getPaymentDate(), payment.getPaymentDate()) &&
-                Objects.equals(getTicketId(), payment.getTicketId()) &&
-                Objects.equals(getTicketCost(), payment.getTicketCost()) &&
-                Objects.equals(getTicketCount(), payment.getTicketCount());
+        return Objects.equals(paymentId, payment.paymentId) &&
+                Objects.equals(paymentDate, payment.paymentDate) &&
+                Objects.equals(email, payment.email) &&
+                Objects.equals(ticketId, payment.ticketId) &&
+                Objects.equals(ticketCost, payment.ticketCost) &&
+                Objects.equals(ticketCount, payment.ticketCount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getPaymentId(), getPaymentDate(), getTicketId(), getTicketCost(), getTicketCount());
+        return Objects.hash(paymentId, paymentDate, email, ticketId, ticketCost, ticketCount);
     }
 }

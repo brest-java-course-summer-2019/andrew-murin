@@ -10,7 +10,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -20,7 +19,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "ticket")
-public class Ticket implements Serializable {
+public class Ticket {
 
     /**
      * Ticket Id
