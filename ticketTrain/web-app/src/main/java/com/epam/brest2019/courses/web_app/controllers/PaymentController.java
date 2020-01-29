@@ -57,7 +57,7 @@ public class PaymentController {
         ObjectMapper mapper = new ObjectMapper();
         List<Payment> paymentList = mapper.convertValue(paymentService.findAllWitchDirection(),
                 new TypeReference<List<Payment>>(){
-                    }
+                }
         );
 
 
@@ -83,7 +83,7 @@ public class PaymentController {
 
     /**
      * Goto edit page for paid-ticket
-      * @param id
+     * @param id
      * @param model
      * @return paid-tickets
      */
@@ -177,31 +177,26 @@ public class PaymentController {
     /**
      * Pay of ticket
      * @param id
-     * @param payment
      * @return tickets
      */
     //TODO may be will fall becouse Ticket store null fields
-    @GetMapping("/pay-ticket/{id}")
+    @PostMapping("/pay-ticket/{id}")
     public final String payTicket(@PathVariable Integer id,
-                                  @Valid @RequestParam("email") String email, BindingResult res,
-                                  @Valid Payment payment, BindingResult result){
-        LOGGER.debug("Pay ticket({}, {})",id, payment);
+                                  @ModelAttribute("email") String email){
+        LOGGER.debug("Pay ticket({}, {})",id);
 
         Ticket ticket = new Ticket();
+        Payment payment = new Payment();
         ticket.setTicketId(id);
 
         payment.setPaymentDate(LocalDate.now());
         payment.setTicketId(ticket);
-        payment.getEmail();
         payment.setEmail(email);
 
-        if (result.hasErrors() || res.hasErrors()){
-//            return "redirect:/pay-ticket/" + id;
-            return "ERROR";
-        } else {
-            paymentService.add(payment);
-            return "redirect:/tickets";
-        }
+        paymentService.add(payment);
+
+        return "redirect:/tickets";
+
     }
 
 }

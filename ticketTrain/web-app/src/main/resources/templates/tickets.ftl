@@ -85,7 +85,7 @@
                     <tbody>
                     <tr>
                         <#list tickets as ticket>
-                        <td>${ticket.ticketId}</td>
+                        <td id="ticketId">${ticket.ticketId}</td>
                         <td>${ticket.fromCity.cityName}</td>
                         <td>${ticket.toCity.cityName}</td>
                         <td>${ticket.ticketCost}</td>
@@ -179,22 +179,23 @@
 
 
             </div>
-            <form id = "send" method="post" action="">
-                <div class="form-group">
+            <div class="form-group">
+                <form id="formMail" method="post" action="/pay-ticket/1">
                     <input id="email"
                            class="form-control"
-                           type="email"
+                           type="text"
                            name="email"
                            value=""
                            placeholder="your_mail@gmail.com"/>
-                </div>
+                </form>
+            </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <a id="sendMessage" href="" class="btn btn-warning">Pay</a>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <a id="sendMessage" href="#" class="btn btn-warning"
+                   onclick="document.getElementById('formMail').submit();">Pay</a>
 
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
@@ -214,11 +215,11 @@
             document.getElementById('deleteUrl').href = '/ticket/' + target.data('id') + '/delete';
         })
 
-        $('#sendMail').on('show.bs.modal', function (event) {
+        $('#sendMail').on('show.bs.modal'), function (event) {
             var tar = $(event.relatedTarget)
-            $(this).find('.modal-body').text('Please confirm purchaise ticket: "' + tar.data('id') + '"')
-            document.getElementById('sendMessage').href = '/pay-ticket/' + tar.data('name');
+            $(this).find('.modal-body').text('Please confirm purchaise ticket: "' + tar.data('name') + '"')
         })
+
 </script>
 
 </body>
