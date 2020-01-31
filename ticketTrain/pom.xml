@@ -52,7 +52,7 @@
         <maven-site-plugin.vesrion>3.7.1</maven-site-plugin.vesrion>
         <maven-pmd-plugin.vesrion>3.12.0</maven-pmd-plugin.vesrion>
 
-        <checkstyle.version>8.22</checkstyle.version>
+        <checkstyle.version>8.29</checkstyle.version>
         <jacoco.version>0.8.2</jacoco.version>
         <jacoco.bundle.coveredratio.minimum>0%</jacoco.bundle.coveredratio.minimum>
 
