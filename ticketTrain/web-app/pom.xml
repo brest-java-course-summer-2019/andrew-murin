@@ -39,11 +39,11 @@
             <artifactId>dao-api</artifactId>
             <scope>test</scope>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>com.epam.brest2019.courses</groupId>-->
-            <!--<artifactId>service</artifactId>-->
-            <!--<scope>test</scope>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>com.epam.brest2019.courses</groupId>
+            <artifactId>service</artifactId>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>com.epam.brest2019.courses</groupId>
             <artifactId>service-api</artifactId>
@@ -51,7 +51,6 @@
         <dependency>
             <groupId>com.epam.brest2019.courses</groupId>
             <artifactId>consumer</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
@@ -103,12 +102,6 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.tomakehurst</groupId>
-            <artifactId>wiremock-standalone</artifactId>
-            <version>2.25.1</version>
         </dependency>
 
     </dependencies>

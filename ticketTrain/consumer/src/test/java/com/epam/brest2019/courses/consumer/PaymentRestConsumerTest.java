@@ -34,10 +34,8 @@ public class PaymentRestConsumerTest {
 
     private static final String PAYMENTS_JSON = "mapping/payments/payments.json";
     private static final String PAYMENTS_ALL_JSON = "mapping/payments/payments_all.json";
-    private static final String PAYMENTS_BY_TICKET_ID_2_JSON = "mapping/payments/payments_by_TicketId_2.json";
     private static final String PAYMENTS_BY_ID_1_JSON = "mapping/payments/payments_by_Id_1.json";
     private static final String PAYMENTS_ADD_JSON = "mapping/payments/payments_add.json";
-    private static final String PAYMENTS_UPDATE_JSON = "mapping/payments/payments_update.json";
     private static final String PAYMENTS_SEARCH_JSON = "mapping/payments/payment_search.json";
 
     private static final LocalDate START_DATE = LocalDate.of(2019,01,01);

@@ -182,7 +182,8 @@ public class TicketRestConsumerTest {
 
         try {
             restTemplate.getForEntity(LOCAL_HOST + PORT + "/tickets/fault", Ticket.class);
-        } catch (Exception ignored) { }
+        } catch (Exception ignored) {
+        }
 
         wireMockRule.verify(getRequestedFor(urlEqualTo("/tickets/fault")));
     }
@@ -196,7 +197,9 @@ public class TicketRestConsumerTest {
 
         try {
             restTemplate.getForEntity(LOCAL_HOST + PORT + "/tickets/10000000", Ticket.class);
-        } catch (Exception ignored) { }
+        } catch (Exception ignored) {
+
+        }
 
         wireMockRule.verify(getRequestedFor(urlEqualTo("/tickets/10000000")));
     }

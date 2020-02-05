@@ -69,7 +69,7 @@ public class PaymentControllerTest {
     @Test
     public void payTicket() throws Exception {
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/pay-ticket/1")
+                MockMvcRequestBuilders.post("/pay-ticket/1")
         ).andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/tickets"));
     }
