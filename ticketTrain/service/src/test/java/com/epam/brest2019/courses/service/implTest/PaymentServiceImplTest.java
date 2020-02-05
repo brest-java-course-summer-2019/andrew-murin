@@ -117,6 +117,7 @@ public class PaymentServiceImplTest {
         Payment payment = new Payment();
         Ticket ticket = new Ticket();
 
+        payment.setEmail("12345@mail.ru");
         payment.setPaymentDate(LocalDate.now());
         ticket.setTicketId(1);
 

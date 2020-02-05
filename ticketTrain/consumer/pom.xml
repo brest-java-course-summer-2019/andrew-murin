@@ -4,19 +4,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <name>Ticket Train WEB application</name>
-    <artifactId>web-app</artifactId>
+    <name>Ticket Train Consumer</name>
+    <artifactId>consumer</artifactId>
     <packaging>jar</packaging>
+
 
     <parent>
         <artifactId>ticketTrain</artifactId>
         <groupId>com.epam.brest2019.courses</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-
-    <properties>
-        <start-class>com.epam.brest2019.courses.web_app.Application</start-class>
-    </properties>
 
 
     <dependencies>
@@ -25,35 +22,23 @@
             <artifactId>jsp-api</artifactId>
             <version>2.0</version>
         </dependency>
-
-        <dependency>
-            <groupId>com.epam.brest2019.courses</groupId>
-            <artifactId>test-db</artifactId>
-        </dependency>
         <dependency>
             <groupId>com.epam.brest2019.courses</groupId>
             <artifactId>model</artifactId>
         </dependency>
         <dependency>
             <groupId>com.epam.brest2019.courses</groupId>
-            <artifactId>dao-api</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <!--<dependency>-->
-            <!--<groupId>com.epam.brest2019.courses</groupId>-->
-            <!--<artifactId>service</artifactId>-->
-            <!--<scope>test</scope>-->
-        <!--</dependency>-->
-        <dependency>
-            <groupId>com.epam.brest2019.courses</groupId>
             <artifactId>service-api</artifactId>
         </dependency>
         <dependency>
             <groupId>com.epam.brest2019.courses</groupId>
-            <artifactId>consumer</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <artifactId>test-db</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.epam.brest2019.courses</groupId>
+            <artifactId>dao-api</artifactId>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>com.epam.brest2019.courses</groupId>
             <artifactId>service</artifactId>
@@ -112,22 +97,6 @@
         </dependency>
 
     </dependencies>
-
-
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <configuration>
-                    <httpConnector>
-                        <port>8081</port>
-                    </httpConnector>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
 
 </project>

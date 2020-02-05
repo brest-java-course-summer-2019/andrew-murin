@@ -1,4 +1,4 @@
-package com.epam.brest2019.courses.web_app.consumers;
+package com.epam.brest2019.courses.consumer;
 
 import com.epam.brest2019.courses.model.Payment;
 import com.epam.brest2019.courses.service.PaymentService;
@@ -9,6 +9,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
 import java.util.List;
+
 
 public class PaymentRestConsumer implements PaymentService {
 

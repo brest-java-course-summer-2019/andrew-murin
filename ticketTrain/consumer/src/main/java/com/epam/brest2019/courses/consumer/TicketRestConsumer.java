@@ -1,4 +1,4 @@
-package com.epam.brest2019.courses.web_app.consumers;
+package com.epam.brest2019.courses.consumer;
 
 import com.epam.brest2019.courses.model.Ticket;
 import com.epam.brest2019.courses.service.TicketService;
@@ -10,6 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import java.time.LocalDate;
 import java.util.List;
 
+
 public class TicketRestConsumer implements TicketService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TicketRestConsumer.class);
@@ -17,6 +18,9 @@ public class TicketRestConsumer implements TicketService {
     private String url;
 
     private RestTemplate restTemplate;
+
+    public TicketRestConsumer(){
+    }
 
     public TicketRestConsumer(String url, RestTemplate restTemplate){
         this.url = url;

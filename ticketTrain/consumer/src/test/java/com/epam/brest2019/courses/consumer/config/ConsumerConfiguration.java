@@ -1,4 +1,4 @@
-package com.epam.brest2019.courses.web_app.consumers.config;
+package com.epam.brest2019.courses.consumer.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

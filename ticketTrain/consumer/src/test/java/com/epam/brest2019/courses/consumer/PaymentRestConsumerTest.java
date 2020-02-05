@@ -1,7 +1,7 @@
-package com.epam.brest2019.courses.web_app.consumers;
+package com.epam.brest2019.courses.consumer;
 
+import com.epam.brest2019.courses.consumer.config.ConsumerConfiguration;
 import com.epam.brest2019.courses.model.Payment;
-import com.epam.brest2019.courses.web_app.consumers.config.ConsumerConfiguration;
 import com.github.tomakehurst.wiremock.http.Fault;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import org.junit.Before;
@@ -19,7 +19,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.epam.brest2019.courses.web_app.consumers.serialize.SerializeClass.*;
+
+import static com.epam.brest2019.courses.consumer.serialize.SerializeClass.*;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.Assert.assertEquals;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;

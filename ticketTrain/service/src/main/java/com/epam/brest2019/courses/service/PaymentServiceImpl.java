@@ -88,7 +88,7 @@ public class PaymentServiceImpl implements PaymentService {
         SimpleMailMessage mail = new SimpleMailMessage();
 
         mail.setFrom("payticketapplication@gmail.com");
-        mail.setTo("alze.andrey.1997@mail.ru");
+        mail.setTo(payment.getEmail());
         mail.setSubject("Hi");
         mail.setText("It is simple a message from my ticketTrain-application :) Have a nice a day! ");
 
