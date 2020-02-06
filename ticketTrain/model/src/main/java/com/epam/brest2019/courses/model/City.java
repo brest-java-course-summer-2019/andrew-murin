@@ -115,4 +115,12 @@ public class City{
     public int hashCode() {
         return Objects.hash(cityId, cityName, cityFrom, cityTo);
     }
+
+    @Override
+    public String toString() {
+        return "City{" +
+                "cityId=" + cityId +
+                ", cityName='" + cityName + '\'' +
+                '}';
+    }
 }

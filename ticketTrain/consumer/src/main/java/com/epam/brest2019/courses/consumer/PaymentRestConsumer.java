@@ -5,12 +5,14 @@ import com.epam.brest2019.courses.service.PaymentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jms.annotation.JmsListener;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
 import java.util.List;
 
-
+@Component
 public class PaymentRestConsumer implements PaymentService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PaymentRestConsumer.class);
@@ -56,9 +58,11 @@ public class PaymentRestConsumer implements PaymentService {
         return (Payment) responseEntity.getBody();
     }
 
+    @JmsListener(destination = "ListenEmailAdd")
     @Override
     public void add(Payment payment) {
         LOGGER.debug("Add payment ({})", payment);
+        LOGGER.info("Add payment ({})", payment);
         restTemplate.postForEntity(url, payment, Payment.class);
     }
 

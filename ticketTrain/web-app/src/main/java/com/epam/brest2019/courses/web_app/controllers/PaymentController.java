@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -40,6 +41,9 @@ public class PaymentController {
 
     @Autowired
     private PaymentValidator paymentValidator;
+
+    @Autowired
+    private JmsTemplate jmsTemplate;
 
 
     /**
@@ -179,11 +183,10 @@ public class PaymentController {
      * @param id
      * @return tickets
      */
-    //TODO may be will fall becouse Ticket store null fields
-    @PostMapping("/pay-ticket/{id}")
+    @PostMapping(value = "/pay-ticket/{id}", produces = "text/html")
     public final String payTicket(@PathVariable Integer id,
                                   @ModelAttribute("email") String email){
-        LOGGER.debug("Pay ticket({}, {})",id);
+        LOGGER.debug("Pay ticket({}, {})", id, email);
 
         Ticket ticket = new Ticket();
         Payment payment = new Payment();
@@ -193,7 +196,9 @@ public class PaymentController {
         payment.setTicketId(ticket);
         payment.setEmail(email);
 
-        paymentService.add(payment);
+        jmsTemplate.convertAndSend("ListenEmailAdd", payment);
+
+//        paymentService.add(payment);
 
         return "redirect:/tickets";
 

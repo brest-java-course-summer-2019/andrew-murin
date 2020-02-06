@@ -2,6 +2,7 @@ package com.epam.brest2019.courses.web_app;
 
 import com.epam.brest2019.courses.consumer.PaymentRestConsumer;
 import com.epam.brest2019.courses.consumer.TicketRestConsumer;
+import com.epam.brest2019.courses.model.Payment;
 import com.epam.brest2019.courses.service.PaymentService;
 import com.epam.brest2019.courses.service.TicketService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,14 +13,18 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.jms.annotation.EnableJms;
+import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
+import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @SpringBootApplication
-public class Application extends WebMvcConfigurerAdapter {
+@EnableJms
+public class Application {
 
     @Value("${rest.url}")
     private String restUrl;
@@ -47,6 +52,15 @@ public class Application extends WebMvcConfigurerAdapter {
     public TicketService ticketService() {
         TicketService ticketService = new TicketRestConsumer(restUrl + restTickets, restTemplate());
         return ticketService;
+    }
+
+
+    @Bean
+    public MessageConverter messageConverter() {
+        MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
+        converter.setTypeIdPropertyName("content-type");
+        converter.setTypeIdMappings(Collections.singletonMap("payment", Payment.class));
+        return converter;
     }
 
 

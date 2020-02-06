@@ -167,4 +167,15 @@ public class Ticket {
     public int hashCode() {
         return Objects.hash(ticketId, ticketCost, ticketDate, fromCity, toCity);
     }
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "ticketId=" + ticketId +
+                ", ticketCost=" + ticketCost +
+                ", ticketDate=" + ticketDate +
+                ", fromCity=" + fromCity +
+                ", toCity=" + toCity +
+                '}';
+    }
 }

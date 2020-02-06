@@ -223,4 +223,14 @@ public class Payment {
     public int hashCode() {
         return Objects.hash(paymentId, paymentDate, email, ticketId, ticketCost, ticketCount);
     }
+
+    @Override
+    public String toString() {
+        return "Payment{" +
+                "paymentId=" + paymentId +
+                ", paymentDate=" + paymentDate +
+                ", email='" + email + '\'' +
+                ", ticketId=" + ticketId +
+                '}';
+    }
 }
