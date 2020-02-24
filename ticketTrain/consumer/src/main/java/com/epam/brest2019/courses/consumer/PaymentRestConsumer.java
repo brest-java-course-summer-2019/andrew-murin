@@ -58,11 +58,12 @@ public class PaymentRestConsumer implements PaymentService {
         return (Payment) responseEntity.getBody();
     }
 
-    @JmsListener(destination = "ListenEmailAdd")
+    @JmsListener(destination = "queue")
     @Override
     public void add(Payment payment) {
         LOGGER.debug("Add payment ({})", payment);
         LOGGER.info("Add payment ({})", payment);
+        System.out.println(payment);
         restTemplate.postForEntity(url, payment, Payment.class);
     }
 

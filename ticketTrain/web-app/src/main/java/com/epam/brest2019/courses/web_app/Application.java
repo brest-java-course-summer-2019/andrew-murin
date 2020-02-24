@@ -13,6 +13,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.integration.annotation.IntegrationComponentScan;
+import org.springframework.integration.config.EnableIntegration;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
 import org.springframework.jms.support.converter.MessageConverter;
@@ -22,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@EnableIntegration
+@IntegrationComponentScan(basePackages = "com.epam.brest2019.courses.*")
 @SpringBootApplication
 @EnableJms
 public class Application {
