@@ -4,7 +4,6 @@ import com.epam.brest2019.courses.model.Payment;
 import com.epam.brest2019.courses.model.Ticket;
 import com.epam.brest2019.courses.service.PaymentService;
 import com.epam.brest2019.courses.service.TicketService;
-import com.epam.brest2019.courses.web_app.config.SenderConfig;
 import com.epam.brest2019.courses.web_app.validators.PaymentValidator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -12,15 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.integration.annotation.Gateway;
-import org.springframework.integration.annotation.MessagingGateway;
-import org.springframework.integration.channel.DirectChannel;
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.jms.support.JmsHeaders;
-import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.support.GenericMessage;
-import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,9 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Payment controller
@@ -58,10 +47,9 @@ public class PaymentController{
 
     @Autowired
     private JmsTemplate jmsTemplate;
-
-    @Autowired
-    private ApplicationContext context;
-
+//
+//    @Autowired
+//    private Sender sender;
 
     /**
      * Goto paid-tickets page.
@@ -214,9 +202,10 @@ public class PaymentController{
         payment.setTicketId(ticket);
         payment.setEmail(email);
 
-        SenderConfig.Sender sender = context.getBean(SenderConfig.Sender.class);
-        sender.send(payment);
-        LOGGER.info("LOGGER MESSAGE: {}, {}", sender, payment);
+//        sender.send(payment);
+
+        jmsTemplate.convertAndSend("sendToQueue", payment);
+        LOGGER.info("LOGGER MESSAGE: {}", payment);
 
         return "redirect:/tickets";
     }

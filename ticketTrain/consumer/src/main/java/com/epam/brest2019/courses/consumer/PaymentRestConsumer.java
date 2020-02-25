@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jms.annotation.JmsListener;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -58,12 +59,11 @@ public class PaymentRestConsumer implements PaymentService {
         return (Payment) responseEntity.getBody();
     }
 
-    @JmsListener(destination = "queue")
+    @JmsListener(destination = "sendToQueue")
     @Override
     public void add(Payment payment) {
         LOGGER.debug("Add payment ({})", payment);
         LOGGER.info("Add payment ({})", payment);
-        System.out.println(payment);
         restTemplate.postForEntity(url, payment, Payment.class);
     }
 

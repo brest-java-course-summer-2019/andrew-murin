@@ -1,13 +1,11 @@
 package com.epam.brest2019.courses.consumer.config;
 
-import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.jms.ChannelPublishingJmsMessageListener;
 import org.springframework.integration.jms.JmsMessageDrivenEndpoint;
-import org.springframework.jms.connection.CachingConnectionFactory;
 import org.springframework.jms.listener.SimpleMessageListenerContainer;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
@@ -22,12 +20,12 @@ public class Consumer {
     private String destinationChannel = "queue";
 
     @Bean
-    private MessageChannel addChannel() {
+    public MessageChannel consumingChannel() {
         return new DirectChannel();
     }
 
     @Bean
-    private MessageChannel errorChannel() {
+    public MessageChannel errorChannel() {
         return new DirectChannel();
     }
 
@@ -37,9 +35,8 @@ public class Consumer {
         JmsMessageDrivenEndpoint endpoint = new JmsMessageDrivenEndpoint(
                 simpleMessageListenerContainer(connectionFactory),
                 channelPublishingJmsMessageListener());
-        endpoint.setOutputChannel(addChannel());
+        endpoint.setOutputChannelName("consumingChannel");
         endpoint.setErrorChannel(errorChannel());
-
         return endpoint;
     }
 
@@ -58,6 +55,16 @@ public class Consumer {
         return new ChannelPublishingJmsMessageListener();
     }
 
+    @Bean
+    @ServiceActivator(inputChannel = "ouChannel")
+    public MessageHandler handlerMessage() {
+        return new MessageHandler() {
+            @Override
+            public void handleMessage(Message<?> message) throws MessagingException {
+                System.out.println("RECEIVED MESSAGE = " + message);
+            }
+        };
+    }
 
     @Bean
     @ServiceActivator(inputChannel = "errorChannel")
