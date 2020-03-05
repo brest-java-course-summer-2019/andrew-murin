@@ -15,7 +15,7 @@ public class SerializationTest {
     private static final String VALUE = "123456789";
 
     @Test
-    public void test() throws IOException, ClassNotFoundException {
+    void test() throws IOException, ClassNotFoundException {
         SerializableObject object = create();
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -35,7 +35,7 @@ public class SerializationTest {
     }
 
     @Test
-    public void testXML(){
+    void testXML(){
         SerializableObject object = create();
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -55,7 +55,7 @@ public class SerializationTest {
     }
 
     @Test
-    public void testJson() throws IOException {
+    void testJson() throws IOException {
         SerializableObject object = create();
         ObjectMapper objectMapper = new ObjectMapper();
 

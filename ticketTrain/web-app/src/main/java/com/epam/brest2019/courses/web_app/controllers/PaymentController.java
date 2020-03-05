@@ -11,7 +11,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,7 +28,7 @@ import java.util.List;
  * Payment controller
  */
 @Controller
-public class PaymentController{
+public class PaymentController {
 
     /**
      * Logger
@@ -45,12 +44,6 @@ public class PaymentController{
     @Autowired
     private PaymentValidator paymentValidator;
 
-    @Autowired
-    private JmsTemplate jmsTemplate;
-//
-//    @Autowired
-//    private Sender sender;
-
     /**
      * Goto paid-tickets page.
      *
@@ -64,26 +57,26 @@ public class PaymentController{
 
 
         ObjectMapper mapper = new ObjectMapper();
-        List<Payment> paymentList = mapper.convertValue(paymentService.findAllWitchDirection(),
+        List<Payment> paymentList = mapper.convertValue(payments,
                 new TypeReference<List<Payment>>(){
-                }
+                    }
         );
 
 
-
-        int totalCountTicket = (int) paymentList.stream()
+        int totalCountTicket = paymentList.stream()
                 .filter(payment -> payment.getTicketCount() != null)
-                .mapToLong(Payment::getTicketCount).sum();
+                .mapToInt(Payment::getTicketCount).sum();
 
 
         BigDecimal summ = paymentList.stream()
-                .filter(payment -> payment.getTicketCost() != null)
-                .map(Payment::getTicketCost)
+                .filter(payment -> payment.getTotalCost() != null)
+                .map(Payment::getTotalCost)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
 
+
         model.addAttribute("isNotSearch", true);
-        model.addAttribute("payments", paymentService.findAllWitchDirection());
+        model.addAttribute("payments", payments);
         model.addAttribute("countTicket", totalCountTicket);
         model.addAttribute("totalSum", summ);
 
@@ -92,17 +85,15 @@ public class PaymentController{
 
     /**
      * Goto edit page for paid-ticket
-     * @param id
+      * @param id
      * @param model
      * @return paid-tickets
      */
     @GetMapping("/paid-ticket/{id}")
     public final String gotoEditPaidTicketPage(@PathVariable Integer id, Model model) {
         LOGGER.debug("goto edit paid-ticket page({})", id);
-
         Payment payment = paymentService.findById(id);
         List<Ticket> tickets = ticketService.findAll();
-
         model.addAttribute("paidTicket", payment);
         model.addAttribute("tickets", tickets);
 
@@ -119,7 +110,6 @@ public class PaymentController{
                                          @Valid Payment payment, BindingResult result) {
         LOGGER.debug("Update paid-ticket ({}, {}, {})", paidTicketDate, payment, result);
 
-
         payment.setPaymentDate(LocalDate.parse(paidTicketDate));
         paymentValidator.validate(payment, result);
 
@@ -130,7 +120,6 @@ public class PaymentController{
             this.paymentService.update(payment);
             return "redirect:/paid-tickets";
         }
-
     }
 
     /**
@@ -141,11 +130,7 @@ public class PaymentController{
     @GetMapping("/paid-ticket/{id}/delete")
     public final String deletePayment(@PathVariable Integer id) {
         LOGGER.debug("Delete paid-ticket({})", id);
-
-        Payment payment = paymentService.findById(id);
-
         this.paymentService.delete(id);
-
         return "redirect:/paid-tickets";
     }
 
@@ -172,44 +157,37 @@ public class PaymentController{
 
         } catch (Exception ex) {
             startDateView = LocalDate.of(2019,1,1);
-            finishDateView = LocalDate.now();
+            finishDateView = LocalDate.of(2019,12,12);
         }
 
         List<Payment> payments = paymentService.searchByDate(startDateView, finishDateView);
 
         model.addAttribute("isSearch", true);
-        model.addAttribute("paymentsSearched", payments);
-
+        model.addAttribute("payments", payments);
         return "paid-tickets";
     }
-
 
     /**
      * Pay of ticket
      * @param id
+     * @param payment
      * @return tickets
      */
-    @PostMapping(value = "/pay-ticket/{id}", produces = "text/html")
+    @GetMapping("/pay-ticket/{id}")
     public final String payTicket(@PathVariable Integer id,
-                                  @ModelAttribute("email") String email) throws InterruptedException {
-        LOGGER.debug("Pay ticket({}, {})", id, email);
-
-        Ticket ticket = new Ticket();
-        Payment payment = new Payment();
-        ticket.setTicketId(id);
+                                  @Valid Payment payment, BindingResult result) {
+        LOGGER.debug("Pay ticket({}, {})",id, payment);
 
         payment.setPaymentDate(LocalDate.now());
-        payment.setTicketId(ticket);
-        payment.setEmail(email);
+        payment.setTicketId(id);
 
-//        sender.send(payment);
+        if (result.hasErrors()){
+            return "redirect:/pay-ticket/" + id;
+        } else {
+            paymentService.add(payment);
+            return "redirect:/tickets";
+        }
 
-        jmsTemplate.convertAndSend("sendToQueue", payment);
-        LOGGER.info("LOGGER MESSAGE: {}", payment);
-
-        return "redirect:/tickets";
     }
-
-
 
 }

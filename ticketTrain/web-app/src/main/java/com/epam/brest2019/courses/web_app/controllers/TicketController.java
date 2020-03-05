@@ -29,12 +29,11 @@ public class TicketController {
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(TicketController.class);
 
-
     @Autowired
     private TicketService ticketService;
 
     @Autowired
-    private TicketValidator ticketValidator;
+    TicketValidator ticketValidator;
 
     /**
      * Find tickets by date & directions
@@ -43,7 +42,6 @@ public class TicketController {
      * @param directionFrom
      * @param directionTo
      * @param model
-     * @return tickets
      * @return tickets
      */
     @PostMapping("/search-tickets")
@@ -82,10 +80,8 @@ public class TicketController {
     @GetMapping("/search-tickets")
     public final String gotoSearchTickets(Model model) {
         LOGGER.debug("Search tickets");
-
         List<Ticket> tickets = ticketService.findAllWithDirection();
         model.addAttribute("tickets", tickets);
-
         return "search-tickets";
     }
 
@@ -96,7 +92,6 @@ public class TicketController {
      * @param model model
      * @return tickets
      */
-
     @GetMapping("/tickets")
     public final String findAllWithDirection(Model model) {
         LOGGER.debug("Find all tickets");
@@ -104,6 +99,8 @@ public class TicketController {
         List<Ticket> tickets = ticketService.findAllWithDirection();
 
         model.addAttribute("tickets", tickets);
+        model.addAttribute("ticketCount");
+        model.addAttribute("ticketSum");
 
         return "tickets";
     }
@@ -118,10 +115,9 @@ public class TicketController {
     @GetMapping("/ticket/{id}")
     public final String gotoEditTicketPage(@PathVariable Integer id, Model model) {
         LOGGER.debug("gotoEditTicketPage({})", id);
+
         Ticket ticket = ticketService.findById(id);
-
         model.addAttribute("ticket", ticket);
-
         return "ticket";
     }
 
@@ -132,8 +128,9 @@ public class TicketController {
      * @return tickets.
      */
     @PostMapping("/ticket/{id}")
-    public final String updateTicket(@ModelAttribute("ticketForm") @Valid Ticket ticket, BindingResult result) {
+    public final String updateTicket(@Valid Ticket ticket, BindingResult result) {
         LOGGER.debug("Update ticket({}, {})",ticket, result);
+
 
         ticketValidator.validate(ticket, result);
 
@@ -157,9 +154,9 @@ public class TicketController {
     public final String gotoTicketAddPage(Model model) {
         LOGGER.debug("Go to add ticket page({})", model);
 
-        List<Ticket> tickets = ticketService.findAll();
-
         Ticket ticket = new Ticket();
+
+        List<Ticket> tickets = ticketService.findAll();
 
         model.addAttribute("isNew", true);
         model.addAttribute("ticket", ticket);
@@ -181,7 +178,7 @@ public class TicketController {
         ticketValidator.validate(ticket, result);
 
         if (result.hasErrors()) {
-            return "ticket/";
+            return "ticket/" + ticket.getTicketId();
         } else {
             this.ticketService.add(ticket);
             return "redirect:/tickets";
@@ -191,14 +188,13 @@ public class TicketController {
     /**
      * Delete ticket
      *
-     * @param ticketId, model
+     * @param id, model
      * @return tickets.
      */
     @GetMapping("/ticket/{id}/delete")
-    public final String deleteTicketById(@PathVariable("id") Integer ticketId) {
-        LOGGER.debug("Delete ticket by id({})", ticketId);
-        ticketService.delete(ticketId);
-
+    public final String deleteTicketById(@PathVariable Integer id) {
+        LOGGER.debug("Delete ticket by id({})", id);
+        ticketService.delete(id);
         return "redirect:/tickets";
     }
 

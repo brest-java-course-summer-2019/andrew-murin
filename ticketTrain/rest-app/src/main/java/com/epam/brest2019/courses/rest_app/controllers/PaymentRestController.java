@@ -5,6 +5,7 @@ import com.epam.brest2019.courses.service.PaymentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,15 +18,18 @@ public class PaymentRestController {
     private static final Logger LOGGER = LoggerFactory.getLogger(PaymentRestController.class);
 
     @Autowired
+    @Qualifier("paymentServiceImpl")
     private PaymentService paymentService;
+
 
     @GetMapping("/payments")
     public List<Payment> findAll() {
         LOGGER.debug("Find all payments");
-        return paymentService.findAll();
+        List<Payment> paymentList = paymentService.findAll();
+        return paymentList;
     }
 
-    @GetMapping("/payments/find-all-with-direction")
+    @GetMapping("/payments/find-All-With-Direction")
     public List<Payment> findAllWitchDirection() {
         LOGGER.debug("Find all payments with direction");
         return paymentService.findAllWitchDirection();
@@ -37,7 +41,6 @@ public class PaymentRestController {
     public List<Payment> findByTicketId(@PathVariable("ticketId") Integer ticketId) {
         LOGGER.debug("Find payments by ticketId ({})", ticketId);
         List<Payment> payments = paymentService.findByTicketId(ticketId);
-
         return payments;
     }
 
@@ -55,7 +58,7 @@ public class PaymentRestController {
         paymentService.add(payment);
     }
 
-    @PutMapping("/payments/")
+    @PutMapping("/payments")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void updatePayment(@RequestBody Payment payment) {
         LOGGER.debug("Update payment ({})", payment);
@@ -63,9 +66,8 @@ public class PaymentRestController {
     }
 
     @DeleteMapping("/payments/{paymentId}")
-    public void deletePayment(@PathVariable Integer paymentId) {
+    public void deletePayment(@PathVariable("paymentId") Integer paymentId) {
         LOGGER.debug("Delete payment by paymentId ({})", paymentId);
-
         paymentService.delete(paymentId);
     }
 
@@ -79,5 +81,10 @@ public class PaymentRestController {
 
         return paymentService.searchByDate(startDateView, finishDateView);
     }
+
+
+
+
+
 
 }

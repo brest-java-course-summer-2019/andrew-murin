@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>service</artifactId>
-    <packaging>jar</packaging>
+
     <name>Ticket Train Service</name>
 
     <parent>
@@ -16,15 +16,11 @@
     <dependencies>
         <dependency>
             <groupId>com.epam.brest2019.courses</groupId>
-            <artifactId>dao</artifactId>
+            <artifactId>dao-api</artifactId>
         </dependency>
         <dependency>
             <groupId>com.epam.brest2019.courses</groupId>
             <artifactId>service-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.epam.brest2019.courses</groupId>
-            <artifactId>test-db</artifactId>
         </dependency>
 
         <dependency>
@@ -33,39 +29,43 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mail</artifactId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.junit.vintage</groupId>
-            <artifactId>junit-vintage-engine</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
+            <version>2.1.9.RELEASE</version>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.3.2</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>3.1.0</version>
             <scope>test</scope>
         </dependency>
-
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-test</artifactId>
-            <version>2.1.9.RELEASE</version>
-            <scope>test</scope>
-        </dependency>
-
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
             <version>3.1.0</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.epam.brest2019.courses</groupId>
+            <artifactId>dao-api</artifactId>
+        </dependency>
+
     </dependencies>
 </project>

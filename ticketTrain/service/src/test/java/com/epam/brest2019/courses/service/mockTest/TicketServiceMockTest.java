@@ -1,16 +1,12 @@
 package com.epam.brest2019.courses.service.mockTest;
 
 import com.epam.brest2019.courses.dao.TicketDao;
-import com.epam.brest2019.courses.model.City;
 import com.epam.brest2019.courses.model.Ticket;
 import com.epam.brest2019.courses.service.TicketServiceImpl;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.util.Collections;
@@ -20,8 +16,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 public class TicketServiceMockTest {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(TicketServiceMockTest.class);
 
     private static final Integer CITY_FROM = 1;
     private static final Integer CITY_TO = 6;
@@ -36,19 +30,12 @@ public class TicketServiceMockTest {
     @InjectMocks
     private TicketServiceImpl ticketService;
 
-//    @AfterEach
-//    void after(){
-//        Mockito.verifyNoMoreInteractions(ticketDao);
-//    }
-
 
     private  static final LocalDate START_DATE = LocalDate.of(2019, 01,01);
     private static final LocalDate FINISH_DATE = LocalDate.of(2019, 12,12);
 
     @Test
-    public void findAll(){
-        LOGGER.debug("findAll");
-
+    void findAll(){
         Mockito.when(ticketDao.findAll()).thenReturn(Collections.singletonList(createFixture()));
 
         List<Ticket> result = ticketService.findAll();
@@ -60,48 +47,45 @@ public class TicketServiceMockTest {
     }
 
     @Test
-    public void findById(){
-        LOGGER.debug("findById");
-
+    void findById(){
         int id = 1;
         Mockito.when(ticketDao.findById(id)).thenReturn(createFixture());
 
         Ticket ticket = ticketService.findById(id);
 
         assertNotNull(ticket);
-        assertEquals(CITY_TO, ticket.getToCity().getCityId());
+        assertEquals(CITY_FROM, ticket.getTicketDirectionFrom());
+        assertEquals(CITY_TO, ticket.getTicketDirectionTo());
 
         Mockito.verify(ticketDao).findById(id);
+
     }
 
     @Test
-    public void update(){
-        LOGGER.debug("update");
-
+    void update(){
         ticketService.update(createFixture());
 
         Mockito.verify(ticketDao).update(ticketCaptor.capture());
 
         Ticket ticket = ticketCaptor.getValue();
         assertNotNull(ticket);
-        assertEquals(ticket.getToCity().getCityId(), CITY_TO);
+        assertEquals(ticket.getTicketDirectionFrom(), CITY_FROM);
+        assertEquals(ticket.getTicketDirectionTo(), CITY_TO);
+
     }
 
     @Test
-    public void delete(){
-        LOGGER.debug("Delete");
+    void delete(){
         int id = 2;
 
-        Ticket ticket = ticketService.findById(id);
         ticketService.delete(id);
 
-        Mockito.verify(ticketDao).delete(ticket);
+        Mockito.verify(ticketDao).delete(id);
+
     }
 
     @Test
-    public void add(){
-        LOGGER.debug("Add");
-
+    void add(){
         Ticket ticket = createFixture();
 
         ticketService.add(ticket);
@@ -110,34 +94,33 @@ public class TicketServiceMockTest {
     }
 
     @Test
-    public void searchTicket() {
-        LOGGER.debug("Search Ticket");
-
+    void searchTicket() {
         Ticket ticket = createFixture();
 
-        Mockito.when(ticketDao.searchTicket(START_DATE, FINISH_DATE, CITY_FROM, CITY_TO))
+        Mockito.when(ticketDao.searchTicket(START_DATE, FINISH_DATE,
+                ticket.getTicketDirectionFrom(), ticket.getTicketDirectionTo()))
                 .thenReturn(Collections.singletonList(createFixture()));
 
-        List<Ticket> result = ticketService.searchTicket(START_DATE, FINISH_DATE, CITY_FROM, CITY_TO);
+        List<Ticket> result = ticketService.searchTicket(START_DATE, FINISH_DATE,
+                ticket.getTicketDirectionFrom(), ticket.getTicketDirectionTo());
 
         assertNotNull(result);
         assertFalse(result.isEmpty());
         assertEquals(result.size() - 1, 0);
 
-        Mockito.verify(ticketDao).searchTicket(START_DATE, FINISH_DATE, CITY_FROM, CITY_TO);
+        Mockito.verify(ticketDao).searchTicket(START_DATE, FINISH_DATE,
+                ticket.getTicketDirectionFrom(), ticket.getTicketDirectionTo());
     }
 
     @Test
-    public void findAllWithDirection() {
-        LOGGER.debug("findAllWithDirection");
-
+    void findAllWithDirection() {
         Mockito.when(ticketDao.findAllWithDirection()).thenReturn(Collections.singletonList(createFixture()));
 
         List<Ticket> result = ticketService.findAllWithDirection();
 
         assertNotNull(result);
         assertFalse(result.isEmpty());
-        assertEquals(result.size() - 1, 0);
+        assertEquals(result.size() -1, 0);
 
         Mockito.verify(ticketDao).findAllWithDirection();
     }
@@ -145,14 +128,9 @@ public class TicketServiceMockTest {
 
     private Ticket createFixture(){
         Ticket ticket = new Ticket();
-        City city = new City();
+        ticket.setTicketDirectionFrom(CITY_FROM);
 
-        city.setCityId(CITY_FROM);
-        ticket.setFromCity(city);
-
-        city.setCityId(CITY_TO);
-        ticket.setToCity(city);
-
+        ticket.setTicketDirectionTo(CITY_TO);
         return ticket;
     }
 

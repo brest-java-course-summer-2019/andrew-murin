@@ -4,19 +4,23 @@ import com.epam.brest2019.courses.dao.TicketDao;
 import com.epam.brest2019.courses.model.Ticket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
 
 
 @Service
+@Transactional
 public class TicketServiceImpl implements TicketService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Ticket.class);
 
     private TicketDao ticketDao;
 
+    @Autowired
     public TicketServiceImpl(TicketDao ticketDao) {
         this.ticketDao = ticketDao;
     }
@@ -36,8 +40,7 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public void delete(Integer ticketId) {
         LOGGER.debug("Delete ticket with id: {}", ticketId);
-        Ticket ticket = ticketDao.findById(ticketId);
-        ticketDao.delete(ticket);
+        ticketDao.delete(ticketId);
     }
 
     @Override

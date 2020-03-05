@@ -33,6 +33,7 @@ public interface PaymentService {
      * Persist new payment.
      *
      * @param payment payment
+     * @return payment
      */
     void add(Payment payment);
 

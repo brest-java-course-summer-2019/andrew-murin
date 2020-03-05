@@ -13,7 +13,7 @@ maven 3+
 ## Run server test
 >mvn jetty:run
 
-Open [http:localhost:8081](http://localhost:8081/)
+Open [http:localhost:8080](http://localhost:8080/)
 
 ## Rest server
 
