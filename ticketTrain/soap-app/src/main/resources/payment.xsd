@@ -1,0 +1,86 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://epam.com/brest2019/courses/payment"
+           targetNamespace="http://epam.com/brest2019/courses/payment"
+           elementFormDefault="qualified">
+
+<!--    Find all-->
+    <xs:element name="getAllPaymentRequest">
+        <xs:complexType>
+            <xs:sequence>
+
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getAllPaymentResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="listOfPayment" type="tns:payment" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+<!--    Find by id-->
+    <xs:element name="getPaymentByIdRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="paymentId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getPaymentByIdResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="payment" type="tns:payment"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <!--    Add payment-->
+    <xs:element name="getAddPaymentRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="payment" type="tns:payment"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <!--    Update payment-->
+    <xs:element name="getUpdatePaymentRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="payment" type="tns:payment"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!--    Delete payment-->
+    <xs:element name="getDeletePaymentRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="paymentId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+
+
+<!--    Object-->
+    <xs:complexType name="payment">
+        <xs:sequence>
+            <xs:element name="paymentId" type="xs:int"/>
+            <xs:element name="paymentDate" type="xs:date"/>
+            <xs:element name="email" type="xs:string"/>
+<!--            <xs:element name="ticketId" type="tns:ticket"/>-->
+            <xs:element name="ticketCost" type="xs:decimal"/>
+            <xs:element name="ticketCount" type="xs:long"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+</xs:schema>
