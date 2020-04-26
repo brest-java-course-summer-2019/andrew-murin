@@ -10,3 +10,7 @@ maven 3+
 >running Application.java
 
 Open [http:localhost:8081](http://localhost:8081/)
+
+For generated sources from xsd-schema use:
+
+>mvn clean install -Djavax.xml.accessExternalSchema=all
