@@ -18,7 +18,6 @@ import javax.sql.DataSource;
 @ContextConfiguration
 public class DataBaseConfig {
 
-
     @Autowired
     private DataSource dataSource;
 
@@ -39,5 +38,4 @@ public class DataBaseConfig {
 
         return txManager;
     }
-
 }

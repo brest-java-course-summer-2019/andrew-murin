@@ -28,6 +28,7 @@
         <module>rest-app</module>
         <module>consumer</module>
         <module>web-app</module>
+        <module>soap-app</module>
     </modules>
 
     <distributionManagement>
@@ -69,11 +70,13 @@
 
     <dependencyManagement>
         <dependencies>
+
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter</artifactId>
                 <version>${spring-boot.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-devtools</artifactId>

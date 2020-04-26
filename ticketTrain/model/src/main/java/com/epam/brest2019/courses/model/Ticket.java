@@ -34,10 +34,10 @@ public class Ticket {
     @Min(0)
     @Column(name = "ticket_cost")
     private BigDecimal ticketCost;
+
     /**
      * date train
      */
-
     @Type(type = "org.hibernate.type.LocalDateType")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)

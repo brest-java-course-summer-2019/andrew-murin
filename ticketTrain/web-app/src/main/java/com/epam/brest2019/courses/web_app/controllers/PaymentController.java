@@ -203,7 +203,7 @@ public class PaymentController{
         payment.setEmail(email);
 
 //        sender.send(payment);
-
+//        paymentService.add(payment);
         jmsTemplate.convertAndSend("sendToQueue", payment);
         LOGGER.info("LOGGER MESSAGE: {}", payment);
 
