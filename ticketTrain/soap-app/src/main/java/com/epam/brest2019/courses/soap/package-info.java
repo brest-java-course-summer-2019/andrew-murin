@@ -1,1 +1,1 @@
-package com.epam.brest2019.courses.service;
+package com.epam.brest2019.courses.soap;
