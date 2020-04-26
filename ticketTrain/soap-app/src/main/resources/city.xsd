@@ -15,7 +15,7 @@
     <xs:element name="getAllCityResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="listOfCity" type="tns:city" maxOccurs="unbounded"/>
+                <xs:element name="listOfCity" type="tns:citySoap" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -33,7 +33,7 @@
     <xs:element name="getCityByIdResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="city" type="tns:city"/>
+                <xs:element name="city" type="tns:citySoap"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -43,7 +43,7 @@
     <xs:element name="getAddCityRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="city" type="tns:city"/>
+                <xs:element name="city" type="tns:citySoap"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -53,7 +53,7 @@
     <xs:element name="getUpdateCityRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="city" type="tns:city"/>
+                <xs:element name="city" type="tns:citySoap"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -71,7 +71,7 @@
 
 
 <!--    Object-->
-    <xs:complexType name="city">
+    <xs:complexType name="citySoap">
         <xs:sequence>
             <xs:element name="cityId" type="xs:int"/>
             <xs:element name="cityName" type="xs:string"/>

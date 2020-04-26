@@ -21,7 +21,7 @@
     <xs:element name="getAllTicketResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="listOfTicket" type="tns:ticket" maxOccurs="unbounded"/>
+                <xs:element name="listOfTicket" type="tns:ticketSoap" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -39,7 +39,7 @@
     <xs:element name="getTicketByIdResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="ticket" type="tns:ticket"/>
+                <xs:element name="ticket" type="tns:ticketSoap"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -49,7 +49,7 @@
     <xs:element name="getAddTicketRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="ticket" type="tns:ticket"/>
+                <xs:element name="ticket" type="tns:ticketSoap"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -59,7 +59,7 @@
     <xs:element name="getUpdateTicketRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="ticket" type="tns:ticket"/>
+                <xs:element name="ticket" type="tns:ticketSoap"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -76,13 +76,13 @@
 
 
     <!--    Object-->
-    <xs:complexType name="ticket">
+    <xs:complexType name="ticketSoap">
         <xs:sequence>
             <xs:element name="ticketId" type="xs:int"/>
             <xs:element name="ticketCost" type="xs:decimal"/>
             <xs:element name="ticketDate" type="xs:date"/>
-            <xs:element name="fromCity" type="tnc:city"/>
-            <xs:element name="toCity" type="tnc:city"/>
+            <xs:element name="fromCity" type="tnc:citySoap"/>
+            <xs:element name="toCity" type="tnc:citySoap"/>
         </xs:sequence>
     </xs:complexType>
 

@@ -20,7 +20,7 @@
     <xs:element name="getAllPaymentResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="listOfPayment" type="tns:payment" maxOccurs="unbounded"/>
+                <xs:element name="listOfPayment" type="tns:paymentSoap" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -38,7 +38,7 @@
     <xs:element name="getPaymentByIdResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="payment" type="tns:payment"/>
+                <xs:element name="payment" type="tns:paymentSoap"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -48,7 +48,7 @@
     <xs:element name="getAddPaymentRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="payment" type="tns:payment"/>
+                <xs:element name="payment" type="tns:paymentSoap"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -58,7 +58,7 @@
     <xs:element name="getUpdatePaymentRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="payment" type="tns:payment"/>
+                <xs:element name="payment" type="tns:paymentSoap"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -75,12 +75,12 @@
 
 
 <!--    Object-->
-    <xs:complexType name="payment">
+    <xs:complexType name="paymentSoap">
         <xs:sequence>
             <xs:element name="paymentId" type="xs:int"/>
             <xs:element name="paymentDate" type="xs:date"/>
             <xs:element name="email" type="xs:string"/>
-            <xs:element name="ticketId" type="tnt:ticket"/>
+            <xs:element name="ticketId" type="tnt:ticketSoap"/>
             <xs:element name="ticketCost" type="xs:decimal"/>
             <xs:element name="ticketCount" type="xs:long"/>
         </xs:sequence>
