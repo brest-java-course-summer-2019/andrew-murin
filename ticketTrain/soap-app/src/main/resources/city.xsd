@@ -1,6 +1,6 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:tns="http://epam.com/brest2019/courses/city" xmlns:sx="http://www.w3.org/2001/XMLSchema"
-           targetNamespace="http://epam.com/brest2019/courses/city"
+           xmlns:tns="http://epam.com/brest2019/courses/soap/model/city"
+           targetNamespace="http://epam.com/brest2019/courses/soap/model/city"
            elementFormDefault="qualified">
 
     <!--Find all cities     -->

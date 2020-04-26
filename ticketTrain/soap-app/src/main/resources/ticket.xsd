@@ -1,0 +1,89 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://epam.com/brest2019/courses/soap/model/ticket"
+           xmlns:tnc="http://epam.com/brest2019/courses/soap/model/city"
+           targetNamespace="http://epam.com/brest2019/courses/soap/model/ticket"
+           elementFormDefault="qualified">
+
+
+    <xs:import namespace="http://epam.com/brest2019/courses/soap/model/city"
+               schemaLocation="city.xsd"/>
+
+
+    <!--Find all cities     -->
+    <xs:element name="getAllTicketRequest">
+        <xs:complexType>
+            <xs:sequence>
+
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getAllTicketResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="listOfTicket" type="tns:ticket" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <!--    Find by id-->
+    <xs:element name="getTicketByIdRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ticketId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getTicketByIdResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ticket" type="tns:ticket"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <!--    Add ticket-->
+    <xs:element name="getAddTicketRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ticket" type="tns:ticket"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <!--    Update ticket-->
+    <xs:element name="getUpdateTicketRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ticket" type="tns:ticket"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!--    Delete ticket-->
+    <xs:element name="getDeleteTicketRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ticketId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <!--    Object-->
+    <xs:complexType name="ticket">
+        <xs:sequence>
+            <xs:element name="ticketId" type="xs:int"/>
+            <xs:element name="ticketCost" type="xs:decimal"/>
+            <xs:element name="ticketDate" type="xs:date"/>
+            <xs:element name="fromCity" type="tnc:city"/>
+            <xs:element name="toCity" type="tnc:city"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

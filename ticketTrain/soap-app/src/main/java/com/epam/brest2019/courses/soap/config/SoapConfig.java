@@ -49,6 +49,17 @@ public class SoapConfig extends WsConfigurerAdapter {
         return wsdl11Definition;
     }
 
+    @Bean(name = "ticket")
+    public DefaultWsdl11Definition ticketWsdl11Definition(XsdSchema ticketSchema) {
+        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+        wsdl11Definition.setPortTypeName("ticketPort");
+        wsdl11Definition.setLocationUri("/ws");
+        wsdl11Definition.setTargetNamespace("http://epam.com/brest2019/courses/ticket");
+        wsdl11Definition.setSchema(ticketSchema);
+
+        return wsdl11Definition;
+    }
+
 
     @Bean
     public XsdSchema citySchema() {
@@ -58,6 +69,11 @@ public class SoapConfig extends WsConfigurerAdapter {
     @Bean
     public XsdSchema paymentSchema() {
         return new SimpleXsdSchema(new ClassPathResource("payment.xsd"));
+    }
+
+    @Bean
+    public XsdSchema ticketSchema() {
+        return new SimpleXsdSchema(new ClassPathResource("ticket.xsd"));
     }
 
 

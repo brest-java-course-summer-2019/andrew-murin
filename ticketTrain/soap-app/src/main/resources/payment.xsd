@@ -1,7 +1,12 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:tns="http://epam.com/brest2019/courses/payment"
-           targetNamespace="http://epam.com/brest2019/courses/payment"
+           xmlns:tns="http://epam.com/brest2019/courses/soap/model/payment"
+           xmlns:tnt="http://epam.com/brest2019/courses/soap/model/ticket"
+           targetNamespace="http://epam.com/brest2019/courses/soap/model/payment"
            elementFormDefault="qualified">
+
+
+    <xs:import namespace="http://epam.com/brest2019/courses/soap/model/ticket"
+               schemaLocation="ticket.xsd"/>
 
 <!--    Find all-->
     <xs:element name="getAllPaymentRequest">
@@ -69,14 +74,13 @@
 
 
 
-
 <!--    Object-->
     <xs:complexType name="payment">
         <xs:sequence>
             <xs:element name="paymentId" type="xs:int"/>
             <xs:element name="paymentDate" type="xs:date"/>
             <xs:element name="email" type="xs:string"/>
-<!--            <xs:element name="ticketId" type="tns:ticket"/>-->
+            <xs:element name="ticketId" type="tnt:ticket"/>
             <xs:element name="ticketCost" type="xs:decimal"/>
             <xs:element name="ticketCount" type="xs:long"/>
         </xs:sequence>
