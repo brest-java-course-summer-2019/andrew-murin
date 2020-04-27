@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.XmlType;
     "cityId",
     "cityName"
 })
-public class CitySoap {
+ public class CitySoap {
 
     protected int cityId;
     @XmlElement(required = true)

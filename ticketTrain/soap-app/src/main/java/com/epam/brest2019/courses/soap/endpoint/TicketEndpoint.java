@@ -14,7 +14,6 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
-import java.util.List;
 
 @Endpoint
 public class TicketEndpoint {
@@ -36,7 +35,7 @@ public class TicketEndpoint {
     public GetAllTicketResponse getAllTicketResponse(@RequestPayload GetAllTicketRequest request) {
         GetAllTicketResponse response = new GetAllTicketResponse();
 
-//        response.getListOfTicket().addAll(ticketService.findAll());
+        response.getListOfTicket().addAll(converter.ticketSoapList(ticketService.findAll()));
 
         return response;
     }
@@ -45,10 +44,14 @@ public class TicketEndpoint {
     @PayloadRoot(namespace = TICKET_URI, localPart = "getTicketByIdRequest")
     @ResponsePayload
     public GetTicketByIdResponse getTicketByIdResponse(@RequestPayload GetTicketByIdRequest request) {
+
         GetTicketByIdResponse response = new GetTicketByIdResponse();
 
         Ticket ticket = ticketService.findById(request.getTicketId());
-//        response.setTicket();
+
+        response.setTicket(
+                converter.ticketConverterToSoap(
+                        ticketService.findById(request.getTicketId())));
 
         return response;
     }
