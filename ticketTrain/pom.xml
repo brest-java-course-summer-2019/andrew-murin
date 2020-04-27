@@ -26,10 +26,10 @@
         <module>service-api</module>
         <module>service</module>
         <module>rest-app</module>
+        <module>soap-app</module>
         <module>consumer</module>
         <module>web-app</module>
-        <module>soap-app</module>
-    </modules>
+        </modules>
 
     <distributionManagement>
         <site>
@@ -179,6 +179,11 @@
             <dependency>
                 <groupId>com.epam.brest2019.courses</groupId>
                 <artifactId>test-db</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.epam.brest2019.courses</groupId>
+                <artifactId>soap-app</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

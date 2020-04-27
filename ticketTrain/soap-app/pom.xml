@@ -13,10 +13,6 @@
     </parent>
 
     <dependencies>
-        <dependency>
-            <groupId>com.epam.brest2019.courses</groupId>
-            <artifactId>model</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -41,7 +37,18 @@
             <groupId>org.springframework.ws</groupId>
             <artifactId>spring-ws-core</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.epam.brest2019.courses</groupId>
+            <artifactId>model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.epam.brest2019.courses</groupId>
+            <artifactId>service-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.epam.brest2019.courses</groupId>
+            <artifactId>service</artifactId>
+        </dependency>
 
     </dependencies>
 

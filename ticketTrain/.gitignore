@@ -18,6 +18,7 @@ delivery_cost/
 html_view/
 docs/
 ticket/
+ticketTrain/soap-app/src/main/java/com/epam/brest2019/courses/soap/model
 
 model/target
 dao/target
