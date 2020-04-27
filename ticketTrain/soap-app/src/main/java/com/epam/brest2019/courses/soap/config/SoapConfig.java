@@ -31,7 +31,7 @@ public class SoapConfig extends WsConfigurerAdapter {
     public DefaultWsdl11Definition cityWsdl11Definition(XsdSchema citySchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("cityPort");
-        wsdl11Definition.setLocationUri("/ws");
+        wsdl11Definition.setLocationUri("/ws/city");
         wsdl11Definition.setTargetNamespace("http://epam.com/brest2019/courses/city");
         wsdl11Definition.setSchema(citySchema);
 
@@ -42,7 +42,7 @@ public class SoapConfig extends WsConfigurerAdapter {
     public DefaultWsdl11Definition paymentWsdl11Definition(XsdSchema paymentSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("paymentPort");
-        wsdl11Definition.setLocationUri("/ws");
+        wsdl11Definition.setLocationUri("/ws/payment");
         wsdl11Definition.setTargetNamespace("http://epam.com/brest2019/courses/payment");
         wsdl11Definition.setSchema(paymentSchema);
 
@@ -53,7 +53,7 @@ public class SoapConfig extends WsConfigurerAdapter {
     public DefaultWsdl11Definition ticketWsdl11Definition(XsdSchema ticketSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("ticketPort");
-        wsdl11Definition.setLocationUri("/ws");
+        wsdl11Definition.setLocationUri("/ws/ticket");
         wsdl11Definition.setTargetNamespace("http://epam.com/brest2019/courses/ticket");
         wsdl11Definition.setSchema(ticketSchema);
 

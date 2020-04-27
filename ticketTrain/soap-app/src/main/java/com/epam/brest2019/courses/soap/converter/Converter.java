@@ -62,7 +62,7 @@ public class Converter {
         return ticketSoap;
     }
 
-    public List<TicketSoap> ticketSoapList(List<Ticket> tickets) {
+    public List<TicketSoap> ticketsConvertToSoapList(List<Ticket> tickets) {
         List<TicketSoap> ticketSoaps = new ArrayList<>();
 
         for (int i = 0; i < tickets.size(); i++) {
@@ -120,32 +120,30 @@ public class Converter {
 
 
 
-//    public Ticket ticketConverter(TicketSoap ticketSoap) {
-//        Ticket ticket = new Ticket();
-//        City cityFrom = new City();
-//        City cityTo = new City();
-//
-//        ticket.setTicketId(ticketSoap.getTicketId());
-//        ticket.setTicketCost(ticketSoap.getTicketCost());
-//
-//        CitySoap citySoapFrom = ticketSoap.getFromCity();
-//        CitySoap citySoapTo = ticketSoap.getToCity();
-//
-//        cityFrom.setCityId(citySoapFrom.getCityId());
-//        cityFrom.setCityName(citySoapFrom.getCityName());
-//
-//        cityTo.setCityId(citySoapTo.getCityId());
-//        cityTo.setCityName(citySoapTo.getCityName());
-//
-//        ticket.setFromCity(cityFrom);
-//        ticket.setToCity(cityTo);
-//
-//        ticket.setTicketDate(
-//                dateConverter(ticketSoap.getTicketDate())
-//        );
-//
-//        return ticket;
-//    }
+    public Ticket ticketSoapConverterToTicket(TicketSoap ticketSoap) {
+        Ticket ticket = new Ticket();
+        City cityFrom = new City();
+        City cityTo = new City();
+
+        ticket.setTicketId(ticketSoap.getTicketId());
+        ticket.setTicketCost(ticketSoap.getTicketCost());
+
+        CitySoap citySoapFrom = ticketSoap.getFromCity();
+        CitySoap citySoapTo = ticketSoap.getToCity();
+
+        cityFrom.setCityId(citySoapFrom.getCityId());
+        cityFrom.setCityName(citySoapFrom.getCityName());
+
+        cityTo.setCityId(citySoapTo.getCityId());
+        cityTo.setCityName(citySoapTo.getCityName());
+
+        ticket.setFromCity(cityFrom);
+        ticket.setToCity(cityTo);
+
+        ticket.setTicketDate(dateConverter(ticketSoap.getTicketDate()));
+
+        return ticket;
+    }
 
 
 

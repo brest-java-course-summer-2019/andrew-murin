@@ -4,10 +4,7 @@ package com.epam.brest2019.courses.soap.endpoint;
 import com.epam.brest2019.courses.model.Ticket;
 import com.epam.brest2019.courses.service.TicketService;
 import com.epam.brest2019.courses.soap.converter.Converter;
-import com.epam.brest2019.courses.soap.model.ticket.GetAllTicketRequest;
-import com.epam.brest2019.courses.soap.model.ticket.GetAllTicketResponse;
-import com.epam.brest2019.courses.soap.model.ticket.GetTicketByIdRequest;
-import com.epam.brest2019.courses.soap.model.ticket.GetTicketByIdResponse;
+import com.epam.brest2019.courses.soap.model.ticket.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -35,7 +32,7 @@ public class TicketEndpoint {
     public GetAllTicketResponse getAllTicketResponse(@RequestPayload GetAllTicketRequest request) {
         GetAllTicketResponse response = new GetAllTicketResponse();
 
-        response.getListOfTicket().addAll(converter.ticketSoapList(ticketService.findAll()));
+        response.getListOfTicket().addAll(converter.ticketsConvertToSoapList(ticketService.findAll()));
 
         return response;
     }
@@ -54,6 +51,19 @@ public class TicketEndpoint {
                         ticketService.findById(request.getTicketId())));
 
         return response;
+    }
+
+//    TODO: get error ("LogicalConnectionManagedImpl from hibernate")
+//    @PayloadRoot(namespace = TICKET_URI, localPart = "getAddTicketRequest")
+//    @ResponsePayload
+//    public void getAddTicketResponse(@RequestPayload GetAddTicketRequest request) {
+//        ticketService.add(converter.ticketSoapConverterToTicket(request.getTicket()));
+//    }
+
+    @PayloadRoot(namespace = TICKET_URI, localPart = "getDeleteTicketRequest")
+    @ResponsePayload
+    public void getDeleteTicketResponse(@RequestPayload GetDeleteTicketRequest request) {
+        ticketService.delete(request.getTicketId());
     }
 
 }
