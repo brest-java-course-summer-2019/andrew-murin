@@ -3,7 +3,7 @@ package com.epam.brest2019.courses.soap.endpoint;
 
 import com.epam.brest2019.courses.model.Ticket;
 import com.epam.brest2019.courses.service.TicketService;
-import com.epam.brest2019.courses.soap.converter.Converter;
+import com.epam.brest2019.courses.soap.converter.TicketConverter;
 import com.epam.brest2019.courses.soap.model.ticket.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -18,10 +18,10 @@ public class TicketEndpoint {
     private static final String TICKET_URI = "http://epam.com/brest2019/courses/soap/model/ticket";
 
     private final TicketService ticketService;
-    private final Converter converter;
+    private final TicketConverter converter;
 
     @Autowired
-    public TicketEndpoint(TicketService ticketService, Converter converter) {
+    public TicketEndpoint(TicketService ticketService, TicketConverter converter) {
         this.ticketService = ticketService;
         this.converter = converter;
     }
@@ -43,8 +43,6 @@ public class TicketEndpoint {
     public GetTicketByIdResponse getTicketByIdResponse(@RequestPayload GetTicketByIdRequest request) {
 
         GetTicketByIdResponse response = new GetTicketByIdResponse();
-
-        Ticket ticket = ticketService.findById(request.getTicketId());
 
         response.setTicket(
                 converter.ticketConverterToSoap(
