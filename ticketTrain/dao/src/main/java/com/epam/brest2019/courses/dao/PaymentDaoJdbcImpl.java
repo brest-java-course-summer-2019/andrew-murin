@@ -107,7 +107,7 @@ public class PaymentDaoJdbcImpl implements PaymentDao {
 
     @Override
     public void add(Payment payment) {
-        LOGGER.debug("PAYMETN {}", payment);
+        LOGGER.debug("ADD {}", payment);
         transact.dmlQueryFixture(payment, ADD);
     }
 
@@ -118,6 +118,7 @@ public class PaymentDaoJdbcImpl implements PaymentDao {
 
     @Override
     public void update(Payment payment) {
+        LOGGER.debug("UPDATE {}", payment);
         transact.dmlQueryFixture(payment, UPDATE);
     }
 

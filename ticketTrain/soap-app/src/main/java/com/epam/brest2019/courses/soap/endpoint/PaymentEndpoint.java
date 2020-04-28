@@ -69,20 +69,17 @@ public class PaymentEndpoint {
     }
 
 ////    TODO: get error ("LogicalConnectionManagedImpl from hibernate")
-//    @PayloadRoot(namespace = PAYMENT_URI, localPart = "getAddTicketRequest")
-//    @ResponsePayload
+//    @PayloadRoot(namespace = PAYMENT_URI, localPart = "getAddPaymentRequest")
 //    public void getAddPaymentResponse(@RequestPayload GetAddPaymentRequest request) {
 //        paymentService.add(paymentConverter.paymentConverterSoapToPayment(request.getPayment()));
 //    }
-//
-//    @PayloadRoot(namespace = PAYMENT_URI, localPart = "getUpdatePaymentRequest")
-//    @ResponsePayload
-//    public void getUpdatePaymentResponse(@RequestPayload GetUpdatePaymentRequest request) {
-//        paymentService.add(paymentConverter.paymentConverterSoapToPayment(request.getPayment()));
-//    }
+
+    @PayloadRoot(namespace = PAYMENT_URI, localPart = "getUpdatePaymentRequest")
+    public void getUpdatePaymentResponse(@RequestPayload GetUpdatePaymentRequest request) {
+        paymentService.update(paymentConverter.paymentConverterSoapToPayment(request.getPayment()));
+    }
 
     @PayloadRoot(namespace = PAYMENT_URI, localPart = "getDeletePaymentRequest")
-    @ResponsePayload
     public void getDeletePaymentResponse(@RequestPayload GetDeletePaymentRequest request) {
         LOGGER.debug("GetDeletePaymentRequest - {}", request);
         paymentService.delete(request.getPaymentId());

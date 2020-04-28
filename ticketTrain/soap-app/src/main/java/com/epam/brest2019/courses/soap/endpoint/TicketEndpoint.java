@@ -25,6 +25,9 @@ public class TicketEndpoint {
 
     private static final String TICKET_URI = "http://epam.com/brest2019/courses/soap/model/ticket";
 
+    private static final String ADD = "true";
+    private static final String UPDATE = "false";
+
     private final TicketService ticketService;
     private final TicketConverter ticketConverter;
 
@@ -77,22 +80,19 @@ public class TicketEndpoint {
         return response;
     }
 
-////    TODO: get error ("LogicalConnectionManagedImpl from hibernate")
-//    @PayloadRoot(namespace = TICKET_URI, localPart = "getAddTicketRequest")
-//    @ResponsePayload
-//    public void getAddTicketResponse(@RequestPayload GetAddTicketRequest request) {
-//        ticketService.add(ticketConverter.ticketSoapConverterToTicket(request.getTicket()));
-//    }
+//    TODO: get error ("LogicalConnectionManagedImpl from hibernate")
+    @PayloadRoot(namespace = TICKET_URI, localPart = "getAddTicketRequest")
+    public void getAddTicketResponse(@RequestPayload GetAddTicketRequest request) {
+        ticketService.add(ticketConverter.ticketSoapConverterToTicket(request.getTicket(), ADD));
+    }
 
     @PayloadRoot(namespace = TICKET_URI, localPart = "getUpdateTicketRequest")
-    @ResponsePayload
     public void getUpdateTicketResponse(@RequestPayload GetUpdateTicketRequest request) {
         LOGGER.debug("GetUpdateTicketRequest - {}", request);
-        ticketService.update(ticketConverter.ticketSoapConverterToTicket(request.getTicket()));
+        ticketService.update(ticketConverter.ticketSoapConverterToTicket(request.getTicket(), UPDATE));
     }
 
     @PayloadRoot(namespace = TICKET_URI, localPart = "getDeleteTicketRequest")
-    @ResponsePayload
     public void getDeleteTicketResponse(@RequestPayload GetDeleteTicketRequest request) {
         LOGGER.debug("GetDeleteTicketRequest - {}", request);
         ticketService.delete(request.getTicketId());

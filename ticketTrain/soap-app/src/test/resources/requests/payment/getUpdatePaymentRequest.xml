@@ -5,9 +5,9 @@
 
     <soapenv:Header/>
     <soapenv:Body>
-        <xs:getAddPaymentRequest>
+        <xs:getUpdatePaymentRequest>
             <xs:payment>
-                <xs:paymentId></xs:paymentId>
+                <xs:paymentId>1</xs:paymentId>
                 <xs:paymentDate>2019-09-10</xs:paymentDate>
                 <xs:email>KlimukDmitry@gmail.com</xs:email>
                 <xs:ticketId>
@@ -26,7 +26,7 @@
                 <xs:ticketCost>2</xs:ticketCost>
                 <xs:ticketCount></xs:ticketCount>
             </xs:payment>
-        </xs:getAddPaymentRequest>
+        </xs:getUpdatePaymentRequest>
     </soapenv:Body>
 
 </soapenv:Envelope>

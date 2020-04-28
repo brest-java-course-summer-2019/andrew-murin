@@ -6,6 +6,7 @@ import com.epam.brest2019.courses.soap.model.city.CitySoap;
 import com.epam.brest2019.courses.soap.model.ticket.TicketSoap;
 import org.springframework.stereotype.Component;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,13 +65,22 @@ public class TicketConverter {
         return ticketSoaps;
     }
 
-
-    public Ticket ticketSoapConverterToTicket(TicketSoap ticketSoap) {
+    /**
+     * Conflict ticketId and GeneratedValue in module
+     *
+     * @param ticketSoap
+     * @param add
+     * @return
+     */
+    public Ticket ticketSoapConverterToTicket(TicketSoap ticketSoap, String add) {
         Ticket ticket = new Ticket();
         City cityFrom = new City();
         City cityTo = new City();
 
-        ticket.setTicketId(ticketSoap.getTicketId());
+        if (!add.equals("true")) {
+            ticket.setTicketId(ticketSoap.getTicketId());
+        }
+
         ticket.setTicketCost(ticketSoap.getTicketCost());
 
         CitySoap citySoapFrom = ticketSoap.getFromCity();
