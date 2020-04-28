@@ -10,6 +10,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -27,6 +29,8 @@ import java.util.Map;
 @Repository
 @PropertySource("classpath:/jpql_query_payment.properties")
 public class PaymentDaoJdbcImpl implements PaymentDao {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(PaymentDaoJdbcImpl.class);
 
     @Value("${payment.findAll}")
     private String SELECT_ALL;
@@ -103,6 +107,7 @@ public class PaymentDaoJdbcImpl implements PaymentDao {
 
     @Override
     public void add(Payment payment) {
+        LOGGER.debug("PAYMETN {}", payment);
         transact.dmlQueryFixture(payment, ADD);
     }
 

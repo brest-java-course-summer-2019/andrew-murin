@@ -1,0 +1,10 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:xs="http://epam.com/brest2019/courses/soap/model/ticket">
+
+    <soapenv:Header/>
+    <soapenv:Body>
+        <xs:getAllTicketWithDirectionRequest>
+        </xs:getAllTicketWithDirectionRequest>
+    </soapenv:Body>
+
+</soapenv:Envelope>
