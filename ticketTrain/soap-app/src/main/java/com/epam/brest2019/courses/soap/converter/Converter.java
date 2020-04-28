@@ -1,7 +1,5 @@
 package com.epam.brest2019.courses.soap.converter;
 
-import org.springframework.stereotype.Component;
-
 import javax.xml.bind.DatatypeConverter;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -11,6 +9,11 @@ import java.time.ZoneId;
 
 
 public class Converter {
+
+
+    public static final String ADD = "true";
+    public static final String UPDATE = "false";
+
 
     public static LocalDate dateConverter(XMLGregorianCalendar XMLDate) {
         return DatatypeConverter

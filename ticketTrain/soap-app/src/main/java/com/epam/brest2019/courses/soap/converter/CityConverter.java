@@ -16,14 +16,14 @@ public class CityConverter {
         return citySoap;
     }
 
-    //
-//    public City cityConverter(CitySoap citySoap) {
-//        City city = new City();
-//
-//        city.setCityId(citySoap.getCityId());
-//        city.setCityName(citySoap.getCityName());
-//
-//        return city;
-//    }
-//
+
+    public City cityConverter(CitySoap citySoap) {
+        City city = new City();
+
+        city.setCityId(citySoap.getCityId());
+        city.setCityName(citySoap.getCityName());
+
+        return city;
+    }
+
 }

@@ -16,17 +16,17 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.epam.brest2019.courses.soap.converter.Converter.dateConverter;
+import static com.epam.brest2019.courses.soap.converter.Converter.*;
 
+/**
+ * TicketEndpoint, receives and sends objects in xml
+ */
 @Endpoint
 public class TicketEndpoint {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TicketEndpoint.class);
 
     private static final String TICKET_URI = "http://epam.com/brest2019/courses/soap/model/ticket";
-
-    private static final String ADD = "true";
-    private static final String UPDATE = "false";
 
     private final TicketService ticketService;
     private final TicketConverter ticketConverter;
@@ -80,9 +80,9 @@ public class TicketEndpoint {
         return response;
     }
 
-//    TODO: get error ("LogicalConnectionManagedImpl from hibernate")
     @PayloadRoot(namespace = TICKET_URI, localPart = "getAddTicketRequest")
     public void getAddTicketResponse(@RequestPayload GetAddTicketRequest request) {
+        LOGGER.debug("GetAddTicketRequest - {}", request);
         ticketService.add(ticketConverter.ticketSoapConverterToTicket(request.getTicket(), ADD));
     }
 

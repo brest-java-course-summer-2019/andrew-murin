@@ -4,6 +4,7 @@ import com.epam.brest2019.courses.model.City;
 import com.epam.brest2019.courses.model.Ticket;
 import com.epam.brest2019.courses.soap.model.city.CitySoap;
 import com.epam.brest2019.courses.soap.model.ticket.TicketSoap;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
@@ -16,21 +17,17 @@ import static com.epam.brest2019.courses.soap.converter.Converter.dateToXML;
 @Component
 public class TicketConverter {
 
+    @Autowired
+    private CityConverter cityConverter;
 
     public TicketSoap ticketConverterToSoap(Ticket ticket){
         TicketSoap ticketSoap = new TicketSoap();
-        CitySoap cityFrom = new CitySoap();
-        CitySoap cityTo = new CitySoap();
+        CitySoap cityFrom = cityConverter.cityConverterToSoap(ticket.getFromCity());
+        CitySoap cityTo = cityConverter.cityConverterToSoap(ticket.getToCity());
 
         ticketSoap.setTicketId(ticket.getTicketId());
         ticketSoap.setTicketDate(dateToXML(ticket.getTicketDate()));
         ticket.setTicketCost(ticket.getTicketCost());
-
-        cityFrom.setCityId(ticket.getFromCity().getCityId());
-        cityFrom.setCityName(ticket.getFromCity().getCityName());
-
-        cityTo.setCityId(ticket.getToCity().getCityId());
-        cityTo.setCityName(ticket.getToCity().getCityName());
 
         ticketSoap.setFromCity(cityFrom);
         ticketSoap.setToCity(cityTo);
@@ -43,19 +40,12 @@ public class TicketConverter {
 
         for (int i = 0; i < tickets.size(); i++) {
             TicketSoap ticketSoap = new TicketSoap();
-            CitySoap citySoapFrom = new CitySoap();
-            CitySoap citySoapTo = new CitySoap();
-
-            citySoapFrom.setCityId(tickets.get(i).getFromCity().getCityId());
-            citySoapFrom.setCityName(tickets.get(i).getFromCity().getCityName());
-
-            citySoapTo.setCityId(tickets.get(i).getToCity().getCityId());
-            citySoapTo.setCityName(tickets.get(i).getToCity().getCityName());
+            CitySoap citySoapFrom = cityConverter.cityConverterToSoap(tickets.get(i).getFromCity());
+            CitySoap citySoapTo = cityConverter.cityConverterToSoap(tickets.get(i).getToCity());
 
             ticketSoap.setTicketId(tickets.get(i).getTicketId());
             ticketSoap.setTicketDate(dateToXML(tickets.get(i).getTicketDate()));
             ticketSoap.setTicketCost(tickets.get(i).getTicketCost());
-
             ticketSoap.setFromCity(citySoapFrom);
             ticketSoap.setToCity(citySoapTo);
 
@@ -74,24 +64,14 @@ public class TicketConverter {
      */
     public Ticket ticketSoapConverterToTicket(TicketSoap ticketSoap, String add) {
         Ticket ticket = new Ticket();
-        City cityFrom = new City();
-        City cityTo = new City();
+        City cityFrom = cityConverter.cityConverter(ticketSoap.getFromCity());
+        City cityTo = cityConverter.cityConverter(ticketSoap.getToCity());
 
         if (!add.equals("true")) {
             ticket.setTicketId(ticketSoap.getTicketId());
         }
 
         ticket.setTicketCost(ticketSoap.getTicketCost());
-
-        CitySoap citySoapFrom = ticketSoap.getFromCity();
-        CitySoap citySoapTo = ticketSoap.getToCity();
-
-        cityFrom.setCityId(citySoapFrom.getCityId());
-        cityFrom.setCityName(citySoapFrom.getCityName());
-
-        cityTo.setCityId(citySoapTo.getCityId());
-        cityTo.setCityName(citySoapTo.getCityName());
-
         ticket.setFromCity(cityFrom);
         ticket.setToCity(cityTo);
 

@@ -19,9 +19,11 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.epam.brest2019.courses.soap.converter.Converter.dateConverter;
+import static com.epam.brest2019.courses.soap.converter.Converter.*;
 
-
+/**
+ * PaymentEndpoint, receives and sends objects in xml
+ */
 @Endpoint
 public class PaymentEndpoint {
 
@@ -45,7 +47,6 @@ public class PaymentEndpoint {
     @ResponsePayload
     public GetAllPaymentResponse getAllTicketResponse(@RequestPayload GetAllPaymentRequest request) {
         LOGGER.debug("GetAllPaymentRequest - {}", request);
-
         GetAllPaymentResponse response = new GetAllPaymentResponse();
 
         response.getListOfPayment().addAll(paymentConverter.paymentsConvertToSoapList(paymentService.findAll()));
@@ -68,15 +69,16 @@ public class PaymentEndpoint {
         return response;
     }
 
-////    TODO: get error ("LogicalConnectionManagedImpl from hibernate")
-//    @PayloadRoot(namespace = PAYMENT_URI, localPart = "getAddPaymentRequest")
-//    public void getAddPaymentResponse(@RequestPayload GetAddPaymentRequest request) {
-//        paymentService.add(paymentConverter.paymentConverterSoapToPayment(request.getPayment()));
-//    }
+    @PayloadRoot(namespace = PAYMENT_URI, localPart = "getAddPaymentRequest")
+    public void getAddPaymentResponse(@RequestPayload GetAddPaymentRequest request) {
+        LOGGER.debug("GetAddPaymentRequest - {}", request);
+        paymentService.add(paymentConverter.paymentConverterSoapToPayment(request.getPayment(), ADD));
+    }
 
     @PayloadRoot(namespace = PAYMENT_URI, localPart = "getUpdatePaymentRequest")
     public void getUpdatePaymentResponse(@RequestPayload GetUpdatePaymentRequest request) {
-        paymentService.update(paymentConverter.paymentConverterSoapToPayment(request.getPayment()));
+        LOGGER.debug("GetUpdatePaymentRequest - {}", request);
+        paymentService.update(paymentConverter.paymentConverterSoapToPayment(request.getPayment(), UPDATE));
     }
 
     @PayloadRoot(namespace = PAYMENT_URI, localPart = "getDeletePaymentRequest")

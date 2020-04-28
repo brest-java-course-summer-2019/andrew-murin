@@ -1,21 +1,23 @@
 package com.epam.brest2019.courses.soap.converter;
 
-import com.epam.brest2019.courses.model.City;
 import com.epam.brest2019.courses.model.Payment;
 import com.epam.brest2019.courses.model.Ticket;
 import com.epam.brest2019.courses.soap.model.city.CitySoap;
 import com.epam.brest2019.courses.soap.model.payment.PaymentSoap;
 import com.epam.brest2019.courses.soap.model.ticket.TicketSoap;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.epam.brest2019.courses.soap.converter.Converter.dateConverter;
-import static com.epam.brest2019.courses.soap.converter.Converter.dateToXML;
+import static com.epam.brest2019.courses.soap.converter.Converter.*;
 
 @Component
 public class PaymentConverter {
+
+    @Autowired
+    private TicketConverter ticketConverter;
 
     public PaymentSoap paymentConverterToSoap(Payment payment) {
         PaymentSoap paymentSoap = new PaymentSoap();
@@ -29,31 +31,17 @@ public class PaymentConverter {
         return paymentSoap;
     }
 
-    public Payment paymentConverterSoapToPayment(PaymentSoap paymentSoap) {
+    public Payment paymentConverterSoapToPayment(PaymentSoap paymentSoap, String add) {
         Payment payment = new Payment();
-        Ticket ticket = new Ticket();
-        City cityFrom = new City();
-        City cityTo = new City();
+        Ticket ticket;
 
-        //City
-        CitySoap citySoapFrom = paymentSoap.getTicketId().getFromCity();
-        CitySoap citySoapTo = paymentSoap.getTicketId().getToCity();
-
-        cityFrom.setCityId(citySoapFrom.getCityId());
-        cityFrom.setCityName(citySoapFrom.getCityName());
-
-        cityTo.setCityId(citySoapTo.getCityId());
-        cityTo.setCityName(citySoapTo.getCityName());
-
-        //Ticket
-        ticket.setTicketId(paymentSoap.getTicketId().getTicketId());
-        ticket.setTicketCost(paymentSoap.getTicketId().getTicketCost());
-        ticket.setFromCity(cityFrom);
-        ticket.setToCity(cityTo);
-        ticket.setTicketDate(dateConverter(paymentSoap.getTicketId().getTicketDate()));
+        ticket = ticketConverter.ticketSoapConverterToTicket(paymentSoap.getTicketId(), UPDATE);
 
         //Payment
-        payment.setPaymentId(paymentSoap.getPaymentId());
+        if (!add.equals("true")) {
+            payment.setPaymentId(paymentSoap.getPaymentId());
+        }
+
         payment.setTicketId(ticket);
         payment.setPaymentDate(dateConverter(paymentSoap.getPaymentDate()));
         payment.setEmail(paymentSoap.getEmail());
@@ -68,30 +56,13 @@ public class PaymentConverter {
 
         for (int i = 0; i < payments.size(); i++) {
             PaymentSoap paymentSoap = new PaymentSoap();
-            TicketSoap ticketSoap = new TicketSoap();
-            CitySoap citySoapFrom = new CitySoap();
-            CitySoap citySoapTo = new CitySoap();
 
-            //City
-            citySoapFrom.setCityId(payments.get(i).getTicketId().getFromCity().getCityId());
-            citySoapFrom.setCityName(payments.get(i).getTicketId().getFromCity().getCityName());
-            citySoapTo.setCityId(payments.get(i).getTicketId().getToCity().getCityId());
-            citySoapTo.setCityName(payments.get(i).getTicketId().getToCity().getCityName());
-
-            //Ticket
-            ticketSoap.setTicketId(payments.get(i).getTicketId().getTicketId());
-            ticketSoap.setTicketDate(dateToXML(payments.get(i).getTicketId().getTicketDate()));
-            ticketSoap.setTicketCost(payments.get(i).getTicketId().getTicketCost());
-            ticketSoap.setFromCity(citySoapFrom);
-            ticketSoap.setToCity(citySoapTo);
-
-            //Payment
             paymentSoap.setPaymentId(payments.get(i).getPaymentId());
             paymentSoap.setPaymentDate(dateToXML(payments.get(i).getPaymentDate()));
             paymentSoap.setTicketCost(payments.get(i).getTicketCost());
             paymentSoap.setTicketCount(payments.get(i).getTicketCount());
             paymentSoap.setEmail(payments.get(i).getEmail());
-            paymentSoap.setTicketId(ticketSoap);
+            paymentSoap.setTicketId(ticketConverter.ticketConverterToSoap(payments.get(i).getTicketId()));
             
             paymentSoaps.add(paymentSoap);
         }
