@@ -10,7 +10,6 @@ package com.epam.brest2019.courses.soap.model.payment;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -25,7 +24,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="payment" type="{http://epam.com/brest2019/courses/soap/model/payment}paymentSoap"/>
+ *         &lt;element name="ticketId" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -36,36 +35,27 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "payment"
+    "ticketId"
 })
-@XmlRootElement(name = "getAddPaymentRequest")
-public class GetAddPaymentRequest {
+@XmlRootElement(name = "getFindByTicketIdRequest")
+public class GetFindByTicketIdRequest {
 
-    @XmlElement(required = true)
-    protected PaymentSoap payment;
+    protected int ticketId;
 
     /**
-     * Gets the value of the payment property.
+     * Gets the value of the ticketId property.
      * 
-     * @return
-     *     possible object is
-     *     {@link PaymentSoap }
-     *     
      */
-    public PaymentSoap getPayment() {
-        return payment;
+    public int getTicketId() {
+        return ticketId;
     }
 
     /**
-     * Sets the value of the payment property.
+     * Sets the value of the ticketId property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link PaymentSoap }
-     *     
      */
-    public void setPayment(PaymentSoap value) {
-        this.payment = value;
+    public void setTicketId(int value) {
+        this.ticketId = value;
     }
 
 }

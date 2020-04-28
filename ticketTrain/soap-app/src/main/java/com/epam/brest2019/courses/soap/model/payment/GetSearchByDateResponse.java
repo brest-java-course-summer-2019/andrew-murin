@@ -8,6 +8,8 @@
 
 package com.epam.brest2019.courses.soap.model.payment;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -25,7 +27,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="payment" type="{http://epam.com/brest2019/courses/soap/model/payment}paymentSoap"/>
+ *         &lt;element name="listOfPayment" type="{http://epam.com/brest2019/courses/soap/model/payment}paymentSoap" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -36,36 +38,41 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "payment"
+    "listOfPayment"
 })
-@XmlRootElement(name = "getAddPaymentRequest")
-public class GetAddPaymentRequest {
+@XmlRootElement(name = "getSearchByDateResponse")
+public class GetSearchByDateResponse {
 
     @XmlElement(required = true)
-    protected PaymentSoap payment;
+    protected List<PaymentSoap> listOfPayment;
 
     /**
-     * Gets the value of the payment property.
+     * Gets the value of the listOfPayment property.
      * 
-     * @return
-     *     possible object is
-     *     {@link PaymentSoap }
-     *     
-     */
-    public PaymentSoap getPayment() {
-        return payment;
-    }
-
-    /**
-     * Sets the value of the payment property.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the listOfPayment property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link PaymentSoap }
-     *     
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getListOfPayment().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link PaymentSoap }
+     * 
+     * 
      */
-    public void setPayment(PaymentSoap value) {
-        this.payment = value;
+    public List<PaymentSoap> getListOfPayment() {
+        if (listOfPayment == null) {
+            listOfPayment = new ArrayList<PaymentSoap>();
+        }
+        return this.listOfPayment;
     }
 
 }

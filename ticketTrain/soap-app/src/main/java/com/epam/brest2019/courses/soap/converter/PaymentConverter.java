@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.epam.brest2019.courses.soap.converter.Converter.dateConverter;
 import static com.epam.brest2019.courses.soap.converter.Converter.dateToXML;
 
 @Component
@@ -25,7 +26,23 @@ public class PaymentConverter {
 
         return paymentSoap;
     }
-    
+
+    public Payment paymentConverterSoapToPayment(PaymentSoap paymentSoap) {
+        Payment payment = new Payment();
+
+        payment.setPaymentId(paymentSoap.getPaymentId());
+
+        payment.setPaymentDate(
+                dateConverter(paymentSoap.getPaymentDate())
+        );
+
+        payment.setEmail(paymentSoap.getEmail());
+        payment.setTicketCost(paymentSoap.getTicketCost());
+        payment.setTicketCount(paymentSoap.getTicketCount());
+
+        return payment;
+    }
+
     public List<PaymentSoap> paymentsConvertToSoapList(List<Payment> payments) {
         List<PaymentSoap> paymentSoaps = new ArrayList<>();
 
@@ -60,21 +77,5 @@ public class PaymentConverter {
 
         return paymentSoaps;
     }
-    
 
-    //    public Payment paymentConverter(PaymentSoap paymentSoap) {
-//        Payment payment = new Payment();
-//
-//        payment.setPaymentId(paymentSoap.getPaymentId());
-//
-//        payment.setPaymentDate(
-//                dateConverter(paymentSoap.getPaymentDate())
-//        );
-//
-//        payment.setEmail(paymentSoap.getEmail());
-//        payment.setTicketCost(paymentSoap.getTicketCost());
-//        payment.setTicketCount(paymentSoap.getTicketCount());
-//
-//        return payment;
-//    }
 }

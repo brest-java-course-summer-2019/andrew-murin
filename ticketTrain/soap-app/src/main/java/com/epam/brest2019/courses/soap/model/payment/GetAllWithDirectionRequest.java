@@ -10,7 +10,6 @@ package com.epam.brest2019.courses.soap.model.payment;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -25,7 +24,6 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="payment" type="{http://epam.com/brest2019/courses/soap/model/payment}paymentSoap"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,37 +33,9 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "payment"
-})
-@XmlRootElement(name = "getAddPaymentRequest")
-public class GetAddPaymentRequest {
+@XmlType(name = "")
+@XmlRootElement(name = "getAllWithDirectionRequest")
+public class GetAllWithDirectionRequest {
 
-    @XmlElement(required = true)
-    protected PaymentSoap payment;
-
-    /**
-     * Gets the value of the payment property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link PaymentSoap }
-     *     
-     */
-    public PaymentSoap getPayment() {
-        return payment;
-    }
-
-    /**
-     * Sets the value of the payment property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link PaymentSoap }
-     *     
-     */
-    public void setPayment(PaymentSoap value) {
-        this.payment = value;
-    }
 
 }

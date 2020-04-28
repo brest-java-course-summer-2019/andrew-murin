@@ -72,6 +72,53 @@
         </xs:complexType>
     </xs:element>
 
+<!--    Find all with Direction-->
+    <xs:element name="getAllWithDirectionRequest">
+        <xs:complexType>
+            <xs:sequence>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!--    Search by date-->
+    <xs:element name="getSearchByDateRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="startDate" type="xs:date"></xs:element>
+                <xs:element name="finishDate" type="xs:date"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!--    Search by date-->
+    <xs:element name="getSearchByDateResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="listOfPayment" type="tns:paymentSoap" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!--    Find payment by ticketId request-->
+    <xs:element name="getFindByTicketIdRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ticketId" type="xs:int"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!--    Find payment by ticketId response-->
+    <xs:element name="getFindByTicketIdResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="listOfPayment" type="tns:paymentSoap" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+
 
 
 <!--    Object-->

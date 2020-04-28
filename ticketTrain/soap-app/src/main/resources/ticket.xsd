@@ -26,6 +26,23 @@
         </xs:complexType>
     </xs:element>
 
+    <!--Find all cities     -->
+    <xs:element name="getAllTicketWithDirectionRequest">
+        <xs:complexType>
+            <xs:sequence>
+
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getAllTicketWithDirectionResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="listOfTicket" type="tns:ticketSoap" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
 
     <!--    Find by id-->
     <xs:element name="getTicketByIdRequest">
@@ -64,7 +81,7 @@
         </xs:complexType>
     </xs:element>
 
-    <!--    Delete ticket-->
+    <!--    Update ticket-->
     <xs:element name="getDeleteTicketRequest">
         <xs:complexType>
             <xs:sequence>
@@ -72,6 +89,28 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
+    <!--    Search ticket by date and direction request-->
+    <xs:element name="getSearchTicketByDateAndDirectionRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="startDate" type="xs:date"/>
+                <xs:element name="finishDate" type="xs:date"/>
+                <xs:element name="directionFrom" type="xs:int"/>
+                <xs:element name="directionTo" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!--    Search ticket by date and direction request-->
+    <xs:element name="getSearchTicketByDateAndDirectionResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="listOfTicket" type="tns:ticketSoap" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
 
 
 

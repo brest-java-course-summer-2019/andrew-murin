@@ -1,5 +1,7 @@
 package com.epam.brest2019.courses.soap.converter;
 
+import org.springframework.stereotype.Component;
+
 import javax.xml.bind.DatatypeConverter;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -7,9 +9,10 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.time.LocalDate;
 import java.time.ZoneId;
 
+
 public class Converter {
 
-    static LocalDate dateConverter(XMLGregorianCalendar XMLDate) {
+    public static LocalDate dateConverter(XMLGregorianCalendar XMLDate) {
         return DatatypeConverter
                 .parseDate(XMLDate.toString())
                 .toInstant()
@@ -17,7 +20,7 @@ public class Converter {
                 .toLocalDate();
     }
 
-    static XMLGregorianCalendar dateToXML(LocalDate localDate) {
+    public static XMLGregorianCalendar dateToXML(LocalDate localDate) {
         XMLGregorianCalendar calendar = null;
 
         try {
