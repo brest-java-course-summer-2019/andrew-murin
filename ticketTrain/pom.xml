@@ -102,11 +102,18 @@
                 <version>3.0.10.RELEASE</version>
             </dependency>
 
-<!--            <dependency>-->
-<!--                <groupId>org.springframework.boot</groupId>-->
-<!--                <artifactId>spring-boot-starter-test</artifactId>-->
-<!--                <version>${spring-boot.version}</version>-->
-<!--            </dependency>-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring-boot.version}</version>
+                <scope>test</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>junit</groupId>
+                        <artifactId>junit</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-jdbc</artifactId>
@@ -204,19 +211,31 @@
             </dependency>
 
             <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-core</artifactId>
-                <version>${mockito.version}</version>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>5.5.2</version>
                 <scope>test</scope>
             </dependency>
+
             <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-junit-jupiter</artifactId>
-                <version>${mockito.version}</version>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>5.5.2</version>
                 <scope>test</scope>
             </dependency>
 
-
+<!--            <dependency>-->
+<!--                <groupId>org.mockito</groupId>-->
+<!--                <artifactId>mockito-core</artifactId>-->
+<!--                <version>${mockito.version}</version>-->
+<!--                <scope>test</scope>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>org.mockito</groupId>-->
+<!--                <artifactId>mockito-junit-jupiter</artifactId>-->
+<!--                <version>${mockito.version}</version>-->
+<!--                <scope>test</scope>-->
+<!--            </dependency>-->
 
 
             <dependency>

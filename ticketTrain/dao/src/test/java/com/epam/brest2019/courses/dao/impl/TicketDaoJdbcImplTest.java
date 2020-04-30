@@ -1,32 +1,27 @@
 package com.epam.brest2019.courses.dao.impl;
 
 import com.epam.brest2019.courses.dao.TicketDao;
-//import com.epam.brest2019.courses.dao.config.DataBaseDAOConfig;
 import com.epam.brest2019.courses.dao.config.DataBaseDAOConfig;
 import com.epam.brest2019.courses.model.City;
 import com.epam.brest2019.courses.model.Ticket;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 
-@ExtendWith(SpringExtension.class)
-@Import(DataBaseDAOConfig.class)
-@ContextConfiguration(classes = {DataBaseDAOConfig.class})
+@SpringBootTest(classes = DataBaseDAOConfig.class)
 @TestPropertySource("classpath:application-test.properties")
 public class TicketDaoJdbcImplTest {
 
@@ -61,7 +56,6 @@ public class TicketDaoJdbcImplTest {
     @Test
     public void findById(){
         LOGGER.debug("findById Ticket ({})",Ticket.class);
-//        ticket = createFixture();
 
         Ticket newTicket = ticketDao.findById(ticket.getTicketId());
 
