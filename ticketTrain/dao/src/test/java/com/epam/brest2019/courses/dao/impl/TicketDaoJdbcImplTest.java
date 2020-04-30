@@ -1,20 +1,21 @@
 package com.epam.brest2019.courses.dao.impl;
 
 import com.epam.brest2019.courses.dao.TicketDao;
+//import com.epam.brest2019.courses.dao.config.DataBaseDAOConfig;
 import com.epam.brest2019.courses.dao.config.DataBaseDAOConfig;
 import com.epam.brest2019.courses.model.City;
 import com.epam.brest2019.courses.model.Ticket;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -23,7 +24,8 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
+@Import(DataBaseDAOConfig.class)
 @ContextConfiguration(classes = {DataBaseDAOConfig.class})
 @TestPropertySource("classpath:application-test.properties")
 public class TicketDaoJdbcImplTest {
@@ -35,13 +37,13 @@ public class TicketDaoJdbcImplTest {
 
     private Ticket ticket;
 
-    @Before
+    @BeforeEach
     public void changes() {
         ticket = createFixture();
         ticketDao.add(ticket);
     }
 
-    @After
+    @AfterEach
     public void cleanChanges() {
         ticketDao.delete(ticket);
     }
@@ -59,6 +61,7 @@ public class TicketDaoJdbcImplTest {
     @Test
     public void findById(){
         LOGGER.debug("findById Ticket ({})",Ticket.class);
+//        ticket = createFixture();
 
         Ticket newTicket = ticketDao.findById(ticket.getTicketId());
 
@@ -82,6 +85,7 @@ public class TicketDaoJdbcImplTest {
     public void updateTicket(){
         LOGGER.debug("Update Ticket ({})",Ticket.class);
 
+//        ticket = createFixture();
         ticket.setTicketCost(new BigDecimal(30));
 
         ticketDao.update(ticket);

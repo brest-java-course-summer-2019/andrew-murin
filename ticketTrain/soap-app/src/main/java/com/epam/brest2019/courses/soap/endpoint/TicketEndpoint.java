@@ -3,8 +3,8 @@ package com.epam.brest2019.courses.soap.endpoint;
 
 import com.epam.brest2019.courses.model.Ticket;
 import com.epam.brest2019.courses.service.TicketService;
-import com.epam.brest2019.courses.soap.converter.TicketConverter;
-import com.epam.brest2019.courses.soap.model.ticket.*;
+import com.epam.brest2019.courses.model.soap.converter.TicketConverter;
+import com.epam.brest2019.courses.model.soap.model.ticket.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.epam.brest2019.courses.soap.converter.Converter.*;
+import static com.epam.brest2019.courses.model.soap.converter.Converter.*;
 
 /**
  * TicketEndpoint, receives and sends objects in xml
@@ -75,7 +75,7 @@ public class TicketEndpoint {
 
         response.setTicket(
                 ticketConverter.ticketConverterToSoap(
-                        ticketService.findById(request.getTicketId())));
+                        ticketService.findById(request.getTicketId()), UPDATE));
 
         return response;
     }

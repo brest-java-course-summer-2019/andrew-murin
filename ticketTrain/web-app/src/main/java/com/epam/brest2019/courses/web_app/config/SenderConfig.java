@@ -25,31 +25,13 @@ public class SenderConfig {
     private static final Logger LOGGER = LoggerFactory.getLogger(SenderConfig.class);
 
     @Autowired
-    private JmsTemplate jmsTemplate;
-
-    @Autowired
     private ConnectionFactory connectionFactory;
-
-    @Autowired
-    private MessageConverter messageConverter;
 
     @Bean
     public MessageChannel sendToQueue() {
         return new DirectChannel();
     }
 
-    private String destinationChannel = "queue";
-
-//    @Bean
-//    @ServiceActivator(inputChannel = "producingChannel")
-//    public MessageHandler jmsMessageHandler(JmsTemplate jmsTemplate) {
-//
-//        JmsSendingMessageHandler handler =
-//                new JmsSendingMessageHandler(jmsTemplate);
-//
-//        handler.setDestinationName(destinationChannel);
-//
-//        return handler;
 
     @Bean
     public IntegrationFlow jmsInboundFlow() {
@@ -68,16 +50,5 @@ public class SenderConfig {
     public void listen(Object in) {
         LOGGER.info(in.toString());
     }
-
-//    @Bean
-//    public IntegrationFlow jmsOutboundFlow() {
-//        return IntegrationFlows
-//                .from("outboundChannel")
-//                .handle(Jms.outboundAdapter(connectionFactory)
-//                        .destination("queue"))
-//                .log()
-//                .get();
-//
-//    }
 
 }

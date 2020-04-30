@@ -2,20 +2,22 @@ package com.epam.brest2019.courses.dao.impl;
 
 
 import com.epam.brest2019.courses.dao.PaymentDao;
+//import com.epam.brest2019.courses.dao.config.DataBaseDAOConfig;
 import com.epam.brest2019.courses.dao.config.DataBaseDAOConfig;
 import com.epam.brest2019.courses.model.Payment;
 import com.epam.brest2019.courses.model.Ticket;
 import org.hibernate.SessionFactory;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -27,7 +29,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
+@Import(DataBaseDAOConfig.class)
 @ContextConfiguration(classes = {DataBaseDAOConfig.class})
 @TestPropertySource("classpath:application-test.properties")
 public class PaymentDaoJdbcImplTest {
@@ -42,7 +45,7 @@ public class PaymentDaoJdbcImplTest {
 
     private Payment payment;
 
-    @Before
+    @BeforeEach
     public void changes() {
         LocalDate localDate = LocalDate.now();
 
@@ -53,7 +56,7 @@ public class PaymentDaoJdbcImplTest {
         paymentDao.add(payment);
     }
 
-    @After
+    @AfterEach
     public void cleanChanges(){
         paymentDao.delete(payment);
     }

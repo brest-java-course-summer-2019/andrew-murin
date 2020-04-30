@@ -2,12 +2,9 @@ package com.epam.brest2019.courses.soap.endpoint;
 
 
 import com.epam.brest2019.courses.model.Payment;
-import com.epam.brest2019.courses.model.Ticket;
 import com.epam.brest2019.courses.service.PaymentService;
-import com.epam.brest2019.courses.soap.converter.PaymentConverter;
-import com.epam.brest2019.courses.soap.model.payment.*;
-import com.epam.brest2019.courses.soap.model.ticket.GetSearchTicketByDateAndDirectionRequest;
-import com.epam.brest2019.courses.soap.model.ticket.GetSearchTicketByDateAndDirectionResponse;
+import com.epam.brest2019.courses.model.soap.converter.PaymentConverter;
+import com.epam.brest2019.courses.model.soap.model.payment.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +16,7 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.epam.brest2019.courses.soap.converter.Converter.*;
+import static com.epam.brest2019.courses.model.soap.converter.Converter.*;
 
 /**
  * PaymentEndpoint, receives and sends objects in xml
@@ -54,6 +51,18 @@ public class PaymentEndpoint {
         return response;
     }
 
+    @PayloadRoot(namespace = PAYMENT_URI, localPart = "getAllWithDirectionRequest")
+    @ResponsePayload
+    public GetAllWithDirectionResponse getAllWithDirectionResponse(@RequestPayload GetAllWithDirectionRequest request) {
+        LOGGER.debug("GetAllPaymentRequest - {}", request);
+        GetAllWithDirectionResponse response = new GetAllWithDirectionResponse();
+
+        response.getListOfPayment().addAll(
+                paymentConverter.paymentsConvertFindAllWithDirection(paymentService.findAllWitchDirection()));
+
+        return response;
+    }
+
 
     @PayloadRoot(namespace = PAYMENT_URI, localPart = "getPaymentByIdRequest")
     @ResponsePayload
@@ -64,7 +73,7 @@ public class PaymentEndpoint {
 
         response.setPayment(
                 paymentConverter.paymentConverterToSoap(
-                        paymentService.findById(request.getPaymentId())));
+                        paymentService.findById(request.getPaymentId()), UPDATE));
 
         return response;
     }

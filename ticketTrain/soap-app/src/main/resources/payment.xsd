@@ -80,6 +80,15 @@
         </xs:complexType>
     </xs:element>
 
+    <xs:element name="getAllWithDirectionResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="listOfPayment" type="tns:paymentSoap" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
     <!--    Search by date-->
     <xs:element name="getSearchByDateRequest">
         <xs:complexType>

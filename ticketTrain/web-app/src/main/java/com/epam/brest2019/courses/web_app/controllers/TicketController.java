@@ -1,7 +1,8 @@
 package com.epam.brest2019.courses.web_app.controllers;
 
+import com.epam.brest2019.courses.consumer.TicketSoapConsumer;
 import com.epam.brest2019.courses.model.Ticket;
-import com.epam.brest2019.courses.service.TicketService;
+import com.epam.brest2019.courses.model.soap.converter.TicketConverter;
 import com.epam.brest2019.courses.web_app.validators.TicketValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,8 @@ import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
+import static com.epam.brest2019.courses.model.soap.converter.Converter.UPDATE;
+
 /**
  * Ticket controller
  */
@@ -29,9 +32,11 @@ public class TicketController {
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(TicketController.class);
 
+    @Autowired
+    private TicketConverter ticketConverter;
 
     @Autowired
-    private TicketService ticketService;
+    private TicketSoapConsumer ticketSoapConsumer;
 
     @Autowired
     private TicketValidator ticketValidator;
@@ -66,7 +71,9 @@ public class TicketController {
             finishDateView = LocalDate.of(2019,12,31);
         }
 
-        List<Ticket> tickets = ticketService.searchTicket(startDateView, finishDateView, directionFrom, directionTo);
+        List<Ticket> tickets = ticketConverter.ticketListSoapToList(
+                ticketSoapConsumer.searchTicket(
+                        startDateView, finishDateView, directionFrom, directionTo).getListOfTicket());
 
         model.addAttribute("tickets", tickets);
 
@@ -83,7 +90,9 @@ public class TicketController {
     public final String gotoSearchTickets(Model model) {
         LOGGER.debug("Search tickets");
 
-        List<Ticket> tickets = ticketService.findAllWithDirection();
+        List<Ticket> tickets = ticketConverter.ticketListSoapToList(
+                ticketSoapConsumer.findAllWithDirection().getListOfTicket());
+
         model.addAttribute("tickets", tickets);
 
         return "search-tickets";
@@ -101,7 +110,8 @@ public class TicketController {
     public final String findAllWithDirection(Model model) {
         LOGGER.debug("Find all tickets");
 
-        List<Ticket> tickets = ticketService.findAllWithDirection();
+        List<Ticket> tickets = ticketConverter.ticketListSoapToList(
+                ticketSoapConsumer.findAllWithDirection().getListOfTicket());
 
         model.addAttribute("tickets", tickets);
 
@@ -118,7 +128,8 @@ public class TicketController {
     @GetMapping("/ticket/{id}")
     public final String gotoEditTicketPage(@PathVariable Integer id, Model model) {
         LOGGER.debug("gotoEditTicketPage({})", id);
-        Ticket ticket = ticketService.findById(id);
+        Ticket ticket = ticketConverter.ticketSoapConverterToTicket(
+                ticketSoapConsumer.findTicketById(id).getTicket(), UPDATE);
 
         model.addAttribute("ticket", ticket);
 
@@ -141,7 +152,7 @@ public class TicketController {
             return "ticket/" + ticket.getTicketId();
 
         } else {
-            this.ticketService.update(ticket);
+            this.ticketSoapConsumer.updateTicket(ticket);
             return "redirect:/tickets";
         }
 
@@ -157,7 +168,7 @@ public class TicketController {
     public final String gotoTicketAddPage(Model model) {
         LOGGER.debug("Go to add ticket page({})", model);
 
-        List<Ticket> tickets = ticketService.findAll();
+        List<Ticket> tickets = ticketConverter.ticketListSoapToList(ticketSoapConsumer.findAll().getListOfTicket());
 
         Ticket ticket = new Ticket();
 
@@ -181,9 +192,9 @@ public class TicketController {
         ticketValidator.validate(ticket, result);
 
         if (result.hasErrors()) {
-            return "ticket/";
+            return "/ticket";
         } else {
-            this.ticketService.add(ticket);
+            this.ticketSoapConsumer.addTicket(ticket);
             return "redirect:/tickets";
         }
     }
@@ -197,7 +208,7 @@ public class TicketController {
     @GetMapping("/ticket/{id}/delete")
     public final String deleteTicketById(@PathVariable("id") Integer ticketId) {
         LOGGER.debug("Delete ticket by id({})", ticketId);
-        ticketService.delete(ticketId);
+        ticketSoapConsumer.deleteTicket(ticketId);
 
         return "redirect:/tickets";
     }

@@ -1,9 +1,11 @@
 package com.epam.brest2019.courses.web_app.controllers;
 
+import com.epam.brest2019.courses.consumer.PaymentSoapConsumer;
+import com.epam.brest2019.courses.consumer.TicketSoapConsumer;
 import com.epam.brest2019.courses.model.Payment;
 import com.epam.brest2019.courses.model.Ticket;
-import com.epam.brest2019.courses.service.PaymentService;
-import com.epam.brest2019.courses.service.TicketService;
+import com.epam.brest2019.courses.model.soap.converter.PaymentConverter;
+import com.epam.brest2019.courses.model.soap.converter.TicketConverter;
 import com.epam.brest2019.courses.web_app.validators.PaymentValidator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -25,6 +27,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+import static com.epam.brest2019.courses.model.soap.converter.Converter.UPDATE;
+
 /**
  * Payment controller
  */
@@ -37,19 +41,21 @@ public class PaymentController{
     private static final Logger LOGGER = LoggerFactory.getLogger(PaymentController.class);
 
     @Autowired
-    private PaymentService paymentService;
+    private PaymentConverter paymentConverter;
+    @Autowired
+    private TicketConverter ticketConverter;
 
     @Autowired
-    private TicketService ticketService;
+    private PaymentSoapConsumer paymentSoapConsumer;
+
+    @Autowired
+    private TicketSoapConsumer ticketSoapConsumer;
 
     @Autowired
     private PaymentValidator paymentValidator;
 
     @Autowired
     private JmsTemplate jmsTemplate;
-//
-//    @Autowired
-//    private Sender sender;
 
     /**
      * Goto paid-tickets page.
@@ -60,30 +66,28 @@ public class PaymentController{
     @GetMapping("/paid-tickets")
     public final String paidTickets(Model model) throws JsonProcessingException {
         LOGGER.debug("Find all paid tickets");
-        List<Payment> payments = paymentService.findAllWitchDirection();
+        List<Payment> payments = paymentConverter.paymentsConvertListSoapToList(
+                paymentSoapConsumer.findAllPaymentWithDirection().getListOfPayment());
 
 
         ObjectMapper mapper = new ObjectMapper();
-        List<Payment> paymentList = mapper.convertValue(paymentService.findAllWitchDirection(),
+        List<Payment> paymentList = mapper.convertValue(payments,
                 new TypeReference<List<Payment>>(){
                 }
         );
-
-
 
         int totalCountTicket = (int) paymentList.stream()
                 .filter(payment -> payment.getTicketCount() != null)
                 .mapToLong(Payment::getTicketCount).sum();
 
-
         BigDecimal summ = paymentList.stream()
                 .filter(payment -> payment.getTicketCost() != null)
                 .map(Payment::getTicketCost)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
-
+//
 
         model.addAttribute("isNotSearch", true);
-        model.addAttribute("payments", paymentService.findAllWitchDirection());
+        model.addAttribute("payments", payments);
         model.addAttribute("countTicket", totalCountTicket);
         model.addAttribute("totalSum", summ);
 
@@ -100,8 +104,10 @@ public class PaymentController{
     public final String gotoEditPaidTicketPage(@PathVariable Integer id, Model model) {
         LOGGER.debug("goto edit paid-ticket page({})", id);
 
-        Payment payment = paymentService.findById(id);
-        List<Ticket> tickets = ticketService.findAll();
+        Payment payment = paymentConverter.paymentConverterSoapToPayment(
+                paymentSoapConsumer.findPaymentById(id).getPayment(), UPDATE);
+
+        List<Ticket> tickets = ticketConverter.ticketListSoapToList(ticketSoapConsumer.findAll().getListOfTicket());
 
         model.addAttribute("paidTicket", payment);
         model.addAttribute("tickets", tickets);
@@ -116,18 +122,27 @@ public class PaymentController{
      */
     @PostMapping("/paid-ticket/{id}")
     public final String updatePaidTicket(@ModelAttribute("paidTicketDate") String paidTicketDate,
+                                         @PathVariable("id") int id,
                                          @Valid Payment payment, BindingResult result) {
         LOGGER.debug("Update paid-ticket ({}, {}, {})", paidTicketDate, payment, result);
 
+        Ticket ticket = ticketConverter.ticketSoapConverterToTicket(
+                ticketSoapConsumer.findTicketById(id).getTicket(), UPDATE);
+
 
         payment.setPaymentDate(LocalDate.parse(paidTicketDate));
+        payment.setTicketId(ticket);
+        payment.setEmail("12345@mail.ru");
+
+        LOGGER.debug("Payment {}", payment);
         paymentValidator.validate(payment, result);
+
 
         if(result.hasErrors()){
             return "redirect:/paid-ticket/" + payment.getPaymentId();
 
         } else {
-            this.paymentService.update(payment);
+            paymentSoapConsumer.updatePayment(payment);
             return "redirect:/paid-tickets";
         }
 
@@ -142,9 +157,7 @@ public class PaymentController{
     public final String deletePayment(@PathVariable Integer id) {
         LOGGER.debug("Delete paid-ticket({})", id);
 
-        Payment payment = paymentService.findById(id);
-
-        this.paymentService.delete(id);
+        paymentSoapConsumer.deletePayment(id);
 
         return "redirect:/paid-tickets";
     }
@@ -175,7 +188,8 @@ public class PaymentController{
             finishDateView = LocalDate.now();
         }
 
-        List<Payment> payments = paymentService.searchByDate(startDateView, finishDateView);
+        List<Payment> payments = paymentConverter.paymentsConvertListSoapToList(
+                paymentSoapConsumer.searchPaymentByDate(startDateView, finishDateView).getListOfPayment());
 
         model.addAttribute("isSearch", true);
         model.addAttribute("paymentsSearched", payments);
@@ -194,16 +208,16 @@ public class PaymentController{
                                   @ModelAttribute("email") String email) throws InterruptedException {
         LOGGER.debug("Pay ticket({}, {})", id, email);
 
-        Ticket ticket = new Ticket();
+        Ticket ticket = ticketConverter.ticketSoapConverterToTicket(
+                ticketSoapConsumer.findTicketById(id).getTicket(), UPDATE);
+
         Payment payment = new Payment();
         ticket.setTicketId(id);
 
         payment.setPaymentDate(LocalDate.now());
         payment.setTicketId(ticket);
         payment.setEmail(email);
-
-//        sender.send(payment);
-//        paymentService.add(payment);
+//        paymentSoapConsumer.addPayment(payment);
         jmsTemplate.convertAndSend("sendToQueue", payment);
         LOGGER.info("LOGGER MESSAGE: {}", payment);
 
