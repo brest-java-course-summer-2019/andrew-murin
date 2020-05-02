@@ -35,10 +35,6 @@ public class TicketServiceMockTest {
     @InjectMocks
     private TicketServiceImpl ticketService;
 
-//    @AfterEach
-//    void after(){
-//        Mockito.verifyNoMoreInteractions(ticketDao);
-//    }
 
 
     private  static final LocalDate START_DATE = LocalDate.of(2019, 01,01);

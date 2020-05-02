@@ -2,20 +2,19 @@ package com.epam.brest2019.courses.test_db;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
-import org.springframework.test.context.ContextConfiguration;
 
 import javax.sql.DataSource;
 
-@Configuration
+
+@SpringBootConfiguration
 @EnableAutoConfiguration
 @ComponentScan("com.epam.brest2019.courses.*")
-@ContextConfiguration
 public class DataBaseConfig {
 
     @Autowired

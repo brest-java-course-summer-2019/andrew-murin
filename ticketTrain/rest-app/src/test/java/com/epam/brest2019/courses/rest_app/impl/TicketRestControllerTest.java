@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.context.ContextConfiguration;
@@ -34,8 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration
+@SpringBootTest
 public class TicketRestControllerTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TicketRestControllerTest.class);
@@ -128,7 +128,7 @@ public class TicketRestControllerTest {
         LOGGER.debug("addTicket");
 
         mockMvc.perform(
-                MockMvcRequestBuilders.post("/tickets")
+                MockMvcRequestBuilders.post("/")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(objectMapper.writeValueAsString(createFixtureForAllDirection(1)))
                 .accept(MediaType.APPLICATION_JSON_UTF8))

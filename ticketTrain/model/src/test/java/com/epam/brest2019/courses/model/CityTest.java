@@ -1,8 +1,12 @@
 package com.epam.brest2019.courses.model;
 
-import org.junit.Assert;
-import org.junit.Test;
 
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+//@SpringBootTest
 public class CityTest {
 
     private static final Integer CITY_ID = 1;
@@ -16,8 +20,8 @@ public class CityTest {
 
         city.setCityId(1);
 
-        Assert.assertNotNull(city);
-        Assert.assertEquals(city.getCityId(), CITY_ID);
+        assertNotNull(city);
+        assertEquals(city.getCityId(), CITY_ID);
     }
 
     @Test
@@ -27,8 +31,8 @@ public class CityTest {
         city.setCityId(CITY_ID);
         city.setCityName(CITY_NAME);
 
-        Assert.assertNotNull(city);
-        Assert.assertEquals(city.getCityId(), CITY_ID);
-        Assert.assertEquals(city.getCityName(), CITY_NAME);
+        assertNotNull(city);
+        assertEquals(city.getCityId(), CITY_ID);
+        assertEquals(city.getCityName(), CITY_NAME);
     }
 }
