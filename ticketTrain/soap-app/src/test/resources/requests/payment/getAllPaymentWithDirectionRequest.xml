@@ -3,8 +3,8 @@
 
     <soapenv:Header/>
     <soapenv:Body>
-        <xs:getAllPaymentRequest>
-        </xs:getAllPaymentRequest>
+        <xs:getAllWithDirectionRequest>
+        </xs:getAllWithDirectionRequest>
     </soapenv:Body>
 
 </soapenv:Envelope>

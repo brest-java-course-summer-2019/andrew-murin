@@ -4,7 +4,9 @@ import com.epam.brest2019.courses.test_db.DataBaseConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(scanBasePackages = {"com.epam.brest2019.courses.model.soap.converter"},
+
+@SpringBootApplication(scanBasePackages = {"com.epam.brest2019.courses.model.soap.converter",
+                                            "com.epam.brest2019.courses.*"},
         scanBasePackageClasses = DataBaseConfig.class)
 public class SoapApplication {
 

@@ -3,10 +3,10 @@
 //import com.epam.brest2019.courses.model.Ticket;
 //import com.epam.brest2019.courses.service.TicketService;
 //import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Disabled;
 //import org.junit.jupiter.api.Test;
 //import org.junit.jupiter.api.extension.ExtendWith;
 //import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.test.context.SpringBootTest;
 //import org.springframework.context.ApplicationContext;
 //import org.springframework.context.ResourceLoaderAware;
 //import org.springframework.core.io.Resource;
@@ -20,6 +20,7 @@
 //import static org.junit.jupiter.api.Assertions.assertNotEquals;
 //import static org.springframework.ws.test.server.RequestCreators.withSoapEnvelope;
 //import static org.springframework.ws.test.server.ResponseMatchers.soapEnvelope;
+//
 //
 //@ExtendWith(SpringExtension.class)
 //@ContextConfiguration(classes = SoapApplication.class)
@@ -44,7 +45,7 @@
 //    }
 //
 //    @Test
-//    @Disabled
+////    @Disabled
 //    void getAllTicket() throws IOException {
 //        Resource request = resourceLoader.getResource("/requests/ticket/getAllTicketRequest.xml");
 //        Resource response = resourceLoader.getResource("/responses/ticket/getAllTicketResponse.xml");
@@ -58,7 +59,7 @@
 //
 //        Ticket ticket = ticketService.findById(1);
 //
-////        mockClient.sendRequest(withSoapEnvelope(request));
+//        mockClient.sendRequest(withSoapEnvelope(request));
 //
 //        Ticket updatedTicket = ticketService.findById(1);
 //

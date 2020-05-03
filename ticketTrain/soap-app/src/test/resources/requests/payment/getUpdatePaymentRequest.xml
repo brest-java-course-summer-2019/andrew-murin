@@ -8,7 +8,7 @@
         <xs:getUpdatePaymentRequest>
             <xs:payment>
                 <xs:paymentId>1</xs:paymentId>
-                <xs:paymentDate>2019-09-09</xs:paymentDate>
+                <xs:paymentDate>2019-09-07</xs:paymentDate>
                 <xs:email>KlimukDmitry@gmail.com</xs:email>
                 <xs:ticketId>
                     <tnt:ticketId>2</tnt:ticketId>

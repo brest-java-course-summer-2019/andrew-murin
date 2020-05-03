@@ -21,7 +21,7 @@ public class TicketConverter {
 
 
     /**
-     * Conflict ticketId and GeneratedValue in module
+     * Conflict ticketId and GeneratedValue in model
      *
      * @param ticket
      * @param add
@@ -46,7 +46,7 @@ public class TicketConverter {
     }
 
     /**
-     * Conflict ticketId and GeneratedValue in module
+     * Conflict ticketId and GeneratedValue in model
      *
      * @param ticketSoap
      * @param add

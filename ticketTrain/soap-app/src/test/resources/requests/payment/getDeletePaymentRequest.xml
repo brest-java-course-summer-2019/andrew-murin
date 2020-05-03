@@ -4,7 +4,7 @@
     <soapenv:Header/>
     <soapenv:Body>
         <xs:getDeletePaymentRequest>
-            <xs:paymentId>1</xs:paymentId>
+            <xs:paymentId>2</xs:paymentId>
         </xs:getDeletePaymentRequest>
     </soapenv:Body>
 

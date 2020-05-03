@@ -42,7 +42,7 @@ public class PaymentEndpoint {
 
     @PayloadRoot(namespace = PAYMENT_URI, localPart = "getAllPaymentRequest")
     @ResponsePayload
-    public GetAllPaymentResponse getAllTicketResponse(@RequestPayload GetAllPaymentRequest request) {
+    public GetAllPaymentResponse getAllPaymentResponse(@RequestPayload GetAllPaymentRequest request) {
         LOGGER.debug("GetAllPaymentRequest - {}", request);
         GetAllPaymentResponse response = new GetAllPaymentResponse();
 
