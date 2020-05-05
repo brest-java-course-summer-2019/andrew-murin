@@ -82,10 +82,6 @@ public class PaymentEndpointTest implements ResourceLoaderAware {
         Resource response = resourceLoader
                 .getResource("classpath:/responses/payment/getSearchByDateResponse.xml");
 
-        LocalDate startDate = LocalDate.of(2019, 9, 10);
-        LocalDate finishDate = LocalDate.of(2019, 9, 20);
-        List<Payment> paymentList = paymentService.searchByDate(startDate, finishDate);
-
         mockClient.sendRequest(withSoapEnvelope(request)).andExpect(soapEnvelope(response));
     }
 
@@ -96,13 +92,6 @@ public class PaymentEndpointTest implements ResourceLoaderAware {
                 .getResource("classpath:/requests/payment/getPaymentByIdRequest.xml");
         Resource response = resourceLoader
                 .getResource("classpath:/responses/payment/getPaymentByIdResponse.xml");
-
-        GetPaymentByIdResponse responsee = new GetPaymentByIdResponse();
-
-        responsee.setPayment(
-                paymentConverter.paymentConverterToSoap(
-                        paymentService.findById(1), UPDATE));
-
 
         mockClient.sendRequest(withSoapEnvelope(request)).andExpect(soapEnvelope(response));
     }

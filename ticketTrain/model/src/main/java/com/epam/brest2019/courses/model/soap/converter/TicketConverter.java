@@ -29,6 +29,7 @@ public class TicketConverter {
      */
     public TicketSoap ticketConverterToSoap(Ticket ticket, String add){
         TicketSoap ticketSoap = new TicketSoap();
+        System.out.println(ticket);
         CitySoap cityFrom = cityConverter.cityConverterToSoap(ticket.getFromCity());
         CitySoap cityTo = cityConverter.cityConverterToSoap(ticket.getToCity());
 

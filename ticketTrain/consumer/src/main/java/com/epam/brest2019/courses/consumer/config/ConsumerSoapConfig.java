@@ -5,6 +5,7 @@ import com.epam.brest2019.courses.consumer.TicketSoapConsumer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.xml.Jaxb2CollectionHttpMessageConverter;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
 @Configuration
@@ -14,6 +15,7 @@ public class ConsumerSoapConfig {
     @Bean
     public Jaxb2Marshaller marshaller() {
         Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
+        marshaller.setProcessExternalEntities(true);
 
         marshaller.setContextPaths("com.epam.brest2019.courses.model.soap.model.city",
                                     "com.epam.brest2019.courses.model.soap.model.ticket",

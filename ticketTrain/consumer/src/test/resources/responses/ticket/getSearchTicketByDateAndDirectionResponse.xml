@@ -1,0 +1,20 @@
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+    <SOAP-ENV:Header/>
+    <SOAP-ENV:Body>
+        <ns2:getSearchTicketByDateAndDirectionResponse xmlns:ns2="http://epam.com/brest2019/courses/soap/model/ticket" xmlns:ns3="http://epam.com/brest2019/courses/soap/model/city">
+            <ns2:listOfTicket>
+                <ns2:ticketId>1</ns2:ticketId>
+                <ns2:ticketCost>7.25</ns2:ticketCost>
+                <ns2:ticketDate>2019-09-25</ns2:ticketDate>
+                <ns2:fromCity>
+                    <ns3:cityId>1</ns3:cityId>
+                    <ns3:cityName>BREST</ns3:cityName>
+                </ns2:fromCity>
+                <ns2:toCity>
+                    <ns3:cityId>6</ns3:cityId>
+                    <ns3:cityName>MOGILEV</ns3:cityName>
+                </ns2:toCity>
+            </ns2:listOfTicket>
+        </ns2:getSearchTicketByDateAndDirectionResponse>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

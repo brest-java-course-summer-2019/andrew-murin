@@ -1,0 +1,11 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:xs="http://epam.com/brest2019/courses/soap/model/payment">
+
+    <soapenv:Header/>
+    <soapenv:Body>
+        <xs:getPaymentByIdRequest>
+            <xs:paymentId>1</xs:paymentId>
+        </xs:getPaymentByIdRequest>
+    </soapenv:Body>
+
+</soapenv:Envelope>

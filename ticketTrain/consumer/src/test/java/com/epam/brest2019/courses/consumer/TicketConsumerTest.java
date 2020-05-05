@@ -4,8 +4,9 @@ import com.epam.brest2019.courses.consumer.config.ConsumerSoapConfig;
 import com.epam.brest2019.courses.model.City;
 import com.epam.brest2019.courses.model.Payment;
 import com.epam.brest2019.courses.model.Ticket;
-import com.epam.brest2019.courses.model.soap.converter.PaymentConverter;
+import com.epam.brest2019.courses.model.soap.converter.TicketConverter;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,14 +32,14 @@ import static org.springframework.ws.test.client.ResponseCreators.withSoapEnvelo
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = ConsumerSoapConfig.class)
-public class PaymentConsumerTest implements ResourceLoaderAware {
+public class TicketConsumerTest implements ResourceLoaderAware {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PaymentConsumerTest.class);
 
     @Autowired
-    private PaymentSoapConsumer paymentSoapConsumer;
+    private TicketSoapConsumer ticketSoapConsumer;
     @Autowired
-    private PaymentConverter paymentConverter;
+    private TicketConverter ticketConverter;
     private MockWebServiceServer mockServer;
     private ResourceLoader resourceLoader;
 
@@ -50,35 +51,35 @@ public class PaymentConsumerTest implements ResourceLoaderAware {
 
     @BeforeEach
     public void createSoapConsumer() {
-        mockServer = MockWebServiceServer.createServer(paymentSoapConsumer);
+        mockServer = MockWebServiceServer.createServer(ticketSoapConsumer);
     }
 
     @Test
     @Order(1)
-    void getAllPayment() throws IOException {
-        Resource request = resourceLoader.getResource("classpath:/requests/payment/getAllPaymentRequest.xml");
-        Resource response = resourceLoader.getResource("classpath:/responses/payment/getAllPaymentResponse.xml");
+    void getAllTicket() throws IOException {
+        Resource request = resourceLoader.getResource("classpath:/requests/ticket/getAllTicketRequest.xml");
+        Resource response = resourceLoader.getResource("classpath:/responses/ticket/getAllTicketResponse.xml");
 
         mockServer.expect(soapEnvelope(request))
                 .andRespond(withSoapEnvelope(response));
 
-        paymentSoapConsumer.findAll();
+        ticketSoapConsumer.findAll();
 
         mockServer.verify();
     }
 
     @Test
     @Order(2)
-    void getAllPaymentWithDirections() throws IOException {
+    void getAllTicketWithDirections() throws IOException {
         Resource request = resourceLoader
-                .getResource("classpath:/requests/payment/getAllPaymentWithDirectionRequest.xml");
+                .getResource("classpath:/requests/ticket/getAllTicketWithDirectionRequest.xml");
         Resource response = resourceLoader
-                .getResource("classpath:/responses/payment/getAllPaymentWithDirectionResponse.xml");
+                .getResource("classpath:/responses/ticket/getAllTicketWithDirectionResponse.xml");
 
         mockServer.expect(soapEnvelope(request))
                 .andRespond(withSoapEnvelope(response));
 
-        paymentSoapConsumer.findAllPaymentWithDirection();
+        ticketSoapConsumer.findAllWithDirection();
 
         mockServer.verify();
     }
@@ -87,17 +88,17 @@ public class PaymentConsumerTest implements ResourceLoaderAware {
     @Order(3)
     void getSearchByDate() throws IOException {
         Resource request = resourceLoader
-                .getResource("classpath:/requests/payment/getSearchByDateRequest.xml");
+                .getResource("classpath:/requests/ticket/getSearchTicketByDateAndDirectionRequest.xml");
         Resource response = resourceLoader
-                .getResource("classpath:/responses/payment/getSearchByDateResponse.xml");
+                .getResource("classpath:/responses/ticket/getSearchTicketByDateAndDirectionResponse.xml");
 
         mockServer.expect(soapEnvelope(request))
                 .andRespond(withSoapEnvelope(response));
 
-        LocalDate startDate = LocalDate.of(2019, 9, 10);
-        LocalDate finishDate = LocalDate.of(2019, 9, 20);
+        LocalDate startDate = LocalDate.of(2019, 9, 22);
+        LocalDate finishDate = LocalDate.of(2019, 9, 27);
 
-        paymentSoapConsumer.searchPaymentByDate(startDate, finishDate);
+        ticketSoapConsumer.searchTicket(startDate, finishDate, 1, 6);
 
         mockServer.verify();
 
@@ -105,88 +106,78 @@ public class PaymentConsumerTest implements ResourceLoaderAware {
 
     @Test
     @Order(4)
-    void getPaymentById() throws IOException {
+    void getTicketById() throws IOException {
         Resource request = resourceLoader
-                .getResource("classpath:/requests/payment/getPaymentByIdRequest.xml");
+                .getResource("classpath:/requests/ticket/getTicketByIdRequest.xml");
         Resource response = resourceLoader
-                .getResource("classpath:/responses/payment/getPaymentByIdResponse.xml");
+                .getResource("classpath:/responses/ticket/getTicketByIdResponse.xml");
 
         mockServer.expect(soapEnvelope(request))
                 .andRespond(withSoapEnvelope(response));
 
-        paymentSoapConsumer.findPaymentById(1);
+        ticketSoapConsumer.findTicketById(1);
 
         mockServer.verify();
     }
 
 
     @Test
-    void getAddPayment() throws IOException {
+    void getAddTicket() throws IOException {
         Resource request = resourceLoader
-                .getResource("classpath:/requests/payment/getAddPaymentRequest.xml");
+                .getResource("classpath:/requests/ticket/getAddTicketRequest.xml");
 
-
-        Payment payment = createPaymentFixture(ADD);
+        Ticket ticket = createTicketFixture(ADD);
 
         mockServer.expect(soapEnvelope(request));
 
-        paymentSoapConsumer.addPayment(payment);
+        ticketSoapConsumer.addTicket(ticket);
 
         mockServer.verify();
     }
 
     @Test
-    void getUpdatePayment() throws IOException {
+    void getUpdateTicket() throws IOException {
         Resource request = resourceLoader
-                .getResource("classpath:/requests/payment/getUpdatePaymentRequest.xml");
+                .getResource("classpath:/requests/ticket/getUpdateTicketRequest.xml");
 
         mockServer.expect(soapEnvelope(request));
 
-        Payment payment = createPaymentFixture(UPDATE);
+        Ticket ticket = createTicketFixture(UPDATE);
 
-        paymentSoapConsumer.updatePayment(createPaymentFixture(UPDATE));
+        ticketSoapConsumer.updateTicket(ticket);
 
         mockServer.verify();
     }
 
     @Test
-    void getDeletePayment() throws IOException {
+    void getDeleteTicket() throws IOException {
         Resource request = resourceLoader
-                .getResource("classpath:/requests/payment/getDeletePaymentRequest.xml");
+                .getResource("classpath:/requests/ticket/getDeleteTicketRequest.xml");
 
         mockServer.expect(soapEnvelope(request));
 
-        paymentSoapConsumer.deletePayment(2);
+        ticketSoapConsumer.deleteTicket(8);
 
         mockServer.verify();
     }
 
-    private Payment createPaymentFixture(String add) {
-        Payment payment = new Payment();
+    private Ticket createTicketFixture(String add) {
         Ticket ticket = new Ticket();
         City fromCity = new City();
         City toCity = new City();
 
-        fromCity.setCityId(1);
-        fromCity.setCityName("BREST");
+        fromCity.setCityId(6);
+        fromCity.setCityName("MOGILEV");
         toCity.setCityId(3);
         toCity.setCityName("VITEBSK");
 
-        ticket.setTicketId(2);
-        ticket.setTicketDate(LocalDate.of(2019, 9, 25));
-        ticket.setTicketCost(new BigDecimal("10.65"));
+        ticket.setTicketId(1);
+        ticket.setTicketCost(new BigDecimal("20"));
+        ticket.setTicketDate(LocalDate.of(2030, 5, 5));
         ticket.setFromCity(fromCity);
         ticket.setToCity(toCity);
 
-
-        payment.setPaymentId(1);
-        payment.setPaymentDate(LocalDate.of(2019, 9, 7));
-        payment.setEmail("KlimukDmitry@gmail.com");
-        payment.setTicketId(ticket);
-        payment.setTicketCount(5L);
-        payment.setTicketCost(new BigDecimal("2"));
-
-        return payment;
+        return ticket;
     }
 
 }
