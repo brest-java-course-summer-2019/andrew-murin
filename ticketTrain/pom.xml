@@ -20,15 +20,11 @@
 
     <modules>
         <module>model</module>
-        <module>test-db</module>
         <module>dao-api</module>
         <module>dao</module>
         <module>service-api</module>
         <module>service</module>
         <module>rest-app</module>
-        <module>soap-app</module>
-        <module>consumer</module>
-        <module>web-app</module>
         </modules>
 
     <distributionManagement>
@@ -92,18 +88,6 @@
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-freemarker</artifactId>
-                <version>${spring-boot.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.thymeleaf</groupId>
-                <artifactId>thymeleaf-spring5</artifactId>
-                <version>3.0.10.RELEASE</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-test</artifactId>
                 <version>${spring-boot.version}</version>
                 <scope>test</scope>
@@ -139,23 +123,13 @@
                 <artifactId>spring-boot-starter-actuator</artifactId>
                 <version>${spring-boot.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-activemq</artifactId>
-                <version>${spring-boot.version}</version>
-            </dependency>
 
-            <dependency>
-                <groupId>org.springframework.integration</groupId>
-                <artifactId>spring-integration-jms</artifactId>
-                <version>5.2.3.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.integration</groupId>
-                <artifactId>spring-integration-test</artifactId>
-                <version>5.2.3.RELEASE</version>
-                <scope>test</scope>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.springframework.integration</groupId>-->
+<!--                <artifactId>spring-integration-test</artifactId>-->
+<!--                <version>5.2.3.RELEASE</version>-->
+<!--                <scope>test</scope>-->
+<!--            </dependency>-->
 
             <dependency>
                 <groupId>com.epam.brest2019.courses</groupId>
@@ -182,33 +156,12 @@
                 <artifactId>service</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.epam.brest2019.courses</groupId>
-                <artifactId>test-db</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.epam.brest2019.courses</groupId>
-                <artifactId>soap-app</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.epam.brest2019.courses</groupId>
-                <artifactId>consumer</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.epam.brest2019.courses</groupId>
-                <artifactId>web-app</artifactId>
-                <version>${project.version}</version>
-            </dependency>
 
-
-            <dependency>
-                <groupId>com.h2database</groupId>
-                <artifactId>h2</artifactId>
-                <version>1.4.199</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>com.h2database</groupId>-->
+<!--                <artifactId>h2</artifactId>-->
+<!--                <version>1.4.199</version>-->
+<!--            </dependency>-->
 
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
@@ -225,35 +178,29 @@
             </dependency>
 
 <!--            <dependency>-->
-<!--                <groupId>org.mockito</groupId>-->
-<!--                <artifactId>mockito-core</artifactId>-->
-<!--                <version>${mockito.version}</version>-->
-<!--                <scope>test</scope>-->
+<!--                <groupId>org.hibernate</groupId>-->
+<!--                <artifactId>hibernate-core</artifactId>-->
+<!--                <version>5.4.4.Final</version>-->
 <!--            </dependency>-->
 <!--            <dependency>-->
-<!--                <groupId>org.mockito</groupId>-->
-<!--                <artifactId>mockito-junit-jupiter</artifactId>-->
-<!--                <version>${mockito.version}</version>-->
-<!--                <scope>test</scope>-->
+<!--                <groupId>org.hibernate</groupId>-->
+<!--                <artifactId>hibernate-entitymanager</artifactId>-->
+<!--                <version>5.4.4.Final</version>-->
 <!--            </dependency>-->
-
-
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-core</artifactId>
-                <version>5.4.4.Final</version>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-entitymanager</artifactId>
-                <version>5.4.4.Final</version>
-            </dependency>
             <dependency>
                 <groupId>org.hibernate.validator</groupId>
                 <artifactId>hibernate-validator</artifactId>
                 <version>6.0.17.Final</version>
             </dependency>
-      </dependencies>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-mongodb</artifactId>
+                <version>${spring-boot.version}</version>
+                <optional>true</optional>
+            </dependency>
+
+        </dependencies>
    </dependencyManagement>
 
     <profiles>

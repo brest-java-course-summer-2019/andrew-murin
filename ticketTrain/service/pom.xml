@@ -22,10 +22,6 @@
             <groupId>com.epam.brest2019.courses</groupId>
             <artifactId>service-api</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.epam.brest2019.courses</groupId>
-            <artifactId>test-db</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
