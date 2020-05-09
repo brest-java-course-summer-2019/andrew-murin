@@ -15,12 +15,18 @@ public interface PaymentDao {
     List<Payment> findAll();
 
     /**
-     * Get all payment's with specified payment id.
-     *
-     * @param ticketId ticket id
-     * @return list of payment's by ticket id
+     * Find all directions
+     * @return
      */
-    List<Payment> findByTicketId(Integer ticketId);
+    List<Payment> findAllWitchDirection();
+
+    /**
+     * Find all paid-tickets by date
+     * @param startDate
+     * @param finishDate
+     * @return
+     */
+    List<Payment> searchByDate(LocalDate startDate, LocalDate finishDate);
 
     /**
      * Get payment with specified id.
@@ -29,6 +35,14 @@ public interface PaymentDao {
      * @return payment by id
      */
     Payment findById(Integer paymentId);
+
+    /**
+     * Get all payment's with specified payment id.
+     *
+     * @param ticketId ticket id
+     * @return list of payment's by ticket id
+     */
+    List<Payment> findByTicketId(Integer ticketId);
 
     /**
      * Persist new payment.
@@ -52,17 +66,4 @@ public interface PaymentDao {
      */
     void delete(Payment paymentId);
 
-    /**
-     * Find all directions
-     * @return
-     */
-    List<Payment> findAllWitchDirection();
-
-    /**
-     * Find all paid-tickets by date
-     * @param startDate
-     * @param finishDate
-     * @return
-     */
-    List<Payment> searchByDate(LocalDate startDate, LocalDate finishDate);
 }

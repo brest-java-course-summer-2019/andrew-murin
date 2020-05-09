@@ -1,0 +1,34 @@
+#CITY
+db.city.insertMany([
+    { "cityName":  "BREST" },
+    { "cityName":  "MINSK" },
+    { "cityName":  "VITEBSK" },
+    { "cityName":  "GOMEL" },
+    { "cityName":  "GRODNO" },
+    { "cityName":  "MOGILEV" }
+])
+
+#TICKET
+db.ticket.insertMany([
+    {
+        "ticketCost": "12.50",
+        "ticketDate": '2019-09-25',
+        "fromCity": {
+             "cityName": "BREST"
+        },
+        "toCity": {
+            "cityName": "MINSK"
+        }
+    },
+    {
+        "ticketCost": "11.20",
+        "ticketDate": '2019-09-26',
+        "fromCity": {
+             "cityName": "VITEBSK"
+        },
+        "toCity": {
+            "cityName": "GOMEL"
+        }
+    },
+])
+

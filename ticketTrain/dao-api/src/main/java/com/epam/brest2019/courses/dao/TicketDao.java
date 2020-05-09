@@ -9,6 +9,37 @@ import java.util.List;
  * Ticket DAO Interface
  */
 public interface TicketDao {
+
+    /**
+     * Get tickets.
+     *
+     * @return tickets list.
+     */
+    List<Ticket> findAll();
+
+    /**
+     * Find all directions and replace numbers of directions on city names
+     * @return
+     */
+    List<Ticket> findAllWithDirection();
+
+    /**
+     * Find tickets by date & direction
+     * @param startDate
+     * @param finishDate
+     * @param fromCity
+     * @param toCity
+     * @return
+     */
+    List<Ticket> searchTicket(LocalDate startDate, LocalDate finishDate,
+                              Integer fromCity, Integer toCity);
+    /**
+     * Get Ticket By Id
+     * @param ticketId ticketId.
+     * @return Ticket
+     */
+    Ticket findById(Integer ticketId);
+
     /**
      * Persist new ticket.
      *
@@ -30,36 +61,5 @@ public interface TicketDao {
      * @param ticketId ticket id
      */
     void delete(Ticket ticketId);
-
-    /**
-     * Get tickets.
-     *
-     * @return tickets list.
-     */
-    List<Ticket> findAll();
-
-    /**
-     * Get Ticket By Id
-     * @param ticketId ticketId.
-     * @return Ticket
-     */
-    Ticket findById(Integer ticketId);
-
-    /**
-     * Find tickets by date & direction
-     * @param startDate
-     * @param finishDate
-     * @param fromCity
-     * @param toCity
-     * @return
-     */
-    List<Ticket> searchTicket(LocalDate startDate, LocalDate finishDate,
-                              Integer fromCity, Integer toCity);
-
-    /**
-     * Find all directions and replace numbers of directions on city names
-     * @return
-     */
-    List<Ticket> findAllWithDirection();
 
 }

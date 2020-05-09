@@ -3,7 +3,7 @@ package com.epam.brest2019.courses.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.constraints.Min;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -21,7 +21,6 @@ public class Ticket {
     /**
      * Cost of ticket
      */
-    @Min(0)
     private BigDecimal ticketCost;
 
     /**
@@ -47,7 +46,7 @@ public class Ticket {
 
     }
 
-    public Ticket(@Min(0) BigDecimal ticketCost, LocalDate ticketDate, City fromCity, City toCity) {
+    public Ticket(BigDecimal ticketCost, LocalDate ticketDate, City fromCity, City toCity) {
         this.ticketCost = ticketCost;
         this.ticketDate = ticketDate;
         this.fromCity = fromCity;
