@@ -2,21 +2,49 @@ package com.epam.brest2019.courses.dao;
 
 import com.epam.brest2019.courses.model.Ticket;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Ticket DAO Interface
  */
 public interface TicketDao {
+
+    /**
+     * Get tickets.
+     *
+     * @return tickets list.
+     */
+    List<Ticket> findAll();
+
+    /**
+     * Find tickets by date & direction
+     * @param startDate
+     * @param finishDate
+     * @param fromCity
+     * @param toCity
+     * @return
+     */
+    List<Ticket> searchTicket(LocalDateTime startDate, LocalDateTime finishDate,
+                              String fromCity, String toCity);
+
+
+    List<Ticket> searchPaidTicketByDate(LocalDateTime startDate, LocalDateTime finishDate);
+
+    /**
+     * Get Ticket By Id
+     * @param ticketId ticketId.
+     * @return Ticket
+     */
+    Ticket findById(String ticketId);
+
     /**
      * Persist new ticket.
      *
      * @param ticket new ticket
      * @return new ticket object.
      */
-    Ticket add(Ticket ticket);
+    void add(Ticket ticket);
 
     /**
      * Update ticket
@@ -30,37 +58,6 @@ public interface TicketDao {
      *
      * @param ticketId ticket id
      */
-    void delete(Integer ticketId);
-
-    /**
-     * Get tickets.
-     *
-     * @return tickets list.
-     */
-    List<Ticket> findAll();
-
-    /**
-     * Get Ticket By Id
-     * @param ticketId ticketId.
-     * @return Ticket
-     */
-    Optional<Ticket> findById(Integer ticketId);
-
-    /**
-     * Find tickets by date & direction
-     * @param startDate
-     * @param finishDate
-     * @param directionFrom
-     * @param directionTo
-     * @return
-     */
-    List<Ticket> searchTicket(LocalDate startDate, LocalDate finishDate,
-                              Integer directionFrom, Integer directionTo);
-
-    /**
-     * Find all directions and replace numbers of directions on city names
-     * @return
-     */
-    List<Ticket> findAllWithDirection();
+    void delete(String ticketId);
 
 }

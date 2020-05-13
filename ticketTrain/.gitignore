@@ -17,6 +17,7 @@ out/
 delivery_cost/
 html_view/
 docs/
+ticketTrain/soap-app/src/main/java/com/epam/brest2019/courses/soap/model
 
 model/target
 dao/target
@@ -26,6 +27,7 @@ service-api/target
 test-db/target
 web-app/target
 rest-app/target
+soap-app/target
 ticketTrain/
 
 

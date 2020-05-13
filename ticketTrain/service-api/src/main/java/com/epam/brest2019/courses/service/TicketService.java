@@ -3,6 +3,7 @@ package com.epam.brest2019.courses.service;
 import com.epam.brest2019.courses.model.Ticket;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -16,7 +17,7 @@ public interface TicketService {
      * @param ticket new ticket
      * @return new ticket object.
      */
-    Ticket add(Ticket ticket);
+    void add(Ticket ticket);
 
     /**
      * Update ticket
@@ -30,7 +31,7 @@ public interface TicketService {
      *
      * @param ticketId ticket id
      */
-    void delete(Integer ticketId);
+    void delete(String ticketId);
 
     /**
      * Get tickets.
@@ -44,24 +45,20 @@ public interface TicketService {
      * @param ticketId ticketId.
      * @return Ticket
      */
-    Ticket findById(Integer ticketId);
+    Ticket findById(String ticketId);
 
     /**
      * Find direction by date and directions
      * @param startDate
      * @param finishDate
-     * @param directionFrom
-     * @param directionTo
+     * @param cityFrom
+     * @param cityTo
      * @return
      */
-    List<Ticket> searchTicket(LocalDate startDate, LocalDate finishDate,
-                              Integer directionFrom, Integer directionTo);
+    List<Ticket> searchTicket(LocalDateTime startDate, LocalDateTime finishDate,
+                              String cityFrom, String cityTo);
 
-    /**
-     * Find all tickets and replace numbers on city names
-     * @return
-     */
-    List<Ticket> findAllWithDirection();
+    List<Ticket> searchPaidTicketByDate(LocalDateTime startDate, LocalDateTime finishDate);
 
 }
 

@@ -1,63 +1,50 @@
 package com.epam.brest2019.courses.model;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Email;
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.Objects;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 /**
  * POJO Ticket for model.
  */
+@Document(collection = "ticket")
 public class Ticket {
 
     /**
      * Ticket Id
      */
-    private Integer ticketId;
+    @Id
+    private String id;
     /**
      * Cost of ticket
      */
-    @Min(0)
     private BigDecimal ticketCost;
+
     /**
      * date train
      */
+    private ZonedDateTime ticketDate;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonDeserialize(using = LocalDateDeserializer.class)
-    @JsonSerialize(using = LocalDateSerializer.class)
-    private LocalDate ticketDate;
     /**
      * Direction of train_from
      */
-    @NotNull
-    private Integer ticketDirectionFrom;
+    private City fromCity;
+
     /**
      * Direction of train_to
      */
-    @NotNull
-    private Integer ticketDirectionTo;
+    private City toCity;
 
-    /**
-     * CityFrom for sql-query
-     */
-    private String cityFrom;
+    @Indexed
+    private ZonedDateTime paymentDate;
 
-    /**
-     * CityTo for sql-query
-     */
-    private String cityTo;
-
-    /**
-     * Constructor without parameters
-     */
+    @Email
+    private String email;
 
     /**
      * Constructor without parameters.
@@ -66,144 +53,88 @@ public class Ticket {
 
     }
 
-    /**
-     * Constructor with parameters.
-     *
-     * @param ticketDirectionFrom
-     * @param ticketDirectionTo
-     */
-    public Ticket(Integer ticketDirectionFrom, Integer ticketDirectionTo){
-        this.ticketDirectionFrom = ticketDirectionFrom;
-        this.ticketDirectionTo = ticketDirectionTo;
+    public Ticket(
+        BigDecimal ticketCost,
+        ZonedDateTime ticketDate,
+        City fromCity,
+        City toCity,
+        ZonedDateTime paymentDate,
+        @Email String email)
+    {
+        this.ticketCost = ticketCost;
+        this.ticketDate = ticketDate;
+        this.fromCity = fromCity;
+        this.toCity = toCity;
+        this.paymentDate = paymentDate;
+        this.email = email;
     }
 
-     /** Get this ticketDate of train.
-     *
-      * @return ticketDate of train.
-     */
-    public String getCityFrom() {
-        return cityFrom;
+    public String getId() {
+        return id;
     }
 
-    /**
-     * Set cityFrom.
-     * @param cityFrom city from
-     */
-    public void setCityFrom(String cityFrom) {
-        this.cityFrom = cityFrom;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    /**
-     * Get cityTo
-     * @return cityTo.
-     */
-    public String getCityTo() {
-        return cityTo;
-    }
-
-     /**
-     * Set cityTo.
-     * @param cityTo city to
-     */
-    public void setCityTo(String cityTo) {
-        this.cityTo = cityTo;
-    }
-
-    /**
-     * Get this ticket id.
-     * @return Ticket Id.
-     */
-    public Integer getTicketId() {
-        return ticketId;
-    }
-
-    /**
-     * Set this ticket id.
-     * @param ticketId Ticket Id .
-     */
-    public void setTicketId(final Integer ticketId) {
-        this.ticketId = ticketId;
-    }
-
-    /**
-     * Get this ticketCost of ticket.
-     * @return Cost of ticket.
-     */
     public BigDecimal getTicketCost() {
         return ticketCost;
     }
 
-    /**
-     * Set this ticketCost of ticket.
-     * @param ticketCost of ticket.
-     */
-    public void setTicketCost(final BigDecimal ticketCost) {
+    public void setTicketCost(BigDecimal ticketCost) {
         this.ticketCost = ticketCost;
     }
 
-    /**
-     * Get this ticketDate of train.
-     * @return ticketDate of train.
-     */
-    public LocalDate getTicketDate() {
+    public ZonedDateTime getTicketDate() {
         return ticketDate;
     }
 
-    /**
-     * Set this ticketDate of train.
-     * @param ticketDate of train.
-     */
-    public void setTicketDate(final LocalDate ticketDate) {
+    public void setTicketDate(ZonedDateTime ticketDate) {
         this.ticketDate = ticketDate;
     }
 
-    /**
-     * Get this direction of train.
-     * @return directionFrom of train.
-     */
-    public Integer getTicketDirectionFrom() {
-        return ticketDirectionFrom;
+    public City getFromCity() {
+        return fromCity;
     }
 
-    /**
-     * Set this direction of train.
-     * @param ticketDirectionFrom of train.
-     */
-    public void setTicketDirectionFrom(Integer ticketDirectionFrom) {
-        this.ticketDirectionFrom = ticketDirectionFrom;
+    public void setFromCity(City fromCity) {
+        this.fromCity = fromCity;
     }
 
-    /**
-     * Get this direction_to of train.
-     * @return direction_to of train.
-     */
-    public Integer getTicketDirectionTo() {
-        return ticketDirectionTo;
+    public City getToCity() {
+        return toCity;
     }
 
-    /**
-     * Set this direction of train.
-     * @param ticketDirectionTo of train.
-     */
-    public void setTicketDirectionTo(Integer ticketDirectionTo) {
-        this.ticketDirectionTo = ticketDirectionTo;
+    public void setToCity(City toCity) {
+        this.toCity = toCity;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Ticket)) return false;
-        Ticket ticket = (Ticket) o;
-        return Objects.equals(getTicketId(), ticket.getTicketId()) &&
-                Objects.equals(getTicketCost(), ticket.getTicketCost()) &&
-                Objects.equals(getTicketDate(), ticket.getTicketDate()) &&
-                Objects.equals(getTicketDirectionFrom(), ticket.getTicketDirectionFrom()) &&
-                Objects.equals(getTicketDirectionTo(), ticket.getTicketDirectionTo()) &&
-                Objects.equals(getCityFrom(), ticket.getCityFrom());
+    public ZonedDateTime getPaymentDate() {
+        return paymentDate;
+    }
+
+    public void setPaymentDate(ZonedDateTime paymentDate) {
+        this.paymentDate = paymentDate;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(getTicketId(), getTicketCost(), getTicketDate(), getTicketDirectionFrom(), getTicketDirectionTo());
+    public String toString() {
+        return "Ticket{" +
+                "id='" + id + '\'' +
+                ", ticketCost=" + ticketCost +
+                ", ticketDate=" + ticketDate +
+                ", fromCity=" + fromCity +
+                ", toCity=" + toCity +
+                ", paymentDate=" + paymentDate +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

@@ -18,8 +18,6 @@
             <groupId>com.epam.brest2019.courses</groupId>
             <artifactId>model</artifactId>
         </dependency>
-
     </dependencies>
-
 
 </project>
