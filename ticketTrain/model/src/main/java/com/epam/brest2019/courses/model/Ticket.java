@@ -6,8 +6,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.Email;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
+
 
 /**
  * POJO Ticket for model.
@@ -68,6 +68,7 @@ public class Ticket {
         this.paymentDate = paymentDate;
         this.email = email;
     }
+
 
     public String getId() {
         return id;

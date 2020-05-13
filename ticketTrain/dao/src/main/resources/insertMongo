@@ -12,6 +12,7 @@ db.city.insertMany([
 db.ticket.insertMany([
     {
         "ticketCost": "12.50",
+<<<<<<< HEAD
         "ticketDate": new Date('2019-09-25'),
         "fromCity": "BREST",
         "toCity": "MINSK"
@@ -30,5 +31,25 @@ db.ticket.insertMany([
         "paymentDate": new Date('2019-09-11'),
         "email": "alze.andrey.1997@mail.ru"
     }
+=======
+        "ticketDate": '2019-09-25',
+        "fromCity": {
+             "cityName": "BREST"
+        },
+        "toCity": {
+            "cityName": "MINSK"
+        }
+    },
+    {
+        "ticketCost": "11.20",
+        "ticketDate": '2019-09-26',
+        "fromCity": {
+             "cityName": "VITEBSK"
+        },
+        "toCity": {
+            "cityName": "GOMEL"
+        }
+    },
+>>>>>>> 3f1bd9672b52e3e574c79047def348892d0b2c72
 ])
 

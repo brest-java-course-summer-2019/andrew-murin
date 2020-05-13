@@ -21,7 +21,6 @@ public class TicketRestController {
     private TicketService ticketService;
 
 
-
     @GetMapping("/tickets")
     public List<Ticket> findAll() {
         LOGGER.debug("Find all tickets");
@@ -33,20 +32,19 @@ public class TicketRestController {
     public List<Ticket> searchPaidTicketByDate(@RequestParam("startDate") String startDate,
                                                @RequestParam("finishDate") String finishDate) {
 
-        LocalDateTime startDateLocal = LocalDateTime.of(2019, 1,1,1,1,1);
-        LocalDateTime finishDateLocal = LocalDateTime.of(2020, 1,1,1,1,1);
+        LocalDateTime startDateLocal = LocalDateTime.of(2019, 1, 1, 1, 1, 1);
+        LocalDateTime finishDateLocal = LocalDateTime.of(2020, 1, 1, 1, 1, 1);
 
-        try{
+        try {
             startDateLocal = LocalDate.parse(startDate).atTime(LocalTime.now());
             finishDateLocal = LocalDate.parse(finishDate).atTime(LocalTime.now());
 
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             LOGGER.debug("Exception(searchPaidTicketByDate) {}", ex.getMessage());
         }
 
         return ticketService.searchPaidTicketByDate(startDateLocal, finishDateLocal);
     }
-
 
 
     @GetMapping("/tickets/{id}")
@@ -58,6 +56,7 @@ public class TicketRestController {
 
 
     @PostMapping("/tickets")
+    @ResponseStatus(HttpStatus.CREATED)
     public void add(@RequestBody Ticket ticket) {
         LOGGER.debug("Add ticket ({})", ticket);
         ticketService.add(ticket);
@@ -90,6 +89,14 @@ public class TicketRestController {
     }
 
 
+    @PutMapping("/tickets")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void update(@RequestBody Ticket ticket) {
+        LOGGER.debug("Update ticket ({})", ticket);
+        ticketService.update(ticket);
+    }
+
+
     @GetMapping("/search-tickets")
     public List<Ticket> searchTicket(@RequestParam("startDate") String startDate,
                                      @RequestParam("finishDate") String finishDate,
@@ -98,18 +105,17 @@ public class TicketRestController {
 
         LOGGER.debug("Search tickets by date & directions");
 
-        LocalDateTime startDateLocal = LocalDateTime.of(2019, 1,1,1,1,1);
-        LocalDateTime finishDateLocal = LocalDateTime.of(2020, 1,1,1,1,1);
+        LocalDateTime startDateLocal = LocalDateTime.of(2019, 1, 1, 1, 1, 1);
+        LocalDateTime finishDateLocal = LocalDateTime.of(2020, 1, 1, 1, 1, 1);
 
-        try{
+        try {
             startDateLocal = LocalDate.parse(startDate).atTime(LocalTime.now());
             finishDateLocal = LocalDate.parse(finishDate).atTime(LocalTime.now());
 
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             LOGGER.debug("Exception(searchTicket) {}", ex.getMessage());
         }
 
         return ticketService.searchTicket(startDateLocal, finishDateLocal, cityFrom, cityTo);
     }
-
 }

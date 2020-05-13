@@ -3,18 +3,15 @@ package com.epam.brest2019.courses.dao.config;
 import com.epam.brest2019.courses.model.converter.DateReadConverter;
 import com.epam.brest2019.courses.model.converter.DateWriteConverter;
 import com.mongodb.MongoClient;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.core.convert.MongoCustomConversions;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
-import org.springframework.data.mongodb.repository.query.AbstractMongoQuery;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Configuration
 @ComponentScan

@@ -10,7 +10,6 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,6 +19,7 @@ import java.util.List;
  */
 @Repository
 public class TicketDaoImpl implements TicketDao {
+
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TicketDaoImpl.class);
 
@@ -108,4 +108,6 @@ public class TicketDaoImpl implements TicketDao {
 
         mongoTemplate.findAndRemove(query, Ticket.class, "ticket");
     }
+
+
 }

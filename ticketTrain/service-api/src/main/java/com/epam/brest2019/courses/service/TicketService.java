@@ -2,9 +2,9 @@ package com.epam.brest2019.courses.service;
 
 import com.epam.brest2019.courses.model.Ticket;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+
 
 
 /**

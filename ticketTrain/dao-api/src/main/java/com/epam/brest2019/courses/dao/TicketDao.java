@@ -5,6 +5,7 @@ import com.epam.brest2019.courses.model.Ticket;
 import java.time.LocalDateTime;
 import java.util.List;
 
+
 /**
  * Ticket DAO Interface
  */
@@ -16,6 +17,7 @@ public interface TicketDao {
      * @return tickets list.
      */
     List<Ticket> findAll();
+
 
     /**
      * Find tickets by date & direction
@@ -59,5 +61,4 @@ public interface TicketDao {
      * @param ticketId ticket id
      */
     void delete(String ticketId);
-
 }
