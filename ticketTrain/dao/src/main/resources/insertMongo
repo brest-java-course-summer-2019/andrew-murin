@@ -53,3 +53,22 @@ db.ticket.insertMany([
 >>>>>>> 3f1bd9672b52e3e574c79047def348892d0b2c72
 ])
 
+// function mongo_init() {
+//
+//     for (var i = 1; i <= 10; i++) {
+//
+//         var entry = {"ticketCost": i * 100,
+//             "ticketDate": new Date(2019, i, 11),
+//             "fromCity": i % 2 === 0 ? "BREST" : "VITEBSK",
+//             "toCity": i % 2 === 0 ? "GOMEL" : "GRODNO",
+//             "paymentDate": i % 3 === 0 ? new Date(2018, i, 11) : "1",
+//             "email": i % 3 === 0 ? "test".concat(i).concat("@mail.ru") : "1"
+//         };
+//
+//         // db.ticket.insert(entry);
+//     }
+//
+// };
+//
+// mongo_init();
+

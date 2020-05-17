@@ -78,9 +78,9 @@ public class TicketDaoImpl implements TicketDao {
 
 
     @Override
-    public void add(Ticket ticket) {
+    public Ticket add(Ticket ticket) {
         LOGGER.debug("Add ticket {}", ticket);
-        mongoTemplate.save(ticket, "ticket");
+        return mongoTemplate.save(ticket, "ticket");
     }
 
 

@@ -18,7 +18,7 @@
 //
 //
 //@SpringBootTest(classes = ServiceConfig.class)
-//@TestPropertySource("classpath:application-test.properties")
+//@TestPropertySource("classpath:application.properties")
 //public class PaymentServiceImplTest {
 //
 //    private static final Logger LOGGER = LoggerFactory.getLogger(PaymentServiceImplTest.class);

@@ -22,7 +22,7 @@
 //
 //
 //@SpringBootTest(classes = ServiceConfig.class)
-//@TestPropertySource("classpath:application-test.properties")
+//@TestPropertySource("classpath:application.properties")
 //public class TicketServiceImplTest {
 //
 //    private static final Logger LOGGER = LoggerFactory.getLogger(TicketServiceImplTest.class);
