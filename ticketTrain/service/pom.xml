@@ -20,6 +20,14 @@
         </dependency>
         <dependency>
             <groupId>com.epam.brest2019.courses</groupId>
+            <artifactId>dao</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.epam.brest2019.courses</groupId>
             <artifactId>service-api</artifactId>
         </dependency>
 
@@ -66,6 +74,20 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
             <version>3.1.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+            <optional>true</optional>
+            <!--            <scope>runtime</scope>-->
+        </dependency>
+
+        <dependency>
+            <groupId>de.flapdoodle.embed</groupId>
+            <artifactId>de.flapdoodle.embed.mongo</artifactId>
+            <version>2.0.3</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

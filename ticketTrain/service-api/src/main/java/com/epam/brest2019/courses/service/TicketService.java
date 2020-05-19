@@ -17,7 +17,7 @@ public interface TicketService {
      * @param ticket new ticket
      * @return new ticket object.
      */
-    void add(Ticket ticket);
+    Ticket add(Ticket ticket);
 
     /**
      * Update ticket

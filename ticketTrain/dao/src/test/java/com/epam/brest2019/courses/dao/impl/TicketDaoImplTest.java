@@ -4,6 +4,7 @@ import com.epam.brest2019.courses.dao.TicketDao;
 import com.epam.brest2019.courses.dao.config.MongoConfigTest;
 import com.epam.brest2019.courses.model.City;
 import com.epam.brest2019.courses.model.Ticket;
+import com.epam.brest2019.courses.model.initDB.InitEmbeddedDataBase;
 import org.junit.jupiter.api.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,17 +13,12 @@ import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.script.ExecutableMongoScript;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.util.FileCopyUtils;
 
-import java.io.InputStream;
 import java.math.BigDecimal;
-import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.util.List;
 
+import static com.epam.brest2019.courses.model.constant.Constant.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -36,21 +32,13 @@ public class TicketDaoImplTest{
 
     @Autowired
     private MongoTemplate mongoTemplate;
+
+    @Autowired
+    private InitEmbeddedDataBase embeddedMongo;
+
     @Autowired
     private TicketDao ticketDao;
     private Ticket ticket;
-
-
-
-    private final static LocalDateTime START_DATE =  LocalDate.of(2019,01,01).atTime(LocalTime.now());
-    private final static LocalDateTime FINISH_DATE = LocalDate.of(2019, 12,12).atTime(LocalTime.now());
-
-    private final static String BREST = City.BREST.getCity();
-    private final static String MINSK = City.MINSK.getCity();
-    private final static String GRODNO = City.GRODNO.getCity();
-    private final static String GOMEL = City.GOMEL.getCity();
-    private final static String MOGILEV = City.MOGILEV.getCity();
-    private final static String VITEBSK = City.VITEBSK.getCity();
 
 
     @BeforeAll
@@ -58,15 +46,7 @@ public class TicketDaoImplTest{
     public void beforeAll() {
         mongoTemplate.getDb().getCollection("ticket").drop();
 
-        String data = "";
-
-        try ( InputStream stream = this.getClass().getClassLoader().getResourceAsStream("mongo-init.txt") ) {
-            byte[] bdata = FileCopyUtils.copyToByteArray(stream);
-            data = new String(bdata, StandardCharsets.UTF_8);
-
-        } catch (Exception ex){
-            LOGGER.debug("Error initialization test database: {}", ex.getMessage());
-        }
+        String data = embeddedMongo.initEmbeddedMongo();
 
         ExecutableMongoScript initData = new ExecutableMongoScript(data);
         mongoTemplate.scriptOps().execute(initData, "Populate data");

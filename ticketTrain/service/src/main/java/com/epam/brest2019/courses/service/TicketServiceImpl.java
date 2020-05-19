@@ -4,7 +4,6 @@ import com.epam.brest2019.courses.dao.TicketDao;
 import com.epam.brest2019.courses.model.Ticket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
@@ -18,17 +17,21 @@ public class TicketServiceImpl implements TicketService {
     private static final Logger LOGGER = LoggerFactory.getLogger(Ticket.class);
 
     private TicketDao ticketDao;
-    private JavaMailSender javaMailSender;
+//    private JavaMailSender javaMailSender;
 
-    public TicketServiceImpl(TicketDao ticketDao, JavaMailSender javaMailSender) {
+//    public TicketServiceImpl(TicketDao ticketDao, JavaMailSender javaMailSender) {
+//        this.ticketDao = ticketDao;
+//        this.javaMailSender = javaMailSender;
+//    }
+    public TicketServiceImpl(TicketDao ticketDao) {
         this.ticketDao = ticketDao;
-        this.javaMailSender = javaMailSender;
     }
 
     @Override
-    public void add(Ticket ticket) {
+    public Ticket add(Ticket ticket) {
         LOGGER.debug("Add new ticket: {}",ticket);
-        ticketDao.add(ticket);
+//        sendMessage(ticket);
+        return ticketDao.add(ticket);
     }
 
     @Override
@@ -70,15 +73,15 @@ public class TicketServiceImpl implements TicketService {
     }
 
 
-    private void sendMessage(Ticket payment) {
-        SimpleMailMessage mail = new SimpleMailMessage();
-
-        mail.setFrom("payticketapplication@gmail.com");
-//        mail.setFrom("MurinKot97@gmail.com");
-        mail.setTo(payment.getEmail());
-        mail.setSubject("Hi");
-        mail.setText("It is simple a message from my ticketTrain-application :) Have a nice a day! ");
-
-        javaMailSender.send(mail);
-    }
+//    private void sendMessage(Ticket payment) {
+//        SimpleMailMessage mail = new SimpleMailMessage();
+//
+//        mail.setFrom("payticketapplication@gmail.com");
+////        mail.setFrom("MurinKot97@gmail.com");
+//        mail.setTo(payment.getEmail());
+//        mail.setSubject("Hi");
+//        mail.setText("It is simple a message from my ticketTrain-application :) Have a nice a day! ");
+//
+//        javaMailSender.send(mail);
+//    }
 }
