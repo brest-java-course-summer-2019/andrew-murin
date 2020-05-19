@@ -2,6 +2,7 @@ package com.epam.brest2019.courses.rest_app.controllers;
 
 import com.epam.brest2019.courses.model.Ticket;
 import com.epam.brest2019.courses.service.TicketService;
+import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,22 +14,48 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@Api(value = "Ticket resource")
 public class TicketRestController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TicketRestController.class);
 
+    String apiExample = "    {\n" +
+            "        \"ticketCost\": \"13.50\",\n" +
+            "        \"ticketDate\": new Date('2019-09-27'),\n" +
+            "        \"fromCity\": \"BREST\",\n" +
+            "        \"toCity\": \"GRODNO\"\n" +
+            "    }";
+
+    private final TicketService ticketService;
+
     @Autowired
-    private TicketService ticketService;
+    public TicketRestController(TicketService ticketService) {
+        this.ticketService = ticketService;
+    }
 
 
-    @GetMapping("/tickets")
+    @ApiOperation(value = "Find all tickets", response = List.class)
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Successfully retrieved list of tickets"),
+            @ApiResponse(code = 500, message = "Internal server error ")
+    })
+    @GetMapping(value = "/tickets", produces = "application/json")
     public List<Ticket> findAll() {
         LOGGER.debug("Find all tickets");
         return ticketService.findAll();
     }
 
 
-    @GetMapping("/paid-tickets")
+    @ApiOperation(value = "Find paid tickets by date", response = List.class)
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Successfully retrieved list of paid tickets by date"),
+            @ApiResponse(code = 500, message = "Internal server error")
+    })
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "startDate", required = true, paramType = "header", dataType = "string"),
+            @ApiImplicitParam(name = "finishDate", required = true, paramType = "header", dataType = "string")
+    })
+    @GetMapping(value = "/paid-tickets", produces = "application/json")
     public List<Ticket> searchPaidTicketByDate(@RequestParam("startDate") String startDate,
                                                @RequestParam("finishDate") String finishDate) {
 
@@ -46,24 +73,43 @@ public class TicketRestController {
         return ticketService.searchPaidTicketByDate(startDateLocal, finishDateLocal);
     }
 
-
-    @GetMapping("/tickets/{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Find ticket by id", response = Ticket.class)
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Successfully found ticket by id"),
+            @ApiResponse(code = 404, message = "Ticket not found"),
+            @ApiResponse(code = 500, message = "Internal server error")
+    })
+    @GetMapping(value = "/tickets/{id}", produces = "application/json")
     public Ticket findById(@PathVariable("id") String id) {
         LOGGER.debug("Find ticket by id ({})", id);
         return ticketService.findById(id);
     }
 
 
-    @PostMapping("/tickets")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation(value = "Add new ticket", response = void.class)
+    @ApiResponses({
+            @ApiResponse(code = 201, message = "Created new ticket"),
+            @ApiResponse(code = 500, message = "Internal server error")
+    })
+    @ApiImplicitParam(name = "ticket", required = true, value = "Ticket object", paramType = "body", dataType = "Ticket")
+    @PostMapping(value = "/tickets", produces = "application/json")
     public void add(@RequestBody Ticket ticket) {
         LOGGER.debug("Add ticket ({})", ticket);
         ticketService.add(ticket);
     }
 
 
-    @PutMapping("/tickets/{ticketId}")
+    @ApiOperation(value = "Pay ticket", response = void.class)
+    @ApiResponses({
+            @ApiResponse(code = 202, message = "Ticket was updated"),
+            @ApiResponse(code = 404, message = "Ticket not found"),
+            @ApiResponse(code = 500, message = "Internal server error")
+    })
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "paymentDate", value = "Date of purchase ticket", required = true, paramType = "header", dataType = "string"),
+            @ApiImplicitParam(name = "email", value = "Email of bayer", required = true, paramType = "header", dataType = "string")
+    })
+    @PutMapping(value = "/tickets/{ticketId}")
     public void payTicket(@PathVariable("ticketId") String ticketId,
                           @RequestParam("paymentDate") String paymentDate,
                           @RequestParam("email") String email) {
@@ -82,6 +128,11 @@ public class TicketRestController {
     }
 
 
+    @ApiOperation(value = "Delete ticket by id", response = void.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully deleted ticket"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    })
     @DeleteMapping("/tickets/{id}")
     public void delete(@PathVariable("id") String ticketId) {
         LOGGER.debug("Delete ticket ({})", ticketId);
@@ -89,6 +140,13 @@ public class TicketRestController {
     }
 
 
+    @ApiOperation(value = "Update ticket", response = void.class)
+    @ApiResponses({
+            @ApiResponse(code = 202, message = "Ticket was updated"),
+            @ApiResponse(code = 404, message = "Ticket not found"),
+            @ApiResponse(code = 500, message = "Internal server error")
+    })
+    @ApiImplicitParam(name = "ticket", value = "Ticket object", required = true, paramType = "body", dataType = "Ticket")
     @PutMapping("/update-tickets/{ticketId}")
     public void update(@RequestBody Ticket ticket, @PathVariable("ticketId") String ticketId) {
         LOGGER.debug("Update ticket ({})", ticket);
@@ -97,6 +155,17 @@ public class TicketRestController {
     }
 
 
+    @ApiOperation(value = "Find paid tickets by date and directions", response = List.class)
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Successfully retrieved list of paid tickets by date"),
+            @ApiResponse(code = 500, message = "Internal server error")
+    })
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "startDate", required = true, paramType = "header", dataType = "string"),
+            @ApiImplicitParam(name = "finishDate", required = true, paramType = "header", dataType = "string"),
+            @ApiImplicitParam(name = "cityFrom", required = true, paramType = "header", dataType = "string"),
+            @ApiImplicitParam(name = "cityTo", required = true, paramType = "header", dataType = "string")
+    })
     @GetMapping("/search-tickets")
     public List<Ticket> searchTicket(@RequestParam("startDate") String startDate,
                                      @RequestParam("finishDate") String finishDate,
