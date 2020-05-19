@@ -89,10 +89,10 @@ public class TicketRestController {
     }
 
 
-    @PutMapping("/tickets")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public void update(@RequestBody Ticket ticket) {
+    @PutMapping("/update-tickets/{ticketId}")
+    public void update(@RequestBody Ticket ticket, @PathVariable("ticketId") String ticketId) {
         LOGGER.debug("Update ticket ({})", ticket);
+        ticket.setId(ticketId);
         ticketService.update(ticket);
     }
 
@@ -109,8 +109,8 @@ public class TicketRestController {
         LocalDateTime finishDateLocal = LocalDateTime.of(2020, 1, 1, 1, 1, 1);
 
         try {
-            startDateLocal = LocalDate.parse(startDate).atTime(LocalTime.now());
-            finishDateLocal = LocalDate.parse(finishDate).atTime(LocalTime.now());
+            startDateLocal = LocalDate.parse(startDate).atTime(LocalTime.of(1,1));
+            finishDateLocal = LocalDate.parse(finishDate).atTime(LocalTime.of(1,1));
 
         } catch (Exception ex) {
             LOGGER.debug("Exception(searchTicket) {}", ex.getMessage());

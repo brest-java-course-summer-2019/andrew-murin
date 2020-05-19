@@ -95,7 +95,7 @@ public class TicketDaoImpl implements TicketDao {
                 .set("paymentDate", ticket.getPaymentDate())
                 .set("email", ticket.getEmail());
 
-        mongoTemplate.updateFirst(query, update, Ticket.class, "ticket");
+        mongoTemplate.findAndModify(query, update, Ticket.class, "ticket");
     }
 
 
