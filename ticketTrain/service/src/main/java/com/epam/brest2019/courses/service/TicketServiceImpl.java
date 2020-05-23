@@ -33,9 +33,9 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public void update(Ticket ticket) {
+    public void payTicket(Ticket ticket) {
         LOGGER.debug("Update ticket: {}", ticket);
-        ticketDao.update(ticket);
+        ticketDao.payTicket(ticket);
     }
 
     @Override
@@ -68,6 +68,12 @@ public class TicketServiceImpl implements TicketService {
     public List<Ticket> searchPaidTicketByDate (LocalDateTime startDate, LocalDateTime finishDate){
 
         return ticketDao.searchPaidTicketByDate(startDate, finishDate);
+    }
+
+    @Override
+    public void update(Ticket ticket) {
+        LOGGER.debug("Update ticket: {}", ticket);
+        ticketDao.update(ticket);
     }
 
 

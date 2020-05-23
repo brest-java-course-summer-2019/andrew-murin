@@ -19,14 +19,8 @@ public class TicketRestController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TicketRestController.class);
 
-    String apiExample = "    {\n" +
-            "        \"ticketCost\": \"13.50\",\n" +
-            "        \"ticketDate\": new Date('2019-09-27'),\n" +
-            "        \"fromCity\": \"BREST\",\n" +
-            "        \"toCity\": \"GRODNO\"\n" +
-            "    }";
-
     private final TicketService ticketService;
+
 
     @Autowired
     public TicketRestController(TicketService ticketService) {
@@ -124,7 +118,7 @@ public class TicketRestController {
         ticket.setPaymentDate(paymentDateLocal);
         ticket.setEmail(email);
 
-        ticketService.update(ticket);
+        ticketService.payTicket(ticket);
     }
 
 

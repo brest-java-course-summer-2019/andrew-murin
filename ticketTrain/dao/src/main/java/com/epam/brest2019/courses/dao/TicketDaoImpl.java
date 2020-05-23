@@ -85,8 +85,8 @@ public class TicketDaoImpl implements TicketDao {
 
 
     @Override
-    public void update(Ticket ticket) {
-        LOGGER.debug("Pay/update ticket {}", ticket);
+    public void payTicket(Ticket ticket) {
+        LOGGER.debug("Pay ticket {}", ticket);
 
         Query query = new Query()
                 .addCriteria(Criteria.where("id").is(ticket.getId()));
@@ -94,6 +94,23 @@ public class TicketDaoImpl implements TicketDao {
         Update update = new Update()
                 .set("paymentDate", ticket.getPaymentDate())
                 .set("email", ticket.getEmail());
+
+        mongoTemplate.findAndModify(query, update, Ticket.class, "ticket");
+    }
+
+    @Override
+    public void update(Ticket ticket) {
+        LOGGER.debug("Update ticket");
+
+        Query query = new Query()
+                .addCriteria(Criteria.where("id").is(ticket.getId()));
+
+
+        Update update = new Update()
+                .set("ticketCost", ticket.getTicketCost())
+                .set("ticketDate", ticket.getTicketDate())
+                .set("fromCity", ticket.getFromCity())
+                .set("toCity", ticket.getToCity());
 
         mongoTemplate.findAndModify(query, update, Ticket.class, "ticket");
     }

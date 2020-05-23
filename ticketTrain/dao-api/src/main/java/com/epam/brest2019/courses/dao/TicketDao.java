@@ -53,6 +53,9 @@ public interface TicketDao {
      *
      * @param ticket ticket
      */
+    void payTicket(Ticket ticket);
+
+
     void update(Ticket ticket);
 
     /**

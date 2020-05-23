@@ -24,7 +24,7 @@ public interface TicketService {
      *
      * @param ticket ticket
      */
-    void update(Ticket ticket);
+    void payTicket(Ticket ticket);
 
     /**
      * Delete ticket with specified id.
@@ -59,6 +59,8 @@ public interface TicketService {
                               String cityFrom, String cityTo);
 
     List<Ticket> searchPaidTicketByDate(LocalDateTime startDate, LocalDateTime finishDate);
+
+    void update(Ticket ticket);
 
 }
 
