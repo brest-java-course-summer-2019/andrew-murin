@@ -29,7 +29,7 @@ public class Ticket {
      * Cost of ticket
      */
     @ApiModelProperty(value = "Cost of ticket", example = "30")
-    @Field(targetType = FieldType.DECIMAL128)
+//    @Field(targetType = FieldType.DECIMAL128)
     private BigDecimal ticketCost;
 
     /**

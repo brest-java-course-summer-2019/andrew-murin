@@ -1,14 +1,15 @@
 package com.epam.brest2019.courses.rest_app.controllers;
 
 import com.epam.brest2019.courses.model.Ticket;
+import com.epam.brest2019.courses.model.dto.TicketDto;
 import com.epam.brest2019.courses.service.TicketService;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.time.*;
 import java.util.List;
 
@@ -28,6 +29,17 @@ public class TicketRestController {
     }
 
 
+    @ApiOperation(value = "Get cost of all paid tickets", response = BigDecimal.class)
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Successfully got result"),
+            @ApiResponse(code = 500, message = "Internal server error ")
+    })
+    @GetMapping("/sum-paid-tickets")
+    public TicketDto sumPaidTicketCost() {
+        LOGGER.debug("Find all cost of paid tickets");
+         return ticketService.sumPaidTicketCost();
+    }
+
     @ApiOperation(value = "Find all tickets", response = List.class)
     @ApiResponses({
             @ApiResponse(code = 200, message = "Successfully retrieved list of tickets"),
@@ -36,6 +48,8 @@ public class TicketRestController {
     @GetMapping(value = "/tickets", produces = "application/json")
     public List<Ticket> findAll() {
         LOGGER.debug("Find all tickets");
+//        ticketDao.sumPaidTicketCost();
+
         return ticketService.findAll();
     }
 

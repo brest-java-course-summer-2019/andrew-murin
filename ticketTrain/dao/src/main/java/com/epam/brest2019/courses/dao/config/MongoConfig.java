@@ -1,7 +1,6 @@
 package com.epam.brest2019.courses.dao.config;
 
-import com.epam.brest2019.courses.model.converter.DateReadConverter;
-import com.epam.brest2019.courses.model.converter.DateWriteConverter;
+import com.epam.brest2019.courses.model.converter.*;
 import com.mongodb.MongoClient;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -33,6 +32,11 @@ public class MongoConfig extends AbstractMongoConfiguration {
     public MongoCustomConversions customConversions() {
         converters.add(new DateReadConverter());
         converters.add(new DateWriteConverter());
+//        converters.add(new BigDecimal128Converter());
+//        converters.add(new Decimal128BigDecimalConverter());
+        converters.add(new DoubleToBigDecimal());
+        converters.add(new BigDecimalToDouble());
+
         return new MongoCustomConversions(converters);
     }
 }

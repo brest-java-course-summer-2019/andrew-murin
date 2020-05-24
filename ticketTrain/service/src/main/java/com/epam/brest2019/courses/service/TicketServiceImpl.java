@@ -2,6 +2,7 @@ package com.epam.brest2019.courses.service;
 
 import com.epam.brest2019.courses.dao.TicketDao;
 import com.epam.brest2019.courses.model.Ticket;
+import com.epam.brest2019.courses.model.dto.TicketDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.mail.SimpleMailMessage;
@@ -66,7 +67,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public List<Ticket> searchPaidTicketByDate (LocalDateTime startDate, LocalDateTime finishDate){
-
+        LOGGER.debug("Find all paid tickets by date");
         return ticketDao.searchPaidTicketByDate(startDate, finishDate);
     }
 
@@ -74,6 +75,12 @@ public class TicketServiceImpl implements TicketService {
     public void update(Ticket ticket) {
         LOGGER.debug("Update ticket: {}", ticket);
         ticketDao.update(ticket);
+    }
+
+    @Override
+    public TicketDto sumPaidTicketCost() {
+        LOGGER.debug("Find cost of all paid tickets");
+        return ticketDao.sumPaidTicketCost();
     }
 
 

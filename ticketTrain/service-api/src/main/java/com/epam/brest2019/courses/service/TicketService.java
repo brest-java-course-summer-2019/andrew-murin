@@ -1,6 +1,7 @@
 package com.epam.brest2019.courses.service;
 
 import com.epam.brest2019.courses.model.Ticket;
+import com.epam.brest2019.courses.model.dto.TicketDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -61,6 +62,8 @@ public interface TicketService {
     List<Ticket> searchPaidTicketByDate(LocalDateTime startDate, LocalDateTime finishDate);
 
     void update(Ticket ticket);
+
+    TicketDto sumPaidTicketCost();
 
 }
 

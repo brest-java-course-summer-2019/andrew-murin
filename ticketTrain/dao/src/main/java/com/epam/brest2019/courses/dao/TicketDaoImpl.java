@@ -1,17 +1,24 @@
 package com.epam.brest2019.courses.dao;
 
 import com.epam.brest2019.courses.model.Ticket;
+import com.epam.brest2019.courses.model.dto.TicketDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.ConditionalOperators;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
 
 /**
@@ -28,6 +35,30 @@ public class TicketDaoImpl implements TicketDao {
     @Autowired
     public TicketDaoImpl(MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
+    }
+
+
+
+    @Override
+    public TicketDto sumPaidTicketCost() {
+        LOGGER.debug("Sum paid ticket aggregation");
+        TicketDto ticketDto = new TicketDto();
+
+        Aggregation agg = Aggregation.newAggregation(
+                match(Criteria.where("paymentDate").exists(true).and("email").exists(true)),
+                group("id").sum("ticketCost").as("cost")
+        );
+
+        AggregationResults<TicketDto> result = mongoTemplate.aggregate(agg, "ticket", TicketDto.class);
+
+
+        if (result.getMappedResults().size() != 0)
+            ticketDto.setCost(result.getMappedResults().get(0).getCost());
+        else
+            ticketDto.setCost(new BigDecimal(0));
+
+
+        return ticketDto;
     }
 
 
