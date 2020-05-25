@@ -6,3 +6,16 @@ Swagger-api
 
 Swagger-ui
 >   localhost:8088/swagger-ui.html
+
+
+Before start need run mongodb(Linux):
+>   sudo systemctl start mongodb
+
+That to see status use:
+>   sudo systemctl status mongodb
+
+That to stop use:
+>   sudo systemctl stop mongodb 
+
+Enable mongo-shell use:
+>   mongo
