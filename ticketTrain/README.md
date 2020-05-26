@@ -19,3 +19,7 @@ That to stop use:
 
 Enable mongo-shell use:
 >   mongo
+
+
+Use for native MongoDB transactions:
+>   sudo mongod --replSet rs0
