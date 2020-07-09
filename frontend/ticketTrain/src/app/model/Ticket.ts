@@ -4,7 +4,7 @@ export class Ticket {
 
   id: string;
 
-  ticketCost: string;
+  ticketCost: number;
 
   ticketDate: Date;
 
@@ -19,7 +19,7 @@ export class Ticket {
 
   constructor(
     id: string,
-    ticketCost: string,
+    ticketCost: number,
     ticketDate: Date,
     fromCity: City,
     toCity: City,

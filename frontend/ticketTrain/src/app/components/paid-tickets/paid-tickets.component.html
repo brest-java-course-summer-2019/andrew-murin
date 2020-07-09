@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
   <a class="navbar-brand"
-     [routerLink]="">
+     [routerLink]="['/']">
     <img src="../../../assets/img/account.png"
          width="30" height="30" alt="logo">
   </a>
@@ -44,8 +44,7 @@
            value="">
     &nbsp;&nbsp;&nbsp;
     <div>
-      <a [routerLink]="['#']"
-         onclick="document.getElementById('FormFilterDate').submit();"
+      <a (click)="onSearchPaidTicketsByDate(startDate.value, finishDate.value)"
          class="btn btn-primary"
          data-toggle="tooltip"
          data-placement="left"
@@ -72,95 +71,98 @@
     <div class="row">
       <div class="col">
         <table class="table table-striped">
-          <thead class="thead-inverse">
-<!--          <#if isSearch??>-->
-<!--          <tr>-->
-<!--            <th></th>-->
-<!--            <th>Train</th>-->
-<!--            <th>Date</th>-->
-<!--            <th>From</th>-->
-<!--            <th>To</th>-->
-<!--            <th>Cost</th>-->
-<!--            <th>E-mail\</th>-->
-<!--          </tr>-->
-<!--          </#if>-->
-          <tr>
-            <th>Train</th>
-            <th>From</th>
-            <th>To</th>
-            <th>Count</th>
-            <th>Cost</th>
-          </tr>
+          <ng-container *ngIf="searchPaidTickets">
+            <thead class="thead-inverse">
 
-        </thead>
+            <tr>
+              <th style="color: black">#</th>
+              <th style="color: black">Date</th>
+              <th style="color: black">From</th>
+              <th style="color: black">To</th>
+              <th style="color: black">Cost</th>
+              <th style="color: black">E-mail</th>
+            </tr>
 
-        <tbody>
-<!--        <#&#45;&#45;without filter&ndash;&gt;-->
-<!--        <#if isSearch??>-->
-<!--        <#list paymentsSearched as paymentss>-->
-<!--        <tr>-->
-<!--          <td>${paymentss.paymentId}</td>-->
-<!--          <td>${paymentss.ticketId.ticketId}</td>-->
-<!--          <td>${paymentss.paymentDate}</td>-->
-<!--          <td>${paymentss.ticketId.fromCity.cityName}</td>-->
-<!--          <td>${paymentss.ticketId.toCity.cityName}</td>-->
-<!--          <td>${paymentss.ticketId.ticketCost}</td>-->
-<!--          <td>${paymentss.email}</td>-->
+            </thead>
 
-<!--          <td>-->
+            <tbody>
 
-<!--                                    <span data-toggle="modal" data-target="#deleteDialog"-->
-<!--                                          class="navbar-nav float-right"-->
-<!--                                          data-id="${paymentss.paymentId}"-->
-<!--                                          data-name="${paymentss.paymentId}">-->
+            <tr *ngFor="let paidTicket of paidTickets; let index = index">
+              <td>{{index + 1}}</td>
+              <td>{{paidTicket.paymentDate | date: 'longDate'}}</td>
+              <td>{{paidTicket.fromCity}}</td>
+              <td>{{paidTicket.toCity}}</td>
+              <td>{{paidTicket.ticketCost}}</td>
+              <td>{{paidTicket.email}}</td>
 
-<!--                                        <a [routerLink]="#"-->
-<!--                                           class="btn btn-dark"-->
-<!--                                           title="delete payment"-->
-<!--                                           data-toggle="tooltip"-->
-<!--                                           data-placement="top">-->
-<!--                                            <i class="fa fa-remove"></i>-->
-<!--                                            <span class="d-none d-md-inline">Delete</span></a>-->
+              <td>
 
-<!--                                    </span>-->
+                                    <span data-toggle="modal" data-target="#deleteDialog"
+                                          class="navbar-nav float-right"
+                                          data-id="${paymentss.paymentId}"
+                                          data-name="${paymentss.paymentId}">
 
-<!--            <span class="navbar-nav float-right">-->
-<!--                                        <a  [routerLink]="/paid-ticket/${paymentss.paymentId}"-->
-<!--                                            class="btn btn-dark"-->
-<!--                                            title="Edit payment"-->
-<!--                                            data-toggle="tooltip"-->
-<!--                                            data-placement="top"-->
-<!--                                            <i class="fa fa-pencil"></i>-->
-<!--                                            <span class="d-none d-md-inline">Edit</span></a>-->
-<!--                                    </span>-->
+                                        <a [routerLink]="['#']"
+                                           class="btn btn-dark"
+                                           title="delete payment"
+                                           data-toggle="tooltip"
+                                           data-placement="top">
+                                            <i class="fa fa-remove"></i>
+                                            <span class="d-none d-md-inline">Delete</span></a>
 
-<!--          </td>-->
-<!--        </tr>-->
-<!--        </#list>-->
-<!--      </#if>-->
+                                    </span>
 
-<!--      <tr>-->
-<!--        <td>${payment.ticketId.ticketId}</td>-->
-<!--        <td>${payment.ticketId.fromCity.cityName}</td>-->
-<!--        <td>${payment.ticketId.toCity.cityName}</td>-->
-<!--        <td>${payment.ticketCount}</td>-->
-<!--        <td>${payment.ticketCost}</td>-->
-<!--      </tr>-->
-<!--    <tr>-->
-<!--      <td></td>-->
-<!--      <td></td>-->
-<!--      <td></td>-->
-<!--      <td>${countTicket}</td>-->
-<!--      <th>${totalSum}<th>-->
-<!--    </tr>-->
+                <span class="navbar-nav float-right">
+                                        <a  [routerLink]="['#']"
+                                            class="btn btn-dark"
+                                            title="Edit payment"
+                                            data-toggle="tooltip"
+                                            data-placement="top">
+                                            <i class="fa fa-pencil"></i>
+                                            <span class="d-none d-md-inline">Edit</span></a>
+                                    </span>
 
-<!--  </tbody>-->
+              </td>
+            </tr>
+            </tbody>
+          </ng-container>
 
-<!--  </table>-->
-<!--  </div>-->
-<!--  </div>-->
-<!--  </div>-->
-<!--</section>-->
+          <ng-container *ngIf="!searchPaidTickets">
+            <thead class="thead-inverse">
+            <tr>
+              <th style="color: black">#</th>
+              <th style="color: black">From</th>
+              <th style="color: black">To</th>
+              <th style="color: black">Count</th>
+              <th style="color: black">Cost</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr *ngFor="let paidTicket of paidTickets; let index = index">
+              <td>{{index + 1}}</td>
+              <td>{{paidTicket.fromCity}}</td>
+              <td>{{paidTicket.toCity}}</td>
+              <td></td>
+<!--              <td>{{ticketCount}}</td>-->
+              <td>{{paidTicket.ticketCost}}</td>
+            </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>{{ticketCount}}</td>
+<!--                  <td></td>-->
+                  <th>{{totalSum}}<th>
+                </tr>
+
+            </tbody>
+          </ng-container>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
 
 
 

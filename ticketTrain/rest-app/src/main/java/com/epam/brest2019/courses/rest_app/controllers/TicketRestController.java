@@ -49,7 +49,6 @@ public class TicketRestController {
     @GetMapping(value = "/tickets", produces = "application/json")
     public List<Ticket> findAll() {
         LOGGER.debug("Find all tickets");
-//        ticketDao.sumPaidTicketCost();
 
         return ticketService.findAll();
     }
