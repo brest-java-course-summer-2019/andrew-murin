@@ -1,0 +1,181 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+  <a class="navbar-brand"
+     routerLink="/index">
+    <img src="assets/img/account.png"
+         width="30" height="30" alt="logo">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse"
+          data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+          aria-label="Togglenavigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link"
+           routerLink="/search-tickets">Search</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link"
+           routerLink="/tickets">Schedule</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link"
+           routerLink="/paid-tickets">Paid tickets</a>
+      </li>
+    </ul>
+  </div>
+
+</nav>
+
+<header>
+  <nav id="main-header" class="py-1 mb-3 navbar navbar-expand-sm navbar-light bg-light text-dark">
+    <span class="navbar-brand mr-auto">Train schedule</span>
+    <ul class="navbar-nav float-right">
+      <li>
+        <a routerLink="/ticket"
+           class="btn btn-dark btn"
+           data-toggle="tooltip"
+           data-placement="left"
+           title="Save ticket">
+          <i class="fas fa-save"></i>
+          <span class="d-none d-sm-inline">&nbsp;Add</span></a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <table class="table table-striped">
+          <thead class="thead-inverse">
+          <tr>
+            <th>Train</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Cost</th>
+            <th>Date</th>
+            <th></th>
+          </tr>
+          </thead>
+
+
+<!--          <tbody>-->
+<!--          <tr>-->
+<!--            <#list tickets as ticket>-->
+<!--            <td id="ticketId">${ticket.ticketId}</td>-->
+<!--            <td>${ticket.fromCity.cityName}</td>-->
+<!--            <td>${ticket.toCity.cityName}</td>-->
+<!--            <td>${ticket.ticketCost}</td>-->
+<!--            <td>${ticket.ticketDate}</td>-->
+<!--            <td>-->
+
+<!--                                     <span id="payId"-->
+<!--                                           data-toggle="modal" data-target="#sendMail"-->
+<!--                                           class="navbar-nav float-right"-->
+<!--                                           data-id=${ticket.ticketId}"-->
+<!--                                           data-name="${ticket.ticketId}">-->
+<!--                                        <a id="aPay" routerLink="#"-->
+<!--                                           class="btn btn-dark pay"-->
+<!--                                           title="Pay ticket"-->
+<!--                                           data-id="${ticket.ticketId}"-->
+<!--                                           data-toggle="tooltip"-->
+<!--                                           data-placement="top">-->
+<!--                                                <i class="fa fa-pencil"></i>-->
+<!--                                            <span class="d-none d-md-inline">Pay</span></a>-->
+<!--                                    </span>-->
+<!--            </td>-->
+<!--            <td>-->
+<!--                                    <span data-toggle="modal" data-target="#deleteDialog"-->
+<!--                                          class="navbar-nav float-right"-->
+<!--                                          data-id="${ticket.ticketId}"-->
+<!--                                          data-name="${ticket.ticketId}">-->
+<!--                                        <a routerLink="#" class="btn btn-dark"-->
+<!--                                           title="delete ticket"-->
+<!--                                           data-toggle="tooltip"-->
+<!--                                           data-placement="top">-->
+<!--                                            <i class="fa fa-remove"></i>-->
+<!--                                            <span class="d-none d-md-inline">Delete</span></a>-->
+<!--                                    </span>-->
+
+<!--              <span class="navbar-nav float-right">-->
+<!--                                        <a routerLink="/ticket/${ticket.ticketId}"-->
+<!--                                           class="btn btn-dark"-->
+<!--                                           title="Edit ticket"-->
+<!--                                           data-toggle="tooltip"-->
+<!--                                           data-placement="top">-->
+<!--                                                <i class="fa fa-pencil"></i>-->
+<!--                                            <span class="d-none d-md-inline">Edit</span></a>-->
+<!--                            </span>-->
+<!--            </td>-->
+<!--          </tr>-->
+<!--          </#list>-->
+<!--          </tbody>-->
+
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--Confirm delete Modal-->
+<div class="modal fade" id="deleteDialog" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header alert-danger">
+        <h5 class="modal-title" id="exampleModalLabel">Delete ticket</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Please confirm delete ticket
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <a id="deleteUrl" routerLink="#" class="btn btn-danger">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Confirm through e-mail -->
+<div class="modal fade" id="sendMail" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header alert-warning">
+        <h5 class="modal-title" id="sendEmailModalLabel">Send a message to E-mail</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        Please confirm purchaise of ticket
+      </div>
+
+      <div class="form-group">
+        <form id="formMail" method="post" action="/pay-ticket/10">
+          <input id="email"
+                 class="form-control"
+                 type="email"
+                 name="email"
+                 value=""
+                 placeholder="your_mail@gmail.com"/>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <a id="sendMessage" routerLink="#" class="btn btn-warning"
+           onclick="document.getElementById('formMail').submit();">Pay</a>
+
+      </div>
+    </div>
+  </div>
+</div>
