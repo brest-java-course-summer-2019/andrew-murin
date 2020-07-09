@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
   <a class="navbar-brand"
-     routerLink="">
+     [routerLink]="['/']">
     <img src="../../../assets/img/account.png"
          width="30" height="30" alt="logo">
   </a>
@@ -13,15 +13,15 @@
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link"
-           routerLink="/search-tickets">Search</a>
+           [routerLink]="['/search-tickets']">Search</a>
       </li>
       <li class="nav-item active">
         <a class="nav-link"
-           routerLink="/tickets">Schedule</a>
+           [routerLink]="['/tickets']">Schedule</a>
       </li>
       <li class="nav-item active">
         <a class="nav-link"
-           routerLink="/paid-tickets">Paid tickets</a>
+           [routerLink]="['/paid-tickets']">Paid tickets</a>
       </li>
     </ul>
   </div>
@@ -33,7 +33,7 @@
     <span class="navbar-brand mr-auto">Train schedule</span>
     <ul class="navbar-nav float-right">
       <li>
-        <a routerLink="/ticket"
+        <a [routerLink]="['/ticket']"
            class="btn btn-dark btn"
            data-toggle="tooltip"
            data-placement="left"
@@ -76,7 +76,7 @@
                                            class="navbar-nav float-right"
                                            data-id="${ticket.ticketId}"
                                            data-name="${ticket.ticketId}">
-                                        <a id="aPay" routerLink="#"
+                                        <a id="aPay" [routerLink]="['#']"
                                            class="btn btn-dark pay"
                                            title="Pay ticket"
                                            data-id="${ticket.ticketId}"
@@ -91,7 +91,7 @@
                                           class="navbar-nav float-right"
                                           data-id="${ticket.ticketId}"
                                           data-name="${ticket.ticketId}">
-                                        <a routerLink="#" class="btn btn-dark"
+                                        <a [routerLink]="['#']" class="btn btn-dark"
                                            title="delete ticket"
                                            data-toggle="tooltip"
                                            data-placement="top">
@@ -100,7 +100,7 @@
                                     </span>
 
               <span class="navbar-nav float-right">
-                                        <a routerLink="/ticket/${ticket.ticketId}"
+                                        <a [routerLink]="['/ticket/${ticket.ticketId}']"
                                            class="btn btn-dark"
                                            title="Edit ticket"
                                            data-toggle="tooltip"
@@ -134,7 +134,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <a id="deleteUrl" routerLink="#" class="btn btn-danger">Delete</a>
+        <a id="deleteUrl" [routerLink]="['#']" class="btn btn-danger">Delete</a>
       </div>
     </div>
   </div>
@@ -169,7 +169,7 @@
 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <a id="sendMessage" routerLink="#" class="btn btn-warning"
+        <a id="sendMessage" [routerLink]="['#']" class="btn btn-warning"
            onclick="document.getElementById('formMail').submit();">Pay</a>
 
       </div>

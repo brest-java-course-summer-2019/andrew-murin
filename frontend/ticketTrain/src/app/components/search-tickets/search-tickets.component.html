@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
   <a class="navbar-brand"
-     routerLink="">
+     [routerLink]="['/']">
     <img src="../../../assets/img/account.png"
          width="30" height="30" alt="logo">
   </a>
@@ -13,15 +13,15 @@
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link"
-           routerLink="/search-tickets">Search</a>
+           [routerLink]="['/search-tickets']">Search</a>
       </li>
       <li class="nav-item active">
         <a class="nav-link"
-           routerLink="/tickets">Schedule</a>
+           [routerLink]="['/tickets']">Schedule</a>
       </li>
       <li class="nav-item active">
         <a class="nav-link"
-           routerLink="/paid-tickets">Paid tickets</a>
+           [routerLink]="['/paid-tickets']">Paid tickets</a>
       </li>
     </ul>
   </div>
@@ -33,8 +33,12 @@
     <span class="navbar-brand mr-auto">Choise direction</span>
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a routerLink="#"
-           onclick="document.getElementById('FormSearchDate').submit();"
+        <a [routerLink]="['/tickets']"
+           [queryParams]="{ 'startDate': startDate.value,
+                            'finishDate': finishDate.value,
+                            'cityFrom': cityFrom.value,
+                            'cityTo': cityTo.value }"
+
            class="btn btn-dark"
            title="Search tickets"
            data-toggle="tooltip"
@@ -52,19 +56,19 @@
       <div class="col">
         <div class="card-body">
           <form id ="FormSearchDate"
-                method="post"
-                action="/search-tickets">
+                method="get"
+                [routerLink]="['/search-tickets']">
 
             <tr>
               <div class="form-group">
                 <label>Select from a city</label>
-                <select class="form-control" id="directionFrom" name="directionFrom">
-                  <option value=1>BREST</option>
-                  <option value=2>MINSK</option>
-                  <option value=3>VITEBSK</option>
-                  <option value=4>GOMEL</option>
-                  <option value=5>GRODNO</option>
-                  <option value=6>MOGILEV</option>
+                <select class="form-control" #cityFrom name="cityFrom">
+                  <option value="BREST">BREST</option>
+                  <option value="MINSK">MINSK</option>
+                  <option value="VITEBSK">VITEBSK</option>
+                  <option value="GOMEL">GOMEL</option>
+                  <option value="GRODNO">GRODNO</option>
+                  <option value="MOGILEV">MOGILEV</option>
                 </select>
               </div>
             </tr>
@@ -72,33 +76,31 @@
             <tr>
               <div class="form-group">
                 <label>Select to a city</label>
-                <select class="form-control" id="directionTo" name="directionTo">
-                  <option value=1>BREST</option>
-                  <option value=2>MINSK</option>
-                  <option value=3>VITEBSK</option>
-                  <option value=4>GOMEL</option>
-                  <option value=5>GRODNO</option>
-                  <option value=6>MOGILEV</option>
+                <select class="form-control" #cityTo name="cityTo">
+                  <option value="BREST">BREST</option>
+                  <option value="MINSK">MINSK</option>
+                  <option value="VITEBSK">VITEBSK</option>
+                  <option value="GOMEL">GOMEL</option>
+                  <option value="GRODNO">GRODNO</option>
+                  <option value="MOGILEV">MOGILEV</option>
                 </select>
               </div>
             </tr>
 
             <tr><td><label>Select a date</label>
               <div class="form-group">
-                <input id="startDate"
-                       name="startDate"
-                       type="date"
+                <input type="date"
                        class="form-control"
-                       value="">
+                       value=""
+                       #startDate>
               </div></td>
             </tr>
             <tr><td><label>Select a date</label>
               <div class="form-group">
-                <input id="finishDate"
-                       name="finishDate"
-                       type="date"
+                <input type="date"
                        class="form-control"
-                       value="">
+                       value=""
+                       #finishDate>
               </div></td>
             </tr>
           </form>

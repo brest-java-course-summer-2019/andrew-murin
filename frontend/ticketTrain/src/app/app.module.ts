@@ -10,6 +10,7 @@ import { PaidTicketsComponent } from './components/paid-tickets/paid-tickets.com
 import { TicketComponent } from './components/ticket/ticket.component';
 import { PaidTicketComponent } from './components/paid-ticket/paid-ticket.component';
 import {HttpClientModule} from "@angular/common/http";
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import {HttpClientModule} from "@angular/common/http";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
