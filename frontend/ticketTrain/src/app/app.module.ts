@@ -3,10 +3,13 @@ import {NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {HomeComponent} from './home/home.component';
-import { SearchTicketsComponent } from './search-tickets/search-tickets.component';
-import { TicketsComponent } from './tickets/tickets.component';
-import { PaidTicketsComponent } from './paid-tickets/paid-tickets.component';
+import {HomeComponent} from './components/home/home.component';
+import { SearchTicketsComponent } from './components/search-tickets/search-tickets.component';
+import { TicketsComponent } from './components/tickets/tickets.component';
+import { PaidTicketsComponent } from './components/paid-tickets/paid-tickets.component';
+import { TicketComponent } from './components/ticket/ticket.component';
+import { PaidTicketComponent } from './components/paid-ticket/paid-ticket.component';
+import {HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -16,10 +19,13 @@ import { PaidTicketsComponent } from './paid-tickets/paid-tickets.component';
     SearchTicketsComponent,
     TicketsComponent,
     PaidTicketsComponent,
+    TicketComponent,
+    PaidTicketComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

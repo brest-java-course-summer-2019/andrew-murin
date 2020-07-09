@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
   <a class="navbar-brand"
-     routerLink="/index">
-    <img src="assets/img/account.png"
+     routerLink="">
+    <img src="../../../assets/img/account.png"
          width="30" height="30" alt="logo">
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -52,68 +52,65 @@
         <table class="table table-striped">
           <thead class="thead-inverse">
           <tr>
-            <th>Train</th>
-            <th>From</th>
-            <th>To</th>
-            <th>Cost</th>
-            <th>Date</th>
-            <th></th>
+            <th style="color: black">Train</th>
+            <th style="color: black">From</th>
+            <th style="color: black">To</th>
+            <th style="color: black">Cost</th>
+            <th style="color: black">Date</th>
+            <th style="color: black"></th>
           </tr>
           </thead>
 
 
-<!--          <tbody>-->
-<!--          <tr>-->
-<!--            <#list tickets as ticket>-->
-<!--            <td id="ticketId">${ticket.ticketId}</td>-->
-<!--            <td>${ticket.fromCity.cityName}</td>-->
-<!--            <td>${ticket.toCity.cityName}</td>-->
-<!--            <td>${ticket.ticketCost}</td>-->
-<!--            <td>${ticket.ticketDate}</td>-->
-<!--            <td>-->
+          <tbody>
+          <tr *ngFor="let ticket of tickets; let index = index">
+            <td id="ticketId">{{index + 1}}</td>
+            <td>{{ticket.fromCity}}</td>
+            <td>{{ticket.toCity}}</td>
+            <td>{{ticket.ticketCost}}</td>
+            <td>{{ticket.ticketDate | date: 'longDate'}}</td>
+            <td>
 
-<!--                                     <span id="payId"-->
-<!--                                           data-toggle="modal" data-target="#sendMail"-->
-<!--                                           class="navbar-nav float-right"-->
-<!--                                           data-id=${ticket.ticketId}"-->
-<!--                                           data-name="${ticket.ticketId}">-->
-<!--                                        <a id="aPay" routerLink="#"-->
-<!--                                           class="btn btn-dark pay"-->
-<!--                                           title="Pay ticket"-->
-<!--                                           data-id="${ticket.ticketId}"-->
-<!--                                           data-toggle="tooltip"-->
-<!--                                           data-placement="top">-->
-<!--                                                <i class="fa fa-pencil"></i>-->
-<!--                                            <span class="d-none d-md-inline">Pay</span></a>-->
-<!--                                    </span>-->
-<!--            </td>-->
-<!--            <td>-->
-<!--                                    <span data-toggle="modal" data-target="#deleteDialog"-->
-<!--                                          class="navbar-nav float-right"-->
-<!--                                          data-id="${ticket.ticketId}"-->
-<!--                                          data-name="${ticket.ticketId}">-->
-<!--                                        <a routerLink="#" class="btn btn-dark"-->
-<!--                                           title="delete ticket"-->
-<!--                                           data-toggle="tooltip"-->
-<!--                                           data-placement="top">-->
-<!--                                            <i class="fa fa-remove"></i>-->
-<!--                                            <span class="d-none d-md-inline">Delete</span></a>-->
-<!--                                    </span>-->
+                                     <span id="payId"
+                                           data-toggle="modal" data-target="#sendMail"
+                                           class="navbar-nav float-right"
+                                           data-id="${ticket.ticketId}"
+                                           data-name="${ticket.ticketId}">
+                                        <a id="aPay" routerLink="#"
+                                           class="btn btn-dark pay"
+                                           title="Pay ticket"
+                                           data-id="${ticket.ticketId}"
+                                           data-toggle="tooltip"
+                                           data-placement="top">
+                                                <i class="fa fa-pencil"></i>
+                                            <span class="d-none d-md-inline">Pay</span></a>
+                                    </span>
+            </td>
+            <td>
+                                    <span data-toggle="modal" data-target="#deleteDialog"
+                                          class="navbar-nav float-right"
+                                          data-id="${ticket.ticketId}"
+                                          data-name="${ticket.ticketId}">
+                                        <a routerLink="#" class="btn btn-dark"
+                                           title="delete ticket"
+                                           data-toggle="tooltip"
+                                           data-placement="top">
+                                            <i class="fa fa-remove"></i>
+                                            <span class="d-none d-md-inline">Delete</span></a>
+                                    </span>
 
-<!--              <span class="navbar-nav float-right">-->
-<!--                                        <a routerLink="/ticket/${ticket.ticketId}"-->
-<!--                                           class="btn btn-dark"-->
-<!--                                           title="Edit ticket"-->
-<!--                                           data-toggle="tooltip"-->
-<!--                                           data-placement="top">-->
-<!--                                                <i class="fa fa-pencil"></i>-->
-<!--                                            <span class="d-none d-md-inline">Edit</span></a>-->
-<!--                            </span>-->
-<!--            </td>-->
-<!--          </tr>-->
-<!--          </#list>-->
-<!--          </tbody>-->
-
+              <span class="navbar-nav float-right">
+                                        <a routerLink="/ticket/${ticket.ticketId}"
+                                           class="btn btn-dark"
+                                           title="Edit ticket"
+                                           data-toggle="tooltip"
+                                           data-placement="top">
+                                                <i class="fa fa-pencil"></i>
+                                            <span class="d-none d-md-inline">Edit</span></a>
+                            </span>
+            </td>
+          </tr>
+          </tbody>
         </table>
       </div>
     </div>

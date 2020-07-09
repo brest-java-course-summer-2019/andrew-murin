@@ -24,10 +24,10 @@ public class MongoConfig extends AbstractMongoConfiguration {
 
     private final List<Converter<?, ?>> converters = new ArrayList<>();
 
-    @Bean
-    public MongoTransactionManager transactionManager(MongoDbFactory dbFactory) {
-        return new MongoTransactionManager(dbFactory);
-    }
+//    @Bean
+//    public MongoTransactionManager transactionManager(MongoDbFactory dbFactory) {
+//        return new MongoTransactionManager(dbFactory);
+//    }
 
     @Override
     public MongoClient mongoClient() {
