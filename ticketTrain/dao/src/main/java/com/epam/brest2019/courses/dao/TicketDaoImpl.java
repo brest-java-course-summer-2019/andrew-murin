@@ -68,6 +68,18 @@ public class TicketDaoImpl implements TicketDao {
         return mongoTemplate.findAll(Ticket.class);
     }
 
+    @Override
+    public List<Ticket> findAllPaidTickets() {
+        LOGGER.debug("Find all paid-tickets");
+
+        Query query = new Query()
+                .addCriteria(Criteria.where("paymentDate").exists(true));
+
+        List<Ticket> tickets = mongoTemplate.find(query, Ticket.class, "ticket");
+
+        return tickets;
+    }
+
 
     @Override
     public List<Ticket> searchTicket(LocalDateTime startDate, LocalDateTime finishDate, String fromCity, String toCity) {

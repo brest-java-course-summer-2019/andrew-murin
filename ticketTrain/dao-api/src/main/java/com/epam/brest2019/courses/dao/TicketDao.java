@@ -19,6 +19,13 @@ public interface TicketDao {
      */
     List<Ticket> findAll();
 
+    /**
+     * Get paid-tickets.
+     *
+     * @return tickets list.
+     */
+    List<Ticket> findAllPaidTickets();
+
 
     /**
      * Find tickets by date & direction

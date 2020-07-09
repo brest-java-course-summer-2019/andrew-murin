@@ -54,6 +54,17 @@ public class TicketRestController {
         return ticketService.findAll();
     }
 
+    @ApiOperation(value = "Find all paid tickets", response = List.class)
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Successfully retrieved list of paid tickets"),
+            @ApiResponse(code = 500, message = "Internal server error ")
+    })
+    @GetMapping(value = "/paid-tickets", produces = "application/json")
+    public List<Ticket> findAllPaidTickets() {
+        LOGGER.debug("Find all tickets");
+        return ticketService.findAllPaidTickets();
+    }
+
 
     @ApiOperation(value = "Find paid tickets by date", response = List.class)
     @ApiResponses({
@@ -64,7 +75,7 @@ public class TicketRestController {
             @ApiImplicitParam(name = "startDate", required = true, paramType = "header", dataType = "string"),
             @ApiImplicitParam(name = "finishDate", required = true, paramType = "header", dataType = "string")
     })
-    @GetMapping(value = "/paid-tickets", produces = "application/json")
+    @GetMapping(value = "/search-paid-tickets", produces = "application/json")
     public List<Ticket> searchPaidTicketByDate(@RequestParam("startDate") String startDate,
                                                @RequestParam("finishDate") String finishDate) {
 

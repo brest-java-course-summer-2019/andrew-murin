@@ -54,6 +54,12 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+    public List<Ticket> findAllPaidTickets() {
+        LOGGER.debug("Find all paid-tickets");
+        return ticketDao.findAllPaidTickets();
+    }
+
+    @Override
     public Ticket findById (String ticketId){
         LOGGER.debug("Find ticket by Id: {}", ticketId);
         return ticketDao.findById(ticketId);

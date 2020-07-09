@@ -42,6 +42,13 @@ public interface TicketService {
     List<Ticket> findAll();
 
     /**
+     * Get paid-tickets.
+     *
+     * @return tickets list.
+     */
+    List<Ticket> findAllPaidTickets();
+
+    /**
      * Get Ticket By Id
      * @param ticketId ticketId.
      * @return Ticket
