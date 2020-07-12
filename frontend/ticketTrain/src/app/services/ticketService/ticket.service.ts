@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Ticket} from "../../model/Ticket";
 
@@ -9,7 +9,15 @@ import {Ticket} from "../../model/Ticket";
 export class TicketService {
 
 
+  ticket: Ticket;
+
+
   constructor(private http: HttpClient) {
+  }
+
+
+  init(ticket: Ticket):void {
+    this.ticket = ticket;
   }
 
   findAll(): Observable<Ticket[]> {
@@ -29,9 +37,28 @@ export class TicketService {
     });
   }
 
-
   searchTicket(params): Observable<Ticket[]> {
-    console.log("send paras to server: " + params);
     return this.http.get<Ticket[]>('http://localhost:8088/api/search-tickets', {params});
   }
+
+  //TODO: doesn't work
+  payTicket(): Observable<any> {
+
+    console.log(this.ticket);
+
+    return this.http.put<any>('http://localhost:8088/api/tickets', {
+        "email": "PISKA@mil.ru",
+        "fromCity": "BREST",
+        "id": "5ecab40aa3e4914f0d7d9853",
+        "paymentDate": "2020-07-10T00:00:00Z",
+        "ticketCost": 11.2,
+        "ticketDate": "2019-09-25T00:00:00Z",
+        "toCity": "MINSK"
+      },
+      {headers: {
+          "Content-type": "application/json"}
+      }
+    );
+  }
+
 }

@@ -143,16 +143,14 @@
               <td>{{index + 1}}</td>
               <td>{{paidTicket.fromCity}}</td>
               <td>{{paidTicket.toCity}}</td>
-              <td></td>
-<!--              <td>{{ticketCount}}</td>-->
+              <td>{{paidTicket.paymentDate | date: 'longDate'}}</td>
               <td>{{paidTicket.ticketCost}}</td>
             </tr>
                 <tr>
                   <td></td>
                   <td></td>
                   <td></td>
-                  <td>{{ticketCount}}</td>
-<!--                  <td></td>-->
+                  <td>Total: {{ticketCount}}</td>
                   <th>{{totalSum}}<th>
                 </tr>
 

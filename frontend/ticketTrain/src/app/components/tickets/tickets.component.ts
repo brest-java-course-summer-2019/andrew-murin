@@ -1,7 +1,8 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {TicketService} from "../../services/ticketService/ticket.service";
 import {Ticket} from "../../model/Ticket";
 import {ActivatedRoute, Router} from "@angular/router";
+import {tick} from "@angular/core/testing";
 
 @Component({
   selector: 'app-tickets',
@@ -11,6 +12,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class TicketsComponent implements OnInit {
 
   tickets: Ticket[];
+  displayPayModal = 'none';
+  ticket: Ticket;
 
   constructor(private ticketService: TicketService,
               private route: ActivatedRoute,
@@ -36,7 +39,17 @@ export class TicketsComponent implements OnInit {
   }
 
 
+  openDialog(index: number): void {
+    console.log(index)
+    this.displayPayModal = 'block';
+  }
 
+  findTicketAndSendToChild(ticketId: string): void {
+    this.ticket = this.tickets.find(value => value.id === ticketId);
+    this.ticketService.init(this.ticket);
+  }
 
-
+  receiveEventToCloseDialog($event): void {
+    this.displayPayModal = $event;
+  }
 }

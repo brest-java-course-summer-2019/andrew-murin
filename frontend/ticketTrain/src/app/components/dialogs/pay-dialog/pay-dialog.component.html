@@ -1,0 +1,36 @@
+<!--Confirm through e-mail -->
+<div class="pay-ticket-modal" [ngStyle]="{'display': display}"></div>
+<div class="modal" id="sendMail" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" [ngStyle]="{'display': display}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header alert-warning">
+        <h5 class="modal-title" id="sendEmailModalLabel" [ngStyle]="{'color': 'black'}">Send a message to E-mail</h5>
+        <button type="button" data-dismiss="modal" (click)="closeDialog()">
+          <span>&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        Please confirm purchaise of ticket
+      </div>
+
+      <div class="form-group">
+        <form id="formMail">
+          <input #email
+                 class="form-control"
+                 type="email"
+                 value=""
+                 placeholder="your_mail@gmail.com"/>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeDialog()">Cancel</button>
+        <button type="button" class="btn btn-warning" (click)="payTicket(email.value); closeDialog()">Pay</button>
+
+      </div>
+
+    </div>
+  </div>
+</div>

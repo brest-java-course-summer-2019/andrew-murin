@@ -11,6 +11,8 @@ import { TicketComponent } from './components/ticket/ticket.component';
 import { PaidTicketComponent } from './components/paid-ticket/paid-ticket.component';
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
+import { PayDialogComponent } from './components/dialogs/pay-dialog/pay-dialog.component';
+import { DeleteDialogComponent } from './components/dialogs/delete-dialog/delete-dialog.component';
 
 
 @NgModule({
@@ -22,6 +24,8 @@ import {FormsModule} from "@angular/forms";
     PaidTicketsComponent,
     TicketComponent,
     PaidTicketComponent,
+    PayDialogComponent,
+    DeleteDialogComponent,
   ],
   imports: [
     BrowserModule,

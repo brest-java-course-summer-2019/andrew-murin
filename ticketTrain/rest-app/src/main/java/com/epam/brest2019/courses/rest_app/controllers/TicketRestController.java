@@ -124,24 +124,22 @@ public class TicketRestController {
             @ApiResponse(code = 404, message = "Ticket not found"),
             @ApiResponse(code = 500, message = "Internal server error")
     })
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "paymentDate", value = "Date of purchase ticket", required = true, paramType = "header", dataType = "string"),
-            @ApiImplicitParam(name = "email", value = "Email of bayer", required = true, paramType = "header", dataType = "string")
-    })
-    @PutMapping(value = "/tickets/{ticketId}")
-    public void payTicket(@PathVariable("ticketId") String ticketId,
-                          @RequestParam("paymentDate") String paymentDate,
-                          @RequestParam("email") String email) {
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name = "paymentDate", value = "Date of purchase ticket", required = true, paramType = "header", dataType = "string"),
+//            @ApiImplicitParam(name = "email", value = "Email of bayer", required = true, paramType = "header", dataType = "string")
+//    })
+    @PutMapping(value = "/tickets")
+    public void payTicket(@RequestBody Ticket ticket) {
 
-        LOGGER.debug("Pay ticket. ticketId {}, paymentDate {}, email {})", ticketId, paymentDate, email);
+//        LOGGER.debug("Pay ticket. ticketId {}, paymentDate {}, email {})", ticketId, paymentDate, email);
 
-        ZonedDateTime paymentDateLocal =
-                LocalDate.parse(paymentDate).atStartOfDay(ZoneId.systemDefault());
-
-        Ticket ticket = ticketService.findById(ticketId);
-
-        ticket.setPaymentDate(paymentDateLocal);
-        ticket.setEmail(email);
+//        ZonedDateTime paymentDateLocal =
+//                LocalDate.parse(paymentDate).atStartOfDay(ZoneId.systemDefault());
+//
+//        Ticket ticket = ticketService.findById(ticketId);
+//
+//        ticket.setPaymentDate(paymentDateLocal);
+//        ticket.setEmail(email);
 
         ticketService.payTicket(ticket);
     }
