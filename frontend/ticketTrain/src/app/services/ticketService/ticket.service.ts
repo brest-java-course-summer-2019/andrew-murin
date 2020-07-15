@@ -63,8 +63,7 @@ export class TicketService {
   }
 
   addTicket(ticket: Ticket): Observable<void> {
-    this.ticket = ticket;
-    console.log("work add ticket: " + this.ticket);
+    console.log("Ticket.... : " + ticket);
 
     return this.http.post<void>('http://localhost:8088/api/tickets', ticket);
   }

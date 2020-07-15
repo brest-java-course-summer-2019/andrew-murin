@@ -1,9 +1,5 @@
 export enum City {
 
-  BREST, MINSK, GOMEL, GRODNO, MOGILEV, VITEBSK
+  BREST="BREST", MINSK="MINSK", GOMEL="GOMEL", GRODNO="GRODNO", MOGILEV="MOGILEV", VITEBSK="VITEBSK"
 
-
-// public String getCity() {
-//   return this.name();
-// }
 }

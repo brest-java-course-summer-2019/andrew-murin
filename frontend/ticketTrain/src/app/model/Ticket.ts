@@ -6,7 +6,7 @@ export class Ticket {
 
   ticketCost: number;
 
-  ticketDate: Date;
+  ticketDate: string;
 
   fromCity: City;
 
@@ -19,7 +19,7 @@ export class Ticket {
 
   constructor(
     ticketCost: number,
-    ticketDate: Date,
+    ticketDate: string,
     fromCity: City,
     toCity: City,
     paymentDate?: string,
