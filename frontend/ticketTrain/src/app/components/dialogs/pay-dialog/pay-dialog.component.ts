@@ -30,7 +30,7 @@ export class PayDialogComponent implements OnInit {
 
   payTicket(email: string): void {
     this.ticket.email = email;
-    this.ticket.paymentDate = new Date();
+    this.ticket.paymentDate = new Date().toDateString();
 
     this.ticketService.payTicket();
   }

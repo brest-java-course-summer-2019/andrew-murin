@@ -65,7 +65,13 @@ public class TicketDaoImpl implements TicketDao {
     @Override
     public List<Ticket> findAll() {
         LOGGER.debug("Find all tickets");
-        return mongoTemplate.findAll(Ticket.class);
+
+        Query query = new Query()
+                .addCriteria(Criteria.where("paymentDate").exists(false));
+
+        List<Ticket> tickets = mongoTemplate.find(query, Ticket.class, "ticket");
+
+        return tickets;
     }
 
     @Override
@@ -89,7 +95,8 @@ public class TicketDaoImpl implements TicketDao {
         Query query = new Query()
                 .addCriteria(Criteria.where("ticketDate").gte(startDate).lte(finishDate))
                 .addCriteria(Criteria.where("fromCity").is(fromCity))
-                .addCriteria(Criteria.where("toCity").is(toCity));
+                .addCriteria(Criteria.where("toCity").is(toCity))
+                .addCriteria(Criteria.where("paymentDate").exists(false));
 
         List<Ticket> tickets = mongoTemplate.find(query, Ticket.class, "ticket");
 

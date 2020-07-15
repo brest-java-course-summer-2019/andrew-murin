@@ -20,10 +20,10 @@ export class TicketsComponent implements OnInit {
               private router: Router) {
 
     const params = {
-      'startDate': this.route.snapshot.queryParamMap.get('startDate'),
-      'finishDate': this.route.snapshot.queryParamMap.get('finishDate'),
       'cityFrom': this.route.snapshot.queryParamMap.get('cityFrom'),
-      'cityTo': this.route.snapshot.queryParamMap.get('cityTo')
+      'cityTo': this.route.snapshot.queryParamMap.get('cityTo'),
+      'startDate': this.route.snapshot.queryParamMap.get('startDate'),
+      'finishDate': this.route.snapshot.queryParamMap.get('finishDate')
     }
 
     ticketService.searchTicket(params).subscribe(tickets => {

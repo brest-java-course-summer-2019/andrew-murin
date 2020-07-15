@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Ticket} from "../../model/Ticket";
 
@@ -16,7 +16,7 @@ export class TicketService {
   }
 
 
-  init(ticket: Ticket):void {
+  init(ticket: Ticket): void {
     this.ticket = ticket;
   }
 
@@ -38,6 +38,7 @@ export class TicketService {
   }
 
   searchTicket(params): Observable<Ticket[]> {
+    console.log('search... ' + params)
     return this.http.get<Ticket[]>('http://localhost:8088/api/search-tickets', {params});
   }
 
@@ -59,6 +60,13 @@ export class TicketService {
           "Content-type": "application/json"}
       }
     );
+  }
+
+  addTicket(ticket: Ticket): Observable<void> {
+    this.ticket = ticket;
+    console.log("work add ticket: " + this.ticket);
+
+    return this.http.post<void>('http://localhost:8088/api/tickets', ticket);
   }
 
 }

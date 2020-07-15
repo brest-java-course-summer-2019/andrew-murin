@@ -12,22 +12,20 @@ export class Ticket {
 
   toCity: City;
 
-  paymentDate?: Date;
+  paymentDate?: string;
 
   email?: string;
 
 
   constructor(
-    id: string,
     ticketCost: number,
     ticketDate: Date,
     fromCity: City,
     toCity: City,
-    paymentDate?: Date,
+    paymentDate?: string,
     email?: string
   )
   {
-    this.id = id;
     this.ticketCost = ticketCost;
     this.ticketDate = ticketDate;
     this.fromCity = fromCity;

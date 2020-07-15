@@ -27,113 +27,107 @@
   </div>
 
 </nav>
-  It's tickets/:
-<!--<header>-->
-<!--  <nav id="main-header"-->
-<!--       class="py-1 mb-3 navbar navbar-expand-sm navbar-light bg-light text-dark">-->
-<!--        <span id="isNew" class="navbar-brand mr-auto">-->
-<!--            <#if isNew??>-->
-<!--                Add ticket-->
-<!--                <#else>-->
-<!--                Edit ticket-->
-<!--            </#if>-->
-<!--    </span>-->
+<!--  It's tickets/:-->
+<header>
+  <nav id="main-header"
+       class="py-1 mb-3 navbar navbar-expand-sm navbar-light bg-light text-dark">
+        <span id="isNew" class="navbar-brand mr-auto">
+                Add ticket
+                Edit ticket
+        </span>
 
-<!--    <ul class="navbar-nav float-right">-->
-<!--      <li class="nav-item"><a [routerLink]="/tickets"-->
-<!--                              class="btn btn-dark"-->
-<!--                              data-toggle="tooltip"-->
-<!--                              data-placement="left"-->
-<!--                              title="Return">-->
-<!--        <i class="fas fa-undo"></i>-->
-<!--        <span class="d-none d-sm-inline">&nbsp;Return</span></a>-->
-<!--      </li>-->
-<!--    </ul>-->
+    <ul class="navbar-nav float-right">
+      <li class="nav-item"><a [routerLink]="['/tickets']"
+                              class="btn btn-dark"
+                              data-toggle="tooltip"
+                              data-placement="left"
+                              title="Return">
+        <i class="fas fa-undo"></i>
+        <span class="d-none d-sm-inline">&nbsp;Return</span></a>
+      </li>
+    </ul>
 
-<!--    <ul class="navbar-nav">-->
-<!--      <li class="nav-item"><a [routerLink]="#"-->
-<!--                              onclick="document.getElementById('ticketForm').submit();"-->
-<!--                              class="btn btn-dark"-->
-<!--                              title="Save ticket"-->
-<!--                              data-toggle="tooltip"-->
-<!--                              data-placement="bottom">-->
-<!--        <i class="fas fa-undo"></i>-->
-<!--        <span class="d-none d-sm-inline">&nbsp;Save</span></a>-->
-<!--    </ul>-->
-<!--  </nav>-->
-<!--</header>-->
+    <ul class="navbar-nav">
+      <li class="nav-item"><a
+                              (click)="onAddTicket(cityFrom.value,
+                                                   cityTo.value,
+                                                   ticketCost.valueAsNumber,
+                                                   ticketDate.value)"
+                              class="btn btn-dark"
+                              title="Save ticket"
+                              data-toggle="tooltip"
+                              data-placement="bottom">
+        <i class="fas fa-undo"></i>
+        <span class="d-none d-sm-inline">&nbsp;Save</span></a>
+    </ul>
+  </nav>
+</header>
 
-<!--<section id="ticket">-->
-<!--  <div class="container-fluid">-->
-<!--    <div class="row">-->
-<!--      <div class="col">-->
-<!--        <div class="card-body">-->
+<section id="ticket">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <div class="card-body">
 
 
-<!--          <form id ="ticketForm"-->
-<!--                action=""-->
-<!--                method="post">-->
-
+          <form id ="ticketForm">
 
 <!--            <input id="ticketId"-->
 <!--                   type="hidden"-->
 <!--                   name="ticketId"/>-->
 
 
-<!--            <tr>-->
-<!--              <div class="form-group">-->
-<!--                <label>Select from a city</label>-->
+            <tr>
+              <div class="form-group">
+                <label>Select from a city</label>
+                <select class="form-control" #cityFrom >
+                  <option value="BREST">BREST</option>
+                  <option value="MINSK">MINSK</option>
+                  <option value="VITEBSK">VITEBSK</option>
+                  <option value="GOMEL">GOMEL</option>
+                  <option value="GRODNO">GRODNO</option>
+                  <option value="MOGILEV">MOGILEV</option>
+                </select>
+              </div>
+            </tr>
 
-<!--                <select class="form-control" id="fromCity" name="fromCity.cityId">-->
-<!--                  <option value=1>BREST</option>-->
-<!--                  <option value=2>MINSK</option>-->
-<!--                  <option value=3>VITEBSK</option>-->
-<!--                  <option value=4>GOMEL</option>-->
-<!--                  <option value=5>GRODNO</option>-->
-<!--                  <option value=6>MOGILEV</option>-->
-<!--                </select>-->
-<!--              </div>-->
-<!--            </tr>-->
+            <tr>
+              <div class="form-group">
+                <label>Select to a city</label>
+                <select class="form-control" #cityTo >
+                  <option value="BREST">BREST</option>
+                  <option value="MINSK">MINSK</option>
+                  <option value="VITEBSK">VITEBSK</option>
+                  <option value="GOMEL">GOMEL</option>
+                  <option value="GRODNO">GRODNO</option>
+                  <option value="MOGILEV">MOGILEV</option>
+                </select>
+              </div>
+            </tr>
 
-<!--            <tr>-->
-<!--              <div class="form-group">-->
-<!--                <label>Select to a city</label>-->
-<!--                <select class="form-control" id="toCity" name="toCity.cityId">-->
-<!--                  <option value=1>BREST</option>-->
-<!--                  <option value=2>MINSK</option>-->
-<!--                  <option value=3>VITEBSK</option>-->
-<!--                  <option value=4>GOMEL</option>-->
-<!--                  <option value=5>GRODNO</option>-->
-<!--                  <option value=6>MOGILEV</option>-->
-<!--                </select>-->
-<!--              </div>-->
-<!--            </tr>-->
+            <tr>
+              <div class="form-group">
+                <label>Price of ticket</label>
+                <input #ticketCost
+                       class="form-control"
+                       type="text"
+                       value=""
+                       placeholder="Enter price"/>
+              </div>
+            </tr>
 
-<!--            <tr>-->
-<!--              <div class="form-group">-->
-<!--                <label>Price of ticket</label>-->
-<!--                <input class="form-control "-->
-<!--                       id="ticketCost"-->
-<!--                       name="ticketCost"-->
-<!--                       type="text"-->
-<!--                       value=""-->
-<!--                       placeholder="Enter price"/>-->
-<!--              </div>-->
-<!--            </tr>-->
+            <tr><td><label>Select a date</label>
+              <div class="form-group">
+                <input #ticketDate
+                       type="date"
+                       class="form-control"
+                       value=""/>
+              </div>
+            </tr>
+          </form>
 
-<!--            <tr><td><label>Select a date</label>-->
-<!--              <div class="form-group">-->
-<!--                <input id="ticketDate"-->
-<!--                       name="ticketDate"-->
-<!--                       type="date"-->
-<!--                       class="form-control"-->
-<!--                       value=""/>-->
-<!--              </div>-->
-<!--            </tr>-->
-<!--          </form>-->
-
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</section>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
