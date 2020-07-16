@@ -1,68 +1,36 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-  <a class="navbar-brand"
-     [routerLink]="['/']">
-    <img src="../../../assets/img/account.png"
-         width="30" height="30" alt="logo">
-  </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse"
-          data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-          aria-label="Togglenavigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link"
-           [routerLink]="['/search-tickets']">Search</a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link"
-           [routerLink]="['/tickets']">Schedule</a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link"
-           [routerLink]="['/paid-tickets']">Paid tickets</a>
-      </li>
-    </ul>
-  </div>
+<header>
+  <nav id="main-header" class="py-1 mb-3 navbar navbar-expand-sm text-dark">
+    <span class="navbar-brand mr-auto float-right">Paid tickets</span>
 
-  <form class="form-inline"
-        id="FormFilterDate"
-        [routerLink]="['/paid-tickets']"
-        method="post">
+    <form class="form-inline"
+          id="FormFilterDate"
+          [routerLink]="['/paid-tickets']"
+          method="post">
 
-    <div class="form-group">
-      <input #startDate
+      <div class="form-group">
+        <input #startDate
+               type="date"
+               class="form-control"
+               value="">
+      </div>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <input #finishDate
              type="date"
              class="form-control"
              value="">
-    </div>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <input #finishDate
-           type="date"
-           class="form-control"
-           value="">
-    &nbsp;&nbsp;&nbsp;
-    <div>
-      <a (click)="onSearchPaidTicketsByDate(startDate.value, finishDate.value)"
-         class="btn btn-primary"
-         data-toggle="tooltip"
-         data-placement="left"
-         title="Filter date">
-        <i class="far fa-calendar-alt"></i>
-        <span class="d-none d-sm-inline">Search</span>
-      </a>
-    </div>
-    &nbsp;
-    &nbsp;
-    &nbsp;
-
-  </form>
-</nav>
-
-<header>
-  <nav id="main-header" class="py-1 mb-3 navbar navbar-expand-sm navbar-light bg-light text-dark">
-    <span class="navbar-brand mr-auto float-right">Paid tickets</span>
+      &nbsp;&nbsp;&nbsp;
+      <div>
+        <a (click)="onSearchPaidTicketsByDate(startDate.value, finishDate.value)"
+           class="btn btn-dark btn"
+           data-toggle="tooltip"
+           data-placement="left"
+           title="Filter date">
+          <i class="far fa-calendar-alt"></i>
+          <span class="d-none d-sm-inline">Search</span>
+        </a>
+      </div>
+      &nbsp;
+    </form>
   </nav>
 </header>
 
