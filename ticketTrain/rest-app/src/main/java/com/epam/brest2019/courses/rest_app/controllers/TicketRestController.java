@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin("http://localhost:4200")
 @Api(value = "Ticket resource")
 public class TicketRestController {
 
@@ -104,14 +104,15 @@ public class TicketRestController {
         return ticketService.findById(id);
     }
 
-
-    @ApiOperation(value = "Add new ticket", response = void.class)
-    @ApiResponses({
-            @ApiResponse(code = 201, message = "Created new ticket"),
-            @ApiResponse(code = 500, message = "Internal server error")
-    })
-    @ApiImplicitParam(name = "ticket", required = true, value = "Ticket object", paramType = "body", dataType = "Ticket")
-    @PostMapping(value = "/tickets", produces = "application/json")
+//
+//    @ApiOperation(value = "Add new ticket", response = void.class)
+//    @ApiResponses({
+//            @ApiResponse(code = 201, message = "Created new ticket"),
+//            @ApiResponse(code = 500, message = "Internal server error")
+//    })
+//    @ApiImplicitParam(name = "ticket", required = true, value = "Ticket object", paramType = "body", dataType = "Ticket")
+//    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping(value = "/tickets")
     public void add(@RequestBody Ticket ticket) {
         LOGGER.debug("Add ticket ({})", ticket);
         ticketService.add(ticket);

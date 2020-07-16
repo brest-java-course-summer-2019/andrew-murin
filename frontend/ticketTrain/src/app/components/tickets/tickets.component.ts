@@ -1,8 +1,8 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TicketService} from "../../services/ticketService/ticket.service";
 import {Ticket} from "../../model/Ticket";
 import {ActivatedRoute, Router} from "@angular/router";
-import {tick} from "@angular/core/testing";
+
 
 @Component({
   selector: 'app-tickets',
@@ -13,7 +13,10 @@ export class TicketsComponent implements OnInit {
 
   tickets: Ticket[];
   displayPayModal = 'none';
+  displayDeleteModal = 'none';
   ticket: Ticket;
+
+  deleteTicket: string;
 
   constructor(private ticketService: TicketService,
               private route: ActivatedRoute,
@@ -39,8 +42,7 @@ export class TicketsComponent implements OnInit {
   }
 
 
-  openDialog(index: number): void {
-    console.log(index)
+  openDialog(): void {
     this.displayPayModal = 'block';
   }
 
@@ -49,7 +51,23 @@ export class TicketsComponent implements OnInit {
     this.ticketService.init(this.ticket);
   }
 
-  receiveEventToCloseDialog($event): void {
+  receiveEventToClosePayDialog($event): void {
     this.displayPayModal = $event;
+    // this.displayDeleteModal = $event;
+  }
+
+  receiveEventToCloseDeleteDialog($event): void {
+    this.displayDeleteModal = $event;
+    // this.displayDeleteModal = $event;
+  }
+
+
+  openDeleteDialog(): void {
+    this.displayDeleteModal = 'block';
+  }
+
+
+  findAndDeleteTicket(id: string): void {
+    this.ticketService.delete(id)
   }
 }

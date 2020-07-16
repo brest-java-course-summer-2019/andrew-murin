@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {TicketService} from "../../../services/ticketService/ticket.service";
+import {log} from "util";
 
 @Component({
   selector: 'app-delete-dialog',
@@ -7,9 +9,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DeleteDialogComponent implements OnInit {
 
-  constructor() { }
+  @Input()
+  display = 'none';
+
+  @Input()
+  deleteTicket: string;
+
+  @Output()
+  displayDeleteModal = new EventEmitter<string>();
+
+
+  constructor(private ticketService: TicketService) { }
+
 
   ngOnInit(): void {
   }
 
+  closeDialog(): void {
+    this.display = 'none';
+    this.displayDeleteModal.emit(this.display);
+  }
+
+
+  deleteTicketById() {
+    this.ticketService.delete(this.deleteTicket);
+  }
 }

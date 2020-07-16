@@ -20,25 +20,19 @@ export class TicketComponent implements OnInit {
               private route: ActivatedRoute) {
 
 
-
-
     this.ticketCost = Number(this.route.snapshot.queryParamMap.get('ticketCost'));
     this.ticketDate = new Date(this.route.snapshot.queryParamMap.get('ticketDate'));
     this.cityFrom = this.route.snapshot.queryParamMap.get('cityFrom') as City;
     this.cityTo = this.route.snapshot.queryParamMap.get('cityTo') as City;
 
-    // C
-
 
     let ticket = new Ticket(this.ticketCost,
-                        this.ticketDate.toUTCString(),
+                        this.ticketDate.toISOString(),
                         this.cityFrom,
                         this.cityTo);
 
-    console.log("tickets: " + ticket);
-    console.log("tickets: " + this.ticketDate + " " + this.ticketCost + " " + this.cityFrom + " " + this.cityTo);
 
-    // ticketService.addTicket(ticket)
+    ticketService.addTicket(ticket)
   }
 
 
@@ -46,12 +40,6 @@ export class TicketComponent implements OnInit {
   }
 
 
-  onAddTicket(fromCity: string, toCity: string, ticketCost: number, ticketDate: string) {
-    // let ticket = new Ticket(ticketCost, new Date(ticketDate), City[fromCity], City[toCity])
-    // console.log(ticket);
-
-    // this.ticketService.addTicket(ticket);
-  }
 
 
 

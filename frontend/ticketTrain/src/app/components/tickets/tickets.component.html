@@ -74,7 +74,7 @@
                                      <span id="payId"
                                            data-toggle="modal"
                                            class="navbar-nav float-right"
-                                           (click)="openDialog(index); findTicketAndSendToChild(ticket.id)">
+                                           (click)="openDialog(); findTicketAndSendToChild(ticket.id)">
                                         <a id="aPay"
                                            class="btn btn-dark pay"
                                            title="Pay ticket"
@@ -85,11 +85,11 @@
                                     </span>
             </td>
             <td>
-                                    <span data-toggle="modal" data-target="#deleteDialog"
+                                    <span
+                                          data-toggle="modal"
                                           class="navbar-nav float-right"
-                                          data-id="${ticket.ticketId}"
-                                          data-name="${ticket.ticketId}">
-                                        <a [routerLink]="['#']" class="btn btn-dark"
+                                          (click)="openDeleteDialog(); deleteTicket = ticket.id">
+                                        <a class="btn btn-dark"
                                            title="delete ticket"
                                            data-toggle="tooltip"
                                            data-placement="top">
@@ -97,7 +97,7 @@
                                             <span class="d-none d-md-inline">Delete</span></a>
                                     </span>
 
-              <span class="navbar-nav float-right">
+                                    <span class="navbar-nav float-right">
                                         <a [routerLink]="['/ticket/${ticket.ticketId}']"
                                            class="btn btn-dark"
                                            title="Edit ticket"
@@ -105,7 +105,7 @@
                                            data-placement="top">
                                                 <i class="fa fa-pencil"></i>
                                             <span class="d-none d-md-inline">Edit</span></a>
-                            </span>
+                                    </span>
             </td>
           </tr>
           </tbody>
@@ -118,5 +118,7 @@
 
 <app-pay-dialog [display]="displayPayModal"
                 [ticket]="ticket"
-                (displayPayModal)="receiveEventToCloseDialog($event)"></app-pay-dialog>
-<app-delete-dialog></app-delete-dialog>
+                (displayPayModal)="receiveEventToClosePayDialog($event)"></app-pay-dialog>
+<app-delete-dialog  [display]="displayDeleteModal"
+                    [deleteTicket]="deleteTicket"
+                    (displayDeleteModal)="receiveEventToCloseDeleteDialog($event)"></app-delete-dialog>

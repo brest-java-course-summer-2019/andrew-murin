@@ -1,7 +1,13 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Observable, of} from "rxjs";
 import {Ticket} from "../../model/Ticket";
+import {catchError, map, tap} from "rxjs/operators"
+
+
+const httpOptions = {
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
+}
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +21,24 @@ export class TicketService {
   constructor(private http: HttpClient) {
   }
 
-
   init(ticket: Ticket): void {
     this.ticket = ticket;
   }
+
+
+  private log(message: string): void {
+    console.log("ticketService: " + message);
+  }
+
+  private handleError<T>(operation = 'operation', result? :T) {
+    return (error: any): Observable<T> => {
+      console.error(error);
+      this.log(`${operation} failed: ${error.message}`);
+      return of(result as T);
+    }
+  }
+
+
 
   findAll(): Observable<Ticket[]> {
     return this.http.get<Ticket[]>('http://localhost:8088/api/tickets');
@@ -38,14 +58,12 @@ export class TicketService {
   }
 
   searchTicket(params): Observable<Ticket[]> {
-    console.log('search... ' + params)
     return this.http.get<Ticket[]>('http://localhost:8088/api/search-tickets', {params});
   }
 
   //TODO: doesn't work
   payTicket(): Observable<any> {
 
-    console.log(this.ticket);
 
     return this.http.put<any>('http://localhost:8088/api/tickets', {
         "email": "PISKA@mil.ru",
@@ -62,10 +80,15 @@ export class TicketService {
     );
   }
 
-  addTicket(ticket: Ticket): Observable<void> {
-    console.log("Ticket.... : " + ticket);
-
-    return this.http.post<void>('http://localhost:8088/api/tickets', ticket);
+  addTicket(ticket: Ticket): Observable<any> {
+    return this.http.post<any>('http://localhost:8088/api/tickets', ticket, httpOptions).pipe(
+      tap(() => this.log("succcsess send request")),
+      catchError(this.handleError<any>('add Ticket'))
+    );
   }
 
+  delete(id: string): Observable<any> {
+    this.log("Id for delete: " + id);
+    return this.http.delete<any>('http://localhost:8088/api/tickets' + id, httpOptions);
+  }
 }
