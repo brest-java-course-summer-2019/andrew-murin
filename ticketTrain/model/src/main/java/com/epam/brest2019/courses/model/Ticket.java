@@ -29,7 +29,6 @@ public class Ticket {
      * Cost of ticket
      */
     @ApiModelProperty(value = "Cost of ticket", example = "30")
-//    @Field(targetType = FieldType.DECIMAL128)
     private BigDecimal ticketCost;
 
     /**
@@ -51,11 +50,9 @@ public class Ticket {
     private City toCity;
 
     @ApiModelProperty(value = "Purchases date of ticket ", example = "2020-05-18")
-    @Indexed
     private ZonedDateTime paymentDate;
 
     @ApiModelProperty(value = "E-mail", example = "alze.andrey.1997@mail.ru")
-    @Email
     private String email;
 
     /**

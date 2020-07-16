@@ -19,20 +19,23 @@ export class TicketComponent implements OnInit {
   constructor(private ticketService: TicketService,
               private route: ActivatedRoute) {
 
+    if (!this.route.snapshot.queryParamMap.get('ticketDate') === null) {
 
-    this.ticketCost = Number(this.route.snapshot.queryParamMap.get('ticketCost'));
-    this.ticketDate = new Date(this.route.snapshot.queryParamMap.get('ticketDate'));
-    this.cityFrom = this.route.snapshot.queryParamMap.get('cityFrom') as City;
-    this.cityTo = this.route.snapshot.queryParamMap.get('cityTo') as City;
-
-
-    let ticket = new Ticket(this.ticketCost,
-                        this.ticketDate.toISOString(),
-                        this.cityFrom,
-                        this.cityTo);
+      this.ticketCost = Number(this.route.snapshot.queryParamMap.get('ticketCost'));
+      this.ticketDate = new Date(this.route.snapshot.queryParamMap.get('ticketDate'));
+      this.cityFrom = this.route.snapshot.queryParamMap.get('cityFrom') as City;
+      this.cityTo = this.route.snapshot.queryParamMap.get('cityTo') as City;
 
 
-    ticketService.addTicket(ticket)
+      let ticket = new Ticket(this.ticketCost,
+        this.ticketDate.toISOString(),
+        this.cityFrom,
+        this.cityTo
+      );
+
+
+      ticketService.addTicket(ticket)
+    }
   }
 
 

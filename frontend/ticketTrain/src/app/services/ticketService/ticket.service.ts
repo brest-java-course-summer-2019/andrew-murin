@@ -6,8 +6,12 @@ import {catchError, map, tap} from "rxjs/operators"
 
 
 const httpOptions = {
-  headers: new HttpHeaders({'Content-Type': 'application/json'})
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
 }
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +33,7 @@ export class TicketService {
   private log(message: string): void {
     console.log("ticketService: " + message);
   }
+
 
   private handleError<T>(operation = 'operation', result? :T) {
     return (error: any): Observable<T> => {
@@ -80,15 +85,17 @@ export class TicketService {
     );
   }
 
-  addTicket(ticket: Ticket): Observable<any> {
-    return this.http.post<any>('http://localhost:8088/api/tickets', ticket, httpOptions).pipe(
+  addTicket(ticket: Ticket) {
+    // ticket.email = 'Kot@mail.ru';
+    // ticket.paymentDate = new Date('2020-08-08').toISOString();
+    return this.http.post('http://localhost:8088/api/tickets', ticket, httpOptions).pipe(
       tap(() => this.log("succcsess send request")),
       catchError(this.handleError<any>('add Ticket'))
-    );
+    ).subscribe();
   }
 
-  delete(id: string): Observable<any> {
+  delete(id: string) {
     this.log("Id for delete: " + id);
-    return this.http.delete<any>('http://localhost:8088/api/tickets' + id, httpOptions);
+    return this.http.delete('http://localhost:8088/api/tickets/' + id, httpOptions).subscribe();
   }
 }

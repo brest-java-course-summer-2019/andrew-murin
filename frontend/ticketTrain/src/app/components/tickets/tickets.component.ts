@@ -19,8 +19,9 @@ export class TicketsComponent implements OnInit {
   deleteTicket: string;
 
   constructor(private ticketService: TicketService,
-              private route: ActivatedRoute,
-              private router: Router) {
+              private route: ActivatedRoute) {
+
+
 
     const params = {
       'cityFrom': this.route.snapshot.queryParamMap.get('cityFrom'),
@@ -29,10 +30,13 @@ export class TicketsComponent implements OnInit {
       'finishDate': this.route.snapshot.queryParamMap.get('finishDate')
     }
 
+
     ticketService.searchTicket(params).subscribe(tickets => {
       this.tickets = tickets
-    })
+    });
+
   }
+
 
   ngOnInit(): void {
 

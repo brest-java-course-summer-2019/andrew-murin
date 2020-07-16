@@ -33,7 +33,7 @@
     <span class="navbar-brand mr-auto">Train schedule</span>
     <ul class="navbar-nav float-right">
       <li>
-        <a [routerLink]="['/tickets/#']"
+        <a [routerLink]="['/tickets/5']"
            class="btn btn-dark btn"
            data-toggle="tooltip"
            data-placement="left"
@@ -68,7 +68,7 @@
             <td>{{ticket.fromCity}}</td>
             <td>{{ticket.toCity}}</td>
             <td>{{ticket.ticketCost}}</td>
-            <td>{{ticket.ticketDate }}</td>
+            <td>{{ticket.ticketDate | date: 'longDate'}}</td>
             <td>
 
                                      <span id="payId"
