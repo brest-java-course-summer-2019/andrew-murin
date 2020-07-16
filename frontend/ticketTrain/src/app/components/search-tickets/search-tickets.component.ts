@@ -12,10 +12,13 @@ export class SearchTicketsComponent implements OnInit {
   @Output()
   searchedTickets: Ticket[];
 
+
   constructor(private ticketService: TicketService) { }
+
 
   ngOnInit(): void {
   }
+
 
   onSearchTickets() {
 

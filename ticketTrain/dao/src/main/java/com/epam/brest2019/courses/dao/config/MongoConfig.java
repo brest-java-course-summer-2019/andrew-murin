@@ -24,6 +24,7 @@ public class MongoConfig extends AbstractMongoConfiguration {
 
     private final List<Converter<?, ?>> converters = new ArrayList<>();
 
+//      TODO: throw error(bind with replicaSet)
 //    @Bean
 //    public MongoTransactionManager transactionManager(MongoDbFactory dbFactory) {
 //        return new MongoTransactionManager(dbFactory);
@@ -43,8 +44,6 @@ public class MongoConfig extends AbstractMongoConfiguration {
     public MongoCustomConversions customConversions() {
         converters.add(new DateReadConverter());
         converters.add(new DateWriteConverter());
-//        converters.add(new BigDecimal128Converter());
-//        converters.add(new Decimal128BigDecimalConverter());
         converters.add(new DoubleToBigDecimal());
         converters.add(new BigDecimalToDouble());
 

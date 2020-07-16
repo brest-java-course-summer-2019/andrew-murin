@@ -33,6 +33,7 @@ export class PayDialogComponent implements OnInit {
     this.ticketService.payTicket(this.ticket);
   }
 
+
   closeDialog(): void {
     this.display = 'none';
     this.displayPayModal.emit(this.display);

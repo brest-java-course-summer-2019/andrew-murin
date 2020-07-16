@@ -25,6 +25,7 @@ export class DeleteDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
   closeDialog(): void {
     this.display = 'none';
     this.displayDeleteModal.emit(this.display);

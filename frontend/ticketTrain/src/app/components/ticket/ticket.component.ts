@@ -27,13 +27,11 @@ export class TicketComponent implements OnInit {
       this.cityFrom = this.route.snapshot.queryParamMap.get('cityFrom') as City;
       this.cityTo = this.route.snapshot.queryParamMap.get('cityTo') as City;
 
-
       let ticket = new Ticket(this.ticketCost,
         this.ticketDate.toISOString(),
         this.cityFrom,
         this.cityTo
       );
-
 
       ticketService.addTicket(ticket)
     }

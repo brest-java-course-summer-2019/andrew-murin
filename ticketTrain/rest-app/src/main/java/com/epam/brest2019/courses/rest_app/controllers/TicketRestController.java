@@ -78,8 +78,10 @@ public class TicketRestController {
     public List<Ticket> searchPaidTicketByDate(@RequestParam("startDate") String startDate,
                                                @RequestParam("finishDate") String finishDate) {
 
+        LOGGER.debug("Search pid tickets by date ({} - {})", startDate, finishDate);
+
         LocalDateTime startDateLocal = LocalDateTime.of(2019, 1, 1, 1, 1, 1);
-        LocalDateTime finishDateLocal = LocalDateTime.of(2020, 1, 1, 1, 1, 1);
+        LocalDateTime finishDateLocal = LocalDateTime.of(2021, 1, 1, 1, 1, 1);
 
         try {
             startDateLocal = LocalDate.parse(startDate).atTime(LocalTime.now());
@@ -91,6 +93,7 @@ public class TicketRestController {
 
         return ticketService.searchPaidTicketByDate(startDateLocal, finishDateLocal);
     }
+
 
     @ApiOperation(value = "Find ticket by id", response = Ticket.class)
     @ApiResponses({
@@ -104,14 +107,13 @@ public class TicketRestController {
         return ticketService.findById(id);
     }
 
-//
-//    @ApiOperation(value = "Add new ticket", response = void.class)
-//    @ApiResponses({
-//            @ApiResponse(code = 201, message = "Created new ticket"),
-//            @ApiResponse(code = 500, message = "Internal server error")
-//    })
-//    @ApiImplicitParam(name = "ticket", required = true, value = "Ticket object", paramType = "body", dataType = "Ticket")
-//    @CrossOrigin(origins = "http://localhost:4200")
+
+    @ApiOperation(value = "Add new ticket", response = void.class)
+    @ApiResponses({
+            @ApiResponse(code = 201, message = "Created new ticket"),
+            @ApiResponse(code = 500, message = "Internal server error")
+    })
+    @ApiImplicitParam(name = "ticket", required = true, value = "Ticket object", paramType = "body", dataType = "Ticket")
     @PostMapping(value = "/tickets")
     public void add(@RequestBody Ticket ticket) {
         LOGGER.debug("Add ticket ({})", ticket);
@@ -125,22 +127,14 @@ public class TicketRestController {
             @ApiResponse(code = 404, message = "Ticket not found"),
             @ApiResponse(code = 500, message = "Internal server error")
     })
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "paymentDate", value = "Date of purchase ticket", required = true, paramType = "header", dataType = "string"),
-//            @ApiImplicitParam(name = "email", value = "Email of bayer", required = true, paramType = "header", dataType = "string")
-//    })
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "paymentDate", value = "Date of purchase ticket", required = true, paramType = "header", dataType = "string"),
+            @ApiImplicitParam(name = "email", value = "Email of bayer", required = true, paramType = "header", dataType = "string")
+    })
     @PutMapping(value = "/tickets")
     public void payTicket(@RequestBody Ticket ticket) {
 
         LOGGER.debug("Pay ticket ({})", ticket);
-
-//        ZonedDateTime paymentDateLocal =
-//                LocalDate.parse(paymentDate).atStartOfDay(ZoneId.systemDefault());
-//
-//        Ticket ticket = ticketService.findById(ticketId);
-//
-//        ticket.setPaymentDate(paymentDateLocal);
-//        ticket.setEmail(email);
 
         ticketService.payTicket(ticket);
     }

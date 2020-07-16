@@ -33,15 +33,24 @@ public interface TicketDao {
      * @param finishDate
      * @param fromCity
      * @param toCity
-     * @return
+     *
+     * @return list of tickets
      */
     List<Ticket> searchTicket(LocalDateTime startDate, LocalDateTime finishDate,
                               String fromCity, String toCity);
 
-
+    /**
+     * Find paid-tickets by date
+     * @param startDate
+     * @param finishDate
+     *
+     * @return list of tickets
+     */
     List<Ticket> searchPaidTicketByDate(LocalDateTime startDate, LocalDateTime finishDate);
 
-
+    /**
+     * Get total cost of paid-tickets
+     */
     TicketDto sumPaidTicketCost();
 
     /**
@@ -66,7 +75,11 @@ public interface TicketDao {
      */
     void payTicket(Ticket ticket);
 
-
+    /**
+     * Update for paid-ticket
+     *
+     * @param ticket ticket
+     */
     void update(Ticket ticket);
 
     /**

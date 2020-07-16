@@ -17,6 +17,7 @@ export class PaidTicketsComponent implements OnInit {
 
   constructor(private ticketService: TicketService) { }
 
+
   ngOnInit(): void {
     this.ticketService.findAllPaidTickets().subscribe(paidTickets => {
 

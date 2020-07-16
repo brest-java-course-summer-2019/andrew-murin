@@ -12,16 +12,20 @@ const httpOptions = {
 }
 
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class TicketService {
 
 
+  TICKETS_API: string = 'http://localhost:8088/api/tickets/';
+  SEARCH_TICKETS_API: string = 'http://localhost:8088/api/search-tickets';
+  PAID_TICKETS_API: string = 'http://localhost:8088/api/paid-tickets';
+  SEARCH_PAID_TICKETS_API: string = 'http://localhost:8088/api/search-paid-tickets';
+
+
   constructor(private http: HttpClient) {
   }
-
 
 
   private log(message: string): void {
@@ -40,15 +44,20 @@ export class TicketService {
 
 
   findAll(): Observable<Ticket[]> {
-    return this.http.get<Ticket[]>('http://localhost:8088/api/tickets');
+
+    return this.http.get<Ticket[]>(this.TICKETS_API);
   }
+
 
   findAllPaidTickets(): Observable<Ticket[]> {
-    return this.http.get<Ticket[]>('http://localhost:8088/api/paid-tickets');
+
+    return this.http.get<Ticket[]>(this.PAID_TICKETS_API);
   }
 
+
   findPaidTicketsByDate(startDate: string, finishDate: string): Observable<Ticket[]> {
-    return this.http.get<Ticket[]>('http://localhost:8088/api/search-paid-tickets', {
+
+    return this.http.get<Ticket[]>(this.SEARCH_PAID_TICKETS_API, {
       params: {
         'startDate': startDate,
         'finishDate': finishDate
@@ -56,29 +65,30 @@ export class TicketService {
     });
   }
 
+
   searchTicket(params): Observable<Ticket[]> {
-    return this.http.get<Ticket[]>('http://localhost:8088/api/search-tickets', {params});
+    return this.http.get<Ticket[]>(this.SEARCH_TICKETS_API, {params});
   }
 
-  //TODO: doesn't work
+
   payTicket(ticket: Ticket) {
 
-    console.log(ticket);
-
-    return this.http.put('http://localhost:8088/api/tickets', ticket, httpOptions).subscribe();
+    return this.http.put(this.TICKETS_API, ticket, httpOptions).subscribe();
   }
+
 
   addTicket(ticket: Ticket) {
 
-    return this.http.post('http://localhost:8088/api/tickets', ticket, httpOptions).pipe(
-      tap(() => this.log("succcsess send request")),
+    return this.http.post(this.TICKETS_API, ticket, httpOptions).pipe(
+      tap(() => this.log("success send request")),
       catchError(this.handleError<any>('add Ticket'))
     ).subscribe();
   }
 
+
   delete(id: string) {
 
     this.log("Id for delete: " + id);
-    return this.http.delete('http://localhost:8088/api/tickets/' + id, httpOptions).subscribe();
+    return this.http.delete(this.TICKETS_API + id, httpOptions).subscribe();
   }
 }

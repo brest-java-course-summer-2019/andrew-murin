@@ -15,8 +15,8 @@ export class TicketsComponent implements OnInit {
   displayPayModal = 'none';
   displayDeleteModal = 'none';
   ticket: Ticket;
-
   deleteTicket: string;
+
 
   constructor(private ticketService: TicketService,
               private route: ActivatedRoute) {
@@ -50,13 +50,16 @@ export class TicketsComponent implements OnInit {
     this.displayPayModal = 'block';
   }
 
+
   findTicketAndSendToChild(ticketId: string): void {
     this.ticket = this.tickets.find(value => value.id === ticketId);
   }
 
+
   receiveEventToClosePayDialog($event): void {
     this.displayPayModal = $event;
   }
+
 
   receiveEventToCloseDeleteDialog($event): void {
     this.displayDeleteModal = $event;

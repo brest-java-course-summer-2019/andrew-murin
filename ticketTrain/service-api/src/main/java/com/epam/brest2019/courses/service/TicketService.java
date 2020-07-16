@@ -61,15 +61,33 @@ public interface TicketService {
      * @param finishDate
      * @param cityFrom
      * @param cityTo
-     * @return
+     *
+     * @return list of tickets
      */
     List<Ticket> searchTicket(LocalDateTime startDate, LocalDateTime finishDate,
                               String cityFrom, String cityTo);
 
+
+    /**
+     * Find tickets by date
+     * @param startDate
+     * @param finishDate
+     *
+     * @return list of paid-tickets
+     */
     List<Ticket> searchPaidTicketByDate(LocalDateTime startDate, LocalDateTime finishDate);
 
+    /**
+     * Update ticket
+     *
+     * @param ticket ticket.
+     */
     void update(Ticket ticket);
 
+
+    /**
+     * Count total cost of paid-tickets
+     */
     TicketDto sumPaidTicketCost();
 
 }
