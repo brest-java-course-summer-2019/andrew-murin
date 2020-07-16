@@ -16,6 +16,7 @@ export class TicketComponent implements OnInit {
   cityFrom: City;
   cityTo: City;
 
+
   constructor(private ticketService: TicketService,
               private route: ActivatedRoute) {
 
@@ -41,8 +42,6 @@ export class TicketComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-
 
 
 

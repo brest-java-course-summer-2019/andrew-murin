@@ -52,17 +52,14 @@ export class TicketsComponent implements OnInit {
 
   findTicketAndSendToChild(ticketId: string): void {
     this.ticket = this.tickets.find(value => value.id === ticketId);
-    this.ticketService.init(this.ticket);
   }
 
   receiveEventToClosePayDialog($event): void {
     this.displayPayModal = $event;
-    // this.displayDeleteModal = $event;
   }
 
   receiveEventToCloseDeleteDialog($event): void {
     this.displayDeleteModal = $event;
-    // this.displayDeleteModal = $event;
   }
 
 
@@ -70,8 +67,4 @@ export class TicketsComponent implements OnInit {
     this.displayDeleteModal = 'block';
   }
 
-
-  findAndDeleteTicket(id: string): void {
-    this.ticketService.delete(id)
-  }
 }

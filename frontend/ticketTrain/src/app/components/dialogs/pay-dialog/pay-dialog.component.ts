@@ -1,8 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {TicketService} from "../../../services/ticketService/ticket.service";
 import {Ticket} from "../../../model/Ticket";
-import {tick} from "@angular/core/testing";
-import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-pay-dialog',
@@ -32,7 +30,7 @@ export class PayDialogComponent implements OnInit {
     this.ticket.email = email;
     this.ticket.paymentDate = new Date().toISOString();
 
-    this.ticketService.payTicket();
+    this.ticketService.payTicket(this.ticket);
   }
 
   closeDialog(): void {

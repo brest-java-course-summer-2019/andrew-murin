@@ -132,7 +132,7 @@ public class TicketRestController {
     @PutMapping(value = "/tickets")
     public void payTicket(@RequestBody Ticket ticket) {
 
-//        LOGGER.debug("Pay ticket. ticketId {}, paymentDate {}, email {})", ticketId, paymentDate, email);
+        LOGGER.debug("Pay ticket ({})", ticket);
 
 //        ZonedDateTime paymentDateLocal =
 //                LocalDate.parse(paymentDate).atStartOfDay(ZoneId.systemDefault());

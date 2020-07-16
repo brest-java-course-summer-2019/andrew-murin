@@ -19,15 +19,9 @@ const httpOptions = {
 export class TicketService {
 
 
-  ticket: Ticket;
-
-
   constructor(private http: HttpClient) {
   }
 
-  init(ticket: Ticket): void {
-    this.ticket = ticket;
-  }
 
 
   private log(message: string): void {
@@ -67,27 +61,15 @@ export class TicketService {
   }
 
   //TODO: doesn't work
-  payTicket(): Observable<any> {
+  payTicket(ticket: Ticket) {
 
+    console.log(ticket);
 
-    return this.http.put<any>('http://localhost:8088/api/tickets', {
-        "email": "PISKA@mil.ru",
-        "fromCity": "BREST",
-        "id": "5ecab40aa3e4914f0d7d9853",
-        "paymentDate": "2020-07-10T00:00:00Z",
-        "ticketCost": 11.2,
-        "ticketDate": "2019-09-25T00:00:00Z",
-        "toCity": "MINSK"
-      },
-      {headers: {
-          "Content-type": "application/json"}
-      }
-    );
+    return this.http.put('http://localhost:8088/api/tickets', ticket, httpOptions).subscribe();
   }
 
   addTicket(ticket: Ticket) {
-    // ticket.email = 'Kot@mail.ru';
-    // ticket.paymentDate = new Date('2020-08-08').toISOString();
+
     return this.http.post('http://localhost:8088/api/tickets', ticket, httpOptions).pipe(
       tap(() => this.log("succcsess send request")),
       catchError(this.handleError<any>('add Ticket'))
@@ -95,6 +77,7 @@ export class TicketService {
   }
 
   delete(id: string) {
+
     this.log("Id for delete: " + id);
     return this.http.delete('http://localhost:8088/api/tickets/' + id, httpOptions).subscribe();
   }
