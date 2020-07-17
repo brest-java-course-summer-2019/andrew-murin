@@ -7,12 +7,13 @@ import {HomeComponent} from './components/home/home.component';
 import { SearchTicketsComponent } from './components/search-tickets/search-tickets.component';
 import { TicketsComponent } from './components/tickets/tickets.component';
 import { PaidTicketsComponent } from './components/paid-tickets/paid-tickets.component';
-import { TicketComponent } from './components/ticket/ticket.component';
+import { TicketAddComponent } from './components/ticket/ticket-add/ticket-add.component';
 import { PaidTicketComponent } from './components/paid-ticket/paid-ticket.component';
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import { PayDialogComponent } from './components/dialogs/pay-dialog/pay-dialog.component';
 import { DeleteDialogComponent } from './components/dialogs/delete-dialog/delete-dialog.component';
+import { TicketEditComponent } from './components/ticket/ticket-edit/ticket-edit.component';
 
 
 @NgModule({
@@ -22,10 +23,11 @@ import { DeleteDialogComponent } from './components/dialogs/delete-dialog/delete
     SearchTicketsComponent,
     TicketsComponent,
     PaidTicketsComponent,
-    TicketComponent,
+    TicketAddComponent,
     PaidTicketComponent,
     PayDialogComponent,
     DeleteDialogComponent,
+    TicketEditComponent,
   ],
   imports: [
     BrowserModule,

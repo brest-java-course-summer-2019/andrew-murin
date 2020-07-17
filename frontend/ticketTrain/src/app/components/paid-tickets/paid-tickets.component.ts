@@ -25,10 +25,11 @@ export class PaidTicketsComponent implements OnInit {
 
         this.ticketCount = paidTickets.length;
 
-        this.totalSum = paidTickets
+        this.totalSum = Number(paidTickets
           .filter(payment => payment.ticketCost !== null)
           .map(payment => payment.ticketCost)
-          .reduce((acc,item ) => acc + item, 0);
+          .reduce((acc,item ) => acc + item, 0)
+          .toFixed(2));
       }
     );
   }

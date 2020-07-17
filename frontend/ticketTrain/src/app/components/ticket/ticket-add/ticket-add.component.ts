@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import {Ticket} from "../../model/Ticket";
-import {City} from "../../model/City";
-import {TicketService} from "../../services/ticketService/ticket.service";
+import {Ticket} from "../../../model/Ticket";
+import {City} from "../../../model/City";
+import {TicketService} from "../../../services/ticketService/ticket.service";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-ticket',
-  templateUrl: './ticket.component.html',
-  styleUrls: ['./ticket.component.css']
+  templateUrl: './ticket-add.component.html',
+  styleUrls: ['./ticket-add.component.css']
 })
-export class TicketComponent implements OnInit {
+export class TicketAddComponent implements OnInit {
 
   ticketCost: number;
   ticketDate: Date;
@@ -20,7 +20,7 @@ export class TicketComponent implements OnInit {
   constructor(private ticketService: TicketService,
               private route: ActivatedRoute) {
 
-    if (!this.route.snapshot.queryParamMap.get('ticketDate') === null) {
+    if (this.route.snapshot.queryParamMap.get('ticketDate') != null) {
 
       this.ticketCost = Number(this.route.snapshot.queryParamMap.get('ticketCost'));
       this.ticketDate = new Date(this.route.snapshot.queryParamMap.get('ticketDate'));
@@ -40,7 +40,6 @@ export class TicketComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 
 
 }
