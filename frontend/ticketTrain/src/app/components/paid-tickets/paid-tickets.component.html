@@ -72,7 +72,7 @@
                                           data-name="${paymentss.paymentId}">
 
                                         <a
-                                           (click)="openDeletePaidTicketDialog()"
+                                           (click)="openDeletePaidTicketDialog(); deletePaidTicket = paidTicket.id"
 
                                            class="btn btn-dark"
                                            title="delete payment"
@@ -135,4 +135,5 @@
 </section>
 
 <app-delete-paid-ticket-dialog [display]="displayDeletePaidTicketModal"
-                                (displayDeletePaidTicketModal)="receiveEventToCloseDeleteDialog($event)"></app-delete-paid-ticket-dialog>
+                               [deletePaidTicket]="deletePaidTicket"
+                               (displayDeletePaidTicketModal)="receiveEventToCloseDeleteDialog($event)"></app-delete-paid-ticket-dialog>

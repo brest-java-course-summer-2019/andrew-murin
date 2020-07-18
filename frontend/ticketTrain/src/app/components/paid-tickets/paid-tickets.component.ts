@@ -15,6 +15,7 @@ export class PaidTicketsComponent implements OnInit {
   searchPaidTickets: boolean = false;
 
   displayDeletePaidTicketModal = 'none';
+  deletePaidTicket: string;
 
 
   constructor(private ticketService: TicketService) { }
