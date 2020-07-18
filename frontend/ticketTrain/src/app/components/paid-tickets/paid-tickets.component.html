@@ -8,30 +8,42 @@
           [routerLink]="['/paid-tickets']"
           method="post">
 
-      <div class="form-group">
-        <input #startDate
+      <ng-container *ngIf="showSearch === 'none'">
+
+        <div class="form-group">
+          <input #startDate
+                 type="date"
+                 class="form-control"
+                 value="">
+        </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input #finishDate
                type="date"
                class="form-control"
                value="">
-      </div>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <input #finishDate
-             type="date"
-             class="form-control"
-             value="">
-      &nbsp;&nbsp;&nbsp;
-      <div>
-        <a (click)="onSearchPaidTicketsByDate(startDate.value, finishDate.value)"
-           class="btn btn-dark btn"
-           data-toggle="tooltip"
-           data-placement="left"
-           title="Filter date">
-          <i class="far fa-calendar-alt"></i>
-          <span class="d-none d-sm-inline">Search</span>
-        </a>
-      </div>
-      &nbsp;
+        &nbsp;&nbsp;&nbsp;
+        <div>
+          <button type="button" class="btn btn-dark"
+                  (click)="showSearch='block'; onSearchPaidTicketsByDate(startDate.value, finishDate.value);">
+            Search
+          </button>
+        </div>
+
+      </ng-container>
+
+      <ng-container *ngIf="showSearch === 'block'">
+
+        <div class="float-right">
+          <button type="button" class="btn btn-dark"
+                  (click)="onReplace(); showSearch = 'none'">
+            Back
+          </button>
+        </div>
+
+      </ng-container>
+
     </form>
+
   </nav>
 </header>
 
@@ -64,36 +76,11 @@
               <td>{{paidTicket.ticketCost}}</td>
               <td>{{paidTicket.email}}</td>
 
-              <td>
-
-                                    <span data-toggle="modal" data-target="#deleteDialog"
-                                          class="navbar-nav float-right"
-                                          data-id="${paymentss.paymentId}"
-                                          data-name="${paymentss.paymentId}">
-
-                                        <a
-                                           (click)="openDeletePaidTicketDialog(); deletePaidTicket = paidTicket.id"
-
-                                           class="btn btn-dark"
-                                           title="delete payment"
-                                           data-toggle="tooltip"
-                                           data-placement="top">
-                                            <i class="fa fa-remove"></i>
-                                            <span class="d-none d-md-inline">Delete</span></a>
-
-                                    </span>
-
-                <span class="navbar-nav float-right">
-                                        <a  [routerLink]="['#']"
-
-                                            class="btn btn-dark"
-                                            title="Edit payment"
-                                            data-toggle="tooltip"
-                                            data-placement="top">
-                                            <i class="fa fa-pencil"></i>
-                                            <span class="d-none d-md-inline">Edit</span></a>
-                                    </span>
-
+              <td class="float-right">
+                <button type="button" class="btn btn-dark"
+                        (click)="openDeletePaidTicketDialog(); deletePaidTicket = paidTicket.id">
+                  Delete
+                </button>
               </td>
             </tr>
             </tbody>
@@ -105,7 +92,7 @@
               <th style="color: black">#</th>
               <th style="color: black">From</th>
               <th style="color: black">To</th>
-              <th style="color: black">Count</th>
+              <th style="color: black">Date</th>
               <th style="color: black">Cost</th>
             </tr>
             </thead>
@@ -118,13 +105,13 @@
               <td>{{paidTicket.paymentDate | date: 'longDate'}}</td>
               <td>{{paidTicket.ticketCost}}</td>
             </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td>Total: {{ticketCount}}</td>
-                  <th>{{totalSum}}<th>
-                </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>Total: {{ticketCount}}</td>
+              <th>Count: {{totalSum}}<th>
+            </tr>
 
             </tbody>
           </ng-container>
@@ -134,6 +121,9 @@
   </div>
 </section>
 
+
 <app-delete-paid-ticket-dialog [display]="displayDeletePaidTicketModal"
                                [deletePaidTicket]="deletePaidTicket"
-                               (displayDeletePaidTicketModal)="receiveEventToCloseDeleteDialog($event)"></app-delete-paid-ticket-dialog>
+                               (displayDeletePaidTicketModal)="receiveEventToCloseDeleteDialog($event)">
+
+</app-delete-paid-ticket-dialog>

@@ -14,6 +14,7 @@ export class PaidTicketsComponent implements OnInit {
   totalSum: number;
   searchPaidTickets: boolean = false;
 
+  showSearch = 'none';
   displayDeletePaidTicketModal = 'none';
   deletePaidTicket: string;
 
@@ -38,7 +39,7 @@ export class PaidTicketsComponent implements OnInit {
   }
 
 
-  onSearchPaidTicketsByDate(startDate: string, finishDate: string) {
+  onSearchPaidTicketsByDate(startDate: string, finishDate: string): void {
 
     this.ticketService.findPaidTicketsByDate(startDate, finishDate).subscribe(paidTickets => {
 
@@ -55,8 +56,12 @@ export class PaidTicketsComponent implements OnInit {
     this.searchPaidTickets = !this.searchPaidTickets;
   }
 
+  onReplace(): void {
+    this.searchPaidTickets = !this.searchPaidTickets;
+  }
 
-  openDeletePaidTicketDialog() {
+
+  openDeletePaidTicketDialog(): void {
     this.displayDeletePaidTicketModal = 'block';
   }
 

@@ -2,84 +2,61 @@
   <nav id="main-header"
        class="py-1 mb-3 navbar navbar-expand-sm navbar-light bg-light text-dark">
     <span class="navbar-brand mr-auto">Choise direction</span>
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a
-          (click)=form.submit();
 
-          class="btn btn-dark"
-          title="Search tickets"
-          data-toggle="tooltip"
-          data-placement="bottom">
-          <i class="fas fa-undo"></i>
-          <span class="d-none d-sm-inline">&nbsp;Search</span></a>
-      </li>
-    </ul>
+    <button type="button" class="btn btn-dark" (click)=form.submit();>Search</button>
   </nav>
 </header>
 
 <section id="ticket">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col">
-        <div class="card-body">
+  <div class="container">
 
-          <!--TODO: replace [action] on ngForm-->
-          <form #form
-                method="get"
-                [action]="['/tickets']"
-                >
+    <!--TODO: replace [action] on ngForm-->
+    <form #form
+          method="get"
+          [action]="['/tickets']">
 
-            <tr>
-              <div class="form-group">
-                <label>Select from a city</label>
-                <select class="form-control" name="cityFrom">
-                  <option value="BREST">BREST</option>
-                  <option value="MINSK">MINSK</option>
-                  <option value="VITEBSK">VITEBSK</option>
-                  <option value="GOMEL">GOMEL</option>
-                  <option value="GRODNO">GRODNO</option>
-                  <option value="MOGILEV">MOGILEV</option>
-                </select>
-              </div>
-            </tr>
 
-            <tr>
-              <div class="form-group">
-                <label>Select to a city</label>
-                <select class="form-control" name="cityTo">
-                  <option value="BREST">BREST</option>
-                  <option value="MINSK">MINSK</option>
-                  <option value="VITEBSK">VITEBSK</option>
-                  <option value="GOMEL">GOMEL</option>
-                  <option value="GRODNO">GRODNO</option>
-                  <option value="MOGILEV">MOGILEV</option>
-                </select>
-              </div>
-            </tr>
-
-            <tr><td><label>Select a date</label>
-              <div class="form-group">
-                <input id="startDate"
-                       name="startDate"
-                       type="date"
-                       class="form-control"
-                >
-              </div></td>
-            </tr>
-            <tr><td><label>Select a date</label>
-              <div class="form-group">
-                <input id="finishDte"
-                       name="finishDate"
-                       type="date"
-                       class="form-control"
-                >
-              </div></td>
-            </tr>
-          </form>
-
-        </div>
+      <div class="form-group">
+        <label>From</label>
+        <select class="form-control" name="cityFrom">
+          <option value="">Select the city</option>
+          <option value="BREST">BREST</option>
+          <option value="MINSK">MINSK</option>
+          <option value="VITEBSK">VITEBSK</option>
+          <option value="GOMEL">GOMEL</option>
+          <option value="GRODNO">GRODNO</option>
+          <option value="MOGILEV">MOGILEV</option>
+        </select>
       </div>
-    </div>
+
+      <div class="form-group">
+        <label>To</label>
+        <select class="form-control" name="cityTo">
+          <option value="">Select the city</option>
+          <option value="BREST">BREST</option>
+          <option value="MINSK">MINSK</option>
+          <option value="VITEBSK">VITEBSK</option>
+          <option value="GOMEL">GOMEL</option>
+          <option value="GRODNO">GRODNO</option>
+          <option value="MOGILEV">MOGILEV</option>
+        </select>
+      </div>
+
+      <label>Select a date</label>
+      <div class="form-group">
+        <input id="startDate"
+               name="startDate"
+               type="date"
+               class="form-control">
+      </div>
+
+      <label>Select a date</label>
+      <div class="form-group">
+        <input id="finishDte"
+               name="finishDate"
+               type="date"
+               class="form-control">
+      </div>
+    </form>
   </div>
 </section>

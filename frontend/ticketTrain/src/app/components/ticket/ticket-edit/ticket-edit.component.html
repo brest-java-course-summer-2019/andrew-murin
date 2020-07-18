@@ -21,72 +21,63 @@
 </header>
 
 <section id="ticket">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col">
-        <div class="card-body">
+  <div class="container">
 
 
-          <form #editForm="ngForm"
-                id="editForm"
-                (ngSubmit)="onEditFormSubmit(editForm.value)">
+    <form #editForm="ngForm"
+          id="editForm"
+          (ngSubmit)="onEditFormSubmit(editForm.value)">
 
-            <tr>
-              <div class="form-group">
-                <label>Select from a city</label>
-                <select class="form-control" name="fromCity" ngModel>
-                  <option value="BREST">BREST</option>
-                  <option value="MINSK">MINSK</option>
-                  <option value="VITEBSK">VITEBSK</option>
-                  <option value="GOMEL">GOMEL</option>
-                  <option value="GRODNO">GRODNO</option>
-                  <option value="MOGILEV">MOGILEV</option>
-                </select>
-              </div>
-            </tr>
 
-            <tr>
-              <div class="form-group">
-                <label>Select to a city</label>
-                <select class="form-control" name="toCity" ngModel>
-                  <option value="BREST">BREST</option>
-                  <option value="MINSK">MINSK</option>
-                  <option value="VITEBSK">VITEBSK</option>
-                  <option value="GOMEL">GOMEL</option>
-                  <option value="GRODNO">GRODNO</option>
-                  <option value="MOGILEV">MOGILEV</option>
-                </select>
-              </div>
-            </tr>
-
-            <tr>
-              <div class="form-group">
-                <label>Price of ticket</label>
-                <input
-                  ngModel
-                  name="ticketCost"
-                  class="form-control"
-                  type="text"
-                  value=""
-                  placeholder="Enter price"/>
-              </div>
-            </tr>
-
-            <tr><td><label>Select a date</label>
-              <div class="form-group">
-                <input
-                  ngModel
-                  name="ticketDate"
-                  type="date"
-                  class="form-control"
-                  value=""/>
-              </div>
-            </tr>
-          </form>
-
-        </div>
+      <div class="form-group">
+        <label>From</label>
+        <select class="form-control" name="fromCity" ngModel>
+          <option value="">Select the city</option>
+          <option value="BREST">BREST</option>
+          <option value="MINSK">MINSK</option>
+          <option value="VITEBSK">VITEBSK</option>
+          <option value="GOMEL">GOMEL</option>
+          <option value="GRODNO">GRODNO</option>
+          <option value="MOGILEV">MOGILEV</option>
+        </select>
       </div>
-    </div>
+
+      <div class="form-group">
+        <label>To</label>
+        <select class="form-control" name="toCity" ngModel>
+          <option value="">Select the city</option>
+          <option value="BREST">BREST</option>
+          <option value="MINSK">MINSK</option>
+          <option value="VITEBSK">VITEBSK</option>
+          <option value="GOMEL">GOMEL</option>
+          <option value="GRODNO">GRODNO</option>
+          <option value="MOGILEV">MOGILEV</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Price of ticket</label>
+        <input
+          ngModel
+          name="ticketCost"
+          class="form-control"
+          type="text"
+          value=""
+          placeholder="Enter price"/>
+      </div>
+
+      <label>Select a date</label>
+      <div class="form-group">
+        <input
+          ngModel
+          name="ticketDate"
+          type="date"
+          class="form-control"
+          value=""/>
+      </div>
+
+    </form>
+
   </div>
 </section>
 
