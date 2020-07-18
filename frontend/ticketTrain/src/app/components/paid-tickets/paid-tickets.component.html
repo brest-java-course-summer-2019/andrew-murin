@@ -71,7 +71,9 @@
                                           data-id="${paymentss.paymentId}"
                                           data-name="${paymentss.paymentId}">
 
-                                        <a [routerLink]="['#']"
+                                        <a
+                                           (click)="openDeletePaidTicketDialog()"
+
                                            class="btn btn-dark"
                                            title="delete payment"
                                            data-toggle="tooltip"
@@ -83,6 +85,7 @@
 
                 <span class="navbar-nav float-right">
                                         <a  [routerLink]="['#']"
+
                                             class="btn btn-dark"
                                             title="Edit payment"
                                             data-toggle="tooltip"
@@ -131,29 +134,5 @@
   </div>
 </section>
 
-
-
-
-<!--TODO: Need write the method for the paid-tickets at a server-->
-
-<!-- Confirm delete Modal -->
-<div class="modal fade" id="deleteDialog" tabindex="-1" role="dialog"
-     aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header alert-danger">
-        <h5 class="modal-title" id="exampleModalLabel">Delete ticket</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Please confirm delete payment
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <a id="deleteUrl" [routerLink]="['#']" class="btn btn-danger">Delete</a>
-      </div>
-    </div>
-  </div>
-</div>
+<app-delete-paid-ticket-dialog [display]="displayDeletePaidTicketModal"
+                                (displayDeletePaidTicketModal)="receiveEventToCloseDeleteDialog($event)"></app-delete-paid-ticket-dialog>

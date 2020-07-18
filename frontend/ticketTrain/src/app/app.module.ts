@@ -14,6 +14,7 @@ import {FormsModule} from "@angular/forms";
 import { PayTicketDialogComponent } from './components/dialogs/pay-ticket-dialog/pay-ticket-dialog.component';
 import { DeleteTicketDialogComponent } from './components/dialogs/delete-ticket-dialog/delete-ticket-dialog.component';
 import { TicketEditComponent } from './components/ticket/ticket-edit/ticket-edit.component';
+import { DeletePaidTicketDialogComponent } from './components/dialogs/delete-paid-ticket-dialog/delete-paid-ticket-dialog.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { TicketEditComponent } from './components/ticket/ticket-edit/ticket-edit
     PayTicketDialogComponent,
     DeleteTicketDialogComponent,
     TicketEditComponent,
+    DeletePaidTicketDialogComponent,
   ],
   imports: [
     BrowserModule,

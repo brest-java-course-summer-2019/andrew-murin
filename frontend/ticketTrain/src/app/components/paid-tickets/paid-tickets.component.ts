@@ -14,6 +14,8 @@ export class PaidTicketsComponent implements OnInit {
   totalSum: number;
   searchPaidTickets: boolean = false;
 
+  displayDeletePaidTicketModal = 'none';
+
 
   constructor(private ticketService: TicketService) { }
 
@@ -53,4 +55,11 @@ export class PaidTicketsComponent implements OnInit {
   }
 
 
+  openDeletePaidTicketDialog() {
+    this.displayDeletePaidTicketModal = 'block';
+  }
+
+  receiveEventToCloseDeleteDialog($event): void {
+    this.displayDeletePaidTicketModal = $event;
+  }
 }
