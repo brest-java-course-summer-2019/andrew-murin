@@ -1,1 +1,92 @@
-<p>ticket-edit works!</p>
+<header>
+  <nav id="main-header"
+       class="py-1 mb-3 navbar navbar-expand-sm navbar-light bg-light text-dark">
+        <span id="isNew" class="navbar-brand mr-auto">
+                Edit ticket
+        </span>
+
+    <ul class="navbar-nav float-right">
+      <li class="nav-item"><a [routerLink]="['/tickets']"
+                              class="btn btn-dark"
+                              data-toggle="tooltip"
+                              data-placement="left"
+                              title="Return">
+        <i class="fas fa-undo"></i>
+        <span class="d-none d-sm-inline">&nbsp;Return</span></a>
+      </li>
+    </ul>
+
+    <button type="submit" class="btn btn-dark" form="editForm">Update</button>
+  </nav>
+</header>
+
+<section id="ticket">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <div class="card-body">
+
+
+          <form #editForm="ngForm"
+                id="editForm"
+                (ngSubmit)="onEditFormSubmit(editForm.value)">
+
+            <tr>
+              <div class="form-group">
+                <label>Select from a city</label>
+                <select class="form-control" name="fromCity" ngModel>
+                  <option value="BREST">BREST</option>
+                  <option value="MINSK">MINSK</option>
+                  <option value="VITEBSK">VITEBSK</option>
+                  <option value="GOMEL">GOMEL</option>
+                  <option value="GRODNO">GRODNO</option>
+                  <option value="MOGILEV">MOGILEV</option>
+                </select>
+              </div>
+            </tr>
+
+            <tr>
+              <div class="form-group">
+                <label>Select to a city</label>
+                <select class="form-control" name="toCity" ngModel>
+                  <option value="BREST">BREST</option>
+                  <option value="MINSK">MINSK</option>
+                  <option value="VITEBSK">VITEBSK</option>
+                  <option value="GOMEL">GOMEL</option>
+                  <option value="GRODNO">GRODNO</option>
+                  <option value="MOGILEV">MOGILEV</option>
+                </select>
+              </div>
+            </tr>
+
+            <tr>
+              <div class="form-group">
+                <label>Price of ticket</label>
+                <input
+                  ngModel
+                  name="ticketCost"
+                  class="form-control"
+                  type="text"
+                  value=""
+                  placeholder="Enter price"/>
+              </div>
+            </tr>
+
+            <tr><td><label>Select a date</label>
+              <div class="form-group">
+                <input
+                  ngModel
+                  name="ticketDate"
+                  type="date"
+                  class="form-control"
+                  value=""/>
+              </div>
+            </tr>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

@@ -18,10 +18,11 @@ const httpOptions = {
 export class TicketService {
 
 
-  TICKETS_API: string = 'http://localhost:8088/api/tickets/';
-  SEARCH_TICKETS_API: string = 'http://localhost:8088/api/search-tickets';
-  PAID_TICKETS_API: string = 'http://localhost:8088/api/paid-tickets';
-  SEARCH_PAID_TICKETS_API: string = 'http://localhost:8088/api/search-paid-tickets';
+  private TICKETS_API: string = 'http://localhost:8088/api/tickets/';
+  private UPDATE_TICKETS_API: string = 'http://localhost:8088/api/update-tickets/';
+  private SEARCH_TICKETS_API: string = 'http://localhost:8088/api/search-tickets';
+  private PAID_TICKETS_API: string = 'http://localhost:8088/api/paid-tickets';
+  private SEARCH_PAID_TICKETS_API: string = 'http://localhost:8088/api/search-paid-tickets';
 
 
   constructor(private http: HttpClient) {
@@ -90,5 +91,13 @@ export class TicketService {
 
     this.log("Id for delete: " + id);
     return this.http.delete(this.TICKETS_API + id, httpOptions).subscribe();
+  }
+
+  findById(id: string): Observable<Ticket> {
+    return this.http.get<Ticket>(this.TICKETS_API + id);
+  }
+
+  editTicket(ticket: Ticket) {
+    return this.http.put(this.UPDATE_TICKETS_API + ticket.id, ticket, httpOptions).subscribe()
   }
 }

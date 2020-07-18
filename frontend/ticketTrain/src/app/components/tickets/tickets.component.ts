@@ -14,6 +14,7 @@ export class TicketsComponent implements OnInit {
   tickets: Ticket[];
   displayPayModal = 'none';
   displayDeleteModal = 'none';
+  displayEditModal = 'none'
   ticket: Ticket;
   deleteTicket: string;
 
@@ -50,6 +51,15 @@ export class TicketsComponent implements OnInit {
     this.displayPayModal = 'block';
   }
 
+  openDeleteDialog(): void {
+    this.displayDeleteModal = 'block';
+  }
+
+  openEditDialog(): void {
+    this.displayEditModal = 'block'
+  }
+
+
 
   findTicketAndSendToChild(ticketId: string): void {
     this.ticket = this.tickets.find(value => value.id === ticketId);
@@ -60,14 +70,9 @@ export class TicketsComponent implements OnInit {
     this.displayPayModal = $event;
   }
 
-
   receiveEventToCloseDeleteDialog($event): void {
     this.displayDeleteModal = $event;
   }
 
-
-  openDeleteDialog(): void {
-    this.displayDeleteModal = 'block';
-  }
 
 }

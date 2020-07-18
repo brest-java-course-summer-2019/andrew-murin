@@ -42,11 +42,12 @@
             <td>{{ticket.ticketDate | date: 'longDate'}}</td>
             <td>
 
-                                     <span id="payId"
+                                     <span
                                            data-toggle="modal"
                                            class="navbar-nav float-right"
+
                                            (click)="openDialog(); findTicketAndSendToChild(ticket.id)">
-                                        <a id="aPay"
+                                        <a
                                            class="btn btn-dark pay"
                                            title="Pay ticket"
                                            data-toggle="tooltip"
@@ -59,6 +60,7 @@
                                     <span
                                           data-toggle="modal"
                                           class="navbar-nav float-right"
+
                                           (click)="openDeleteDialog(); deleteTicket = ticket.id">
                                         <a class="btn btn-dark"
                                            title="delete ticket"
@@ -69,7 +71,10 @@
                                     </span>
 
                                     <span class="navbar-nav float-right">
-                                        <a [routerLink]="['/ticket/${ticket.ticketId}']"
+                                        <a
+                                           [routerLink]="['/tickets/edit']"
+                                           [queryParams]="{'ticketId': ticket.id}"
+
                                            class="btn btn-dark"
                                            title="Edit ticket"
                                            data-toggle="tooltip"
@@ -90,6 +95,7 @@
 <app-pay-dialog [display]="displayPayModal"
                 [ticket]="ticket"
                 (displayPayModal)="receiveEventToClosePayDialog($event)"></app-pay-dialog>
+
 <app-delete-dialog  [display]="displayDeleteModal"
                     [deleteTicket]="deleteTicket"
                     (displayDeleteModal)="receiveEventToCloseDeleteDialog($event)"></app-delete-dialog>

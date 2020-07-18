@@ -14,7 +14,7 @@ const routes: Routes = [
   {path: 'search-tickets', component: SearchTicketsComponent},
   {path: 'tickets', component: TicketsComponent},
   {path: 'tickets/add', component: TicketAddComponent},
-  {path: 'tickets/edit/:', component: TicketEditComponent},
+  {path: 'tickets/edit', component: TicketEditComponent},
   {path: 'paid-tickets', component: PaidTicketsComponent},
   {path: 'paid-tickets/:', component: PaidTicketComponent},
 
