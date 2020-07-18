@@ -3,11 +3,11 @@ import {TicketService} from "../../../services/ticketService/ticket.service";
 import {Ticket} from "../../../model/Ticket";
 
 @Component({
-  selector: 'app-pay-dialog',
-  templateUrl: './pay-dialog.component.html',
-  styleUrls: ['./pay-dialog.component.css']
+  selector: 'app-pay-ticket-dialog',
+  templateUrl: './pay-ticket-dialog.component.html',
+  styleUrls: ['./pay-ticket-dialog.component.css']
 })
-export class PayDialogComponent implements OnInit {
+export class PayTicketDialogComponent implements OnInit {
 
   @Input()
   display = 'none';

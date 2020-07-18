@@ -38,6 +38,7 @@ export class PaidTicketsComponent implements OnInit {
   onSearchPaidTicketsByDate(startDate: string, finishDate: string) {
 
     this.ticketService.findPaidTicketsByDate(startDate, finishDate).subscribe(paidTickets => {
+
       this.paidTickets = paidTickets;
 
       this.ticketCount = paidTickets.length;

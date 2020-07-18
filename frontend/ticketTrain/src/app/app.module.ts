@@ -11,8 +11,8 @@ import { TicketAddComponent } from './components/ticket/ticket-add/ticket-add.co
 import { PaidTicketComponent } from './components/paid-ticket/paid-ticket.component';
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
-import { PayDialogComponent } from './components/dialogs/pay-dialog/pay-dialog.component';
-import { DeleteDialogComponent } from './components/dialogs/delete-dialog/delete-dialog.component';
+import { PayTicketDialogComponent } from './components/dialogs/pay-ticket-dialog/pay-ticket-dialog.component';
+import { DeleteTicketDialogComponent } from './components/dialogs/delete-ticket-dialog/delete-ticket-dialog.component';
 import { TicketEditComponent } from './components/ticket/ticket-edit/ticket-edit.component';
 
 
@@ -25,8 +25,8 @@ import { TicketEditComponent } from './components/ticket/ticket-edit/ticket-edit
     PaidTicketsComponent,
     TicketAddComponent,
     PaidTicketComponent,
-    PayDialogComponent,
-    DeleteDialogComponent,
+    PayTicketDialogComponent,
+    DeleteTicketDialogComponent,
     TicketEditComponent,
   ],
   imports: [

@@ -3,11 +3,11 @@ import {TicketService} from "../../../services/ticketService/ticket.service";
 import {log} from "util";
 
 @Component({
-  selector: 'app-delete-dialog',
-  templateUrl: './delete-dialog.component.html',
-  styleUrls: ['./delete-dialog.component.css']
+  selector: 'app-delete-ticket-dialog',
+  templateUrl: './delete-ticket-dialog.component.html',
+  styleUrls: ['./delete-ticket-dialog.component.css']
 })
-export class DeleteDialogComponent implements OnInit {
+export class DeleteTicketDialogComponent implements OnInit {
 
   @Input()
   display = 'none';

@@ -92,10 +92,10 @@
 </section>
 
 
-<app-pay-dialog [display]="displayPayModal"
+<app-pay-ticket-dialog [display]="displayPayModal"
                 [ticket]="ticket"
-                (displayPayModal)="receiveEventToClosePayDialog($event)"></app-pay-dialog>
+                (displayPayModal)="receiveEventToClosePayDialog($event)"></app-pay-ticket-dialog>
 
-<app-delete-dialog  [display]="displayDeleteModal"
+<app-delete-ticket-dialog  [display]="displayDeleteModal"
                     [deleteTicket]="deleteTicket"
-                    (displayDeleteModal)="receiveEventToCloseDeleteDialog($event)"></app-delete-dialog>
+                    (displayDeleteModal)="receiveEventToCloseDeleteDialog($event)"></app-delete-ticket-dialog>
