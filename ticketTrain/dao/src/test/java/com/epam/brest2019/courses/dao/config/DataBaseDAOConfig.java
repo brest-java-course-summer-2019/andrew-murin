@@ -16,7 +16,6 @@ import org.springframework.test.context.ContextConfiguration;
 
 @Configuration
 @ComponentScan(basePackageClasses = DataBaseConfig.class)
-@ContextConfiguration(classes = DataBaseConfig.class)
 public class DataBaseDAOConfig {
 
     @Autowired
