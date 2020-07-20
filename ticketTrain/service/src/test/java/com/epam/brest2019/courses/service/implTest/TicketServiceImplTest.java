@@ -4,7 +4,6 @@ import com.epam.brest2019.courses.model.City;
 import com.epam.brest2019.courses.model.Ticket;
 import com.epam.brest2019.courses.service.TicketService;
 import com.epam.brest2019.courses.service.config.ServiceConfig;
-import com.epam.brest2019.courses.test_db.DataSourceConfig;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
@@ -22,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {ServiceConfig.class, DataSourceConfig.class})
+@ContextConfiguration(classes = {ServiceConfig.class})
 @TestPropertySource("classpath:application-test.properties")
 public class TicketServiceImplTest {
 

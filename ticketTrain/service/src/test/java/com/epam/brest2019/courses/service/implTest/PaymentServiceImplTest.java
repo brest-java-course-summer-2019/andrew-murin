@@ -4,7 +4,6 @@ import com.epam.brest2019.courses.model.Payment;
 import com.epam.brest2019.courses.model.Ticket;
 import com.epam.brest2019.courses.service.PaymentService;
 import com.epam.brest2019.courses.service.config.ServiceConfig;
-import com.epam.brest2019.courses.test_db.DataSourceConfig;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
@@ -21,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {ServiceConfig.class, DataSourceConfig.class})
+@ContextConfiguration(classes = {ServiceConfig.class})
 @TestPropertySource("classpath:application-test.properties")
 public class PaymentServiceImplTest {
 
@@ -54,16 +53,16 @@ public class PaymentServiceImplTest {
         assertNotNull(payment);
         assertEquals(2, (int) payment.getPaymentId());
     }
-
-    @Test
-    public void add(){
-        LOGGER.debug("Add");
-
-        long sizeBefore = paymentService.findAll().size();
-        paymentService.add(createFixture());
-        long sizeAfter = paymentService.findAll().size();
-        assertTrue(sizeBefore < sizeAfter);
-    }
+//
+//    @Test
+//    public void add(){
+//        LOGGER.debug("Add");
+//
+//        long sizeBefore = paymentService.findAll().size();
+//        paymentService.add(createFixture());
+//        long sizeAfter = paymentService.findAll().size();
+//        assertTrue(sizeBefore < sizeAfter);
+//    }
 
     @Test
     public void update(){

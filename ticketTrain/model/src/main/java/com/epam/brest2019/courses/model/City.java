@@ -27,15 +27,14 @@ public class City{
     @Column(name = "city_name")
     private String cityName;
 
-//    @NotNull
     @OneToMany
     @JoinColumn(name = "from_city", foreignKey = @ForeignKey(name = "fk_from_city"))
     @JsonIgnore
     private List<Ticket> cityFrom;
+
     /**
      * Direction of train_to
      */
-//    @NotNull
     @OneToMany
     @JoinColumn(name = "to_city", foreignKey = @ForeignKey(name = "fk_to_city"))
     @JsonIgnore

@@ -35,7 +35,6 @@ public class Payment {
      * Local Date
      */
     @Column(name = "payment_date")
-    @Type(type = "org.hibernate.type.LocalDateType")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
@@ -57,14 +56,12 @@ public class Payment {
      * Summing all costs by different directions
      */
     @Transient
-//    @JsonIgnore
     private BigDecimal ticketCost = new BigDecimal(2);
 
     /**
      * Counting all tickets by different directions
      */
     @Transient
-//    @JsonIgnore
     private Long ticketCount = 5L;
 
     /**

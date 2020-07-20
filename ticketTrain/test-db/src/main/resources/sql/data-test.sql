@@ -27,13 +27,13 @@ INSERT INTO ticket (from_city, to_city, ticket_cost, ticket_date) VALUES (6, 2, 
 INSERT INTO ticket (from_city, to_city, ticket_cost, ticket_date) VALUES (6, 3, 11.49, '2019-09-30');
 INSERT INTO ticket (from_city, to_city, ticket_cost, ticket_date) VALUES (6, 1, 8.50, '2019-09-30');
 
-INSERT INTO payment (payment_date, ticket_id) VALUES ('2019-09-18', 2);
-INSERT INTO payment (payment_date, ticket_id) VALUES ('2019-09-18', 7);
-INSERT INTO payment (payment_date, ticket_id) VALUES ('2019-09-22', 5);
-INSERT INTO payment (payment_date, ticket_id) VALUES ('2019-09-23', 4);
-INSERT INTO payment (payment_date, ticket_id) VALUES ('2019-09-25', 6);
-INSERT INTO payment (payment_date, ticket_id) VALUES ('2019-09-28', 4);
-INSERT INTO payment (payment_date, ticket_id) VALUES ('2019-09-19', 1);
-INSERT INTO payment (payment_date, ticket_id) VALUES ('2019-09-22', 10);
-INSERT INTO payment (payment_date, ticket_id) VALUES ('2019-09-23', 10);
-INSERT INTO payment (payment_date, ticket_id) VALUES ('2019-09-25', 1);
+INSERT INTO payment (payment_date, ticket_id, email) VALUES ('2019-09-18', 2, 'qwerty@mail.ru');
+INSERT INTO payment (payment_date, ticket_id, email) VALUES ('2019-09-18', 7, 'kot@mail.ru');
+INSERT INTO payment (payment_date, ticket_id, email) VALUES ('2019-09-22', 5, 'pushka@mail.ru');
+INSERT INTO payment (payment_date, ticket_id, email) VALUES ('2019-09-23', 4, 'Drogon@mail.ru');
+INSERT INTO payment (payment_date, ticket_id, email) VALUES ('2019-09-25', 6, 'Artas@mail.ru');
+INSERT INTO payment (payment_date, ticket_id, email) VALUES ('2019-09-28', 4, 'LichKing@mail.ru');
+INSERT INTO payment (payment_date, ticket_id, email) VALUES ('2019-09-19', 1, 'butcher@mail.ru');
+INSERT INTO payment (payment_date, ticket_id, email) VALUES ('2019-09-22', 10, 'traxex@mail.ru');
+INSERT INTO payment (payment_date, ticket_id, email) VALUES ('2019-09-23', 10, 'axe@mail.ru');
+INSERT INTO payment (payment_date, ticket_id, email) VALUES ('2019-09-25', 1, 'Luna@mail.ru');

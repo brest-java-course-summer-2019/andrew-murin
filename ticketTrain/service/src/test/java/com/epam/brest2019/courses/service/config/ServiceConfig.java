@@ -9,7 +9,6 @@ import com.epam.brest2019.courses.service.PaymentServiceImpl;
 import com.epam.brest2019.courses.service.TicketService;
 import com.epam.brest2019.courses.service.TicketServiceImpl;
 import com.epam.brest2019.courses.test_db.DataBaseConfig;
-import com.epam.brest2019.courses.test_db.DataSourceConfig;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@ComponentScan(basePackageClasses = {DataSourceConfig.class, DataBaseConfig.class})
+@ComponentScan(basePackageClasses = {DataBaseConfig.class})
 @PropertySource("classpath:application-dev.properties")
 public class ServiceConfig {
 
