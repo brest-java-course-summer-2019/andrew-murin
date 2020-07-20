@@ -49,6 +49,7 @@ public class TicketDaoJdbcImpl implements TicketDao {
 
     private Transact transact;
 
+
     @Autowired
     public TicketDaoJdbcImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
