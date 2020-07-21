@@ -30,7 +30,7 @@ public class TicketValidator implements Validator {
         }
 
         if (ticket.getTicketCost().intValue() <= 0) {
-            errors.rejectValue("ticketCost","smallerNull");
+            errors.rejectValue("ticketCost","smerNull");
         }
     }
 }

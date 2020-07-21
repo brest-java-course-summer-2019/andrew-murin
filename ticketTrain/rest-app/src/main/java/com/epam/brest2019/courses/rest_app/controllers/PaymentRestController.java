@@ -20,15 +20,15 @@ public class PaymentRestController {
     private PaymentService paymentService;
 
     @GetMapping("/payments")
-    public List<Payment> findAll() {
-        LOGGER.debug("Find all payments");
-        return paymentService.findAll();
+    public List<Payment> find() {
+        LOGGER.debug("Find  payments");
+        return paymentService.find();
     }
 
-    @GetMapping("/payments/find-all-with-direction")
-    public List<Payment> findAllWitchDirection() {
-        LOGGER.debug("Find all payments with direction");
-        return paymentService.findAllWitchDirection();
+    @GetMapping("/payments/all")
+    public List<Payment> findWitchDirection() {
+        LOGGER.debug("Find  payments with direction");
+        return paymentService.findWitchDirection();
     }
 
 

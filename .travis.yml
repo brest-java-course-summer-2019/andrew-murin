@@ -4,4 +4,4 @@ jdk:
   - oraclejdk8
 before_script: cd ticketTrain/
 script:
-  - mvn clean test coveralls:report
+  - mvn clean test covers:report

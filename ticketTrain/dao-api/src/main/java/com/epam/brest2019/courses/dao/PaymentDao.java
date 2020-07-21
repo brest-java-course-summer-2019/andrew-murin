@@ -8,14 +8,14 @@ import java.util.List;
 public interface PaymentDao {
 
     /**
-     * Get all payment's.
+     * Get  payment's.
      *
-     * @return list of all payment's
+     * @return list of  payment's
      */
-    List<Payment> findAll();
+    List<Payment> find();
 
     /**
-     * Get all payment's with specified payment id.
+     * Get  payment's with specified payment id.
      *
      * @param ticketId ticket id
      * @return list of payment's by ticket id
@@ -53,13 +53,13 @@ public interface PaymentDao {
     void delete(Payment paymentId);
 
     /**
-     * Find all directions
+     * Find  directions
      * @return
      */
-    List<Payment> findAllWitchDirection();
+    List<Payment> findWitchDirection();
 
     /**
-     * Find all paid-tickets by date
+     * Find  paid-tickets by date
      * @param startDate
      * @param finishDate
      * @return

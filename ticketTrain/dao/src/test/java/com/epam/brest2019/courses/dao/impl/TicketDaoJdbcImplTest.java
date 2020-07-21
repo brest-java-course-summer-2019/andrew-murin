@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -25,6 +26,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {DataBaseDAOConfig.class})
 @TestPropertySource("classpath:application-test.properties")
+//@Transactional
 public class TicketDaoJdbcImplTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TicketDaoJdbcImplTest.class);
@@ -40,17 +42,12 @@ public class TicketDaoJdbcImplTest {
         ticketDao.add(ticket);
     }
 
-    @After
-    public void cleanChanges() {
-        ticketDao.delete(ticket);
-    }
-
 
     @Test
-    public void findAll(){
-        LOGGER.debug("findAll Ticket ({})",Ticket.class);
+    public void find(){
+        LOGGER.debug("find Ticket ({})",Ticket.class);
 
-        List<Ticket> tickets = ticketDao.findAll();
+        List<Ticket> tickets = ticketDao.find();
         assertNotNull(tickets);
         assertTrue(tickets.size() > 0);
     }
@@ -69,12 +66,12 @@ public class TicketDaoJdbcImplTest {
     public void add(){
         LOGGER.debug("Add Ticket ({})",Ticket.class);
 
-        List<Ticket> tickets = ticketDao.findAll();
+        List<Ticket> tickets = ticketDao.find();
         int sizeBefore = tickets.size();
 
         ticketDao.add(createFixture());
 
-        assertEquals(sizeBefore + 1, ticketDao.findAll().size());
+        assertEquals(sizeBefore + 1, ticketDao.find().size());
     }
 
     @Test
@@ -99,12 +96,12 @@ public class TicketDaoJdbcImplTest {
 
         ticketDao.add(ticket);
 
-        List<Ticket> tickets = ticketDao.findAll();
+        List<Ticket> tickets = ticketDao.find();
         int sizeBefore = tickets.size();
 
         ticketDao.delete(ticket);
 
-        assertEquals(sizeBefore - 1, ticketDao.findAll().size());
+        assertEquals(sizeBefore - 1, ticketDao.find().size());
     }
 
     @Test
@@ -121,10 +118,10 @@ public class TicketDaoJdbcImplTest {
     }
 
     @Test
-    public void findAllWithDirection() {
-        LOGGER.debug("findAllWithDirection Ticket ({})",Ticket.class);
+    public void findWithDirection() {
+        LOGGER.debug("findWithDirection Ticket ({})",Ticket.class);
 
-        List<Ticket> tickets = ticketDao.findAllWithDirection();
+        List<Ticket> tickets = ticketDao.findWithDirection();
 
         assertNotNull(tickets);
         assertFalse(tickets.isEmpty());

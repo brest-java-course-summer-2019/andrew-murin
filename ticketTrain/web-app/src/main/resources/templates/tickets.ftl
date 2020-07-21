@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!--suppress ALL -->
+<!--suppress  -->
 <html lang="en">
 <head>
     <!-- Required meta tags -->
@@ -142,11 +142,11 @@
 
 <!--Confirm delete Modal-->
 <div class="modal fade" id="deleteDialog" tabindex="-1" role="dialog"
-     aria-labelledby="exampleModalLabel" aria-hidden="true">
+     aria-labelledby="exampleModabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header alert-danger">
-                <h5 class="modal-title" id="exampleModalLabel">Delete ticket</h5>
+                <h5 class="modal-title" id="exampleModabel">Delete ticket</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -165,11 +165,11 @@
 
 <!--Confirm through e-mail -->
 <div class="modal fade" id="sendMail" tabindex="-1" role="dialog"
-     aria-labelledby="exampleModalLabel" aria-hidden="true">
+     aria-labelledby="exampleModabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header alert-warning">
-                <h5 class="modal-title" id="exampleModalLabel">Send a message to E-mail</h5>
+                <h5 class="modal-title" id="exampleModabel">Send a message to E-mail</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

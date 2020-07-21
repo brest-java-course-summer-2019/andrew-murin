@@ -73,10 +73,10 @@ public class PaymentRestControllerTest {
     }
 
     @Test
-    void findAll() throws Exception {
-        LOGGER.debug("findAll");
+    void find() throws Exception {
+        LOGGER.debug("find");
 
-        Mockito.when(paymentService.findAll()).thenReturn(Arrays.asList(createFixture(0), createFixture(1)));
+        Mockito.when(paymentService.find()).thenReturn(Arrays.asList(createFixture(0), createFixture(1)));
 
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/payments")
@@ -88,17 +88,17 @@ public class PaymentRestControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].paymentId", Matchers.is(0)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].paymentId", Matchers.is(1)));
 
-        Mockito.verify(paymentService, Mockito.times(1)).findAll();
+        Mockito.verify(paymentService, Mockito.times(1)).find();
     }
 
     @Test
-    void findAllWitchDirection() throws Exception {
-        LOGGER.debug("findAllWitchDirection");
+    void findWitchDirection() throws Exception {
+        LOGGER.debug("findWitchDirection");
 
-        Mockito.when(paymentService.findAllWitchDirection()).thenReturn(Arrays.asList(createFixture(0), createFixture(1)));
+        Mockito.when(paymentService.findWitchDirection()).thenReturn(Arrays.asList(createFixture(0), createFixture(1)));
 
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/payments/find-all-with-direction")
+                MockMvcRequestBuilders.get("/payments/all")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -107,7 +107,7 @@ public class PaymentRestControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].paymentId", Matchers.is(0)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].paymentId", Matchers.is(1)));
 
-        Mockito.verify(paymentService, Mockito.times(1)).findAllWitchDirection();
+        Mockito.verify(paymentService, Mockito.times(1)).findWitchDirection();
     }
 
     @Test

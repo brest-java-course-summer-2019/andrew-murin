@@ -53,13 +53,13 @@ public class Payment {
     private Ticket ticketId;
 
     /**
-     * Summing all costs by different directions
+     * Summing  costs by different directions
      */
     @Transient
     private BigDecimal ticketCost = new BigDecimal(2);
 
     /**
-     * Counting all tickets by different directions
+     * Counting  tickets by different directions
      */
     @Transient
     private Long ticketCount = 5L;

@@ -33,7 +33,7 @@ public class PaymentRestConsumerTest {
     private static final String LOCAL_HOST = "http://localhost:";
 
     private static final String PAYMENTS_JSON = "mapping/payments/payments.json";
-    private static final String PAYMENTS_ALL_JSON = "mapping/payments/payments_all.json";
+    private static final String PAYMENTS__JSON = "mapping/payments/payments_.json";
     private static final String PAYMENTS_BY_ID_1_JSON = "mapping/payments/payments_by_Id_1.json";
     private static final String PAYMENTS_ADD_JSON = "mapping/payments/payments_add.json";
     private static final String PAYMENTS_SEARCH_JSON = "mapping/payments/payment_search.json";
@@ -57,7 +57,7 @@ public class PaymentRestConsumerTest {
     }
 
     @Test
-    public void findAll() throws IOException {
+    public void find() throws IOException {
 
         wireMockRule.stubFor(get("/")
                 .willReturn(aResponse()
@@ -65,7 +65,7 @@ public class PaymentRestConsumerTest {
                         .withHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE)
                         .withBody(getJSON(PAYMENTS_JSON))));
 
-        List<Payment> payments = paymentRestConsumerTest.findAll();
+        List<Payment> payments = paymentRestConsumerTest.find();
         List<Payment> paymentList = convertMapperList(getJSON(PAYMENTS_JSON));
 
         assertEquals(payments,paymentList);
@@ -73,19 +73,19 @@ public class PaymentRestConsumerTest {
     }
 
     @Test
-    public void findAllWithDirection() throws IOException {
+    public void findWithDirection() throws IOException {
 
-        wireMockRule.stubFor(get("/find-all-with-direction")
+        wireMockRule.stubFor(get("/all")
                 .willReturn(aResponse()
                         .withStatus(HttpStatus.SC_OK)
                         .withHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE)
-                        .withBody(getJSON(PAYMENTS_ALL_JSON))));
+                        .withBody(getJSON(PAYMENTS__JSON))));
 
-        List<Payment> payments = paymentRestConsumerTest.findAllWitchDirection();
-        List<Payment> paymentList = convertMapperList(getJSON(PAYMENTS_ALL_JSON));
+        List<Payment> payments = paymentRestConsumerTest.findWitchDirection();
+        List<Payment> paymentList = convertMapperList(getJSON(PAYMENTS__JSON));
 
         assertEquals(payments, paymentList);
-        wireMockRule.verify(getRequestedFor(urlEqualTo("/find-all-with-direction")));
+        wireMockRule.verify(getRequestedFor(urlEqualTo("/all")));
     }
 
     @Test

@@ -83,7 +83,7 @@ public class TicketController {
     public final String gotoSearchTickets(Model model) {
         LOGGER.debug("Search tickets");
 
-        List<Ticket> tickets = ticketService.findAllWithDirection();
+        List<Ticket> tickets = ticketService.findWithDirection();
         model.addAttribute("tickets", tickets);
 
         return "search-tickets";
@@ -98,10 +98,10 @@ public class TicketController {
      */
 
     @GetMapping("/tickets")
-    public final String findAllWithDirection(Model model) {
-        LOGGER.debug("Find all tickets");
+    public final String findWithDirection(Model model) {
+        LOGGER.debug("Find  tickets");
 
-        List<Ticket> tickets = ticketService.findAllWithDirection();
+        List<Ticket> tickets = ticketService.findWithDirection();
 
         model.addAttribute("tickets", tickets);
 
@@ -157,7 +157,7 @@ public class TicketController {
     public final String gotoTicketAddPage(Model model) {
         LOGGER.debug("Go to add ticket page({})", model);
 
-        List<Ticket> tickets = ticketService.findAll();
+        List<Ticket> tickets = ticketService.find();
 
         Ticket ticket = new Ticket();
 

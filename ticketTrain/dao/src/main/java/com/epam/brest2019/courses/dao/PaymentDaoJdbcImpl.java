@@ -23,8 +23,8 @@ import java.util.Map;
 @PropertySource("classpath:/jpql_query_payment.properties")
 public class PaymentDaoJdbcImpl implements PaymentDao {
 
-    @Value("${payment.findAll}")
-    private String SELECT_ALL;
+    @Value("${payment.find}")
+    private String SELECT_;
 
     @Value("${payment.findByTicketId}")
     private String FIND_BY_TICKET_ID;
@@ -32,8 +32,8 @@ public class PaymentDaoJdbcImpl implements PaymentDao {
     @Value("${payment.findById}")
     private String FIND_BY_PAYMENT_ID;
 
-    @Value("${payment.findAllWitchDirection}")
-    private String FIND_ALL_WITH_DIRECTION;
+    @Value("${payment.findWitchDirection}")
+    private String FIND__WITH_DIRECTION;
 
     @Value("${payment.searchByDate}")
     private String SEARCH_BY_DATE;
@@ -59,8 +59,8 @@ public class PaymentDaoJdbcImpl implements PaymentDao {
     }
 
     @Override
-    public List<Payment> findAll() {
-        List<Payment> payments = transact.sessionFixture(SELECT_ALL);
+    public List<Payment> find() {
+        List<Payment> payments = transact.sessionFixture(SELECT_);
         return payments;
     }
 
@@ -112,8 +112,8 @@ public class PaymentDaoJdbcImpl implements PaymentDao {
     }
 
     @Override
-    public List<Payment> findAllWitchDirection() {
-        List<Payment> payments = transact.sessionFixture(FIND_ALL_WITH_DIRECTION);
+    public List<Payment> findWitchDirection() {
+        List<Payment> payments = transact.sessionFixture(FIND__WITH_DIRECTION);
         return payments;
     }
 

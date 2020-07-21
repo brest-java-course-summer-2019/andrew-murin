@@ -36,7 +36,7 @@ public interface TicketDao {
      *
      * @return tickets list.
      */
-    List<Ticket> findAll();
+    List<Ticket> find();
 
     /**
      * Get Ticket By Id
@@ -57,9 +57,9 @@ public interface TicketDao {
                               Integer fromCity, Integer toCity);
 
     /**
-     * Find all directions and replace numbers of directions on city names
+     * Find  directions and replace numbers of directions on city names
      * @return
      */
-    List<Ticket> findAllWithDirection();
+    List<Ticket> findWithDirection();
 
 }

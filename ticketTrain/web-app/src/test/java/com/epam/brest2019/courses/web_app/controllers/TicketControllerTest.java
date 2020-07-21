@@ -61,7 +61,7 @@ public class TicketControllerTest {
     }
 
     @Test
-    public void findAllWithDirection() throws Exception {
+    public void findWithDirection() throws Exception {
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/tickets"))
                 .andDo(MockMvcResultHandlers.print())

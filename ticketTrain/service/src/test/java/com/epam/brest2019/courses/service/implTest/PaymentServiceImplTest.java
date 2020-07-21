@@ -34,10 +34,10 @@ public class PaymentServiceImplTest {
 
 
     @Test
-    public void findAll(){
-        LOGGER.debug("findAll");
+    public void find(){
+        LOGGER.debug("find");
 
-        List<Payment> payments = paymentService.findAll();
+        List<Payment> payments = paymentService.find();
 
         assertNotNull(payments);
         assertFalse(payments.isEmpty());
@@ -53,14 +53,14 @@ public class PaymentServiceImplTest {
         assertNotNull(payment);
         assertEquals(2, (int) payment.getPaymentId());
     }
-//
+
 //    @Test
 //    public void add(){
 //        LOGGER.debug("Add");
 //
-//        long sizeBefore = paymentService.findAll().size();
+//        long sizeBefore = paymentService.find().size();
 //        paymentService.add(createFixture());
-//        long sizeAfter = paymentService.findAll().size();
+//        long sizeAfter = paymentService.find().size();
 //        assertTrue(sizeBefore < sizeAfter);
 //    }
 
@@ -86,17 +86,17 @@ public class PaymentServiceImplTest {
 
         int id = 1;
 
-        int size = paymentService.findAll().size();
+        int size = paymentService.find().size();
 
         paymentService.delete(id);
 
-        assertEquals(size, paymentService.findAll().size() + 1);
+        assertEquals(size, paymentService.find().size() + 1);
     }
 
     @Test
-    public void findAllWithDirection() {
-        LOGGER.debug("findAllWithDirection");
-        List<Payment> payments = paymentService.findAllWitchDirection();
+    public void findWithDirection() {
+        LOGGER.debug("findWithDirection");
+        List<Payment> payments = paymentService.findWitchDirection();
 
         assertNotNull(payments);
         assertFalse(payments.isEmpty());

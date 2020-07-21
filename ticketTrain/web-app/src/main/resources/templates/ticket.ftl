@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!--suppress ALL -->
+<!--suppress  -->
 <html lang="en">
 <head>
     <!-- Required meta tags -->

@@ -54,16 +54,12 @@ public class PaymentDaoJdbcImplTest {
         paymentDao.add(payment);
     }
 
-    @After
-    public void cleanChanges(){
-        paymentDao.delete(payment);
-    }
 
     @Test
-    public void findAllPayment() throws SQLException {
-        LOGGER.debug("findAllPayment ({})", Payment.class);
+    public void findPayment() throws SQLException {
+        LOGGER.debug("findPayment ({})", Payment.class);
 
-        List<Payment> payments = paymentDao.findAll();
+        List<Payment> payments = paymentDao.find();
         assertNotNull(paymentDao);
         assertTrue(payments.size() > 0);
     }
@@ -102,12 +98,12 @@ public class PaymentDaoJdbcImplTest {
         newPayment.setTicketCost(payment.getTicketCost());
         newPayment.setTicketCount(payment.getTicketCount());
 
-        List<Payment> payments = paymentDao.findAll();
+        List<Payment> payments = paymentDao.find();
         int sizeBefore = payments.size();
 
         paymentDao.add(newPayment);
 
-        assertEquals((sizeBefore) + 1, paymentDao.findAll().size());
+        assertEquals((sizeBefore) + 1, paymentDao.find().size());
     }
 
     @Test
@@ -116,11 +112,11 @@ public class PaymentDaoJdbcImplTest {
 
         payment = paymentDao.findById(1);
 
-        List<Payment> payments = paymentDao.findAll();
+        List<Payment> payments = paymentDao.find();
         int sizeAdd = payments.size();
 
         paymentDao.delete(payment);
-        assertEquals(sizeAdd - 1, paymentDao.findAll().size());
+        assertEquals(sizeAdd - 1, paymentDao.find().size());
     }
 
     @Test
@@ -140,10 +136,10 @@ public class PaymentDaoJdbcImplTest {
     }
 
     @Test
-    public void findAllWithDirection() {
-        LOGGER.debug("findAllWithDirection Payment({})", Payment.class);
+    public void findWithDirection() {
+        LOGGER.debug("findWithDirection Payment({})", Payment.class);
 
-        List<Payment> payments = paymentDao.findAllWitchDirection();
+        List<Payment> payments = paymentDao.findWitchDirection();
 
         assertNotNull(payments);
         assertFalse(payments.isEmpty());

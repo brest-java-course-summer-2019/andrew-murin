@@ -46,17 +46,17 @@ public class TicketServiceMockTest {
     private static final LocalDate FINISH_DATE = LocalDate.of(2019, 12,12);
 
     @Test
-    public void findAll(){
-        LOGGER.debug("findAll");
+    public void find(){
+        LOGGER.debug("find");
 
-        Mockito.when(ticketDao.findAll()).thenReturn(Collections.singletonList(createFixture()));
+        Mockito.when(ticketDao.find()).thenReturn(Collections.singletonList(createFixture()));
 
-        List<Ticket> result = ticketService.findAll();
+        List<Ticket> result = ticketService.find();
 
         assertNotNull(result);
         assertEquals(1, result.size());
 
-        Mockito.verify(ticketDao).findAll();
+        Mockito.verify(ticketDao).find();
     }
 
     @Test
@@ -128,18 +128,18 @@ public class TicketServiceMockTest {
     }
 
     @Test
-    public void findAllWithDirection() {
-        LOGGER.debug("findAllWithDirection");
+    public void findWithDirection() {
+        LOGGER.debug("findWithDirection");
 
-        Mockito.when(ticketDao.findAllWithDirection()).thenReturn(Collections.singletonList(createFixture()));
+        Mockito.when(ticketDao.findWithDirection()).thenReturn(Collections.singletonList(createFixture()));
 
-        List<Ticket> result = ticketService.findAllWithDirection();
+        List<Ticket> result = ticketService.findWithDirection();
 
         assertNotNull(result);
         assertFalse(result.isEmpty());
         assertEquals(result.size() - 1, 0);
 
-        Mockito.verify(ticketDao).findAllWithDirection();
+        Mockito.verify(ticketDao).findWithDirection();
     }
 
 

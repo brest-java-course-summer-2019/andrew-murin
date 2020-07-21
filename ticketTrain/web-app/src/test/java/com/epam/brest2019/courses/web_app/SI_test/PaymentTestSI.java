@@ -45,7 +45,7 @@
 //        MessageChannel sendToQueue = context.getBean("sendToQueue", MessageChannel.class);
 //
 //        Payment payment = consumer.findById(2);
-//        int sizeBefore = consumer.findAll().size();
+//        int sizeBefore = consumer.find().size();
 //
 //        Map<String, Object> headers = Collections.singletonMap(JmsHeaders.DESTINATION, "sendToQueue");
 //        GenericMessage message = new GenericMessage(payment, headers);
@@ -53,7 +53,7 @@
 //
 ////       jmsTemplate.convertAndSend("sendToQueue", payment);
 //
-//        int sizeAfter = consumer.findAll().size();
+//        int sizeAfter = consumer.find().size();
 //
 //        assertEquals(sizeBefore + 1, sizeAfter);
 //    }

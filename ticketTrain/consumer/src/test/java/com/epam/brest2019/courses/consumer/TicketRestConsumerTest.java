@@ -33,7 +33,7 @@ public class TicketRestConsumerTest {
     private static final String LOCAL_HOST = "http://localhost:";
 
     private static final String TICKETS_JSON = "mapping/tickets/tickets.json";
-    private static final String TICKETS_ALL_JSON = "mapping/tickets/tickets_all.json";
+    private static final String TICKETS__JSON = "mapping/tickets/tickets_.json";
     private static final String TICKETS_BY_ID_3_JSON = "mapping/tickets/tickets_by_Id_3.json";
     private static final String TICKETS_ADD_JSON = "mapping/tickets/tickets_add.json";
     private static final String TICKETS_UPDATE_JSON = "mapping/tickets/tickets_update.json";
@@ -59,7 +59,7 @@ public class TicketRestConsumerTest {
     }
 
     @Test
-    public void findAll() throws IOException {
+    public void find() throws IOException {
 
         wireMockRule.stubFor(get("/")
                 .willReturn(aResponse()
@@ -67,7 +67,7 @@ public class TicketRestConsumerTest {
                         .withHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE)
                         .withBody(getJSON(TICKETS_JSON))));
 
-        List<Ticket> ticket = ticketRestConsumerTest.findAll();
+        List<Ticket> ticket = ticketRestConsumerTest.find();
         List<Ticket> ticketList = convertMapperList(getJSON(TICKETS_JSON));
 
         assertEquals(ticket,ticketList);
@@ -75,19 +75,19 @@ public class TicketRestConsumerTest {
     }
 
     @Test
-    public void findAllWithDirection() throws IOException {
+    public void findWithDirection() throws IOException {
 
-        wireMockRule.stubFor(get("/find-all-with-direction")
+        wireMockRule.stubFor(get("/all")
                 .willReturn(aResponse()
                         .withStatus(HttpStatus.SC_OK)
                         .withHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE)
-                        .withBody(getJSON(TICKETS_ALL_JSON))));
+                        .withBody(getJSON(TICKETS__JSON))));
 
-        List<Ticket> ticket = ticketRestConsumerTest.findAllWithDirection();
-        List<Ticket> ticketList = convertMapperList(getJSON(TICKETS_ALL_JSON));
+        List<Ticket> ticket = ticketRestConsumerTest.findWithDirection();
+        List<Ticket> ticketList = convertMapperList(getJSON(TICKETS__JSON));
 
         assertEquals(ticket,ticketList);
-        wireMockRule.verify(getRequestedFor(urlEqualTo("/find-all-with-direction")));
+        wireMockRule.verify(getRequestedFor(urlEqualTo("/all")));
     }
 
     @Test

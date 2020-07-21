@@ -41,9 +41,9 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public List<Ticket> findAll() {
-        LOGGER.debug("Find all tickets");
-        return ticketDao.findAll();
+    public List<Ticket> find() {
+        LOGGER.debug("Find  tickets");
+        return ticketDao.find();
     }
 
     @Override
@@ -60,9 +60,9 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public List<Ticket> findAllWithDirection() {
-        LOGGER.debug("Find all tickets with direction()");
-        return ticketDao.findAllWithDirection();
+    public List<Ticket> findWithDirection() {
+        LOGGER.debug("Find  tickets with direction()");
+        return ticketDao.findWithDirection();
     }
 
 }

@@ -32,16 +32,16 @@ public class PaymentRestConsumer implements PaymentService {
     }
 
     @Override
-    public List<Payment> findAll() {
-        LOGGER.debug("Find all payments");
+    public List<Payment> find() {
+        LOGGER.debug("Find  payments");
         ResponseEntity responseEntity = restTemplate.getForEntity(url + "/", List.class);
         return (List<Payment>) responseEntity.getBody();
     }
 
     @Override
-    public List<Payment> findAllWitchDirection() {
-        LOGGER.debug("Find all ticket with direction");
-        ResponseEntity responseEntity = restTemplate.getForEntity(url + "/find-all-with-direction", List.class);
+    public List<Payment> findWitchDirection() {
+        LOGGER.debug("Find  ticket with direction");
+        ResponseEntity responseEntity = restTemplate.getForEntity(url + "/all", List.class);
         return (List<Payment>) responseEntity.getBody();
     }
 
@@ -59,11 +59,11 @@ public class PaymentRestConsumer implements PaymentService {
         return (Payment) responseEntity.getBody();
     }
 
-    @JmsListener(destination = "sendToQueue")
+
+    @JmsListener(destination = "consumingChannel")
     @Override
     public void add(Payment payment) {
-        LOGGER.debug("Add payment ({})", payment);
-        LOGGER.info("Add payment ({})", payment);
+        LOGGER.info("Add payment from messageChannel({})", payment);
         restTemplate.postForEntity(url, payment, Payment.class);
     }
 

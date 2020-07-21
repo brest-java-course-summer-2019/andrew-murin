@@ -47,9 +47,6 @@ public class PaymentController{
 
     @Autowired
     private JmsTemplate jmsTemplate;
-//
-//    @Autowired
-//    private Sender sender;
 
     /**
      * Goto paid-tickets page.
@@ -59,12 +56,12 @@ public class PaymentController{
      */
     @GetMapping("/paid-tickets")
     public final String paidTickets(Model model) throws JsonProcessingException {
-        LOGGER.debug("Find all paid tickets");
-        List<Payment> payments = paymentService.findAllWitchDirection();
+        LOGGER.debug("Find  paid tickets");
+        List<Payment> payments = paymentService.findWitchDirection();
 
 
         ObjectMapper mapper = new ObjectMapper();
-        List<Payment> paymentList = mapper.convertValue(paymentService.findAllWitchDirection(),
+        List<Payment> paymentList = mapper.convertValue(paymentService.findWitchDirection(),
                 new TypeReference<List<Payment>>(){
                 }
         );
@@ -83,7 +80,7 @@ public class PaymentController{
 
 
         model.addAttribute("isNotSearch", true);
-        model.addAttribute("payments", paymentService.findAllWitchDirection());
+        model.addAttribute("payments", paymentService.findWitchDirection());
         model.addAttribute("countTicket", totalCountTicket);
         model.addAttribute("totalSum", summ);
 
@@ -101,7 +98,7 @@ public class PaymentController{
         LOGGER.debug("goto edit paid-ticket page({})", id);
 
         Payment payment = paymentService.findById(id);
-        List<Ticket> tickets = ticketService.findAll();
+        List<Ticket> tickets = ticketService.find();
 
         model.addAttribute("paidTicket", payment);
         model.addAttribute("tickets", tickets);
@@ -202,14 +199,11 @@ public class PaymentController{
         payment.setTicketId(ticket);
         payment.setEmail(email);
 
-//        sender.send(payment);
-
         jmsTemplate.convertAndSend("sendToQueue", payment);
+
         LOGGER.info("LOGGER MESSAGE: {}", payment);
 
         return "redirect:/tickets";
     }
-
-
 
 }

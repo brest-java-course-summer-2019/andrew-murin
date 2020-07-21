@@ -54,17 +54,17 @@ public class PaymentServiceMockTest {
 
 
     @Test
-    public void findAll(){
-        LOGGER.debug("findAll");
+    public void find(){
+        LOGGER.debug("find");
 
-        Mockito.when(paymentDao.findAll()).thenReturn(Collections.singletonList(createFixture()));
+        Mockito.when(paymentDao.find()).thenReturn(Collections.singletonList(createFixture()));
 
-        List<Payment> result = paymentService.findAll();
+        List<Payment> result = paymentService.find();
 
         assertNotNull(result);
         assertEquals(1, result.size());
 
-        Mockito.verify(paymentDao).findAll();
+        Mockito.verify(paymentDao).find();
     }
 
     @Test
@@ -134,18 +134,18 @@ public class PaymentServiceMockTest {
     }
 
     @Test
-    public void findAllWithDirection() {
-        LOGGER.debug("findAllWithDirection");
+    public void findWithDirection() {
+        LOGGER.debug("findWithDirection");
 
-        Mockito.when(paymentDao.findAllWitchDirection()).thenReturn(Collections.singletonList(createFixture()));
+        Mockito.when(paymentDao.findWitchDirection()).thenReturn(Collections.singletonList(createFixture()));
 
-        List<Payment> result = paymentService.findAllWitchDirection();
+        List<Payment> result = paymentService.findWitchDirection();
 
         assertNotNull(result);
         assertFalse(result.isEmpty());
         assertEquals(result.size() - 1, 0);
 
-        Mockito.verify(paymentDao).findAllWitchDirection();
+        Mockito.verify(paymentDao).findWitchDirection();
     }
 
     @Test

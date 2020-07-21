@@ -15,7 +15,7 @@
 //    private static Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 //
 //    /**
-//     * Receive all errors and handle them
+//     * Receive  errors and handle them
 //     *
 //     * @return exception-view
 //     */

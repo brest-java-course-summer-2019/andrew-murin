@@ -34,10 +34,10 @@ public class TicketServiceImplTest {
     private TicketService ticketService;
 
     @Test
-    public void findAll(){
-        LOGGER.debug("findAll");
+    public void find(){
+        LOGGER.debug("find");
 
-        List<Ticket> tickets = ticketService.findAll();
+        List<Ticket> tickets = ticketService.find();
 
         assertNotNull(tickets);
         assertFalse(tickets.isEmpty());
@@ -88,10 +88,10 @@ public class TicketServiceImplTest {
         Ticket ticket = createFixture();
 
         ticketService.add(ticket);
-        int sizeBefore = ticketService.findAll().size();
+        int sizeBefore = ticketService.find().size();
 
         ticketService.delete(ticket.getTicketId());
-        int sizeAfter = ticketService.findAll().size();
+        int sizeAfter = ticketService.find().size();
 
         assertTrue(sizeBefore > sizeAfter);
 
@@ -101,12 +101,12 @@ public class TicketServiceImplTest {
     public void add(){
         LOGGER.debug("Add");
 
-        int sizeBefore = ticketService.findAll().size();
+        int sizeBefore = ticketService.find().size();
 
         Ticket ticket = createFixture();
 
         ticketService.add(ticket);
-        int sizeAfter = ticketService.findAll().size();
+        int sizeAfter = ticketService.find().size();
 
         assertTrue(sizeBefore  < sizeAfter);
     }
@@ -125,10 +125,10 @@ public class TicketServiceImplTest {
     }
 
     @Test
-    public void findAllWithDirection() {
-        LOGGER.debug("findAllWithDirection");
+    public void findWithDirection() {
+        LOGGER.debug("findWithDirection");
 
-        List<Ticket> tickets = ticketService.findAllWithDirection();
+        List<Ticket> tickets = ticketService.findWithDirection();
 
         assertNotNull(tickets);
         assertFalse(tickets.isEmpty());
