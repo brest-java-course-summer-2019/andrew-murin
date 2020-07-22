@@ -18,19 +18,20 @@ public class TicketValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
+
         Ticket ticket = (Ticket) target;
 
-        if (ticket.getFromCity().getCityId().equals(ticket.getToCity().getCityId())) {
-            errors.rejectValue("fromCity", "ticketDirection");
-        }
 
+        if (ticket.getTicketDirectionFrom().equals(ticket.getTicketDirectionTo())){
+            errors.rejectValue("ticketDirectionFrom", "ticketDirection");
+        }
 
         if (ticket.getTicketDate().isBefore(LocalDate.now())) {
             errors.rejectValue("ticketDate", "ticketDate.BeforeNow");
         }
 
         if (ticket.getTicketCost().intValue() <= 0) {
-            errors.rejectValue("ticketCost","smerNull");
+            errors.rejectValue("ticketCost","smallerNull");
         }
     }
 }

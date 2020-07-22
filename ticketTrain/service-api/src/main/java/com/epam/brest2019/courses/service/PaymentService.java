@@ -7,14 +7,14 @@ import java.util.List;
 
 public interface PaymentService {
     /**
-     * Get  payment's.
+     * Get all payment's.
      *
-     * @return list of  payment's
+     * @return list of all payment's
      */
-    List<Payment> find();
+    List<Payment> findAll();
 
     /**
-     * Get  payment's with specified payment id.
+     * Get all payment's with specified payment id.
      *
      * @param ticketId ticket id
      * @return list of payment's by ticket id
@@ -33,6 +33,7 @@ public interface PaymentService {
      * Persist new payment.
      *
      * @param payment payment
+     * @return payment
      */
     void add(Payment payment);
 
@@ -51,10 +52,10 @@ public interface PaymentService {
     void delete(Integer paymentId);
 
     /**
-     * Find  directions
+     * Find all directions
      * @return list of paid-tickets
      */
-    List<Payment> findWitchDirection();
+    List<Payment> findAllWitchDirection();
 
     /**
      * Find paid-tickets by date

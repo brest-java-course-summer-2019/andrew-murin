@@ -5,64 +5,60 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
-import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Objects;
+
 
 /**
  * POJO Payment for model
  */
-@Entity
-@Table(name = "payment")
 public class Payment {
 
     /**
      * Payment Id
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Integer paymentId;
 
     /**
      * Local Date
      */
-    @Column(name = "payment_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate paymentDate;
 
-    @Column(name = "email")
-    @Email
-    private String email;
-
     /**
      * Ticket Id
      */
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ticket_id")
-    @Fetch(FetchMode.JOIN)
-    private Ticket ticketId;
+    private Integer ticketId;
 
     /**
-     * Summing  costs by different directions
+     * City from for sql-query
      */
-    @Transient
-    private BigDecimal ticketCost = new BigDecimal(2);
+    private String cityFrom;
 
     /**
-     * Counting  tickets by different directions
+     * City To for sql-query
      */
-    @Transient
-    private Long ticketCount = 5L;
+    private String cityTo;
+
+    /**
+     * Summing all costs by different directions
+     */
+    private BigDecimal ticketCost;
+
+    /**
+     * Counting all tickets by different directions
+     */
+    private Integer ticketCount;
+
+    /**
+     *For get total amount by all directions
+     */
+    private BigDecimal totalCost;
 
     /**
      * Constructor without parameters
@@ -73,25 +69,12 @@ public class Payment {
     /**
      * Constructor with parameters
      *
-     * @param localDate
+     * @param paymentDate
      * @param ticketId
      */
-    public Payment(LocalDate localDate, Ticket ticketId) {
-        this.paymentDate = localDate;
+    public Payment(LocalDate paymentDate, Integer ticketId) {
+        this.paymentDate = paymentDate;
         this.ticketId = ticketId;
-    }
-
-    /**
-     * Use for jpql-query
-     *
-     * @param ticketId
-     * @param ticketCount
-     * @param ticketCost
-     */
-    public Payment(Ticket ticketId, Long ticketCount, BigDecimal ticketCost) {
-        this.ticketId = ticketId;
-        this.ticketCount = ticketCount;
-        this.ticketCost = ticketCost;
     }
 
     /**
@@ -136,7 +119,7 @@ public class Payment {
      *
      * @return ticketID Ticket Id
      */
-    public Ticket getTicketId() {
+    public Integer getTicketId() {
         return ticketId;
     }
 
@@ -145,8 +128,63 @@ public class Payment {
      *
      * @param ticketId Ticket Id
      */
-    public void setTicketId(Ticket ticketId) {
+    public void setTicketId(Integer ticketId) {
         this.ticketId = ticketId;
+    }
+
+
+    /**
+     * Get cityFrom
+     *
+     * @return cityFrom city from
+     */
+    public String getCityFrom() {
+        return cityFrom;
+    }
+
+    /**
+     * Set cityFrom
+     *
+     * @param cityFrom city from
+     */
+    public void setCityFrom(String cityFrom) {
+        this.cityFrom = cityFrom;
+    }
+
+    /**
+     * Get cityTo
+     *
+     * @return cityTo city to
+     */
+    public String getCityTo() {
+        return cityTo;
+    }
+
+    /**
+     *Set cityTo
+     *
+     * @param cityTo
+     */
+    public void setCityTo(String cityTo) {
+        this.cityTo = cityTo;
+    }
+
+    /**
+     * Get totalCost
+     *
+     * @return totalCost
+     */
+    public BigDecimal getTotalCost() {
+        return totalCost;
+    }
+
+    /**
+     * Set totalCost
+     *
+     * @param totalCost
+     */
+    public void setTotalCost(BigDecimal totalCost) {
+        this.totalCost = totalCost;
     }
 
     /**
@@ -168,29 +206,11 @@ public class Payment {
     }
 
     /**
-     * Get email
-     *
-     * @return email
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * Set ticketCost
-     *
-     * @param email
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    /**
      * Get ticketCount
      *
      * @return
      */
-    public Long getTicketCount() {
+    public Integer getTicketCount() {
         return ticketCount;
     }
 
@@ -199,34 +219,16 @@ public class Payment {
      *
      * @param ticketCount
      */
-    public void setTicketCount(Long ticketCount) {
+    public void setTicketCount(Integer ticketCount) {
         this.ticketCount = ticketCount;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Payment payment = (Payment) o;
-        return Objects.equals(paymentId, payment.paymentId) &&
-                Objects.equals(paymentDate, payment.paymentDate) &&
-                Objects.equals(email, payment.email) &&
-                Objects.equals(ticketId, payment.ticketId) &&
-                Objects.equals(ticketCost, payment.ticketCost) &&
-                Objects.equals(ticketCount, payment.ticketCount);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(paymentId, paymentDate, email, ticketId, ticketCost, ticketCount);
-    }
 
     @Override
     public String toString() {
         return "Payment{" +
                 "paymentId=" + paymentId +
-                ", paymentDate=" + paymentDate +
-                ", email='" + email + '\'' +
+                ", PaymentDate=" + paymentDate +
                 ", ticketId=" + ticketId +
                 '}';
     }

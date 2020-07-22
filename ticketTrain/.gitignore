@@ -23,7 +23,6 @@ model/target
 dao/target
 dao-api/target
 service/target
-service/src/main/java/com/epam/brest2019/courses/service/config/MailSenderConfiguration.java
 service-api/target
 test-db/target
 web-app/target

@@ -4,10 +4,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -17,48 +15,49 @@ import java.util.Objects;
 /**
  * POJO Ticket for model.
  */
-@Entity
-@Table(name = "ticket")
 public class Ticket {
 
     /**
      * Ticket Id
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="id")
     private Integer ticketId;
     /**
      * Cost of ticket
      */
     @Min(0)
-    @Column(name = "ticket_cost")
     private BigDecimal ticketCost;
     /**
      * date train
      */
 
-    @Type(type = "org.hibernate.type.LocalDateType")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
-    @Column(name = "ticket_date")
     private LocalDate ticketDate;
-
     /**
      * Direction of train_from
      */
-    @ManyToOne
-    @JoinColumn(name = "from_city", foreignKey = @ForeignKey(name = "fk_from_city"))
-    private City fromCity;
-
+    @NotNull
+    private Integer ticketDirectionFrom;
     /**
      * Direction of train_to
      */
-    @ManyToOne
-    @JoinColumn(name = "to_city", foreignKey = @ForeignKey(name = "fk_to_city"))
-    private City toCity;
+    @NotNull
+    private Integer ticketDirectionTo;
 
+    /**
+     * CityFrom for sql-query
+     */
+    private String cityFrom;
+
+    /**
+     * CityTo for sql-query
+     */
+    private String cityTo;
+
+    /**
+     * Constructor without parameters
+     */
 
     /**
      * Constructor without parameters.
@@ -67,24 +66,47 @@ public class Ticket {
 
     }
 
-    public Ticket(Integer ticketId, @Min(0) @NotNull BigDecimal ticketCost, LocalDate ticketDate, @NotNull City fromCity, @NotNull City toCity) {
-        this.ticketId = ticketId;
-        this.ticketCost = ticketCost;
-        this.ticketDate = ticketDate;
-        this.fromCity = fromCity;
-        this.toCity = toCity;
-
-    }
-
     /**
      * Constructor with parameters.
      *
-     * @param fromCity
-     * @param toCity
+     * @param ticketDirectionFrom
+     * @param ticketDirectionTo
      */
-    public Ticket(City fromCity, City toCity){
-        this.fromCity = fromCity;
-        this.toCity = toCity;
+    public Ticket(Integer ticketDirectionFrom, Integer ticketDirectionTo){
+        this.ticketDirectionFrom = ticketDirectionFrom;
+        this.ticketDirectionTo = ticketDirectionTo;
+    }
+
+     /** Get this ticketDate of train.
+     *
+      * @return ticketDate of train.
+     */
+    public String getCityFrom() {
+        return cityFrom;
+    }
+
+    /**
+     * Set cityFrom.
+     * @param cityFrom city from
+     */
+    public void setCityFrom(String cityFrom) {
+        this.cityFrom = cityFrom;
+    }
+
+    /**
+     * Get cityTo
+     * @return cityTo.
+     */
+    public String getCityTo() {
+        return cityTo;
+    }
+
+     /**
+     * Set cityTo.
+     * @param cityTo city to
+     */
+    public void setCityTo(String cityTo) {
+        this.cityTo = cityTo;
     }
 
     /**
@@ -135,47 +157,53 @@ public class Ticket {
         this.ticketDate = ticketDate;
     }
 
-    public City getFromCity() {
-        return fromCity;
+    /**
+     * Get this direction of train.
+     * @return directionFrom of train.
+     */
+    public Integer getTicketDirectionFrom() {
+        return ticketDirectionFrom;
     }
 
-    public void setFromCity(City fromCity) {
-        this.fromCity = fromCity;
+    /**
+     * Set this direction of train.
+     * @param ticketDirectionFrom of train.
+     */
+    public void setTicketDirectionFrom(Integer ticketDirectionFrom) {
+        this.ticketDirectionFrom = ticketDirectionFrom;
     }
 
-    public City getToCity() {
-        return toCity;
+    /**
+     * Get this direction_to of train.
+     * @return direction_to of train.
+     */
+    public Integer getTicketDirectionTo() {
+        return ticketDirectionTo;
     }
 
-    public void setToCity(City toCity) {
-        this.toCity = toCity;
+    /**
+     * Set this direction of train.
+     * @param ticketDirectionTo of train.
+     */
+    public void setTicketDirectionTo(Integer ticketDirectionTo) {
+        this.ticketDirectionTo = ticketDirectionTo;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Ticket)) return false;
         Ticket ticket = (Ticket) o;
-        return Objects.equals(ticketId, ticket.ticketId) &&
-                Objects.equals(ticketCost, ticket.ticketCost) &&
-                Objects.equals(ticketDate, ticket.ticketDate) &&
-                Objects.equals(fromCity, ticket.fromCity) &&
-                Objects.equals(toCity, ticket.toCity);
+        return Objects.equals(getTicketId(), ticket.getTicketId()) &&
+                Objects.equals(getTicketCost(), ticket.getTicketCost()) &&
+                Objects.equals(getTicketDate(), ticket.getTicketDate()) &&
+                Objects.equals(getTicketDirectionFrom(), ticket.getTicketDirectionFrom()) &&
+                Objects.equals(getTicketDirectionTo(), ticket.getTicketDirectionTo()) &&
+                Objects.equals(getCityFrom(), ticket.getCityFrom());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ticketId, ticketCost, ticketDate, fromCity, toCity);
-    }
-
-    @Override
-    public String toString() {
-        return "Ticket{" +
-                "ticketId=" + ticketId +
-                ", ticketCost=" + ticketCost +
-                ", ticketDate=" + ticketDate +
-                ", fromCity=" + fromCity +
-                ", toCity=" + toCity +
-                '}';
+        return Objects.hash(getTicketId(), getTicketCost(), getTicketDate(), getTicketDirectionFrom(), getTicketDirectionTo());
     }
 }

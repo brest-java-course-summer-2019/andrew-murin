@@ -1,33 +1,33 @@
 package com.epam.brest2019.courses.web_app;
 
-import com.epam.brest2019.courses.consumer.PaymentRestConsumer;
-import com.epam.brest2019.courses.consumer.TicketRestConsumer;
-import com.epam.brest2019.courses.model.Payment;
-import com.epam.brest2019.courses.service.PaymentService;
-import com.epam.brest2019.courses.service.TicketService;
+import com.epam.brest2019.courses.web_app.consumers.PaymentRestConsumer;
+import com.epam.brest2019.courses.web_app.consumers.TicketRestConsumer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.support.ManagedProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.integration.annotation.IntegrationComponentScan;
-import org.springframework.integration.config.EnableIntegration;
-import org.springframework.jms.annotation.EnableJms;
-import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
-import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
+import java.util.Properties;
 
-
-@IntegrationComponentScan(basePackages = "com.epam.brest2019.courses.*")
-@SpringBootApplication
-public class Application {
+@SpringBootApplication(scanBasePackages = {"com.epam.brest2019.courses.*"})
+public class Application extends WebMvcConfigurerAdapter {
 
     @Value("${rest.url}")
     private String restUrl;
@@ -41,31 +41,22 @@ public class Application {
     @Autowired
     private ObjectMapper objectMapper;
 
+
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
 
     @Bean
-    public PaymentService paymentService() {
-        PaymentService paymentService = new PaymentRestConsumer(restUrl + restPayments, restTemplate());
+    public PaymentRestConsumer paymentService() {
+        PaymentRestConsumer paymentService = new PaymentRestConsumer(restUrl + restPayments, restTemplate());
         return paymentService;
     }
 
     @Bean
-    public TicketService ticketService() {
-        TicketService ticketService = new TicketRestConsumer(restUrl + restTickets, restTemplate());
+    public TicketRestConsumer ticketService() {
+        TicketRestConsumer ticketService = new TicketRestConsumer(restUrl + restTickets, restTemplate());
         return ticketService;
     }
-
-
-    @Bean
-    public MessageConverter messageConverter() {
-        MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
-        converter.setTypeIdPropertyName("content-type");
-        converter.setTypeIdMappings(Collections.singletonMap("payment", Payment.class));
-        return converter;
-    }
-
 
     @Bean
     public RestTemplate restTemplate() {
@@ -77,4 +68,6 @@ public class Application {
         restTemplate.setMessageConverters(messageConverters);
         return restTemplate;
     }
+
+
 }

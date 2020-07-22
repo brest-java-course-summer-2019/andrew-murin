@@ -1,21 +1,13 @@
 package com.epam.brest2019.courses.service.mockTest;
 
 import com.epam.brest2019.courses.dao.PaymentDao;
-import com.epam.brest2019.courses.model.City;
 import com.epam.brest2019.courses.model.Payment;
-import com.epam.brest2019.courses.model.Ticket;
 import com.epam.brest2019.courses.service.PaymentServiceImpl;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
@@ -25,13 +17,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 public class PaymentServiceMockTest {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PaymentServiceMockTest.class);
-
     @Mock
     private PaymentDao paymentDao;
-
-    @Mock
-    private JavaMailSender javaMailSender;
 
     @InjectMocks
     private PaymentServiceImpl paymentService;
@@ -39,13 +26,6 @@ public class PaymentServiceMockTest {
     @Captor
     private ArgumentCaptor<Payment> paymentCaptor;
 
-//    @AfterEach
-//    void after(){
-//        Mockito.verifyNoMoreInteractions(paymentDao);
-//    }
-
-    private static final Integer FROM_CITY = 1;
-    private static final Integer TO_CITY = 5;
 
     private static final LocalDate START_DATE = LocalDate.of(2019,01,01);
     private static final LocalDate FINISH_DATE = LocalDate.of(2019,12,12);
@@ -54,23 +34,19 @@ public class PaymentServiceMockTest {
 
 
     @Test
-    public void find(){
-        LOGGER.debug("find");
+    void findAll(){
+        Mockito.when(paymentDao.findAll()).thenReturn(Collections.singletonList(createFixture()));
 
-        Mockito.when(paymentDao.find()).thenReturn(Collections.singletonList(createFixture()));
-
-        List<Payment> result = paymentService.find();
+        List<Payment> result = paymentService.findAll();
 
         assertNotNull(result);
         assertEquals(1, result.size());
 
-        Mockito.verify(paymentDao).find();
+        Mockito.verify(paymentDao).findAll();
     }
 
     @Test
-    public void findByTicketId(){
-        LOGGER.debug("findByTicketId");
-
+    void findByTicketId(){
         int id = 2;
 
         Mockito.when(paymentDao.findByTicketId(id)).thenReturn(Collections.singletonList(createFixture()));
@@ -83,9 +59,7 @@ public class PaymentServiceMockTest {
     }
 
     @Test
-    public void findById(){
-        LOGGER.debug("findById");
-
+    void findById(){
         int id = 2;
         Mockito.when(paymentDao.findById(id)).thenReturn(createFixture());
 
@@ -99,59 +73,48 @@ public class PaymentServiceMockTest {
     }
 
     @Test
-    public void add(){
-        LOGGER.debug("Add");
-
+    void add(){
         Payment payment = createFixture();
 
-        paymentService.setJavaMailSender(javaMailSender);
         paymentService.add(payment);
 
         Mockito.verify(paymentDao, Mockito.times(1)).add(payment);
     }
 
     @Test
-    public void update(){
-        LOGGER.debug("Update");
-
+    void update(){
         paymentService.update(createFixture());
         Mockito.verify(paymentDao).update(paymentCaptor.capture());
 
         Payment payment = paymentCaptor.getValue();
         assertNotNull(payment);
         assertEquals(payment.getPaymentDate(), TEST_DATE);
+        assertEquals(1, (int) payment.getPaymentId());
     }
 
     @Test
-    public void delete(){
-        LOGGER.debug("Delete");
-        int id = 1;
-
-        Payment payment = paymentService.findById(id);
+    void delete(){
+        int id = 3;
         paymentService.delete(id);
 
-        Mockito.verify(paymentDao, Mockito.times(1)).delete(payment);
+        Mockito.verify(paymentDao, Mockito.times(1)).delete(id);
     }
 
     @Test
-    public void findWithDirection() {
-        LOGGER.debug("findWithDirection");
+    void findAllWithDirection() {
+        Mockito.when(paymentDao.findAllWitchDirection()).thenReturn(Collections.singletonList(createFixture()));
 
-        Mockito.when(paymentDao.findWitchDirection()).thenReturn(Collections.singletonList(createFixture()));
-
-        List<Payment> result = paymentService.findWitchDirection();
+        List<Payment> result = paymentService.findAllWitchDirection();
 
         assertNotNull(result);
         assertFalse(result.isEmpty());
-        assertEquals(result.size() - 1, 0);
+        assertEquals(result.size() -1, 0);
 
-        Mockito.verify(paymentDao).findWitchDirection();
+        Mockito.verify(paymentDao).findAllWitchDirection();
     }
 
     @Test
-    public void searchByDate() {
-        LOGGER.debug("Search By Date");
-
+    void searchByDate() {
         Mockito.when(paymentDao.searchByDate(START_DATE, FINISH_DATE)).thenReturn(Collections.singletonList(createFixture()));
 
         List<Payment> result = paymentService.searchByDate(START_DATE, FINISH_DATE);
@@ -166,22 +129,9 @@ public class PaymentServiceMockTest {
 
     private Payment createFixture(){
         Payment payment = new Payment();
-        Ticket ticket = new Ticket();
-        City city = new City();
-
-        ticket.setTicketId(1);
-        ticket.setTicketDate(TEST_DATE);
-        ticket.setTicketCost(new BigDecimal(100));
-
-        city.setCityId(FROM_CITY);
-        ticket.setFromCity(city);
-
-        city.setCityId(TO_CITY);
-        ticket.setToCity(city);
-
         payment.setPaymentDate(TEST_DATE);
-        payment.setTicketId(ticket);
-
+        payment.setTicketId(2);
+        payment.setPaymentId(1);
         return payment;
     }
 
