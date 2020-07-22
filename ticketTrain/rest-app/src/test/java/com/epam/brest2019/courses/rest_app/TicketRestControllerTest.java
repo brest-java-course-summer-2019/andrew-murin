@@ -80,7 +80,7 @@ public class TicketRestControllerTest {
                 .thenReturn(Arrays.asList(createFixtureForAllDeriction(0),createFixtureForAllDeriction(1)));
 
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/tickets/find-all-with-direction")
+                MockMvcRequestBuilders.get("/tickets/all")
                 .accept(MediaType.APPLICATION_JSON_UTF8)
         ).andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$[0].cityFrom", Matchers.is("MINSK0")))

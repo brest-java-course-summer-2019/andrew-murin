@@ -27,7 +27,7 @@ import java.util.Locale;
 import java.util.Properties;
 
 @SpringBootApplication(scanBasePackages = {"com.epam.brest2019.courses.*"})
-public class Application extends WebMvcConfigurerAdapter {
+public class Application {
 
     @Value("${rest.url}")
     private String restUrl;

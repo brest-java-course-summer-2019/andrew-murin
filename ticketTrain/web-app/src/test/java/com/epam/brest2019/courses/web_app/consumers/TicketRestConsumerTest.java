@@ -50,7 +50,7 @@ public class TicketRestConsumerTest {
     @Test
     void findAllWithDirection() {
         List<Ticket> tickets = Arrays.asList();
-        Mockito.when(mockRestTemplate.getForEntity("url/find-all-with-direction", List.class))
+        Mockito.when(mockRestTemplate.getForEntity("url/all", List.class))
                 .thenReturn(new ResponseEntity<>(new ArrayList(), HttpStatus.OK));
 
         List<Ticket> ticket = ticketRestConsumerTest.findAllWithDirection();

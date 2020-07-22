@@ -29,7 +29,7 @@ public class PaymentRestController {
         return paymentList;
     }
 
-    @GetMapping("/payments/find-All-With-Direction")
+    @GetMapping("/payments/all")
     public List<Payment> findAllWitchDirection() {
         LOGGER.debug("Find all payments with direction");
         return paymentService.findAllWitchDirection();

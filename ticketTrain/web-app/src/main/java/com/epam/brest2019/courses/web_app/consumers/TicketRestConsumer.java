@@ -66,7 +66,7 @@ public class TicketRestConsumer implements TicketService {
     @Override
     public List<Ticket> findAllWithDirection() {
         LOGGER.debug("Find all with direction");
-        ResponseEntity responseEntity = restTemplate.getForEntity(url + "/find-all-with-direction", List.class);
+        ResponseEntity responseEntity = restTemplate.getForEntity(url + "/all", List.class);
         return (List<Ticket>) responseEntity.getBody();
     }
 

@@ -28,7 +28,7 @@ public class TicketRestController {
         return ticketService.findAll();
     }
 
-    @GetMapping("/tickets/find-all-with-direction")
+    @GetMapping("/tickets/all")
     public List<Ticket> findAllWithDirection() {
         LOGGER.debug("Find all tickets");
         return ticketService.findAllWithDirection();

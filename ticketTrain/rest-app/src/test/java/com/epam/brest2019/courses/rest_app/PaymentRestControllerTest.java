@@ -90,7 +90,7 @@ public class PaymentRestControllerTest {
         Mockito.when(paymentService.findAllWitchDirection()).thenReturn(Arrays.asList(createFixture(0), createFixture(1)));
 
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/payments/find-All-With-Direction")
+                MockMvcRequestBuilders.get("/payments/all")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andDo(print())
                 .andExpect(status().isOk())
