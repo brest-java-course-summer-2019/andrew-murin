@@ -26,7 +26,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {DataBaseDAOConfig.class})
 @TestPropertySource("classpath:application-test.properties")
-//@Transactional
+@Transactional
 public class TicketDaoJdbcImplTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TicketDaoJdbcImplTest.class);

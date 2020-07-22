@@ -17,6 +17,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -31,6 +32,7 @@ import static org.junit.Assert.assertFalse;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {DataBaseDAOConfig.class})
 @TestPropertySource("classpath:application-test.properties")
+//@Transactional
 public class PaymentDaoJdbcImplTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PaymentDaoJdbcImplTest.class);

@@ -24,10 +24,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@EnableIntegration
+
 @IntegrationComponentScan(basePackages = "com.epam.brest2019.courses.*")
 @SpringBootApplication
-@EnableJms
 public class Application {
 
     @Value("${rest.url}")
