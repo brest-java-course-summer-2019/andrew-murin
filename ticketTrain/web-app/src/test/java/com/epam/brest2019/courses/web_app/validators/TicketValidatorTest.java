@@ -52,7 +52,7 @@ class TicketValidatorTest {
 
 
     @Test
-    void shouldRejectCostSmZero() {
+    void shouldRejectCostSmallZero() {
         City city = new City();
         city.setCityId(1);
         city.setCityName("BREST");

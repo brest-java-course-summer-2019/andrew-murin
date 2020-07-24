@@ -9,6 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -20,8 +21,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {ServiceConfig.class})
+@SpringBootTest(classes = ServiceConfig.class)
 @TestPropertySource("classpath:application-test.properties")
 public class TicketServiceImplTest {
 
@@ -34,10 +34,10 @@ public class TicketServiceImplTest {
     private TicketService ticketService;
 
     @Test
-    public void find(){
-        LOGGER.debug("find");
+    public void findAll(){
+        LOGGER.debug("findAll");
 
-        List<Ticket> tickets = ticketService.find();
+        List<Ticket> tickets = ticketService.findAll();
 
         assertNotNull(tickets);
         assertFalse(tickets.isEmpty());
@@ -88,10 +88,10 @@ public class TicketServiceImplTest {
         Ticket ticket = createFixture();
 
         ticketService.add(ticket);
-        int sizeBefore = ticketService.find().size();
+        int sizeBefore = ticketService.findAll().size();
 
         ticketService.delete(ticket.getTicketId());
-        int sizeAfter = ticketService.find().size();
+        int sizeAfter = ticketService.findAll().size();
 
         assertTrue(sizeBefore > sizeAfter);
 
@@ -101,12 +101,12 @@ public class TicketServiceImplTest {
     public void add(){
         LOGGER.debug("Add");
 
-        int sizeBefore = ticketService.find().size();
+        int sizeBefore = ticketService.findAll().size();
 
         Ticket ticket = createFixture();
 
         ticketService.add(ticket);
-        int sizeAfter = ticketService.find().size();
+        int sizeAfter = ticketService.findAll().size();
 
         assertTrue(sizeBefore  < sizeAfter);
     }
@@ -125,10 +125,10 @@ public class TicketServiceImplTest {
     }
 
     @Test
-    public void findWithDirection() {
-        LOGGER.debug("findWithDirection");
+    public void findAllWithDirection() {
+        LOGGER.debug("findAllWithDirection");
 
-        List<Ticket> tickets = ticketService.findWithDirection();
+        List<Ticket> tickets = ticketService.findAllWithDirection();
 
         assertNotNull(tickets);
         assertFalse(tickets.isEmpty());

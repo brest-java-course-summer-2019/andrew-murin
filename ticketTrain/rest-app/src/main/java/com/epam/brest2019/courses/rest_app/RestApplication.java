@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @EntityScan("com.epam.brest2019.courses.*")
 @SpringBootApplication(scanBasePackages = {"com.epam.brest2019.courses.*"},
-                        scanBasePackageClasses = {DataBaseConfig.class})
+        scanBasePackageClasses = {DataBaseConfig.class})
 public class RestApplication {
 
     public static void main(String[] args) {

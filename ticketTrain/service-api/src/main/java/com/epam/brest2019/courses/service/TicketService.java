@@ -37,7 +37,7 @@ public interface TicketService {
      *
      * @return tickets list.
      */
-    List<Ticket> find();
+    List<Ticket> findAll();
 
     /**
      * Get Ticket By Id
@@ -58,10 +58,10 @@ public interface TicketService {
                               Integer directionFrom, Integer directionTo);
 
     /**
-     * Find  tickets and replace numbers on city names
+     * Find all tickets and replace numbers on city names
      * @return
      */
-    List<Ticket> findWithDirection();
+    List<Ticket> findAllWithDirection();
 
 }
 

@@ -1,5 +1,7 @@
 package com.epam.brest2019.courses.web_app.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +11,9 @@ import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.dsl.Pollers;
 import org.springframework.integration.jms.dsl.Jms;
+import org.springframework.jms.annotation.JmsListener;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.messaging.MessageChannel;
 
 import javax.jms.ConnectionFactory;
@@ -17,6 +22,7 @@ import javax.jms.ConnectionFactory;
 @EnableIntegration
 public class SenderConfig {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(SenderConfig.class);
 
     @Autowired
     private ConnectionFactory connectionFactory;
@@ -26,19 +32,23 @@ public class SenderConfig {
         return new DirectChannel();
     }
 
+
     @Bean
     public IntegrationFlow jmsInboundFlow() {
         return IntegrationFlows
                 .from(Jms.inboundAdapter(connectionFactory)
                         .destination("sendToQueue"), e ->
                             e.poller(Pollers
-                                    .fixedDelay(500)
+                                    .fixedDelay(5000)
                                     .maxMessagesPerPoll(2)))
                 .handle(Jms.outboundAdapter(connectionFactory)
-                        .destination("consumingChannel")
-                )
+                        .destination("logging"))
                 .get();
+    }
 
+    @JmsListener(destination = "logging")
+    public void listen(Object in) {
+        LOGGER.info(in.toString());
     }
 
 }

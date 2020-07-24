@@ -21,15 +21,15 @@ public class TicketRestController {
 
 
     @GetMapping("/tickets")
-    public List<Ticket> find() {
-        LOGGER.debug("Find  tickets");
-        return ticketService.find();
+    public List<Ticket> findAll() {
+        LOGGER.debug("Find all tickets");
+        return ticketService.findAll();
     }
 
-    @GetMapping("/tickets/all")
-    public List<Ticket> findWithDirection() {
-        LOGGER.debug("Find  tickets");
-        return ticketService.findWithDirection();
+    @GetMapping("/tickets/find-all-with-direction")
+    public List<Ticket> findAllWithDirection() {
+        LOGGER.debug("Find all tickets");
+        return ticketService.findAllWithDirection();
     }
 
     @GetMapping("/tickets/{id}")

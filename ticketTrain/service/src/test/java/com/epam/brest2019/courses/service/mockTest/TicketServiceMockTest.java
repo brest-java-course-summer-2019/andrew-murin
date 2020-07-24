@@ -4,7 +4,6 @@ import com.epam.brest2019.courses.dao.TicketDao;
 import com.epam.brest2019.courses.model.City;
 import com.epam.brest2019.courses.model.Ticket;
 import com.epam.brest2019.courses.service.TicketServiceImpl;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
@@ -36,27 +35,23 @@ public class TicketServiceMockTest {
     @InjectMocks
     private TicketServiceImpl ticketService;
 
-//    @AfterEach
-//    void after(){
-//        Mockito.verifyNoMoreInteractions(ticketDao);
-//    }
 
 
     private  static final LocalDate START_DATE = LocalDate.of(2019, 01,01);
     private static final LocalDate FINISH_DATE = LocalDate.of(2019, 12,12);
 
     @Test
-    public void find(){
-        LOGGER.debug("find");
+    public void findAll(){
+        LOGGER.debug("findAll");
 
-        Mockito.when(ticketDao.find()).thenReturn(Collections.singletonList(createFixture()));
+        Mockito.when(ticketDao.findAll()).thenReturn(Collections.singletonList(createFixture()));
 
-        List<Ticket> result = ticketService.find();
+        List<Ticket> result = ticketService.findAll();
 
         assertNotNull(result);
         assertEquals(1, result.size());
 
-        Mockito.verify(ticketDao).find();
+        Mockito.verify(ticketDao).findAll();
     }
 
     @Test
@@ -128,18 +123,18 @@ public class TicketServiceMockTest {
     }
 
     @Test
-    public void findWithDirection() {
-        LOGGER.debug("findWithDirection");
+    public void findAllWithDirection() {
+        LOGGER.debug("findAllWithDirection");
 
-        Mockito.when(ticketDao.findWithDirection()).thenReturn(Collections.singletonList(createFixture()));
+        Mockito.when(ticketDao.findAllWithDirection()).thenReturn(Collections.singletonList(createFixture()));
 
-        List<Ticket> result = ticketService.findWithDirection();
+        List<Ticket> result = ticketService.findAllWithDirection();
 
         assertNotNull(result);
         assertFalse(result.isEmpty());
         assertEquals(result.size() - 1, 0);
 
-        Mockito.verify(ticketDao).findWithDirection();
+        Mockito.verify(ticketDao).findAllWithDirection();
     }
 
 

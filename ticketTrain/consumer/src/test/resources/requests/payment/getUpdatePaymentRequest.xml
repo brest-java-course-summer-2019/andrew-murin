@@ -1,0 +1,32 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:xs="http://epam.com/brest2019/courses/soap/model/payment"
+                  xmlns:tnt="http://epam.com/brest2019/courses/soap/model/ticket"
+                  xmlns:xc="http://epam.com/brest2019/courses/soap/model/city">
+
+    <soapenv:Header/>
+    <soapenv:Body>
+        <xs:getUpdatePaymentRequest>
+            <xs:payment>
+                <xs:paymentId>1</xs:paymentId>
+                <xs:paymentDate>2019-09-07</xs:paymentDate>
+                <xs:email>KlimukDmitry@gmail.com</xs:email>
+                <xs:ticketId>
+                    <tnt:ticketId>2</tnt:ticketId>
+                    <tnt:ticketCost>10.65</tnt:ticketCost>
+                    <tnt:ticketDate>2019-09-25</tnt:ticketDate>
+                    <tnt:fromCity>
+                        <xc:cityId>1</xc:cityId>
+                        <xc:cityName>BREST</xc:cityName>
+                    </tnt:fromCity>
+                    <tnt:toCity>
+                        <xc:cityId>3</xc:cityId>
+                        <xc:cityName>VITEBSK</xc:cityName>
+                    </tnt:toCity>
+                </xs:ticketId>
+                <xs:ticketCost>2</xs:ticketCost>
+                <xs:ticketCount>5</xs:ticketCount>
+            </xs:payment>
+        </xs:getUpdatePaymentRequest>
+    </soapenv:Body>
+
+</soapenv:Envelope>

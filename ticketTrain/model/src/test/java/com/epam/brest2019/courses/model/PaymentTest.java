@@ -1,12 +1,14 @@
 package com.epam.brest2019.courses.model;
 
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+//@SpringBootTest
 public class PaymentTest {
 
     private static final Integer NUMBER = 15;
@@ -18,14 +20,14 @@ public class PaymentTest {
     @Test
     public void getPaymentId(){
         payment.setPaymentId(NUMBER);
-        Assert.assertEquals(payment.getPaymentId(), NUMBER);
+        assertEquals(payment.getPaymentId(), NUMBER);
 
     }
 
     @Test
     public void getDate() {
         payment.setPaymentDate(DATE);
-        Assert.assertEquals(payment.getPaymentDate(), DATE);
+        assertEquals(payment.getPaymentDate(), DATE);
     }
 
     @Test
@@ -34,20 +36,20 @@ public class PaymentTest {
         ticket.setTicketId(NUMBER);
 
         payment.setTicketId(ticket);
-        Assert.assertEquals(payment.getTicketId().getTicketId(), NUMBER);
+        assertEquals(payment.getTicketId().getTicketId(), NUMBER);
     }
 
     @Test
     public void getTicketCost() {
         payment.setTicketCost(SUMM);
-        Assert.assertEquals(payment.getTicketCost(), SUMM);
+        assertEquals(payment.getTicketCost(), SUMM);
     }
 
     @Test
     public void getTicketCount() {
         Long id = 1L;
         payment.setTicketCount(id);
-        Assert.assertEquals(payment.getTicketCount(), id);
+        assertEquals(payment.getTicketCount(), id);
     }
 
 

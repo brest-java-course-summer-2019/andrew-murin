@@ -1,0 +1,24 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:xs="http://epam.com/brest2019/courses/soap/model/ticket"
+                  xmlns:xc="http://epam.com/brest2019/courses/soap/model/city">
+
+    <soapenv:Header/>
+    <soapenv:Body>
+        <xs:getAddTicketRequest>
+            <xs:ticket>
+                <xs:ticketId></xs:ticketId>
+                <xs:ticketCost>20</xs:ticketCost>
+                <xs:ticketDate>2030-05-05</xs:ticketDate>
+                <xs:fromCity>
+                    <xc:cityId>6</xc:cityId>
+                    <xc:cityName>MOGILEV</xc:cityName>
+                </xs:fromCity>
+                <xs:toCity>
+                    <xc:cityId>3</xc:cityId>
+                    <xc:cityName>VITEBSK</xc:cityName>
+                </xs:toCity>
+            </xs:ticket>
+        </xs:getAddTicketRequest>
+    </soapenv:Body>
+
+</soapenv:Envelope>

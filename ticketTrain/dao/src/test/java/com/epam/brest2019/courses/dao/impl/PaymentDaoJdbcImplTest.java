@@ -6,33 +6,24 @@ import com.epam.brest2019.courses.dao.config.DataBaseDAOConfig;
 import com.epam.brest2019.courses.model.Payment;
 import com.epam.brest2019.courses.model.Ticket;
 import org.hibernate.SessionFactory;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
-import static junit.framework.TestCase.assertNotNull;
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {DataBaseDAOConfig.class})
+@SpringBootTest(classes = DataBaseDAOConfig.class)
 @TestPropertySource("classpath:application-test.properties")
-//@Transactional
 public class PaymentDaoJdbcImplTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PaymentDaoJdbcImplTest.class);
@@ -45,7 +36,7 @@ public class PaymentDaoJdbcImplTest {
 
     private Payment payment;
 
-    @Before
+    @BeforeEach
     public void changes() {
         LocalDate localDate = LocalDate.now();
 
@@ -56,12 +47,16 @@ public class PaymentDaoJdbcImplTest {
         paymentDao.add(payment);
     }
 
+    @AfterEach
+    public void cleanChanges(){
+        paymentDao.delete(payment);
+    }
 
     @Test
-    public void findPayment() throws SQLException {
-        LOGGER.debug("findPayment ({})", Payment.class);
+    public void findAllPayment() throws SQLException {
+        LOGGER.debug("findAllPayment ({})", Payment.class);
 
-        List<Payment> payments = paymentDao.find();
+        List<Payment> payments = paymentDao.findAll();
         assertNotNull(paymentDao);
         assertTrue(payments.size() > 0);
     }
@@ -100,12 +95,12 @@ public class PaymentDaoJdbcImplTest {
         newPayment.setTicketCost(payment.getTicketCost());
         newPayment.setTicketCount(payment.getTicketCount());
 
-        List<Payment> payments = paymentDao.find();
+        List<Payment> payments = paymentDao.findAll();
         int sizeBefore = payments.size();
 
         paymentDao.add(newPayment);
 
-        assertEquals((sizeBefore) + 1, paymentDao.find().size());
+        assertEquals((sizeBefore) + 1, paymentDao.findAll().size());
     }
 
     @Test
@@ -114,11 +109,11 @@ public class PaymentDaoJdbcImplTest {
 
         payment = paymentDao.findById(1);
 
-        List<Payment> payments = paymentDao.find();
+        List<Payment> payments = paymentDao.findAll();
         int sizeAdd = payments.size();
 
         paymentDao.delete(payment);
-        assertEquals(sizeAdd - 1, paymentDao.find().size());
+        assertEquals(sizeAdd - 1, paymentDao.findAll().size());
     }
 
     @Test
@@ -138,10 +133,10 @@ public class PaymentDaoJdbcImplTest {
     }
 
     @Test
-    public void findWithDirection() {
-        LOGGER.debug("findWithDirection Payment({})", Payment.class);
+    public void findAllWithDirection() {
+        LOGGER.debug("findAllWithDirection Payment({})", Payment.class);
 
-        List<Payment> payments = paymentDao.findWitchDirection();
+        List<Payment> payments = paymentDao.findAllWitchDirection();
 
         assertNotNull(payments);
         assertFalse(payments.isEmpty());

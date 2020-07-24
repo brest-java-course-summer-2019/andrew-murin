@@ -4,29 +4,25 @@ import com.epam.brest2019.courses.dao.TicketDao;
 import com.epam.brest2019.courses.dao.config.DataBaseDAOConfig;
 import com.epam.brest2019.courses.model.City;
 import com.epam.brest2019.courses.model.Ticket;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {DataBaseDAOConfig.class})
+@SpringBootTest(classes = DataBaseDAOConfig.class)
 @TestPropertySource("classpath:application-test.properties")
-@Transactional
 public class TicketDaoJdbcImplTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TicketDaoJdbcImplTest.class);
@@ -36,18 +32,23 @@ public class TicketDaoJdbcImplTest {
 
     private Ticket ticket;
 
-    @Before
+    @BeforeEach
     public void changes() {
         ticket = createFixture();
         ticketDao.add(ticket);
     }
 
+    @AfterEach
+    public void cleanChanges() {
+        ticketDao.delete(ticket);
+    }
+
 
     @Test
-    public void find(){
-        LOGGER.debug("find Ticket ({})",Ticket.class);
+    public void findAll(){
+        LOGGER.debug("findAll Ticket ({})",Ticket.class);
 
-        List<Ticket> tickets = ticketDao.find();
+        List<Ticket> tickets = ticketDao.findAll();
         assertNotNull(tickets);
         assertTrue(tickets.size() > 0);
     }
@@ -66,18 +67,19 @@ public class TicketDaoJdbcImplTest {
     public void add(){
         LOGGER.debug("Add Ticket ({})",Ticket.class);
 
-        List<Ticket> tickets = ticketDao.find();
+        List<Ticket> tickets = ticketDao.findAll();
         int sizeBefore = tickets.size();
 
         ticketDao.add(createFixture());
 
-        assertEquals(sizeBefore + 1, ticketDao.find().size());
+        assertEquals(sizeBefore + 1, ticketDao.findAll().size());
     }
 
     @Test
     public void updateTicket(){
         LOGGER.debug("Update Ticket ({})",Ticket.class);
 
+//        ticket = createFixture();
         ticket.setTicketCost(new BigDecimal(30));
 
         ticketDao.update(ticket);
@@ -96,12 +98,12 @@ public class TicketDaoJdbcImplTest {
 
         ticketDao.add(ticket);
 
-        List<Ticket> tickets = ticketDao.find();
+        List<Ticket> tickets = ticketDao.findAll();
         int sizeBefore = tickets.size();
 
         ticketDao.delete(ticket);
 
-        assertEquals(sizeBefore - 1, ticketDao.find().size());
+        assertEquals(sizeBefore - 1, ticketDao.findAll().size());
     }
 
     @Test
@@ -118,10 +120,10 @@ public class TicketDaoJdbcImplTest {
     }
 
     @Test
-    public void findWithDirection() {
-        LOGGER.debug("findWithDirection Ticket ({})",Ticket.class);
+    public void findAllWithDirection() {
+        LOGGER.debug("findAllWithDirection Ticket ({})",Ticket.class);
 
-        List<Ticket> tickets = ticketDao.findWithDirection();
+        List<Ticket> tickets = ticketDao.findAllWithDirection();
 
         assertNotNull(tickets);
         assertFalse(tickets.isEmpty());

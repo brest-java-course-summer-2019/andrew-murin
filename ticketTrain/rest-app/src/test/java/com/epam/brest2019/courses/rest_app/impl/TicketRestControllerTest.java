@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.context.ContextConfiguration;
@@ -34,8 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration
+@SpringBootTest
 public class TicketRestControllerTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TicketRestControllerTest.class);
@@ -71,10 +71,10 @@ public class TicketRestControllerTest {
     }
 
     @Test
-    public void find() throws Exception {
-        LOGGER.debug("find");
+    public void findAll() throws Exception {
+        LOGGER.debug("findAll");
 
-        Mockito.when(ticketService.find()).thenReturn(Arrays.asList(createFixture(0), createFixture(1)));
+        Mockito.when(ticketService.findAll()).thenReturn(Arrays.asList(createFixture(0), createFixture(1)));
 
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/tickets")
@@ -84,24 +84,24 @@ public class TicketRestControllerTest {
                 .andExpect(jsonPath("$[1].ticketId", Matchers.is(1)))
                 .andExpect(jsonPath("$[1].ticketCost", Matchers.is(1)));
 
-        Mockito.verify(ticketService, Mockito.times(1)).find();
+        Mockito.verify(ticketService, Mockito.times(1)).findAll();
     }
 
     @Test
-    public void findWithDirection() throws Exception {
-        LOGGER.debug("findWithDirection");
+    public void findAllWithDirection() throws Exception {
+        LOGGER.debug("findAllWithDirection");
 
-        Mockito.when(ticketService.findWithDirection())
-                .thenReturn(Arrays.asList(createFixtureForDirection(0),createFixtureForDirection(1)));
+        Mockito.when(ticketService.findAllWithDirection())
+                .thenReturn(Arrays.asList(createFixtureForAllDirection(0),createFixtureForAllDirection(1)));
 
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/tickets/all")
+                MockMvcRequestBuilders.get("/tickets/find-all-with-direction")
                 .accept(MediaType.APPLICATION_JSON_UTF8)
         ).andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$[0].ticketId", Matchers.is(0)))
                 .andExpect(jsonPath("$[1].ticketId", Matchers.is(1)));
 
-        Mockito.verify(ticketService).findWithDirection();
+        Mockito.verify(ticketService).findAllWithDirection();
     }
 
     @Test
@@ -128,9 +128,9 @@ public class TicketRestControllerTest {
         LOGGER.debug("addTicket");
 
         mockMvc.perform(
-                MockMvcRequestBuilders.post("/tickets")
+                MockMvcRequestBuilders.post("/")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(objectMapper.writeValueAsString(createFixtureForDirection(1)))
+                .content(objectMapper.writeValueAsString(createFixtureForAllDirection(1)))
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isCreated())
                 .andReturn().getResponse();
@@ -143,7 +143,7 @@ public class TicketRestControllerTest {
     public void updateTicket() throws Exception {
         LOGGER.debug("updateTicket");
 
-        Ticket ticket = createFixtureForDirection(1);
+        Ticket ticket = createFixtureForAllDirection(1);
         String json = new ObjectMapper().writeValueAsString(ticket);
 
         mockMvc.perform(
@@ -160,7 +160,7 @@ public class TicketRestControllerTest {
     public void deleteTicket() throws Exception {
         LOGGER.debug("deleteTicket");
 
-        Ticket ticket = createFixtureForDirection(1);
+        Ticket ticket = createFixtureForAllDirection(1);
 
         mockMvc.perform(
                 MockMvcRequestBuilders.delete("/tickets/{ticketId}", 1))
@@ -189,7 +189,7 @@ public class TicketRestControllerTest {
         Mockito.verify(ticketService).searchTicket(START_DATE, FINISH_DATE, directionFrom, directionTo);
     }
 
-    private Ticket createFixtureForDirection(Integer ticketId) {
+    private Ticket createFixtureForAllDirection(Integer ticketId) {
         Ticket ticket = new Ticket();
 
         ticket.setTicketId(ticketId);

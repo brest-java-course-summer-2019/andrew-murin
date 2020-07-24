@@ -10,16 +10,14 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -35,8 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration
+@SpringBootTest
 public class PaymentRestControllerTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PaymentRestControllerTest.class);
@@ -73,10 +70,10 @@ public class PaymentRestControllerTest {
     }
 
     @Test
-    void find() throws Exception {
-        LOGGER.debug("find");
+    void findAll() throws Exception {
+        LOGGER.debug("findAll");
 
-        Mockito.when(paymentService.find()).thenReturn(Arrays.asList(createFixture(0), createFixture(1)));
+        Mockito.when(paymentService.findAll()).thenReturn(Arrays.asList(createFixture(0), createFixture(1)));
 
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/payments")
@@ -88,17 +85,17 @@ public class PaymentRestControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].paymentId", Matchers.is(0)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].paymentId", Matchers.is(1)));
 
-        Mockito.verify(paymentService, Mockito.times(1)).find();
+        Mockito.verify(paymentService, Mockito.times(1)).findAll();
     }
 
     @Test
-    void findWitchDirection() throws Exception {
-        LOGGER.debug("findWitchDirection");
+    void findAllWitchDirection() throws Exception {
+        LOGGER.debug("findAllWitchDirection");
 
-        Mockito.when(paymentService.findWitchDirection()).thenReturn(Arrays.asList(createFixture(0), createFixture(1)));
+        Mockito.when(paymentService.findAllWitchDirection()).thenReturn(Arrays.asList(createFixture(0), createFixture(1)));
 
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/payments/all")
+                MockMvcRequestBuilders.get("/payments/find-all-with-direction")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -107,7 +104,7 @@ public class PaymentRestControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].paymentId", Matchers.is(0)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].paymentId", Matchers.is(1)));
 
-        Mockito.verify(paymentService, Mockito.times(1)).findWitchDirection();
+        Mockito.verify(paymentService, Mockito.times(1)).findAllWitchDirection();
     }
 
     @Test

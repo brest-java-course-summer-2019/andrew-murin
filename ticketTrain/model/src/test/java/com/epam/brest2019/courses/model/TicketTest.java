@@ -1,12 +1,15 @@
 package com.epam.brest2019.courses.model;
 
-import org.junit.Assert;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+//@SpringBootTest
 public class TicketTest {
 
     //BREST
@@ -29,20 +32,20 @@ public class TicketTest {
     @Test
     public void getTicketId() {
         ticket.setTicketId(5);
-        Assert.assertEquals(ticket.getTicketId().intValue(),5);
+        assertEquals(ticket.getTicketId().intValue(),5);
     }
 
     @Test
     public void getTicketCost() {
         ticket.setTicketCost(new BigDecimal(PRICE));
-        Assert.assertTrue(ticket.getTicketCost().compareTo(new BigDecimal(PRICE)) == 0);
+        assertTrue(ticket.getTicketCost().compareTo(new BigDecimal(PRICE)) == 0);
     }
 
     @Test
     public void getLocalDate() {
         LocalDate localDate = LocalDate.of(2019,07,15);
         ticket.setTicketDate(localDate);
-        Assert.assertEquals(localDate, ticket.getTicketDate());
+        assertEquals(localDate, ticket.getTicketDate());
     }
 
     @Test
@@ -51,7 +54,7 @@ public class TicketTest {
 
         ticket.setFromCity(city);
 
-        Assert.assertEquals(ticket.getFromCity().getCityId(), CITY_FROM);
+        assertEquals(ticket.getFromCity().getCityId(), CITY_FROM);
     }
 
     @Test
@@ -60,7 +63,7 @@ public class TicketTest {
 
         ticket.setToCity(city);
 
-        Assert.assertEquals(ticket.getToCity().getCityName(), TO_MINSK);
+        assertEquals(ticket.getToCity().getCityName(), TO_MINSK);
     }
 
     private City createFixture() {

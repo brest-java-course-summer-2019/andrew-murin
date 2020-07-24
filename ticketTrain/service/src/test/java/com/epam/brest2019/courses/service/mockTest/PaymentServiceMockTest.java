@@ -5,14 +5,12 @@ import com.epam.brest2019.courses.model.City;
 import com.epam.brest2019.courses.model.Payment;
 import com.epam.brest2019.courses.model.Ticket;
 import com.epam.brest2019.courses.service.PaymentServiceImpl;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
 import java.math.BigDecimal;
@@ -54,17 +52,17 @@ public class PaymentServiceMockTest {
 
 
     @Test
-    public void find(){
-        LOGGER.debug("find");
+    public void findAll(){
+        LOGGER.debug("findAll");
 
-        Mockito.when(paymentDao.find()).thenReturn(Collections.singletonList(createFixture()));
+        Mockito.when(paymentDao.findAll()).thenReturn(Collections.singletonList(createFixture()));
 
-        List<Payment> result = paymentService.find();
+        List<Payment> result = paymentService.findAll();
 
         assertNotNull(result);
         assertEquals(1, result.size());
 
-        Mockito.verify(paymentDao).find();
+        Mockito.verify(paymentDao).findAll();
     }
 
     @Test
@@ -134,18 +132,18 @@ public class PaymentServiceMockTest {
     }
 
     @Test
-    public void findWithDirection() {
-        LOGGER.debug("findWithDirection");
+    public void findAllWithDirection() {
+        LOGGER.debug("findAllWithDirection");
 
-        Mockito.when(paymentDao.findWitchDirection()).thenReturn(Collections.singletonList(createFixture()));
+        Mockito.when(paymentDao.findAllWitchDirection()).thenReturn(Collections.singletonList(createFixture()));
 
-        List<Payment> result = paymentService.findWitchDirection();
+        List<Payment> result = paymentService.findAllWitchDirection();
 
         assertNotNull(result);
         assertFalse(result.isEmpty());
         assertEquals(result.size() - 1, 0);
 
-        Mockito.verify(paymentDao).findWitchDirection();
+        Mockito.verify(paymentDao).findAllWitchDirection();
     }
 
     @Test

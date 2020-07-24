@@ -32,9 +32,9 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public List<Payment> find() {
-        LOGGER.debug("Find :");
-        return paymentDao.find();
+    public List<Payment> findAll() {
+        LOGGER.debug("Find all:");
+        return paymentDao.findAll();
     }
 
     @Override
@@ -73,9 +73,9 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public List<Payment> findWitchDirection() {
-        LOGGER.debug("Find  with direction()");
-        return paymentDao.findWitchDirection();
+    public List<Payment> findAllWitchDirection() {
+        LOGGER.debug("Find all with direction()");
+        return paymentDao.findAllWitchDirection();
     }
 
     @Override
@@ -87,7 +87,8 @@ public class PaymentServiceImpl implements PaymentService {
     private void sendMessage(Payment payment) {
         SimpleMailMessage mail = new SimpleMailMessage();
 
-        mail.setFrom("MurinKot97@gmail.com");
+        mail.setFrom("payticketapplication@gmail.com");
+//        mail.setFrom("MurinKot97@gmail.com");
         mail.setTo(payment.getEmail());
         mail.setSubject("Hi");
         mail.setText("It is simple a message from my ticketTrain-application :) Have a nice a day! ");

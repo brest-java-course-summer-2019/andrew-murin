@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.stereotype.Repository;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -26,11 +25,11 @@ import java.util.Map;
 @PropertySource("classpath:/jpql_query_ticket.properties")
 public class TicketDaoJdbcImpl implements TicketDao {
 
-    @Value("${ticket.find}")
-    private String SELECT_;
+    @Value("${ticket.findAll}")
+    private String SELECT_ALL;
 
-    @Value("${ticket.findWithDirection}")
-    private String SELECT__WITH_DIRECTION;
+    @Value("${ticket.findAllWithDirection}")
+    private String SELECT_ALL_WITH_DIRECTION;
 
     @Value("${ticket.searchByDate}")
     private String SEARCH_BY_DATE;
@@ -49,7 +48,6 @@ public class TicketDaoJdbcImpl implements TicketDao {
     private final SessionFactory sessionFactory;
 
     private Transact transact;
-
 
     @Autowired
     public TicketDaoJdbcImpl(SessionFactory sessionFactory) {
@@ -74,8 +72,8 @@ public class TicketDaoJdbcImpl implements TicketDao {
     }
 
     @Override
-    public List<Ticket> find(){
-        List<Ticket> tickets = transact.sessionFixture(SELECT_);
+    public List<Ticket> findAll(){
+        List<Ticket> tickets = transact.sessionFixture(SELECT_ALL);
         return tickets;
     }
 
@@ -115,8 +113,8 @@ public class TicketDaoJdbcImpl implements TicketDao {
     }
 
     @Override
-    public List<Ticket> findWithDirection() {
-        List<Ticket> tickets = transact.sessionFixture(SELECT__WITH_DIRECTION);
+    public List<Ticket> findAllWithDirection() {
+        List<Ticket> tickets = transact.sessionFixture(SELECT_ALL_WITH_DIRECTION);
         return tickets;
 
     }

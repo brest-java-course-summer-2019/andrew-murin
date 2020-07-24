@@ -1,17 +1,24 @@
 package com.epam.brest2019.courses.dao;
 
 
+import com.epam.brest2019.courses.model.City;
 import com.epam.brest2019.courses.model.Payment;
+import com.epam.brest2019.courses.model.Ticket;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.NativeQuery;
+import org.hibernate.query.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Repository;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,8 +30,10 @@ import java.util.Map;
 @PropertySource("classpath:/jpql_query_payment.properties")
 public class PaymentDaoJdbcImpl implements PaymentDao {
 
-    @Value("${payment.find}")
-    private String SELECT_;
+    private static final Logger LOGGER = LoggerFactory.getLogger(PaymentDaoJdbcImpl.class);
+
+    @Value("${payment.findAll}")
+    private String SELECT_ALL;
 
     @Value("${payment.findByTicketId}")
     private String FIND_BY_TICKET_ID;
@@ -32,8 +41,8 @@ public class PaymentDaoJdbcImpl implements PaymentDao {
     @Value("${payment.findById}")
     private String FIND_BY_PAYMENT_ID;
 
-    @Value("${payment.findWitchDirection}")
-    private String FIND__WITH_DIRECTION;
+    @Value("${payment.findAllWitchDirection}")
+    private String FIND_ALL_WITH_DIRECTION;
 
     @Value("${payment.searchByDate}")
     private String SEARCH_BY_DATE;
@@ -59,8 +68,8 @@ public class PaymentDaoJdbcImpl implements PaymentDao {
     }
 
     @Override
-    public List<Payment> find() {
-        List<Payment> payments = transact.sessionFixture(SELECT_);
+    public List<Payment> findAll() {
+        List<Payment> payments = transact.sessionFixture(SELECT_ALL);
         return payments;
     }
 
@@ -98,6 +107,7 @@ public class PaymentDaoJdbcImpl implements PaymentDao {
 
     @Override
     public void add(Payment payment) {
+        LOGGER.debug("ADD {}", payment);
         transact.dmlQueryFixture(payment, ADD);
     }
 
@@ -108,12 +118,13 @@ public class PaymentDaoJdbcImpl implements PaymentDao {
 
     @Override
     public void update(Payment payment) {
+        LOGGER.debug("UPDATE {}", payment);
         transact.dmlQueryFixture(payment, UPDATE);
     }
 
     @Override
-    public List<Payment> findWitchDirection() {
-        List<Payment> payments = transact.sessionFixture(FIND__WITH_DIRECTION);
+    public List<Payment> findAllWitchDirection() {
+        List<Payment> payments = transact.sessionFixture(FIND_ALL_WITH_DIRECTION);
         return payments;
     }
 
