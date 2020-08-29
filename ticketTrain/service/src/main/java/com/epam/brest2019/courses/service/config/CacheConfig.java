@@ -1,20 +1,24 @@
 package com.epam.brest2019.courses.service.config;
 
 
-import com.epam.brest2019.courses.model.Ticket;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
+import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.RedisSerializationContext;
+import org.springframework.data.redis.serializer.RedisSerializer;
 
 @Configuration
+@EnableCaching
 public class CacheConfig extends CachingConfigurerSupport {
 
 
     @Bean
-    JedisConnectionFactory jedisConnectionFactory() {
+    public JedisConnectionFactory jedisConnectionFactory() {
         RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration("localhost", 6379);
 
         return new JedisConnectionFactory(configuration);
@@ -22,10 +26,23 @@ public class CacheConfig extends CachingConfigurerSupport {
 
 
     @Bean
-    RedisTemplate<String, Ticket> redisTemplate() {
-        RedisTemplate<String, Ticket> redisTemplate = new RedisTemplate<>();
-        redisTemplate.setConnectionFactory(jedisConnectionFactory());
+    public RedisCacheManager redisCacheManager() {
 
-        return redisTemplate;
+        RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration
+                .defaultCacheConfig()
+                .disableCachingNullValues()
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(RedisSerializer.java()));
+
+        redisCacheConfiguration.usePrefix();
+
+        RedisCacheManager redisCacheManager = RedisCacheManager
+                .RedisCacheManagerBuilder
+                .fromConnectionFactory(jedisConnectionFactory())
+                .cacheDefaults(redisCacheConfiguration).build();
+
+        redisCacheManager.setTransactionAware(true);
+
+        return redisCacheManager;
     }
+
 }

@@ -5,6 +5,8 @@ import com.epam.brest2019.courses.model.Ticket;
 import com.epam.brest2019.courses.model.dto.TicketDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -34,26 +36,29 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+    @CacheEvict(value = "tickets", allEntries = true)
     public Ticket add(Ticket ticket) {
         LOGGER.debug("Add new ticket: {}",ticket);
-//        sendMessage(ticket);
         return ticketDao.add(ticket);
     }
 
     @Override
+    @CacheEvict(value = {"tickets", "paid-tickets"}, allEntries = true)
     public void payTicket(Ticket ticket) {
         LOGGER.debug("Update ticket: {}", ticket);
+        //        sendMessage(ticket);
         ticketDao.payTicket(ticket);
     }
 
     @Override
+    @CacheEvict(value = {"tickets", "paid-tickets"}, allEntries = true)
     public void delete(String ticketId) {
         LOGGER.debug("Delete ticket with id: {}", ticketId);
         ticketDao.delete(ticketId);
     }
 
     @Override
-    @Cacheable("tickets")
+    @Cacheable(value = "tickets")
     public List<Ticket> findAll () {
         System.out.println("++++++ WORKING +++++");
         LOGGER.debug("Find all tickets");
@@ -61,12 +66,15 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+    @Cacheable("paid-tickets")
     public List<Ticket> findAllPaidTickets() {
+        System.out.println("------WORKING-------");
         LOGGER.debug("Find all paid-tickets");
         return ticketDao.findAllPaidTickets();
     }
 
     @Override
+//    @Cacheable(cacheNames = "tickets")
     public Ticket findById (String ticketId){
         LOGGER.debug("Find ticket by Id: {}", ticketId);
         return ticketDao.findById(ticketId);
@@ -87,6 +95,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+//    @CachePut("tickets")
     public void update(Ticket ticket) {
         LOGGER.debug("Update ticket: {}", ticket);
         ticketDao.update(ticket);
@@ -103,7 +112,6 @@ public class TicketServiceImpl implements TicketService {
         SimpleMailMessage mail = new SimpleMailMessage();
 
         mail.setFrom("payticketapplication@gmail.com");
-//        mail.setFrom("MurinKot97@gmail.com");
         mail.setTo(payment.getEmail());
         mail.setSubject("Hi");
         mail.setText("It is simple a message from my ticketTrain-application :) Have a nice a day! ");

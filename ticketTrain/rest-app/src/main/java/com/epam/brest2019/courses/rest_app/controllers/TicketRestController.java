@@ -127,10 +127,7 @@ public class TicketRestController {
             @ApiResponse(code = 404, message = "Ticket not found"),
             @ApiResponse(code = 500, message = "Internal server error")
     })
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "paymentDate", value = "Date of purchase ticket", required = true, paramType = "header", dataType = "string"),
-            @ApiImplicitParam(name = "email", value = "Email of bayer", required = true, paramType = "header", dataType = "string")
-    })
+    @ApiImplicitParam(name = "paid-ticket", value = "Paid-ticket", required = true, paramType = "body", dataType = "Ticket")
     @PutMapping(value = "/tickets")
     public void payTicket(@RequestBody Ticket ticket) {
 
