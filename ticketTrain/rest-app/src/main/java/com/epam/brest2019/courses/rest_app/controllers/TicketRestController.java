@@ -183,8 +183,8 @@ public class TicketRestController {
 
         LOGGER.debug("Search tickets by date & directions");
 
-        LocalDateTime startDateLocal = LocalDateTime.of(2019, 1, 1, 1, 1, 1);
-        LocalDateTime finishDateLocal = LocalDateTime.of(2020, 1, 1, 1, 1, 1);
+        LocalDateTime startDateLocal;
+        LocalDateTime finishDateLocal;
 
         try {
             startDateLocal = LocalDate.parse(startDate).atTime(LocalTime.of(1,1));
@@ -192,6 +192,9 @@ public class TicketRestController {
 
         } catch (Exception ex) {
             LOGGER.debug("Exception(searchTicket) {}", ex.getMessage());
+
+            startDateLocal = LocalDateTime.of(2019, 1, 1, 1, 1, 1);
+            finishDateLocal = LocalDateTime.of(2020, 1, 1, 1, 1, 1);
         }
 
         return ticketService.searchTicket(startDateLocal, finishDateLocal, cityFrom, cityTo);

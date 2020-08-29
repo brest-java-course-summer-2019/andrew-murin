@@ -20,6 +20,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col">
+
         <table class="table table-striped">
           <thead class="thead-inverse">
           <tr>
@@ -42,50 +43,53 @@
             <td>{{ticket.ticketDate | date: 'longDate'}}</td>
             <td>
 
-                                     <span
-                                           data-toggle="modal"
-                                           class="navbar-nav float-right"
-
-                                           (click)="openDialog(); findTicketAndSendToChild(ticket.id)">
-                                        <a
-                                           class="btn btn-dark pay"
-                                           title="Pay ticket"
-                                           data-toggle="tooltip"
-                                           data-placement="top">
-                                                <i class="fa fa-pencil"></i>
-                                            <span class="d-none d-md-inline">Pay</span></a>
-                                    </span>
+              <span
+                data-toggle="modal"
+                class="navbar-nav float-right"
+                (click)="openDialog(); findTicketAndSendToChild(ticket.id)">
+                  <a
+                    class="btn btn-dark pay"
+                    title="Pay ticket"
+                    data-toggle="tooltip"
+                    data-placement="top">
+                      <i class="fa fa-pencil"></i>
+                    <span class="d-none d-md-inline">Pay</span></a>
+              </span>
             </td>
+
             <td>
-                                    <span
-                                          data-toggle="modal"
-                                          class="navbar-nav float-right"
+              <span
+                data-toggle="modal"
+                class="navbar-nav float-right"
+                (click)="openDeleteDialog(); deleteTicket = ticket.id">
 
-                                          (click)="openDeleteDialog(); deleteTicket = ticket.id">
-                                        <a class="btn btn-dark"
-                                           title="delete ticket"
-                                           data-toggle="tooltip"
-                                           data-placement="top">
-                                            <i class="fa fa-remove"></i>
-                                            <span class="d-none d-md-inline">Delete</span></a>
-                                    </span>
+                  <a class="btn btn-dark"
+                     title="delete ticket"
+                     data-toggle="tooltip"
+                     data-placement="top">
+                      <i class="fa fa-remove"></i>
+                    <span class="d-none d-md-inline">Delete</span></a>
+              </span>
 
-                                    <span class="navbar-nav float-right">
-                                        <a
-                                           [routerLink]="['/tickets/edit']"
-                                           [queryParams]="{'ticketId': ticket.id}"
+              <span class="navbar-nav float-right">
+                <a
+                  [routerLink]="['/tickets/edit']"
+                  [queryParams]="{'ticketId': ticket.id}"
 
-                                           class="btn btn-dark"
-                                           title="Edit ticket"
-                                           data-toggle="tooltip"
-                                           data-placement="top">
-                                                <i class="fa fa-pencil"></i>
-                                            <span class="d-none d-md-inline">Edit</span></a>
-                                    </span>
+                  class="btn btn-dark"
+                  title="Edit ticket"
+                  data-toggle="tooltip"
+                  data-placement="top">
+                    <i class="fa fa-pencil"></i>
+                  <span class="d-none d-md-inline">Edit</span></a>
+              </span>
+
             </td>
           </tr>
           </tbody>
+
         </table>
+
       </div>
     </div>
   </div>
@@ -93,9 +97,9 @@
 
 
 <app-pay-ticket-dialog [display]="displayPayModal"
-                [ticket]="ticket"
-                (displayPayModal)="receiveEventToClosePayDialog($event)"></app-pay-ticket-dialog>
+                       [ticket]="ticket"
+                       (displayPayModal)="receiveEventToClosePayDialog($event)"></app-pay-ticket-dialog>
 
 <app-delete-ticket-dialog  [display]="displayDeleteModal"
-                    [deleteTicket]="deleteTicket"
-                    (displayDeleteModal)="receiveEventToCloseDeleteDialog($event)"></app-delete-ticket-dialog>
+                           [deleteTicket]="deleteTicket"
+                           (displayDeleteModal)="receiveEventToCloseDeleteDialog($event)"></app-delete-ticket-dialog>

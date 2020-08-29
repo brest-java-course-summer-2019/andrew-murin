@@ -24,5 +24,4 @@ export class SearchTicketsComponent implements OnInit {
 
   }
 
-
 }

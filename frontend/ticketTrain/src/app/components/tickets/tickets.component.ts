@@ -23,24 +23,24 @@ export class TicketsComponent implements OnInit {
               private route: ActivatedRoute) {
 
 
+    if (!this.route.snapshot.data === null)  {
 
-    const params = {
-      'cityFrom': this.route.snapshot.queryParamMap.get('cityFrom'),
-      'cityTo': this.route.snapshot.queryParamMap.get('cityTo'),
-      'startDate': this.route.snapshot.queryParamMap.get('startDate'),
-      'finishDate': this.route.snapshot.queryParamMap.get('finishDate')
+      const params = {
+        'startDate': this.route.snapshot.queryParamMap.get('startDate'),
+        'finishDate': this.route.snapshot.queryParamMap.get('finishDate'),
+        'cityFrom': this.route.snapshot.queryParamMap.get('cityFrom'),
+        'cityTo': this.route.snapshot.queryParamMap.get('cityTo'),
+      }
+
+      this.ticketService.searchTicket(params).subscribe(tickets => {
+        this.tickets = tickets
+      });
+
     }
-
-
-    ticketService.searchTicket(params).subscribe(tickets => {
-      this.tickets = tickets
-    });
-
   }
 
 
   ngOnInit(): void {
-
     this.ticketService.findAll().subscribe(tickets => {
       this.tickets = tickets
     });
