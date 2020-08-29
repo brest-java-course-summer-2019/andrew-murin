@@ -44,7 +44,6 @@ export class PaidTicketsComponent implements OnInit {
     this.ticketService.findPaidTicketsByDate(startDate, finishDate).subscribe(paidTickets => {
 
       this.paidTickets = paidTickets;
-
       this.ticketCount = paidTickets.length;
 
       this.totalSum = paidTickets

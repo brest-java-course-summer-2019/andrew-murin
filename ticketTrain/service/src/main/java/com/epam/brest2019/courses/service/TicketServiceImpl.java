@@ -5,6 +5,7 @@ import com.epam.brest2019.courses.model.Ticket;
 import com.epam.brest2019.courses.model.dto.TicketDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ import java.util.List;
 
 
 @Service
-@Transactional
+//@Transactional
 public class TicketServiceImpl implements TicketService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Ticket.class);
@@ -52,7 +53,9 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+    @Cacheable("tickets")
     public List<Ticket> findAll () {
+        System.out.println("++++++ WORKING +++++");
         LOGGER.debug("Find all tickets");
         return ticketDao.findAll();
     }

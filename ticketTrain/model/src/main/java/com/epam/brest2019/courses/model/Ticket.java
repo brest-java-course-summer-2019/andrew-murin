@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.FieldType;
 
 import javax.validation.constraints.Email;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 
@@ -18,7 +19,7 @@ import java.time.ZonedDateTime;
  */
 @Document(collection = "ticket")
 @ApiModel(value = "Class Ticket")
-public class Ticket {
+public class Ticket implements Serializable {
 
     /**
      * Ticket Id

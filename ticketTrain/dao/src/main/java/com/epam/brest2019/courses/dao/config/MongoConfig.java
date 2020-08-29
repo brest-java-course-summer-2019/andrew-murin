@@ -5,6 +5,7 @@ import com.epam.brest2019.courses.model.converter.DateReadConverter;
 import com.epam.brest2019.courses.model.converter.DateWriteConverter;
 import com.epam.brest2019.courses.model.converter.DoubleToBigDecimal;
 import com.mongodb.MongoClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +13,8 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.MongoTransactionManager;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.convert.MongoCustomConversions;
 
 import java.util.ArrayList;
@@ -24,11 +27,12 @@ public class MongoConfig extends AbstractMongoConfiguration {
 
     private final List<Converter<?, ?>> converters = new ArrayList<>();
 
-//      TODO: throw error(bind with replicaSet)
+//      TODO: throw a error(bind with replicaSet)
 //    @Bean
 //    public MongoTransactionManager transactionManager(MongoDbFactory dbFactory) {
 //        return new MongoTransactionManager(dbFactory);
 //    }
+
 
     @Override
     public MongoClient mongoClient() {

@@ -2,6 +2,7 @@ package com.epam.brest2019.courses.service;
 
 import com.epam.brest2019.courses.model.Ticket;
 import com.epam.brest2019.courses.model.dto.TicketDto;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -39,6 +40,7 @@ public interface TicketService {
      *
      * @return tickets list.
      */
+//    @Cacheable("tickets")
     List<Ticket> findAll();
 
     /**
