@@ -41,7 +41,6 @@ public class TicketDaoImpl implements TicketDao {
     public TicketDto sumPaidTicketCost() {
         log.debug("Find all cost of paid tickets");
         log.debug("Sum paid ticket aggregation");
-        TicketDto ticketDto = new TicketDto();
 
         Aggregation agg = Aggregation.newAggregation(
                 match(Criteria.where("paymentDate").exists(true).and("email").exists(true)),
@@ -50,12 +49,7 @@ public class TicketDaoImpl implements TicketDao {
 
         AggregationResults<TicketDto> result = mongoTemplate.aggregate(agg, "ticket", TicketDto.class);
 
-
-        if (result.getMappedResults().size() != 0)
-            ticketDto.setCost(result.getMappedResults().get(0).getCost());
-        else
-            ticketDto.setCost(new BigDecimal(0));
-
+        TicketDto ticketDto = new TicketDto(result.getMappedResults().get(0).getCost());
 
         return ticketDto;
     }

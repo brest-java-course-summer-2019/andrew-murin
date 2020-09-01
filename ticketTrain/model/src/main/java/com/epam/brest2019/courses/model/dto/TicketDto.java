@@ -1,17 +1,14 @@
 package com.epam.brest2019.courses.model.dto;
 
 
+import lombok.Value;
+
 import java.math.BigDecimal;
 
+@Value
 public class TicketDto {
 
-    private BigDecimal cost;
+//    By default private field and immutable
+    BigDecimal cost;
 
-    public BigDecimal getCost() {
-        return cost;
-    }
-
-    public void setCost(BigDecimal cost) {
-        this.cost = cost;
-    }
 }

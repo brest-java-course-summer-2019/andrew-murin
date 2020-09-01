@@ -92,7 +92,7 @@ public class TicketRestController {
             finishDateLocal = LocalDate.parse(finishDate).atTime(LocalTime.now());
 
         } catch (Exception ex) {
-            log.debug("Exception because off converting data(startDate: {}, finishDate: {})",
+            log.debug("Exception because off converting data, default values (startDate: {}, finishDate: {})",
                                                             startDateLocal, finishDateLocal);
 
             log.debug("Exception message: ({})", ex.getMessage());

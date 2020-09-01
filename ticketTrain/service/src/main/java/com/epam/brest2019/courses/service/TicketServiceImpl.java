@@ -64,12 +64,11 @@ public class TicketServiceImpl implements TicketService {
     @Override
     @Cacheable("paid-tickets")
     public List<Ticket> findAllPaidTickets() {
-        log.debug("Find all paid-tickets");
+        log.debug("Find all paid-tickets. Next values will have cached.");
         return ticketDao.findAllPaidTickets();
     }
 
     @Override
-//    @Cacheable(cacheNames = "tickets")
     public Ticket findById (String id){
         log.debug("Find ticket by id: ({})", id);
         return ticketDao.findById(id);
