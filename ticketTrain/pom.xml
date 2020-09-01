@@ -115,6 +115,13 @@
             </dependency>
 
             <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.2</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>com.epam.brest2019.courses</groupId>
                 <artifactId>model</artifactId>
                 <version>${project.version}</version>

@@ -1,6 +1,7 @@
 package com.epam.brest2019.courses.model.initDB;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -11,10 +12,8 @@ import java.nio.charset.StandardCharsets;
 
 
 @Component
+@Slf4j
 public class InitEmbeddedDataBase {
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(InitEmbeddedDataBase.class);
-
 
     public String initEmbeddedMongo() {
         String data = "";
@@ -24,7 +23,7 @@ public class InitEmbeddedDataBase {
             data = new String(bdata, StandardCharsets.UTF_8);
 
         } catch (Exception ex){
-            LOGGER.debug("Error initialization test MongoDataBase: {}", ex.getMessage());
+            log.debug("Error initialization test MongoDataBase: {}", ex.getMessage());
         }
 
 

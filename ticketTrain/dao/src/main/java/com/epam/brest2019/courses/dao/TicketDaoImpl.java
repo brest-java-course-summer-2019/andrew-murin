@@ -2,13 +2,11 @@ package com.epam.brest2019.courses.dao;
 
 import com.epam.brest2019.courses.model.Ticket;
 import com.epam.brest2019.courses.model.dto.TicketDto;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
-import org.springframework.data.mongodb.core.aggregation.ConditionalOperators;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -18,17 +16,17 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
 
 
 /**
  *  Ticket DAO Interface implementation
  */
 @Repository
+@Slf4j
 public class TicketDaoImpl implements TicketDao {
 
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(TicketDaoImpl.class);
 
     private final MongoTemplate mongoTemplate;
 
@@ -41,7 +39,8 @@ public class TicketDaoImpl implements TicketDao {
 
     @Override
     public TicketDto sumPaidTicketCost() {
-        LOGGER.debug("Sum paid ticket aggregation");
+        log.debug("Find all cost of paid tickets");
+        log.debug("Sum paid ticket aggregation");
         TicketDto ticketDto = new TicketDto();
 
         Aggregation agg = Aggregation.newAggregation(
@@ -64,7 +63,7 @@ public class TicketDaoImpl implements TicketDao {
 
     @Override
     public List<Ticket> findAll() {
-        LOGGER.debug("Find all tickets");
+        log.debug("Find all tickets");
 
         Query query = new Query()
                 .addCriteria(Criteria.where("paymentDate").exists(false));
@@ -76,7 +75,7 @@ public class TicketDaoImpl implements TicketDao {
 
     @Override
     public List<Ticket> findAllPaidTickets() {
-        LOGGER.debug("Find all paid-tickets");
+        log.debug("Find all paid-tickets");
 
         Query query = new Query()
                 .addCriteria(Criteria.where("paymentDate").exists(true));
@@ -88,14 +87,15 @@ public class TicketDaoImpl implements TicketDao {
 
 
     @Override
-    public List<Ticket> searchTicket(LocalDateTime startDate, LocalDateTime finishDate, String fromCity, String toCity) {
-        LOGGER.debug("Search tickets: " +
-                "startDate {},finishDate {}, fromCity {}, toCity{}", startDate, finishDate, fromCity, toCity);
+    public List<Ticket> searchTicket(LocalDateTime startDate, LocalDateTime finishDate, String cityFrom, String cityTo) {
+        log.debug("Search tickets by date & directions " +
+                        "(startDate: {}, finishDate: {}, cityFrom: {}, cityTo: {})",
+                startDate, finishDate, cityFrom, cityTo);
 
         Query query = new Query()
                 .addCriteria(Criteria.where("ticketDate").gte(startDate).lte(finishDate))
-                .addCriteria(Criteria.where("fromCity").is(fromCity))
-                .addCriteria(Criteria.where("toCity").is(toCity))
+                .addCriteria(Criteria.where("fromCity").is(cityFrom))
+                .addCriteria(Criteria.where("toCity").is(cityTo))
                 .addCriteria(Criteria.where("paymentDate").exists(false));
 
         List<Ticket> tickets = mongoTemplate.find(query, Ticket.class, "ticket");
@@ -106,7 +106,7 @@ public class TicketDaoImpl implements TicketDao {
 
     @Override
     public List<Ticket> searchPaidTicketByDate(LocalDateTime startDate, LocalDateTime finishDate) {
-        LOGGER.debug("Search paidTicket by startDate {}, finishDate{}", startDate, finishDate);
+        log.debug("Search paid tickets by date (startDate: {}, finishDate: {})", startDate, finishDate);
 
         Query query = new Query()
                 .addCriteria(Criteria.where("paymentDate").gte(startDate).lte(finishDate));
@@ -118,10 +118,10 @@ public class TicketDaoImpl implements TicketDao {
 
 
     @Override
-    public Ticket findById(String ticketId) {
-        LOGGER.debug("Find ticket by ticketId {}", ticketId);
+    public Ticket findById(String id) {
+        log.debug("Find ticket by id: ({})", id);
 
-        Ticket ticket = mongoTemplate.findById(ticketId, Ticket.class);
+        Ticket ticket = mongoTemplate.findById(id, Ticket.class);
 
         return ticket;
     }
@@ -129,14 +129,14 @@ public class TicketDaoImpl implements TicketDao {
 
     @Override
     public Ticket add(Ticket ticket) {
-        LOGGER.debug("Add ticket {}", ticket);
+        log.debug("Add ticket {}", ticket);
         return mongoTemplate.save(ticket, "ticket");
     }
 
 
     @Override
     public void payTicket(Ticket ticket) {
-        LOGGER.debug("Pay ticket {}", ticket);
+        log.debug("Pay ticket: ({})", ticket);
 
         Query query = new Query()
                 .addCriteria(Criteria.where("id").is(ticket.getId()));
@@ -150,7 +150,7 @@ public class TicketDaoImpl implements TicketDao {
 
     @Override
     public void update(Ticket ticket) {
-        LOGGER.debug("Update ticket");
+        log.debug("Update ticket, (old ticket: {})", ticket);
 
         Query query = new Query()
                 .addCriteria(Criteria.where("id").is(ticket.getId()));
@@ -167,11 +167,11 @@ public class TicketDaoImpl implements TicketDao {
 
 
     @Override
-    public void delete(String ticketId) {
-        LOGGER.debug("Delete ticket by ticketId {}", ticketId);
+    public void delete(String id) {
+        log.debug("Delete ticket by id: ({})", id);
 
         Query query = new Query()
-                .addCriteria(Criteria.where("id").is(ticketId));
+                .addCriteria(Criteria.where("id").is(id));
 
         mongoTemplate.findAndRemove(query, Ticket.class, "ticket");
     }
