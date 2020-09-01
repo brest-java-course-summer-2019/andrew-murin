@@ -75,6 +75,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+    @CacheEvict(value = {"tickets"}, allEntries = true)
     public List<Ticket> searchTicket (LocalDateTime startDate, LocalDateTime finishDate,
                                       String cityFrom, String cityTo){
         log.debug("Search tickets by date & directions " +

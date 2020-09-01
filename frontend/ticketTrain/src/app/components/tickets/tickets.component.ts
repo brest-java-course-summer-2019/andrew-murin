@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {TicketService} from "../../services/ticketService/ticket.service";
 import {Ticket} from "../../model/Ticket";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
+import {filter} from "rxjs/operators";
 
 
 @Component({
@@ -18,19 +19,23 @@ export class TicketsComponent implements OnInit {
   ticket: Ticket;
   deleteTicket: string;
 
+  isSearching: boolean = false;
 
   constructor(private ticketService: TicketService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private router: Router) {
 
+    let urlRegex = new RegExp("/tickets[?]cityFrom=[A-Z]+&cityTo=[A-Z]+&startDate=[-0-9]+&finishDate=[-0-9]+");
+    this.isSearching = urlRegex.test(this.router.url);
 
-    if (!this.route.snapshot.data === null)  {
+    if (this.isSearching) {
 
       const params = {
         'startDate': this.route.snapshot.queryParamMap.get('startDate'),
         'finishDate': this.route.snapshot.queryParamMap.get('finishDate'),
         'cityFrom': this.route.snapshot.queryParamMap.get('cityFrom'),
         'cityTo': this.route.snapshot.queryParamMap.get('cityTo'),
-      }
+      };
 
       this.ticketService.searchTicket(params).subscribe(tickets => {
         this.tickets = tickets
@@ -41,9 +46,12 @@ export class TicketsComponent implements OnInit {
 
 
   ngOnInit(): void {
+
     this.ticketService.findAll().subscribe(tickets => {
-      this.tickets = tickets
+      if (!this.isSearching)
+        this.tickets = tickets
     });
+
   }
 
 
