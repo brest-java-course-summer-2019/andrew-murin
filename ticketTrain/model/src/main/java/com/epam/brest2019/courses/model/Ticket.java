@@ -13,6 +13,7 @@ import javax.validation.constraints.Email;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
+import java.util.Date;
 
 
 /**
@@ -24,7 +25,6 @@ import java.time.ZonedDateTime;
 @Setter
 @ToString
 @NoArgsConstructor
-@RequiredArgsConstructor
 public class Ticket implements Serializable {
 
     /**
@@ -37,36 +37,45 @@ public class Ticket implements Serializable {
      * Cost of ticket
      */
     @ApiModelProperty(value = "Cost of ticket", example = "30")
-    @NonNull
     private BigDecimal ticketCost;
 
     /**
      * date train
      */
     @ApiModelProperty(value = "Start date for train", example = "2020-05-19")
-    @NonNull
     private ZonedDateTime ticketDate;
 
     /**
      * Direction of train_from
      */
     @ApiModelProperty(value = "From city", example = "BREST")
-    @NonNull
     private City fromCity;
 
     /**
      * Direction of train_to
      */
     @ApiModelProperty(value = "To city", example = "MINSK")
-    @NonNull
     private City toCity;
 
     @ApiModelProperty(value = "Purchases date of ticket ", example = "2020-05-18")
-    @NonNull
     private ZonedDateTime paymentDate;
 
     @ApiModelProperty(value = "E-mail", example = "alze.andrey.1997@mail.ru")
-    @NonNull
     private String email;
 
+
+    public Ticket(BigDecimal ticketCost,
+                  ZonedDateTime ticketDate,
+                  City fromCity,
+                  City toCity,
+                  ZonedDateTime paymentDate,
+                  String email)
+    {
+        this.ticketCost = ticketCost;
+        this.ticketDate = ticketDate;
+        this.fromCity = fromCity;
+        this.toCity = toCity;
+        this.paymentDate = paymentDate;
+        this.email = email;
+    }
 }

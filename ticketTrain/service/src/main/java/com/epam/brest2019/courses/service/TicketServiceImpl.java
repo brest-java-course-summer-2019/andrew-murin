@@ -93,7 +93,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-//    @CachePut("tickets")
+    @CacheEvict(value = {"tickets"}, allEntries = true)
     public void update(Ticket ticket) {
         log.debug("Update ticket, (old ticket: {})", ticket);
         ticketDao.update(ticket);
