@@ -1,20 +1,23 @@
 package com.epam.brest2019.courses.model.constant;
 
 import com.epam.brest2019.courses.model.City;
+import lombok.experimental.UtilityClass;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+@UtilityClass
 public class Constant {
 
-    public final static LocalDateTime START_DATE =  LocalDate.of(2019,01,01).atTime(LocalTime.now());
-    public final static LocalDateTime FINISH_DATE = LocalDate.of(2019, 12,12).atTime(LocalTime.now());
+//    @UtilityClass makes all constants static
+    public final LocalDateTime START_DATE =  LocalDate.of(2019,01,01).atTime(LocalTime.now());
+    public final LocalDateTime FINISH_DATE = LocalDate.of(2019, 12,12).atTime(LocalTime.now());
 
-    public final static String BREST = City.BREST.getCity();
-    public final static String MINSK = City.MINSK.getCity();
-    public final static String GRODNO = City.GRODNO.getCity();
-    public final static String GOMEL = City.GOMEL.getCity();
-    public final static String MOGILEV = City.MOGILEV.getCity();
-    public final static String VITEBSK = City.VITEBSK.getCity();
+    public final String BREST = City.BREST.name();
+    public final String MINSK = City.MINSK.name();
+    public final String GRODNO = City.GRODNO.name();
+    public final String GOMEL = City.GOMEL.name();
+    public final String MOGILEV = City.MOGILEV.name();
+    public final String VITEBSK = City.VITEBSK.name();
 }
