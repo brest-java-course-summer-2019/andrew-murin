@@ -3,17 +3,11 @@ import {City} from "./City";
 export class Ticket {
 
   id: string;
-
   ticketCost: number;
-
   ticketDate: string;
-
   fromCity: City;
-
   toCity: City;
-
   paymentDate?: string;
-
   email?: string;
 
 

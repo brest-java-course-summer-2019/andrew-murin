@@ -25,8 +25,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
 
@@ -48,8 +46,6 @@ public class TicketRestControllerTest {
 
     @InjectMocks
     private TicketRestController ticketRestController;
-
-    ObjectMapper objectMapper = new ObjectMapper();
 
     private MockMvc mockMvc;
 
@@ -149,8 +145,8 @@ public class TicketRestControllerTest {
     public void searchTicket() throws Exception {
         LOGGER.debug("Search Ticket");
 
-        LocalDateTime startDate = START_DATE.atTime(LocalTime.of(1,1));
-        LocalDateTime finishDate = FINISH_DATE.atTime(LocalTime.of(1,1));
+        String startDate = START_DATE.toString();
+        String finishDate = FINISH_DATE.toString();
 
         Mockito.when(ticketService.searchTicket(startDate, finishDate, BREST, MINSK))
                 .thenReturn(Arrays.asList(createFixture(0), createFixture(1)));

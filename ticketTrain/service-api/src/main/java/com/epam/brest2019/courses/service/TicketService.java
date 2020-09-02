@@ -65,7 +65,7 @@ public interface TicketService {
      *
      * @return list of tickets
      */
-    List<Ticket> searchTicket(LocalDateTime startDate, LocalDateTime finishDate,
+    List<Ticket> searchTicket(String startDate, String finishDate,
                               String cityFrom, String cityTo);
 
 
@@ -76,7 +76,7 @@ public interface TicketService {
      *
      * @return list of paid-tickets
      */
-    List<Ticket> searchPaidTicketByDate(LocalDateTime startDate, LocalDateTime finishDate);
+    List<Ticket> searchPaidTicketByDate(String startDate, String finishDate);
 
     /**
      * Update ticket

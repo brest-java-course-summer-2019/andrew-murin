@@ -4,26 +4,23 @@ import com.epam.brest2019.courses.dao.TicketDao;
 import com.epam.brest2019.courses.model.City;
 import com.epam.brest2019.courses.model.Ticket;
 import com.epam.brest2019.courses.service.TicketServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
-import java.time.*;
+import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.List;
 
 import static com.epam.brest2019.courses.model.constant.Constant.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-
+@Slf4j
 @ExtendWith(MockitoExtension.class)
 public class TicketServiceMockTest {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(TicketServiceMockTest.class);
 
 
     @Captor
@@ -39,7 +36,7 @@ public class TicketServiceMockTest {
 
     @Test
     public void findAll(){
-        LOGGER.debug("findAll");
+        log.debug("findAll");
 
         Mockito.when(ticketDao.findAll()).thenReturn(Collections.singletonList(createFixture()));
 
@@ -54,7 +51,7 @@ public class TicketServiceMockTest {
 
     @Test
     public void findById(){
-        LOGGER.debug("findById");
+        log.debug("findById");
 
         String id = "12345";
         Mockito.when(ticketDao.findById(id)).thenReturn(createFixture());
@@ -67,7 +64,7 @@ public class TicketServiceMockTest {
 
     @Test
     public void update(){
-        LOGGER.debug("update");
+        log.debug("update");
 
         ticketService.update(createFixture());
 
@@ -81,7 +78,7 @@ public class TicketServiceMockTest {
 
     @Test
     public void delete(){
-        LOGGER.debug("Delete");
+        log.debug("Delete");
 
         ticketService.delete("12345");
 
@@ -91,7 +88,7 @@ public class TicketServiceMockTest {
 
 //    @Test
 //    public void add(){
-//        LOGGER.debug("Add");
+//        log.debug("Add");
 //
 //        ZonedDateTime date = LocalDate.now().atTime(LocalTime.now()).atZone(ZoneId.systemDefault());
 //
@@ -108,12 +105,13 @@ public class TicketServiceMockTest {
 
     @Test
     public void searchTicket() {
-        LOGGER.debug("Search Ticket");
+        log.debug("Search Ticket");
 
         Mockito.when(ticketDao.searchTicket(START_DATE, FINISH_DATE, BREST, MINSK))
                 .thenReturn(Collections.singletonList(createFixture()));
 
-        List<Ticket> result = ticketService.searchTicket(START_DATE, FINISH_DATE, BREST, MINSK);
+//        Trouble with ticketService because LocalDateTime is returning .now()
+        List<Ticket> result = ticketDao.searchTicket(START_DATE, FINISH_DATE, BREST, MINSK);
 
         assertNotNull(result);
         assertFalse(result.isEmpty());

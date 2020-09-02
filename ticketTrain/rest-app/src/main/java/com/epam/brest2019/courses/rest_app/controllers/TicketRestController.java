@@ -1,19 +1,17 @@
 package com.epam.brest2019.courses.rest_app.controllers;
 
 import com.epam.brest2019.courses.model.Ticket;
+import com.epam.brest2019.courses.model.dto.TicketDto;
 import com.epam.brest2019.courses.model.dto.TicketDtoCost;
 import com.epam.brest2019.courses.model.dto.TicketMapper;
 import com.epam.brest2019.courses.service.TicketService;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.val;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 
@@ -28,14 +26,6 @@ public class TicketRestController {
     
     private final TicketService ticketService;
     private final TicketMapper mapper;
-
-
-//    @Autowired
-//    public TicketRestController(TicketService ticketService, TicketMapper mapper) {
-//        this.ticketService = ticketService;
-//        this.mapper = mapper;
-//    }
-
 
 
     @ApiOperation(value = "Get cost of all paid tickets", response = BigDecimal.class)
@@ -56,8 +46,8 @@ public class TicketRestController {
     })
     @GetMapping(value = "/tickets", produces = "application/json")
     public List<Ticket> findAll() {
-        log.debug("Find all tickets");
 
+        log.debug("Find all tickets");
         return ticketService.findAll();
     }
 
@@ -68,6 +58,7 @@ public class TicketRestController {
     })
     @GetMapping(value = "/paid-tickets", produces = "application/json")
     public List<Ticket> findAllPaidTickets() {
+
         log.debug("Find all paid-tickets");
         return ticketService.findAllPaidTickets();
     }
@@ -87,22 +78,7 @@ public class TicketRestController {
                                                @RequestParam("finishDate") String finishDate) {
 
         log.debug("Search paid tickets by date (startDate: {}, finishDate: {})", startDate, finishDate);
-
-        LocalDateTime startDateLocal = LocalDateTime.of(2019, 1, 1, 1, 1, 1);
-        LocalDateTime finishDateLocal = LocalDateTime.of(2021, 1, 1, 1, 1, 1);
-
-        try {
-            startDateLocal = LocalDate.parse(startDate).atTime(LocalTime.now());
-            finishDateLocal = LocalDate.parse(finishDate).atTime(LocalTime.now());
-
-        } catch (Exception ex) {
-            log.debug("Exception because off converting data, default values (startDate: {}, finishDate: {})",
-                                                            startDateLocal, finishDateLocal);
-
-            log.debug("Exception message: ({})", ex.getMessage());
-        }
-
-        return ticketService.searchPaidTicketByDate(startDateLocal, finishDateLocal);
+        return ticketService.searchPaidTicketByDate(startDate, finishDate);
     }
 
 
@@ -114,6 +90,7 @@ public class TicketRestController {
     })
     @GetMapping(value = "/tickets/{id}", produces = "application/json")
     public Ticket findById(@PathVariable("id") String id) {
+
         log.debug("Find ticket by id: ({})", id);
         return ticketService.findById(id);
     }
@@ -127,6 +104,7 @@ public class TicketRestController {
     @ApiImplicitParam(name = "ticket", required = true, value = "Ticket object", paramType = "body", dataType = "Ticket")
     @PostMapping(value = "/tickets")
     public void add(@RequestBody Ticket ticket) {
+
         log.debug("Add ticket: ({})", ticket);
         ticketService.add(ticket);
     }
@@ -141,8 +119,8 @@ public class TicketRestController {
     @ApiImplicitParam(name = "paid-ticket", value = "Paid-ticket", required = true, paramType = "body", dataType = "Ticket")
     @PutMapping(value = "/tickets")
     public void payTicket(@RequestBody Ticket ticket) {
-        log.debug("Pay ticket: ({})", ticket);
 
+        log.debug("Pay ticket: ({})", ticket);
         ticketService.payTicket(ticket);
     }
 
@@ -154,6 +132,7 @@ public class TicketRestController {
     })
     @DeleteMapping("/tickets/{id}")
     public void delete(@PathVariable("id") String id) {
+
         log.debug("Delete ticket by id: ({})", id);
         ticketService.delete(id);
     }
@@ -169,6 +148,7 @@ public class TicketRestController {
     @PutMapping("/update-tickets/{ticketId}")
     public void update(@RequestBody Ticket ticket,
                        @PathVariable("ticketId") String id) {
+
         log.debug("Update ticket, (old ticket: {}, new id: {})", ticket, id);
         ticket.setId(id);
         ticketService.update(ticket);
@@ -196,20 +176,6 @@ public class TicketRestController {
                 "(startDate: {}, finishDate: {}, cityFrom: {}, cityTo: {})",
                 startDate, finishDate, cityFrom, cityTo);
 
-        LocalDateTime startDateLocal;
-        LocalDateTime finishDateLocal;
-
-        try {
-            startDateLocal = LocalDate.parse(startDate).atTime(LocalTime.of(1,1));
-            finishDateLocal = LocalDate.parse(finishDate).atTime(LocalTime.of(1,1));
-
-        } catch (Exception ex) {
-            log.debug("Exception (searchTicket: {})", ex.getMessage());
-
-            startDateLocal = LocalDateTime.of(2019, 1, 1, 1, 1, 1);
-            finishDateLocal = LocalDateTime.of(2020, 1, 1, 1, 1, 1);
-        }
-
-        return ticketService.searchTicket(startDateLocal, finishDateLocal, cityFrom, cityTo);
+        return ticketService.searchTicket(startDate, finishDate, cityFrom, cityTo);
     }
 }

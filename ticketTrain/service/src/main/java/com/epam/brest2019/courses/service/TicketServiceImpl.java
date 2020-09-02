@@ -10,7 +10,9 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 
@@ -76,20 +78,51 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     @CacheEvict(value = {"tickets"}, allEntries = true)
-    public List<Ticket> searchTicket (LocalDateTime startDate, LocalDateTime finishDate,
+    public List<Ticket> searchTicket (String startDate, String finishDate,
                                       String cityFrom, String cityTo){
+
         log.debug("Search tickets by date & directions " +
                         "(startDate: {}, finishDate: {}, cityFrom: {}, cityTo: {})",
                 startDate, finishDate, cityFrom, cityTo);
 
-        return ticketDao.searchTicket(startDate, finishDate, cityFrom, cityTo);
+        LocalDateTime startDateLocal;
+        LocalDateTime finishDateLocal;
+
+        try {
+            startDateLocal = LocalDate.parse(startDate).atTime(LocalTime.of(1,1));
+            finishDateLocal = LocalDate.parse(finishDate).atTime(LocalTime.of(1,1));
+
+        } catch (Exception ex) {
+            log.debug("Exception (searchTicket: {})", ex.getMessage());
+
+            startDateLocal = LocalDateTime.of(2010, 1, 1, 1, 1, 1);
+            finishDateLocal = LocalDateTime.of(2030, 1, 1, 1, 1, 1);
+        }
+
+        return ticketDao.searchTicket(startDateLocal, finishDateLocal, cityFrom, cityTo);
     }
 
 
     @Override
-    public List<Ticket> searchPaidTicketByDate (LocalDateTime startDate, LocalDateTime finishDate){
+    public List<Ticket> searchPaidTicketByDate (String startDate, String finishDate){
         log.debug("Search paid tickets by date (startDate: {}, finishDate: {})", startDate, finishDate);
-        return ticketDao.searchPaidTicketByDate(startDate, finishDate);
+
+        LocalDateTime startDateLocal;
+        LocalDateTime finishDateLocal;
+
+        try {
+            startDateLocal = LocalDate.parse(startDate).atTime(LocalTime.now());
+            finishDateLocal = LocalDate.parse(finishDate).atTime(LocalTime.now());
+
+        } catch (Exception ex) {
+            startDateLocal = LocalDateTime.of(2010, 1, 1, 1, 1, 1);
+            finishDateLocal = LocalDateTime.of(2030, 1, 1, 1, 1, 1);
+
+            log.debug("Exception because off converting data, default values (startDate: {}, finishDate: {})",
+                    startDateLocal, finishDateLocal);
+        }
+
+        return ticketDao.searchPaidTicketByDate(startDateLocal, finishDateLocal);
     }
 
     @Override
