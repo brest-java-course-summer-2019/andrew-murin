@@ -1,7 +1,7 @@
 package com.epam.brest2019.courses.dao;
 
 import com.epam.brest2019.courses.model.Ticket;
-import com.epam.brest2019.courses.model.dto.TicketDto;
+import com.epam.brest2019.courses.model.dto.TicketDtoCost;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -51,7 +51,7 @@ public interface TicketDao {
     /**
      * Get total cost of paid-tickets
      */
-    TicketDto sumPaidTicketCost();
+    TicketDtoCost sumPaidTicketCost();
 
     /**
      * Get Ticket By Id

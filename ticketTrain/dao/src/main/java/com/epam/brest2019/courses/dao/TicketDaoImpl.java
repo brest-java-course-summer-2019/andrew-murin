@@ -1,7 +1,7 @@
 package com.epam.brest2019.courses.dao;
 
 import com.epam.brest2019.courses.model.Ticket;
-import com.epam.brest2019.courses.model.dto.TicketDto;
+import com.epam.brest2019.courses.model.dto.TicketDtoCost;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -12,7 +12,6 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -38,7 +37,7 @@ public class TicketDaoImpl implements TicketDao {
 
 
     @Override
-    public TicketDto sumPaidTicketCost() {
+    public TicketDtoCost sumPaidTicketCost() {
         log.debug("Find all cost of paid tickets");
         log.debug("Sum paid ticket aggregation");
 
@@ -47,11 +46,11 @@ public class TicketDaoImpl implements TicketDao {
                 group("id").sum("ticketCost").as("cost")
         );
 
-        AggregationResults<TicketDto> result = mongoTemplate.aggregate(agg, "ticket", TicketDto.class);
+        AggregationResults<TicketDtoCost> result = mongoTemplate.aggregate(agg, "ticket", TicketDtoCost.class);
 
-        TicketDto ticketDto = new TicketDto(result.getMappedResults().get(0).getCost());
+        TicketDtoCost ticketDtoCost = new TicketDtoCost(result.getMappedResults().get(0).getCost());
 
-        return ticketDto;
+        return ticketDtoCost;
     }
 
 

@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TicketService} from "../../services/ticketService/ticket.service";
 import {Ticket} from "../../model/Ticket";
-import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
-import {filter} from "rxjs/operators";
+import {ActivatedRoute, Router} from "@angular/router";
 
 
 @Component({

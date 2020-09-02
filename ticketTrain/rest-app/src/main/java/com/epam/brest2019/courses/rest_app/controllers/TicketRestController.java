@@ -1,9 +1,11 @@
 package com.epam.brest2019.courses.rest_app.controllers;
 
 import com.epam.brest2019.courses.model.Ticket;
-import com.epam.brest2019.courses.model.dto.TicketDto;
+import com.epam.brest2019.courses.model.dto.TicketDtoCost;
+import com.epam.brest2019.courses.model.dto.TicketMapper;
 import com.epam.brest2019.courses.service.TicketService;
 import io.swagger.annotations.*;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,17 +22,19 @@ import java.util.List;
 @RequestMapping("/api")
 @CrossOrigin("http://localhost:4200")
 @Slf4j
+@RequiredArgsConstructor
 public class TicketRestController {
 
     
     private final TicketService ticketService;
+    private final TicketMapper mapper;
 
 
-
-    @Autowired
-    public TicketRestController(TicketService ticketService) {
-        this.ticketService = ticketService;
-    }
+//    @Autowired
+//    public TicketRestController(TicketService ticketService, TicketMapper mapper) {
+//        this.ticketService = ticketService;
+//        this.mapper = mapper;
+//    }
 
 
 
@@ -40,7 +44,7 @@ public class TicketRestController {
             @ApiResponse(code = 500, message = "Internal server error ")
     })
     @GetMapping("/sum-paid-tickets")
-    public TicketDto sumPaidTicketCost() {
+    public TicketDtoCost sumPaidTicketCost() {
         log.debug("Find all cost of paid tickets");
          return ticketService.sumPaidTicketCost();
     }

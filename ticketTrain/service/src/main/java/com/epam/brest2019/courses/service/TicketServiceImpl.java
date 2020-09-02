@@ -2,7 +2,7 @@ package com.epam.brest2019.courses.service;
 
 import com.epam.brest2019.courses.dao.TicketDao;
 import com.epam.brest2019.courses.model.Ticket;
-import com.epam.brest2019.courses.model.dto.TicketDto;
+import com.epam.brest2019.courses.model.dto.TicketDtoCost;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -100,7 +100,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public TicketDto sumPaidTicketCost() {
+    public TicketDtoCost sumPaidTicketCost() {
         log.debug("Find all cost of paid tickets");
         return ticketDao.sumPaidTicketCost();
     }

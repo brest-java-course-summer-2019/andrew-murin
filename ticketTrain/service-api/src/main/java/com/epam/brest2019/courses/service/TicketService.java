@@ -1,8 +1,7 @@
 package com.epam.brest2019.courses.service;
 
 import com.epam.brest2019.courses.model.Ticket;
-import com.epam.brest2019.courses.model.dto.TicketDto;
-import org.springframework.cache.annotation.Cacheable;
+import com.epam.brest2019.courses.model.dto.TicketDtoCost;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -90,7 +89,7 @@ public interface TicketService {
     /**
      * Count total cost of paid-tickets
      */
-    TicketDto sumPaidTicketCost();
+    TicketDtoCost sumPaidTicketCost();
 
 }
 
