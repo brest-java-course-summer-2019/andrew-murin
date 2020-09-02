@@ -45,10 +45,12 @@ public class TicketRestController {
             @ApiResponse(code = 500, message = "Internal server error ")
     })
     @GetMapping(value = "/tickets", produces = "application/json")
-    public List<Ticket> findAll() {
+    public List<TicketDto> findAll() {
 
         log.debug("Find all tickets");
-        return ticketService.findAll();
+        val tickets = ticketService.findAll();
+
+        return mapper.toDto(tickets);
     }
 
     @ApiOperation(value = "Find all paid tickets", response = List.class)
@@ -75,9 +77,10 @@ public class TicketRestController {
     })
     @GetMapping(value = "/search-paid-tickets", produces = "application/json")
     public List<Ticket> searchPaidTicketByDate(@RequestParam("startDate") String startDate,
-                                               @RequestParam("finishDate") String finishDate) {
+                                                  @RequestParam("finishDate") String finishDate) {
 
         log.debug("Search paid tickets by date (startDate: {}, finishDate: {})", startDate, finishDate);
+
         return ticketService.searchPaidTicketByDate(startDate, finishDate);
     }
 
@@ -89,10 +92,12 @@ public class TicketRestController {
             @ApiResponse(code = 500, message = "Internal server error")
     })
     @GetMapping(value = "/tickets/{id}", produces = "application/json")
-    public Ticket findById(@PathVariable("id") String id) {
+    public TicketDto findById(@PathVariable("id") String id) {
 
         log.debug("Find ticket by id: ({})", id);
-        return ticketService.findById(id);
+        val ticket = ticketService.findById(id);
+
+        return mapper.toDto(ticket);
     }
 
 
@@ -101,12 +106,12 @@ public class TicketRestController {
             @ApiResponse(code = 201, message = "Created new ticket"),
             @ApiResponse(code = 500, message = "Internal server error")
     })
-    @ApiImplicitParam(name = "ticket", required = true, value = "Ticket object", paramType = "body", dataType = "Ticket")
+    @ApiImplicitParam(name = "ticket", required = true, value = "Ticket object", paramType = "body", dataType = "TicketDto")
     @PostMapping(value = "/tickets")
-    public void add(@RequestBody Ticket ticket) {
+    public void add(@RequestBody TicketDto ticketDto) {
 
-        log.debug("Add ticket: ({})", ticket);
-        ticketService.add(ticket);
+        log.debug("Add ticket: ({})", ticketDto);
+        ticketService.add(mapper.toEntity(ticketDto));
     }
 
 
@@ -144,14 +149,14 @@ public class TicketRestController {
             @ApiResponse(code = 404, message = "Ticket not found"),
             @ApiResponse(code = 500, message = "Internal server error")
     })
-    @ApiImplicitParam(name = "ticket", value = "Ticket object", required = true, paramType = "body", dataType = "Ticket")
+    @ApiImplicitParam(name = "ticketDto", value = "TicketDto object", required = true, paramType = "body", dataType = "TicketDto")
     @PutMapping("/update-tickets/{ticketId}")
-    public void update(@RequestBody Ticket ticket,
+    public void update(@RequestBody TicketDto ticketDto,
                        @PathVariable("ticketId") String id) {
 
-        log.debug("Update ticket, (old ticket: {}, new id: {})", ticket, id);
-        ticket.setId(id);
-        ticketService.update(ticket);
+        log.debug("Update ticket, (old ticket: {}, new id: {})", ticketDto, id);
+        ticketDto.setId(id);
+        ticketService.update(mapper.toEntity(ticketDto));
     }
 
 
@@ -167,15 +172,17 @@ public class TicketRestController {
             @ApiImplicitParam(name = "cityTo", required = true, paramType = "header", dataType = "string")
     })
     @GetMapping("/search-tickets")
-    public List<Ticket> searchTicket(@RequestParam("startDate") String startDate,
-                                     @RequestParam("finishDate") String finishDate,
-                                     @RequestParam("cityFrom") String cityFrom,
-                                     @RequestParam("cityTo") String cityTo) {
+    public List<TicketDto> searchTicket(@RequestParam("startDate") String startDate,
+                                        @RequestParam("finishDate") String finishDate,
+                                        @RequestParam("cityFrom") String cityFrom,
+                                        @RequestParam("cityTo") String cityTo) {
 
         log.debug("Search tickets by date & directions " +
                 "(startDate: {}, finishDate: {}, cityFrom: {}, cityTo: {})",
                 startDate, finishDate, cityFrom, cityTo);
 
-        return ticketService.searchTicket(startDate, finishDate, cityFrom, cityTo);
+        val tickets = ticketService.searchTicket(startDate, finishDate, cityFrom, cityTo);
+
+        return mapper.toDto(tickets);
     }
 }
