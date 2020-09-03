@@ -48,9 +48,8 @@ public class TicketRestController {
     public List<TicketDto> findAll() {
 
         log.debug("Find all tickets");
-        val tickets = ticketService.findAll();
 
-        return mapper.toDto(tickets);
+        return mapper.toDto(ticketService.findAll());
     }
 
     @ApiOperation(value = "Find all paid tickets", response = List.class)
