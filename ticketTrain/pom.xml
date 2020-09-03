@@ -2,7 +2,7 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-   <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.epam.brest2019.courses</groupId>
     <artifactId>ticketTrain</artifactId>
@@ -173,9 +173,15 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-mongodb</artifactId>
                 <version>${spring-boot.version}</version>
-                <optional>true</optional>
-<!--                <scope>runtime</scope>-->
+                <!--                <scope>runtime</scope>-->
             </dependency>
+            <dependency>
+                <groupId>de.flapdoodle.embed</groupId>
+                <artifactId>de.flapdoodle.embed.mongo</artifactId>
+                <version>2.2.0</version>
+                <scope>test</scope>
+            </dependency>
+
 
 
             <dependency>
@@ -207,7 +213,7 @@
             </dependency>
 
         </dependencies>
-   </dependencyManagement>
+    </dependencyManagement>
 
 
     <build>
@@ -231,13 +237,13 @@
                             <path>
                                 <groupId>org.mapstruct</groupId>
                                 <artifactId>mapstruct-processor</artifactId>
-<!--                                <scope>provided</scope>-->
+                                <!--                                <scope>provided</scope>-->
                                 <version>${mapstruct.version}</version>
                             </path>
                             <path>
                                 <groupId>org.projectlombok</groupId>
                                 <artifactId>lombok</artifactId>
-<!--                                <scope>provided</scope>-->
+                                <!--                                <scope>provided</scope>-->
                                 <version>${lombok.version}</version>
                             </path>
                         </annotationProcessorPaths>

@@ -1,18 +1,14 @@
 package com.epam.brest2019.courses.dao.impl;
 
 import com.epam.brest2019.courses.dao.TicketDao;
-import com.epam.brest2019.courses.dao.config.MongoConfigTest;
 import com.epam.brest2019.courses.model.City;
 import com.epam.brest2019.courses.model.Ticket;
 import com.epam.brest2019.courses.model.initDB.InitEmbeddedDataBase;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.script.ExecutableMongoScript;
-import org.springframework.test.context.ContextConfiguration;
 
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
@@ -22,13 +18,11 @@ import static com.epam.brest2019.courses.model.constant.Constant.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-@DataMongoTest
-@ContextConfiguration(classes = MongoConfigTest.class)
+@Slf4j
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class TicketDaoImplTest{
+public class TicketDaoImplTest extends AbstractTest{
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TicketDaoImplTest.class);
 
     @Autowired
     private MongoTemplate mongoTemplate;
@@ -58,7 +52,7 @@ public class TicketDaoImplTest{
     @Test
     public void findAll(){
         List<Ticket> tickets = ticketDao.findAll();
-        LOGGER.debug("FindAll Tickets ({})", tickets);
+        log.debug("FindAll Tickets ({})", tickets);
 
         assertNotNull(tickets);
         assertTrue(tickets.size() > 0);
@@ -69,7 +63,7 @@ public class TicketDaoImplTest{
     @Order(1)
     public void findById(){
         Ticket foundTicket = ticketDao.findById(ticket.getId());
-        LOGGER.debug("FindById Ticket ({})", ticket);
+        log.debug("FindById Ticket ({})", ticket);
 
         assertEquals(foundTicket.getId(), ticket.getId());
     }
@@ -78,7 +72,7 @@ public class TicketDaoImplTest{
     @Test
     public void add(){
         List<Ticket> tickets = ticketDao.findAll();
-        LOGGER.debug("Size before add ticket ({})", tickets);
+        log.debug("Size before add ticket ({})", tickets);
 
         int sizeBefore = tickets.size();
 
@@ -91,7 +85,7 @@ public class TicketDaoImplTest{
     @Test
     public void updateTicket(){
         ticket.setToCity(City.GOMEL);
-        LOGGER.debug("Updated ticket ({})", ticket);
+        log.debug("Updated ticket ({})", ticket);
 
         assertTrue(ticketDao.searchTicket(START_DATE, FINISH_DATE, BREST, GOMEL).isEmpty());
 
@@ -103,7 +97,7 @@ public class TicketDaoImplTest{
     @Test
     public void delete(){
         List<Ticket> tickets = ticketDao.findAll();
-        LOGGER.debug("Tickets before deleting of ticket ({})", tickets);
+        log.debug("Tickets before deleting of ticket ({})", tickets);
 
         int sizeBefore = tickets.size();
 
@@ -116,7 +110,7 @@ public class TicketDaoImplTest{
     @Test
     public void searchTicket() {
         List<Ticket> tickets = ticketDao.searchTicket(START_DATE, FINISH_DATE, BREST, MINSK);
-        LOGGER.debug("searchTicket ({})", tickets);
+        log.debug("searchTicket ({})", tickets);
 
         assertNotNull(tickets);
         assertFalse(tickets.isEmpty());
@@ -137,4 +131,3 @@ public class TicketDaoImplTest{
     }
 
 }
-

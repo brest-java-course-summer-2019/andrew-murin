@@ -1,10 +1,14 @@
+
 package com.epam.brest2019.courses.rest_app.impl;
 
 import com.epam.brest2019.courses.model.City;
 import com.epam.brest2019.courses.model.Ticket;
+import com.epam.brest2019.courses.model.dto.TicketDto;
+import com.epam.brest2019.courses.model.dto.TicketMapper;
 import com.epam.brest2019.courses.rest_app.controllers.TicketRestController;
 import com.epam.brest2019.courses.service.TicketService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,8 +16,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -35,26 +37,30 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+
+@Slf4j
 @SpringBootTest
 @EnableAutoConfiguration
 public class TicketRestControllerTest {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TicketRestControllerTest.class);
 
     @Mock
     private TicketService ticketService;
+
+    @Mock
+    private TicketMapper mapper;
 
     @InjectMocks
     private TicketRestController ticketRestController;
 
     private MockMvc mockMvc;
 
-    private static final LocalDate START_DATE = LocalDate.of(2019,01,01);
-    private static final LocalDate FINISH_DATE = LocalDate.of(2019,12,12);
+    private static final LocalDate START_DATE = LocalDate.of(2010,01,01);
+    private static final LocalDate FINISH_DATE = LocalDate.of(2030,12,12);
 
     @BeforeEach
     void before() {
-        LOGGER.debug("Before");
+        log.debug("Before");
 
         mockMvc = MockMvcBuilders.standaloneSetup(ticketRestController)
                 .setMessageConverters(new MappingJackson2HttpMessageConverter())
@@ -64,75 +70,74 @@ public class TicketRestControllerTest {
 
     @AfterEach
     void after() {
-        LOGGER.debug("After");
+        log.debug("After");
 
         Mockito.reset(ticketService);
     }
 
     @Test
     public void findAll() throws Exception {
-        LOGGER.debug("findAll");
+        log.debug("Find all");
 
-        Mockito.when(ticketService.findAll()).thenReturn(Arrays.asList(createFixture(0), createFixture(1)));
+        Mockito.when(mapper.toDto(ticketService.findAll())).thenReturn(Arrays.asList(createFixtureDto(0), createFixtureDto(1)));
 
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/api/tickets")
-                .accept(MediaType.APPLICATION_JSON_UTF8)
         ).andExpect(jsonPath("$[0].ticketCost", Matchers.is(0)))
                 .andExpect(jsonPath("$[1].ticketCost", Matchers.is(1)));
 
-        Mockito.verify(ticketService, Mockito.times(1)).findAll();
+        Mockito.verify(ticketService, Mockito.times(2)).findAll();
     }
 
     @Test
     public void findById() throws Exception {
-        LOGGER.debug("findById");
+        log.debug("findById");
 
         String id = "1";
-        Mockito.when(ticketService.findById(id)).thenReturn(createFixture(1));
+        Mockito.when(mapper.toDto(ticketService.findById(id))).thenReturn(createFixtureDto(1));
 
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/api/tickets/{ticketId}", 1)
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                        .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.ticketCost", Matchers.is(1)));
 
-        Mockito.verify(ticketService, Mockito.times(1)).findById(id);
+        Mockito.verify(ticketService, Mockito.times(2)).findById(id);
     }
 
     @Test
     public void addTicket() throws Exception{
-        LOGGER.debug("addTicket");
+        log.debug("addTicket");
 
         Ticket ticket = createFixture(2);
         String json = new ObjectMapper().writeValueAsString(ticket);
 
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/api/tickets")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(json));
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json));
 
     }
 
     @Test
     public void updateTicket() throws Exception {
-        LOGGER.debug("updateTicket");
+        log.debug("updateTicket");
 
         Ticket ticket = createFixture(2);
         String json = new ObjectMapper().writeValueAsString(ticket);
 
         mockMvc.perform(
                 MockMvcRequestBuilders.put("/api/update-tickets/1")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(json)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json)
         );
     }
 
     @Test
     public void deleteTicket() throws Exception {
-        LOGGER.debug("deleteTicket");
+        log.debug("deleteTicket");
 
         Ticket ticket = createFixture(1);
 
@@ -143,28 +148,28 @@ public class TicketRestControllerTest {
 
     @Test
     public void searchTicket() throws Exception {
-        LOGGER.debug("Search Ticket");
+        log.debug("Search Ticket");
 
         String startDate = START_DATE.toString();
         String finishDate = FINISH_DATE.toString();
 
-        Mockito.when(ticketService.searchTicket(startDate, finishDate, BREST, MINSK))
-                .thenReturn(Arrays.asList(createFixture(0), createFixture(1)));
+        Mockito.when(mapper.toDto(ticketService.searchTicket(startDate, finishDate, BREST, MINSK)))
+                .thenReturn(Arrays.asList(createFixtureDto(0), createFixtureDto(1)));
 
         mockMvc.perform(
                 MockMvcRequestBuilders
                         .get("/api/search-tickets")
-                            .param("startDate", START_DATE.toString())
-                            .param("finishDate", FINISH_DATE.toString())
-                            .param("cityFrom", BREST)
-                            .param("cityTo", MINSK)
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                        .param("startDate", START_DATE.toString())
+                        .param("finishDate", FINISH_DATE.toString())
+                        .param("cityFrom", BREST)
+                        .param("cityTo", MINSK)
+                        .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andDo(print())
-                    .andExpect(status().isOk())
-                    .andExpect(jsonPath("$", hasSize(2)))
-                    .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8));
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8));
 
-        Mockito.verify(ticketService).searchTicket(startDate, finishDate, BREST, MINSK);
+        Mockito.verify(ticketService, Mockito.times(2)).searchTicket(startDate, finishDate, BREST, MINSK);
     }
 
 
@@ -176,7 +181,20 @@ public class TicketRestControllerTest {
         ticket.setTicketDate(ZonedDateTime.now());
         ticket.setFromCity(City.BREST);
         ticket.setToCity(City.MINSK);
-        ticket.setTicketCost(new BigDecimal(number));
+        ticket.setTicketCost(new BigDecimal(id));
+
+        return ticket;
+    }
+
+    private TicketDto createFixtureDto(int number) {
+        TicketDto ticket = new TicketDto();
+        String id = "" + number;
+
+        ticket.setId(id);
+        ticket.setTicketDate(ZonedDateTime.now());
+        ticket.setFromCity(City.BREST);
+        ticket.setToCity(City.MINSK);
+        ticket.setTicketCost(new BigDecimal(id));
 
         return ticket;
     }
