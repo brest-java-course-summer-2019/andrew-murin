@@ -35,14 +35,14 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    @CacheEvict(value = "tickets", allEntries = true)
+//    @CacheEvict(value = "tickets", allEntries = true)
     public Ticket add(Ticket ticket) {
         log.debug("Add new ticket: {}",ticket);
         return ticketDao.add(ticket);
     }
 
     @Override
-    @CacheEvict(value = {"tickets", "paid-tickets"}, allEntries = true)
+//    @CacheEvict(value = {"tickets", "paid-tickets"}, allEntries = true)
     public void payTicket(Ticket ticket) {
         log.debug("Pay ticket: ({})", ticket);
         //        sendMessage(ticket);
@@ -50,21 +50,21 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    @CacheEvict(value = {"tickets", "paid-tickets"}, allEntries = true)
+//    @CacheEvict(value = {"tickets", "paid-tickets"}, allEntries = true)
     public void delete(String id) {
         log.debug("Delete ticket by id: ({})", id);
         ticketDao.delete(id);
     }
 
     @Override
-    @Cacheable(value = "tickets")
+//    @Cacheable(value = "tickets")
     public List<Ticket> findAll () {
         log.debug("Find all tickets. Next values will have cached.");
         return ticketDao.findAll();
     }
 
     @Override
-    @Cacheable("paid-tickets")
+//    @Cacheable("paid-tickets")
     public List<Ticket> findAllPaidTickets() {
         log.debug("Find all paid-tickets. Next values will have cached.");
         return ticketDao.findAllPaidTickets();
@@ -77,7 +77,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    @CacheEvict(value = {"tickets"}, allEntries = true)
+//    @CacheEvict(value = {"tickets"}, allEntries = true)
     public List<Ticket> searchTicket (String startDate, String finishDate,
                                       String cityFrom, String cityTo){
 
@@ -126,7 +126,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    @CacheEvict(value = {"tickets"}, allEntries = true)
+//    @CacheEvict(value = {"tickets"}, allEntries = true)
     public void update(Ticket ticket) {
         log.debug("Update ticket, (old ticket: {})", ticket);
         ticketDao.update(ticket);
