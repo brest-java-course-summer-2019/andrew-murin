@@ -56,7 +56,7 @@
         <jacoco.version>0.8.2</jacoco.version>
         <jacoco.bundle.coveredratio.minimum>0%</jacoco.bundle.coveredratio.minimum>
 
-        <org.springframework.version>5.1.8.RELEASE</org.springframework.version>
+        <org.springframework.version>5.3.18</org.springframework.version>
         <thymeleaf-spring5.version>3.0.11.RELEASE</thymeleaf-spring5.version>
         <jackson-databind.version>2.9.8</jackson-databind.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
